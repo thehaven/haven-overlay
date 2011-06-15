@@ -27,6 +27,11 @@ src_install() {
 pkg_postinst() {
 	elog
 	elog "To use zram, activate it in your kernel and add it to default runlevel:"
-	elog "rc-config add zram default"
+	elog "rc-update add zram default"
+	elog "Then edit: /etc/conf.d/zram-init"
+	elog
+	elog "For more information:"
+	elog "See the gentoo wiki: http://en.gentoo-wiki.com/wiki/Zram_disks"
+	elog "Or the google code page: https://code.google.com/p/compcache"
 	elog
 }

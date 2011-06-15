@@ -1,0 +1,49 @@
+# zram settings...
+
+# load zram kernel module on start?
+load_on_start="yes"
+
+# unload zram kernel module on stop?
+unload_on_stop="no"
+
+# Number of devices.
+# It is also passed to the kernel module on modprobe.
+num_devices="3"
+
+# Preserve Storage
+# Directory to use if you want to store data between reboots.
+preserve_dir="/mnt/preserve"
+
+# For each device, specify size, type, and flags:
+# size0, size1, ... are the variables for the sizes.
+# type0, type1, ... are the variables for the types.
+# flag0, flag1, ... are the variables for the flags.
+#
+# The size is in megabytes.
+# If the size is 0 (or empty) the device is ignored by the script.
+#
+# Available types:
+# "swap"  The device is initialized as a swap device.
+#         The flags variable specifies the priority (default is 16383)
+#         Use "-" in the flags variable to omit setting the priority
+# "/..."  The device is mounted on /...
+#         The flags variable specifies the type (ext2 or ext4, default is ext4)
+# Devices with other types are ignored by the the script
+#
+# Only variables with numbers  0 ... num_devices-1  are used by the script.
+
+type0="swap"
+flag0="16383"
+size0="150"
+
+type1="/tmp"
+flag1="ext4 defaults"
+size1="500"
+chmod1="777"
+preserve1="no"
+
+type2="/var/tmp/portage"
+flag2="ext4"
+size2="2900"
+chmod2="777"
+preserve2="no"
