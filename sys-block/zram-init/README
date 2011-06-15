@@ -1,0 +1,7 @@
+Init taken from:
+
+* https://git.overlays.gentoo.org/gitweb/?p=user/mv.git;a=tree;f=sys-block/zram-init
+
+Gentoo wiki instructions:
+
+* http://en.gentoo-wiki.com/wiki/Zram_disks
