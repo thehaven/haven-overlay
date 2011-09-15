@@ -31,7 +31,6 @@ RDEPEND="${DEPEND}
 src_unpack() {
 	subversion_src_unpack
 	cd "${S}"
-	python_copy_sources
 }
 
 src_install() {
