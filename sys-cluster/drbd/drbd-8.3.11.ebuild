@@ -11,8 +11,7 @@ LICENSE="GPL-2"
 DESCRIPTION="mirror/replicate block-devices across a network-connection"
 SRC_URI="http://oss.linbit.com/drbd/$(get_version_component_range 1-2 ${PV})/${P}.tar.gz"
 HOMEPAGE="http://www.drbd.org"
-
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="-*"
 IUSE="bash-completion heartbeat pacemaker +udev xen"
 SLOT="0"
 
