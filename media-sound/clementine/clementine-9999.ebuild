@@ -15,7 +15,7 @@ ESVN_REPO_URI="http://clementine-player.googlecode.com/svn/trunk"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE="ayatana +dbus iphone ipod +lastfm mtp projectm +udev wiimote"
+IUSE="alsa ayatana +dbus iphone ipod +lastfm mtp projectm +udev wiimote"
 IUSE+="${LANGS// / linguas_}"
 
 COMMON_DEPEND="
@@ -25,6 +25,7 @@ COMMON_DEPEND="
 	dev-db/sqlite[fts3]
 	>=media-libs/taglib-1.6
 	>=dev-libs/glib-2.24.1-r1:2
+	dev-libs/qjson
 	dev-libs/libxml2
 	>=media-libs/gstreamer-0.10
 	>=media-libs/gst-plugins-base-0.10
@@ -58,7 +59,7 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	x11-libs/qt-test:4
 "
-DOCS="Changelog TODO"
+DOCS="Changelog"
 
 MAKEOPTS="${MAKEOPTS} -j1"
 
@@ -72,6 +73,7 @@ src_configure() {
 	mycmakeargs=(
 		-DLINGUAS="${langs}"
 		-DBUNDLE_PROJECTM_PRESETS=OFF
+		$(cmake-utils_use alsa ENABLE_ALSA)
 		$(cmake-utils_use dbus ENABLE_DBUS)
 		$(cmake-utils_use udev ENABLE_DEVICEKIT)
 		$(cmake-utils_use ipod ENABLE_LIBGPOD)
