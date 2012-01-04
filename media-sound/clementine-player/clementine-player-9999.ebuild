@@ -6,11 +6,12 @@ EAPI=2
 
 LANGS=" ar be bg br ca cs cy da de el en_CA en_GB eo es et eu fi fr gl he hi hu it ja kk lt nb nl oc pl pt_BR pt ro ru sk sl sr sv tr uk zh_CN zh_TW"
 
-inherit cmake-utils gnome2-utils subversion
+inherit cmake-utils gnome2-utils git
 
 DESCRIPTION="A modern music player and library organizer based on Amarok 1.4 and Qt4"
 HOMEPAGE="http://www.clementine-player.org/ http://code.google.com/p/clementine-player/"
-ESVN_REPO_URI="http://clementine-player.googlecode.com/svn/trunk"
+EGIT_REPO_URI="https://code.google.com/p/clementine-player"
+EGIT_BRANCH="master"
 
 LICENSE="GPL-3"
 SLOT="0"
