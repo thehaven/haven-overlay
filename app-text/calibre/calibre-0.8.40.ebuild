@@ -1,16 +1,16 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/calibre/calibre-0.8.22.ebuild,v 1.1 2011/10/14 17:53:07 zmedico Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-text/calibre/calibre-0.8.39.ebuild,v 1.3 2012/02/15 18:38:54 flameeyes Exp $
 
-EAPI=3
+EAPI=4
 PYTHON_DEPEND=2:2.7
-PYTHON_USE_WITH=sqlite
+PYTHON_USE_WITH="ssl sqlite"
 
 inherit python distutils eutils fdo-mime bash-completion-r1 multilib
 
 DESCRIPTION="Ebook management application."
 HOMEPAGE="http://calibre-ebook.com/"
-SRC_URI="http://sourceforge.net/projects/calibre/files/${PV}/${P}.tar.gz"
+SRC_URI="http://sourceforge.net/projects/calibre/files/${PV}/${P}.tar.xz"
 
 LICENSE="GPL-2"
 
@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
 
-IUSE=""
+IUSE="+udisks"
 
 COMMON_DEPEND="
 	>=app-text/podofo-0.8.2
@@ -26,6 +26,7 @@ COMMON_DEPEND="
 	>=dev-libs/chmlib-0.40
 	>=dev-libs/icu-4.4
 	>=dev-python/beautifulsoup-3.0.5:python-2
+	dev-python/python-dateutil:python-2
 	>=dev-python/dnspython-1.6.0
 	>=dev-python/cssutils-0.9.7_alpha3
 	>=dev-python/dbus-python-0.82.2
@@ -34,13 +35,14 @@ COMMON_DEPEND="
 	>=dev-python/mechanize-0.1.11
 	>=dev-python/python-dateutil-1.4.1
 	>=dev-python/PyQt4-4.8.2[X,svg,webkit]
-	>=media-gfx/imagemagick-6.5.9
+	>=media-gfx/imagemagick-6.5.9[jpeg,png]
 	>=media-libs/libwmf-0.2.8
 	virtual/libusb:0
 	>=x11-misc/xdg-utils-1.0.2"
 
 RDEPEND="${COMMON_DEPEND}
-	>=dev-python/reportlab-2.1"
+	>=dev-python/reportlab-2.1
+	udisks? ( sys-fs/udisks )"
 
 DEPEND="${COMMON_DEPEND}
 	>=dev-python/setuptools-0.6_rc5
@@ -51,6 +53,7 @@ S=${WORKDIR}/${PN}
 
 pkg_setup() {
 	python_set_active_version 2.7
+	python_pkg_setup
 }
 
 src_prepare() {
@@ -70,6 +73,14 @@ src_prepare() {
 	# Disable unnecessary privilege dropping for bug #287067.
 	sed -e "s:if os.geteuid() == 0:if False and os.geteuid() == 0:" \
 		-i setup/install.py || die "sed failed to patch install.py"
+
+	sed -e "/^            self\\.check_call(qmc + \\[ext\\.name+'\\.pro'\\])$/a\
+\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ self.check_call(['sed', \
+'-e', 's|^CFLAGS .*|\\\\\\\\0 ${CFLAGS}|', \
+'-e', 's|^CXXFLAGS .*|\\\\\\\\0 ${CXXFLAGS}|', \
+'-e', 's|^LFLAGS .*|\\\\\\\\0 ${LDFLAGS}|', \
+'-i', 'Makefile'])" \
+		-i setup/extensions.py || die "sed failed to patch extensions.py"
 
 	distutils_src_prepare
 }
@@ -107,7 +118,7 @@ src_install() {
 	mkdir -p "${XDG_CONFIG_HOME}" "${CALIBRE_CONFIG_DIRECTORY}"
 
 	# Bug #334243 - respect LDFLAGS when building calibre-mount-helper
-	export OVERRIDE_CFLAGS="$CFLAGS $LDFLAGS"
+	export OVERRIDE_CFLAGS="$CFLAGS" OVERRIDE_LDFLAGS="$LDFLAGS"
 	local libdir=$(get_libdir)
 	[[ -n $libdir ]] || die "get_libdir returned an empty string"
 
@@ -121,12 +132,16 @@ src_install() {
 	grep -rlZ "${ED}" "${ED}" | xargs -0 sed -e "s:${D}:/:g" -i ||
 		die "failed to fix harcoded \$D in paths"
 
+	# Remove dummy calibre-mount-helper which is unused since calibre-0.8.25
+	# due to bug #389515 (instead, calibre now calls udisks via dbus).
+	rm "${ED}usr/bin/calibre-mount-helper" || die
+
 	find "${ED}"usr/share/calibre/man -type f -print0 | \
 		while read -r -d $'\0' ; do
 			if [[ ${REPLY} = *.[0-9]calibre.bz2 ]] ; then
 				newname=${REPLY%calibre.bz2}.bz2
 				mv "${REPLY}" "${newname}"
-				doman "${newname}" || die "doman failed"
+				doman "${newname}"
 				rm -f "${newname}" || die "rm failed"
 			fi
 		done
@@ -148,11 +163,14 @@ src_install() {
 	domenu "${HOME}"/.local/share/applications/*.desktop ||
 		die "failed to install .desktop menu files"
 
-	dobashcomp "${ED}"usr/etc/bash_completion.d/calibre || die
+	dobashcomp "${ED}"usr/etc/bash_completion.d/calibre
 	rm -r "${ED}"usr/etc/bash_completion.d
 	find "${ED}"usr/etc -type d -empty -delete
 
 	python_convert_shebangs -r $(python_get_version) "${ED}"
+
+	newinitd "${FILESDIR}"/calibre-server.init calibre-server
+	newconfd "${FILESDIR}"/calibre-server.conf calibre-server
 }
 
 pkg_postinst() {
