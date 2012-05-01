@@ -100,9 +100,7 @@ src_prepare() {
 		EPATCH_FORCE=yes EPATCH_SUFFIX="patch" EPATCH_SOURCE="${S}/patches" \
 			epatch
 
-	if [[ ${PV} = *0.9.11* ]]; then
-	    epatch "${FILESDIR}/${P}-virURIParse-don-t-forget-to-copy-the-user-part.patch"
-	fi
+    epatch "${FILESDIR}/${P}-virURIParse-don-t-forget-to-copy-the-user-part.patch"
 
 	if [[ ${PV} = *9999* ]]; then
 		# git checkouts require bootstrapping to create the configure script.

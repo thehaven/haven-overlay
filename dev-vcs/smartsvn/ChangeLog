@@ -1,0 +1,27 @@
+# ChangeLog for dev-util/smartsvn
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  13 Jun 2010; Markus Ullmann <jokey@gentoo.org> smartsvn-6.5.4.ebuild:
+  Improve description
+
+  27 Feb 2010; Nikos Nikolaou (nxnikos) <nikos@nikolaou.name>
+  -smartsvn-6.0.9.ebuild, +smartsvn-6.5.4.ebuild:
+  version bump, extra svg icon, ok to commit by Tommy[D]
+
+  08 Dec 2009; Nikos Nikolaou (nxnikos) <nikos@nikolaou.name>
+  -smartsvn-6.0.5.ebuild, +smartsvn-6.0.9.ebuild:
+  version bump
+
+  13 Sep 2009; Nikos Nikolaou (nxnikos) <nikos@nikolaou.name>
+  -smartsvn-6.0.2.ebuild, +smartsvn-6.0.5.ebuild:
+  Version bump commit ok by bonsaikitten
+
+  05 Jun 2009; Nikos Nikolaou (nxnikos) <nikos@nikolaou.name>
+  -smartsvn-5.0.5.ebuild, +smartsvn-6.0.2.ebuild:
+  Version bump and few changes to include java-pkg-2
+
+  10 Apr 2009; Nikos Nikolaou (nxnikos) <nikos@nikolaou.name>
+  +smartsvn-5.0.5.ebuild, +metadata.xml:
+  New ebuild for smartsvn, bug 183325, review by Tommy[D]
+
