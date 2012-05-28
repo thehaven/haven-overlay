@@ -20,17 +20,6 @@ RDEPEND="sys-cluster/corosync
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-src_install() {
-	# default make install is stupid
-	dosbin collie/collie sheep/sheep
-	doman man/*.8
-	dodoc README
-	dobashcompletion script/bash_completion_collie ${PN}-collie
-	keepdir /var/lib/sheepdog
-	newinitd "${FILESDIR}/${PN}.initd" ${PN}
-	newconfd "${FILESDIR}/${PN}.confd" ${PN}
-}
-
 pkg_postinst() {
 	elog "Make sure that the storage path (default: '/var/lib/sheepdog')"
 	elog "lies on a filesystem with extended attributes (xattr) support."
