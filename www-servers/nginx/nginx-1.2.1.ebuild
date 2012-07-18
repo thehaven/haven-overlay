@@ -136,6 +136,14 @@ HTTP_AUTH_REQUEST_MODULE_P="ngx_http_auth_request_module-${HTTP_AUTH_REQUEST_MOD
 HTTP_SLOWFS_CACHE_MODULE_PV="1.6"
 HTTP_SLOWFS_CACHE_MODULE_P="ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
+# http_fancyindex_module (http://wiki.nginx.org/NgxFancyIndex, BSD license)
+HTTP_FANCYINDEX_MODULE_PV="0.3.1"
+HTTP_FANCYINDEX_MODULE_PN="ngx-fancyindex"
+# gitorious names the tarbell oddly, hence PNPN
+HTTP_FANCYINDEX_MODULE_PNPN="ngx-fancyindex-ngx-fancyindex"
+HTTP_FANCYINDEX_MODULE_P="${HTTP_FANCYINDEX_MODULE_PN}-${HTTP_FANCYINDEX_MODULE_PV}"
+HTTP_FANCYINDEX_MODULE_URI="http://gitorious.org/${HTTP_FANCYINDEX_MODULE_PN}/${HTTP_FANCYINDEX_MODULE_PN}/archive-tarball/v${HTTP_FANCYINDEX_MODULE_PV}"
+
 CHUNKIN_MODULE_PV="0.22rc2"
 CHUNKIN_MODULE_SHA1="b46dd27"
 
@@ -169,7 +177,8 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_coolkit? ( http://labs.frickle.com/files/${HTTP_COOLKIT_MODULE_P}.tar.gz )
 	nginx_modules_http_upload_progress? ( https://github.com/masterzen/nginx-upload-progress-module/tarball/v${HTTP_UPLOAD_PROGRESS_MODULE_PV} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
 	nginx_modules_http_supervisord? ( http://labs.frickle.com/files/${HTTP_SUPERVISORD_MODULE_P}.tar.gz )
-	nginx_modules_http_auth_request? ( http://mdounin.ru/files/${HTTP_AUTH_REQUEST_MODULE_P}.tar.gz )
+	nginx_modules_http_auth_request? (	http://mdounin.ru/files/${HTTP_AUTH_REQUEST_MODULE_P}.tar.gz )
+	nginx_modules_http_fancyindex? ( ${HTTP_FANCYINDEX_MODULE_URI} -> ${HTTP_FANCYINDEX_MODULE_P}.tar.gz )
 	nginx_modules_http_slowfs_cache? ( http://labs.frickle.com/files/${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
 	pam? ( http://web.iti.upv.es/~sto/nginx/ngx_http_auth_pam_module-1.1.tar.gz )
 	rrd? ( http://wiki.nginx.org/images/9/9d/Mod_rrd_graph-0.2.0.tar.gz )
@@ -191,7 +200,7 @@ NGINX_MODULES_3RD="http_cache_purge http_headers_more http_passenger http_push
 http_upload http_ey_balancer http_slowfs_cache http_ndk http_lua http_form_input
 http_echo http_memc http_drizzle http_rds_json http_postgres http_coolkit
 http_auth_request http_set_misc http_srcache http_supervisord http_array_var
-http_xss http_iconv http_upload_progress"
+http_xss http_iconv http_upload_progress http_fancyindex"
 # http_set_cconv"
 
 REQUIRED_USE="	nginx_modules_http_lua? ( nginx_modules_http_ndk )
@@ -504,6 +513,11 @@ src_configure() {
 		myconf="${myconf} --add-module=${WORKDIR}/${HTTP_SLOWFS_CACHE_MODULE_P}"
 	fi
 
+    if use nginx_modules_http_fancyindex; then
+		http_enabled=1
+		myconf="${myconf} --add-module=${WORKDIR}/${HTTP_FANCYINDEX_MODULE_PNPN}"
+    fi
+
 	if use http || use http-cache; then
 		http_enabled=1
 	fi
@@ -727,6 +741,12 @@ src_install() {
 		docinto "${HTTP_SLOWFS_CACHE_MODULE_P}"
 		dodoc "${WORKDIR}"/"${HTTP_SLOWFS_CACHE_MODULE_P}"/{CHANGES,README}
 	fi
+
+# http_fancy_index
+    if use nginx_modules_http_fancyindex; then
+        docinto ${HTTP_FANCYINDEX_MODULE_P}
+        dodoc "${WORKDIR}"/${HTTP_FANCYINDEX_MODULE_PNPN}/README.rst
+    fi
 
 # http_passenger
 	if use nginx_modules_http_passenger; then
