@@ -89,7 +89,7 @@ src_prepare() {
 	#use sparc && epatch "${FILESDIR}"/${PN}-1.2.3-fix-pool-sparc.patch
 
 	# CVE-2011-3064, https://bugzilla.redhat.com/show_bug.cgi?id=807596
-	epatch "${FILESDIR}/${PN}-1.8.0-svgimagebuffer-clip.patch"
+	# epatch "${FILESDIR}/${PN}-1.8.0-svgimagebuffer-clip.patch"
 
 	# webkit2 build failure with gcc-4.5, bug #412027
 	epatch "${FILESDIR}/${PN}-1.8.0-typedef-WebKitWebView.patch"
