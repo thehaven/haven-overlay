@@ -1,0 +1,11 @@
+--- python-updater.orig	2012-01-27 01:41:14.000000000 +0200
++++ python-updater	2012-03-13 22:41:23.207347065 +0200
+@@ -793,7 +793,7 @@
+ 			veinfo 3 "Previously enabled ABIs: \"${PYTHON_ABIS}\""
+ 			veinfo 3 "Newly enabled ABIs:      \"${new_PYTHON_ABIS}\""
+ 			eoutdent && eoutdent
+-			if [[ "${PYTHON_ABIS}" != "${new_PYTHON_ABIS}" ]]; then
++			if [[ -n "${PYTHON_ABIS}" && "${PYTHON_ABIS}" != "${new_PYTHON_ABIS}" ]]; then
+ 				PKGS_TO_REMERGE+=" ${CATPKGVER}"
+ 				eindent
+ 				einfo "Adding to list: ${CATPKGVER}"
