@@ -88,6 +88,10 @@ src_prepare() {
 	# TODO: FAILS TO APPLY!
 	#use sparc && epatch "${FILESDIR}"/${PN}-1.2.3-fix-pool-sparc.patch
 
+	# Patch to fix compile issue against Bison 2.6:
+	# http://mail-index.netbsd.org/pkgsrc-users/2012/07/30/msg016804.html
+	cd ${S} && patch -p1 -g0 -E --no-backup-if-mismatch < "${FILESDIR}/bug-92264-20120726104554.patch"
+
 	# CVE-2011-3064, https://bugzilla.redhat.com/show_bug.cgi?id=807596
 	# epatch "${FILESDIR}/${PN}-1.8.0-svgimagebuffer-clip.patch"
 
