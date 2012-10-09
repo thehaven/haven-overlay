@@ -23,12 +23,12 @@ USE_RUBY="ruby18 ree18 jruby"
 RUBY_OPTIONAL="yes"
 
 # http_uploadprogress (https://github.com/masterzen/nginx-upload-progress-module, BSD-2 license)
-HTTP_UPLOAD_PROGRESS_MODULE_PV="0.8.4"
+HTTP_UPLOAD_PROGRESS_MODULE_PV="0.9.0"
 HTTP_UPLOAD_PROGRESS_MODULE_P="ngx_upload_progress-${HTTP_UPLOAD_PROGRESS_MODULE_PV}"
 HTTP_UPLOAD_PROGRESS_MODULE_SHA1="82b35fc"
 
 # http_headers_more (http://github.com/agentzh/headers-more-nginx-module, BSD license)
-HTTP_HEADERS_MORE_MODULE_PV="0.16"
+HTTP_HEADERS_MORE_MODULE_PV="0.18"
 HTTP_HEADERS_MORE_MODULE_P="ngx-http-headers-more-${HTTP_HEADERS_MORE_MODULE_PV}"
 HTTP_HEADERS_MORE_MODULE_SHA1="de77fd2"
 
@@ -37,7 +37,7 @@ HTTP_PUSH_MODULE_PV="0.692"
 HTTP_PUSH_MODULE_P="nginx_http_push_module-${HTTP_PUSH_MODULE_PV}"
 
 # http_cache_purge (http://labs.frickle.com/nginx_ngx_cache_purge/, BSD-2 license)
-HTTP_CACHE_PURGE_MODULE_PV="1.5"
+HTTP_CACHE_PURGE_MODULE_PV="1.6"
 HTTP_CACHE_PURGE_MODULE_P="ngx_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}"
 
 # HTTP Upload module from Valery Kholodkov
@@ -46,7 +46,7 @@ HTTP_UPLOAD_MODULE_PV="2.2.0"
 HTTP_UPLOAD_MODULE_P="nginx_upload_module-${HTTP_UPLOAD_MODULE_PV}"
 
 # ey-balancer/maxconn module (https://github.com/msva/nginx-ey-balancer, as-is)
-HTTP_EY_BALANCER_MODULE_PV="0.0.7"
+HTTP_EY_BALANCER_MODULE_PV="0.0.8"
 HTTP_EY_BALANCER_MODULE_P="nginx-ey-balancer-${HTTP_EY_BALANCER_MODULE_PV}"
 HTTP_EY_BALANCER_MODULE_SHA1="3189cf3"
 
@@ -116,7 +116,7 @@ HTTP_ICONV_MODULE_SHA1="4e71946"
 #HTTP_SET_CCONV_MODULE_SHA1=""
 
 # NginX Featured mecached module (http://labs.frickle.com/nginx_ngx_postgres, BSD-2)
-HTTP_POSTGRES_MODULE_PV="0.9rc2"
+HTTP_POSTGRES_MODULE_PV="0.9"
 HTTP_POSTGRES_MODULE_P="ngx_postgres-${HTTP_POSTGRES_MODULE_PV}"
 HTTP_POSTGRES_MODULE_SHA1="5cb9d09"
 
@@ -133,7 +133,7 @@ HTTP_AUTH_REQUEST_MODULE_PV="0.2"
 HTTP_AUTH_REQUEST_MODULE_P="ngx_http_auth_request_module-${HTTP_AUTH_REQUEST_MODULE_PV}"
 
 # http_slowfs_cache (http://labs.frickle.com/nginx_ngx_slowfs_cache/, BSD-2 license)
-HTTP_SLOWFS_CACHE_MODULE_PV="1.6"
+HTTP_SLOWFS_CACHE_MODULE_PV="1.9"
 HTTP_SLOWFS_CACHE_MODULE_P="ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
 # http_fancyindex_module (http://wiki.nginx.org/NgxFancyIndex, BSD license)
@@ -144,7 +144,7 @@ HTTP_FANCYINDEX_MODULE_PNPN="ngx-fancyindex-ngx-fancyindex"
 HTTP_FANCYINDEX_MODULE_P="${HTTP_FANCYINDEX_MODULE_PN}-${HTTP_FANCYINDEX_MODULE_PV}"
 HTTP_FANCYINDEX_MODULE_URI="http://gitorious.org/${HTTP_FANCYINDEX_MODULE_PN}/${HTTP_FANCYINDEX_MODULE_PN}/archive-tarball/v${HTTP_FANCYINDEX_MODULE_PV}"
 
-CHUNKIN_MODULE_PV="0.22rc2"
+CHUNKIN_MODULE_PV="0.23rc2"
 CHUNKIN_MODULE_SHA1="b46dd27"
 
 inherit eutils ssl-cert toolchain-funcs perl-module ruby-ng flag-o-matic
