@@ -145,8 +145,7 @@ HTTP_FANCYINDEX_MODULE_P="${HTTP_FANCYINDEX_MODULE_PN}-${HTTP_FANCYINDEX_MODULE_
 HTTP_FANCYINDEX_MODULE_URI="http://gitorious.org/${HTTP_FANCYINDEX_MODULE_PN}/${HTTP_FANCYINDEX_MODULE_PN}/archive-tarball/v${HTTP_FANCYINDEX_MODULE_PV}"
 
 CHUNKIN_MODULE_PV="0.23rc2"
-CHUNKIN_MODULE_SHA1="b46dd27"
-
+CHUNKIN_MODULE_SHA1="ddc0dd5"
 inherit eutils ssl-cert toolchain-funcs perl-module ruby-ng flag-o-matic
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
@@ -739,7 +738,7 @@ src_install() {
 # http_slowfs_cache
 	if use nginx_modules_http_slowfs_cache; then
 		docinto "${HTTP_SLOWFS_CACHE_MODULE_P}"
-		dodoc "${WORKDIR}"/"${HTTP_SLOWFS_CACHE_MODULE_P}"/{CHANGES,README}
+		dodoc "${WORKDIR}"/"${HTTP_SLOWFS_CACHE_MODULE_P}"/{CHANGES,README.md}
 	fi
 
 # http_fancy_index
