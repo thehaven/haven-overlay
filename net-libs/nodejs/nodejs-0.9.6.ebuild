@@ -1,12 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/nodejs/nodejs-0.7.8.ebuild,v 1.3 2012/05/30 03:57:23 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/nodejs/nodejs-0.9.3-r1.ebuild,v 1.4 2013/01/15 06:31:57 zerochaos Exp $
 
-EAPI=3
+EAPI=5
 
 PYTHON_DEPEND="2"
 
-inherit python eutils pax-utils
+inherit python eutils multilib pax-utils
 
 # omgwtf
 RESTRICT="test"
@@ -17,10 +17,10 @@ SRC_URI="http://nodejs.org/dist/v${PV}/node-v${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~x64-macos"
+KEYWORDS="~amd64 ~arm ~x86 ~x64-macos"
 IUSE=""
 
-DEPEND="dev-lang/v8
+DEPEND=">=dev-lang/v8-3.11.10
 	dev-libs/openssl"
 RDEPEND="${DEPEND}"
 
@@ -47,22 +47,20 @@ src_compile() {
 }
 
 src_install() {
-	# there are no words to describe the epic idiocy of ...
-	# NOT using make but a JavaScript thingy to try to install things ... to the wrong place
-	# WHY U NO MAEK SENSE?!
-	#emake DESTDIR="${D}" install || die
-
+	docompress -x /lib/node_modules/npm/man
+	local MYLIB=$(get_libdir)
 	mkdir -p "${ED}"/usr/include/node
 	mkdir -p "${ED}"/usr/bin
-	mkdir -p "${ED}"/lib/node_modules/npm
-	cp 'src/node.h' 'src/node_buffer.h' 'src/node_object_wrap.h' 'src/node_version.h' "${ED}"/usr/include/node || die "Failed to copy stuff"
-	cp 'deps/uv/include/ares.h' 'deps/uv/include/ares_version.h' "${ED}"/usr/include/node || die "Failed to copy stuff"
+	mkdir -p "${ED}"/usr/"${MYLIB}"/node_modules/npm
+	mkdir -p "${ED}"/usr/"${MYLIB}"/node
+	cp 'src/eio-emul.h' 'src/ev-emul.h' 'src/node.h' 'src/node_buffer.h' 'src/node_object_wrap.h' 'src/node_version.h' "${ED}"/usr/include/node || die "Failed to copy stuff"
+	cp -R deps/uv/include/* "${ED}"/usr/include/node || die "Failed to copy stuff"
 	cp 'out/Release/node' "${ED}"/usr/bin/node || die "Failed to copy stuff"
-	cp -R deps/npm/* "${ED}"/lib/node_modules/npm || die "Failed to copy stuff"
+	cp -R deps/npm/* "${ED}"/usr/"${MYLIB}"/node_modules/npm || die "Failed to copy stuff"
 
 	# now add some extra stupid just because we can
 	# needs to be a symlink because of hardcoded paths ... no es bueno!
-	dosym /lib/node_modules/npm/bin/npm-cli.js /bin/npm
+	dosym /usr/"${MYLIB}"/node_modules/npm/bin/npm-cli.js /usr/bin/npm
 	pax-mark -m "${ED}"/usr/bin/node
 }
 
