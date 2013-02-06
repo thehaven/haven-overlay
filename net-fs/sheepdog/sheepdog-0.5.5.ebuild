@@ -8,7 +8,7 @@ inherit bash-completion
 
 DESCRIPTION="Distributed Storage System for KVM."
 HOMEPAGE="http://www.osrg.net/sheepdog/"
-SRC_URI="https://github.com/collie/sheepdog/tarball/v0.3.0"
+SRC_URI="https://github.com/collie/sheepdog/tarball/v0.5.2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -26,4 +26,7 @@ pkg_postinst() {
 	elog ""
 	elog "Once installed follow the wiki for guidlines on setup:"
 	elog "http://wiki.qemu.org/Features/Sheepdog/Getting_Started#Setup_Sheepdog"
+	elog ""
+	elog "Additional notes on github:"
+	elog "https://github.com/collie/sheepdog/blob/0.5.x/README"
 }
