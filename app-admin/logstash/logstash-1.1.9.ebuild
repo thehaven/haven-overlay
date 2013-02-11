@@ -6,7 +6,7 @@ EAPI=4
 
 DESCRIPTION="logstash is a tool for managing events and logs."
 HOMEPAGE="http://logstash.net/"
-SRC_URI="https://logstash.objects.dreamhost.com/release/logstash-${P}-monolithic.jar"
+SRC_URI="https://logstash.objects.dreamhost.com/release/${P}-monolithic.jar"
 
 LICENSE="BSD"
 SLOT="0"
