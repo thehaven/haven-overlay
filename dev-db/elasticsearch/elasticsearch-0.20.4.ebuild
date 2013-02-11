@@ -4,7 +4,8 @@ inherit eutils
 
 DESCRIPTION="ElasticSearch is a database for real-time search"
 HOMEPAGE="http://www.elasticsearch.org/"
-SRC_URI="https://github.com/elasticsearch/elasticsearch/archive/v${PV}.tar.gz"
+#SRC_URI="https://github.com/elasticsearch/elasticsearch/archive/v${PV}.tar.gz"
+SRC_URI="http://download.elasticsearch.org/elasticsearch/elasticsearch/${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
