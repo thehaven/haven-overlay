@@ -16,7 +16,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="virtual/jdk"
-RDEPEND="virtual/jre"
+RDEPEND="virtual/jre
+		dev-db/elasticsearch"
 
 S=${WORKDIR}/${MY_P}
 
@@ -39,4 +40,7 @@ pkg_postinst() {
 	ewarn "For the time being, MongoDB will still work and can be used in tandem"
 	ewarn "with ES. If you want to disable using MongoDB, you can comment-out all the"
 	ewarn "MongoDB-related lines in the config file. However, using ES is NOT optional."
+
+	# Elasticcloud example config:
+	copy /opt/elasticsearch/config/elasticsearch.yml /etc/graylog2-elasticsearch.yml
 }
