@@ -29,15 +29,15 @@ CDEPEND="dev-java/commons-codec:0
 	dev-java/log4j:0
 	dev-java/swt:3.6
 	dev-java/stax2-api:0
+	dev-java/wstx
 	java-virtuals/javamail:0
 	java-virtuals/servlet-api:2.5"
 
 DEPEND="${CDEPEND}
-	>=virtual/jdk-1.5"
+	virtual/jdk:1.6"
 
 RDEPEND="${CDEPEND}
-	>=virtual/jre-1.5
-
+	virtual/jre:1.6
 	dev-java/commons-collections:0
 	dev-java/slf4j-nop:0
 	dev-java/xerces:2"
@@ -57,7 +57,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Delete bundled JARs but keep jackrabbit-webdav.jar.
-	find lib -name "*.jar" ! -name "jackrabbit-webdav-*.jar" -delete -printf "removed %p\n" || die
+	#find lib -name "*.jar" ! -name "jackrabbit-webdav-*.jar" -delete -printf "removed %p\n" || die
 
 	# Support htmlcleaner-2.2.
 	sed -i -r \
@@ -66,8 +66,8 @@ src_prepare() {
 		src/java/davmail/exchange/ExchangeSession.java || die
 
 	# These are unnecessary and require extra dependencies.
-	find src/ -name "OSX*" -delete || die
-	sed -i "/OSX[A-Z]/d" src/java/davmail/ui/{browser/DesktopBrowser,tray/DavGatewayTray}.java || die
+	#find src/ -name "OSX*" -delete || die
+	#sed -i "/OSX[A-Z]/d" src/java/davmail/ui/{browser/DesktopBrowser,tray/DavGatewayTray}.java || die
 }
 
 src_compile() {
@@ -95,6 +95,8 @@ src_install() {
 
 	dodoc releasenotes.txt || die
 	use source && java-pkg_dosrc src/java/davmail
+
+	doicon "${FILESDIR}/davmail.png"
 }
 
 src_test() {
