@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/nodejs/nodejs-0.9.3-r1.ebuild,v 1.4 2013/01/15 06:31:57 zerochaos Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/nodejs/nodejs-0.9.9.ebuild,v 1.2 2013/02/16 18:16:09 floppym Exp $
 
 EAPI=5
 
@@ -20,7 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86 ~x64-macos"
 IUSE=""
 
-DEPEND=">=dev-lang/v8-3.11.10
+DEPEND="dev-lang/v8
 	dev-libs/openssl"
 RDEPEND="${DEPEND}"
 
@@ -47,13 +47,13 @@ src_compile() {
 }
 
 src_install() {
-	docompress -x /lib/node_modules/npm/man
+	docompress -x /usr/$(get_libdir)/node_modules/npm/man
 	local MYLIB=$(get_libdir)
 	mkdir -p "${ED}"/usr/include/node
 	mkdir -p "${ED}"/usr/bin
 	mkdir -p "${ED}"/usr/"${MYLIB}"/node_modules/npm
 	mkdir -p "${ED}"/usr/"${MYLIB}"/node
-	#cp 'src/eio-emul.h' 'src/ev-emul.h' 'src/node.h' 'src/node_buffer.h' 'src/node_object_wrap.h' 'src/node_version.h' "${ED}"/usr/include/node || die "Failed to copy stuff"
+	cp src/*.h "${ED}"/usr/include/node || die "Failed to copy stuff"
 	cp -R deps/uv/include/* "${ED}"/usr/include/node || die "Failed to copy stuff"
 	cp 'out/Release/node' "${ED}"/usr/bin/node || die "Failed to copy stuff"
 	cp -R deps/npm/* "${ED}"/usr/"${MYLIB}"/node_modules/npm || die "Failed to copy stuff"
