@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[haven]]></name>
+    <description><![CDATA[Haven's custom ebuilds]]></description>
+    <homepage>http://svn.thehavennet.org.uk/repositories/haven</homepage>
+    <owner>
+      <email>haven@thehavennet.org.uk</email>
+      <name>Simon Alman</name>
+    </owner>
+    <source type="svn">svn://svn.thehavennet.org.uk/repositories/haven/trunk</source>
+    <feed>http://svn.thehavennet.org.uk/rss.php?repname=haven</feed>
+  </repo>
+</repositories>
