@@ -13,7 +13,7 @@ SUPPORT_PYTHON_ABIS="1"
 inherit eutils distutils git-2 python
 
 DESCRIPTION="RTSLib Community Edition for target_core_mod/ConfigFS"
-HOMEPAGE="http://linux-iscsi.org/"
+HOMEPAGE="https://github.com/agrover/rtslib-fb"
 SRC_URI=""
 
 LICENSE="AGPL-3"
