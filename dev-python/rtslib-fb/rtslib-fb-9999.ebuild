@@ -22,6 +22,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
+    !dev-python/rtslib
 	dev-python/configobj
 	dev-python/ipaddr
 	dev-python/netifaces
@@ -32,5 +33,4 @@ src_install() {
 	distutils_src_install
 	keepdir /var/target/fabric
 	insinto /var/target/fabric
-	doins specs/*.spec
 }
