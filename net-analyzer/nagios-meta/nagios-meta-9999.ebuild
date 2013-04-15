@@ -15,6 +15,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="app-vim/nagios-syntax
+		net-analyzer/mk-livestatus
 		net-analyzer/nagios
 		net-analyzer/nagios-check_logfiles
 		net-analyzer/nagios-check_multi
