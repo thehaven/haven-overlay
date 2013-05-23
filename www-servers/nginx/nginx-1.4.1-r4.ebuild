@@ -18,12 +18,12 @@ EAPI="5"
 GENTOO_DEPEND_ON_PERL="no"
 
 # ngx_pagespeed (https://github.com/pagespeed/ngx_pagespeed, Apache 2 license)
-NGX_PAGESPEED_MODULE_PV="1.5.27.2-beta"
+NGX_PAGESPEED_MODULE_PV="1.5.27.3-beta"
 NGX_PAGESPEED_MODULE_P="ngx_pagespeed"
 NGX_PAGESPEED_MODULE_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-master
 # psol required for pagespeed
 NGX_PAGESPEED_PSOL_P="ngx_pagespeed_psol"
-NGX_PAGESPEED_PSOL_PV="1.5.27.2"
+NGX_PAGESPEED_PSOL_PV="1.5.27.3"
 NGX_PAGESPEED_PSOL_URI="https://dl.google.com/dl/page-speed/psol/${NGX_PAGESPEED_PSOL_PV}.tar.gz"
 NGX_PAGESPEED_PSOL_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODULE_PV}
 
