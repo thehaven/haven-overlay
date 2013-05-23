@@ -1,5 +1,5 @@
---- logging.h	2013-05-23 18:09:15.654335647 +0100
-+++ logging.h.new	2013-05-23 18:10:30.159487851 +0100
+--- ngx_pagespeed-master/psol/include/third_party/chromium/src/base/logging.h	2013-05-23 18:09:15.654335647 +0100
++++ ngx_pagespeed-master/psol/include/third_party/chromium/src/base/logging.h	2013-05-23 18:10:30.159487851 +0100
 @@ -2,6 +2,16 @@
  // Use of this source code is governed by a BSD-style license that can be
  // found in the LICENSE file.
