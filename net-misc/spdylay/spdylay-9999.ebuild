@@ -31,9 +31,13 @@ src_configure() {
 	autoreconf -i
 	automake
 	autoconf
-	./configure
 }
 
 src_compile() {
-	make
+    if [ -x ./configure ]; then
+        econf
+    fi
+    if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ]; then
+	        emake || die "emake failed"
+    fi
 }
