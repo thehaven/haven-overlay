@@ -41,3 +41,10 @@ src_compile() {
 	        emake || die "emake failed"
     fi
 }
+
+src_install() {
+	insinto /etc/init.d/
+	newins "${FILESDIR}/shrpx.init shrpx"
+	insinto /etc/conf.d/
+	newins "${FILESDIR}/shrpx.conf shrpx"
+}

@@ -1,0 +1,32 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+pidfile="/var/run/shrpx.pid"
+
+depend() {
+	need localmount net
+	use dns logger
+}
+
+start() {
+	ebegin "Starting shrpx"
+	start-stop-daemon --start \
+	  --pidfile=${pidfile} \
+	  --make-pidfile \
+	  --exec /usr/bin/shrpx -- ${SHRPX_CONF}
+}
+
+stop() {
+        ebegin "Stopping shrpx"
+	  start-stop-daemon --stop \
+	    --pidfile=${pidfile} || retval=$?
+
+}
+
+reload() {
+        ebegin "Refreshing shrpx configuration"
+        kill -HUP `cat ${pidfile}` &>/dev/null
+        eend $? "Failed to reload shrpx"
+}
