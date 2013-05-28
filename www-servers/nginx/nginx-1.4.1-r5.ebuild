@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-servers/nginx/nginx-1.4.1-r4.ebuild,v 1.2 2013/05/14 21:47:27 dev-zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-servers/nginx/nginx-1.4.1-r5.ebuild,v 1.1 2013/05/23 20:32:59 dev-zero Exp $
 
 EAPI="5"
 
@@ -18,12 +18,12 @@ EAPI="5"
 GENTOO_DEPEND_ON_PERL="no"
 
 # ngx_pagespeed (https://github.com/pagespeed/ngx_pagespeed, Apache 2 license)
-NGX_PAGESPEED_MODULE_PV="1.5.27.2-beta"
+NGX_PAGESPEED_MODULE_PV="1.5.27.3-beta"
 NGX_PAGESPEED_MODULE_P="ngx_pagespeed"
 NGX_PAGESPEED_MODULE_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-master
 # psol required for pagespeed
 NGX_PAGESPEED_PSOL_P="ngx_pagespeed_psol"
-NGX_PAGESPEED_PSOL_PV="1.5.27.2"
+NGX_PAGESPEED_PSOL_PV="1.5.27.3"
 NGX_PAGESPEED_PSOL_URI="https://dl.google.com/dl/page-speed/psol/${NGX_PAGESPEED_PSOL_PV}.tar.gz"
 NGX_PAGESPEED_PSOL_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODULE_PV}
 
@@ -70,10 +70,10 @@ HTTP_SLOWFS_CACHE_MODULE_URI="http://labs.frickle.com/files/ngx_slowfs_cache-${H
 HTTP_SLOWFS_CACHE_MODULE_WD="${WORKDIR}/ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
 # http_fancyindex (http://wiki.nginx.org/NgxFancyIndex, BSD license)
-HTTP_FANCYINDEX_MODULE_PV="0.3.1.1"
+HTTP_FANCYINDEX_MODULE_PV="fd3950172a9e6595ad9ec68c11600e2afe6a2674"
 HTTP_FANCYINDEX_MODULE_P="ngx_http_fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
-HTTP_FANCYINDEX_MODULE_URI="http://gitorious.org/ngx-fancyindex/ngx-fancyindex/archive-tarball/2034d0ad"
-HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-ngx-fancyindex"
+HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/${HTTP_FANCYINDEX_MODULE_PV}.tar.gz"
+HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/chaoslawful/lua-nginx-module, BSD license)
 HTTP_LUA_MODULE_PV="0.8.1"
@@ -105,6 +105,18 @@ HTTP_NAXSI_MODULE_P="ngx_http_naxsi-${HTTP_NAXSI_MODULE_PV}"
 HTTP_NAXSI_MODULE_URI="https://naxsi.googlecode.com/files/naxsi-core-${HTTP_NAXSI_MODULE_PV}.tgz"
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-core-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
 
+# nginx-rtmp-module (http://github.com/arut/nginx-rtmp-module, BSD license)
+RTMP_MODULE_PV="0.9.20"
+RTMP_MODULE_P="ngx_rtmp-${RTMP_MODULE_PV}"
+RTMP_MODULE_URI="http://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
+RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
+
+# nginx-dav-ext-module (http://github.com/arut/nginx-dav-ext-module, BSD license)
+HTTP_DAV_EXT_MODULE_PV="0.0.2"
+HTTP_DAV_EXT_MODULE_P="ngx_dav_ext-${HTTP_DAV_EXT_MODULE_PV}"
+HTTP_DAV_EXT_MODULE_URI="http://github.com/arut/nginx-dav-ext-module/archive/v${HTTP_DAV_EXT_MODULE_PV}.tar.gz"
+HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
+
 inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
@@ -126,7 +138,9 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_auth_pam? ( ${HTTP_AUTH_PAM_MODULE_URI} -> ${HTTP_AUTH_PAM_MODULE_P}.tar.gz )
 	nginx_modules_http_upstream_check? ( ${HTTP_UPSTREAM_CHECK_MODULE_URI} -> ${HTTP_UPSTREAM_CHECK_MODULE_P}.tar.gz )
 	nginx_modules_http_metrics? ( ${HTTP_METRICS_MODULE_URI} -> ${HTTP_METRICS_MODULE_P}.tar.gz )
-	nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )"
+	nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )
+	rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )
+	nginx_modules_http_dav_ext? ( ${HTTP_DAV_EXT_MODULE_URI} -> ${HTTP_DAV_EXT_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+"
 SLOT="0"
@@ -150,10 +164,10 @@ NGINX_MODULES_3RD="
 	http_upstream_check
 	http_metrics
 	http_naxsi
+	http_dav_ext
 	http_ngx_pagespeed"
 
-IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit selinux ssl
-syslog userland_GNU vim-syntax"
+IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl syslog userland_GNU vim-syntax"
 
 for mod in $NGINX_MODULES_STD; do
 	IUSE="${IUSE} +nginx_modules_http_${mod}"
@@ -189,7 +203,8 @@ CDEPEND="
 	nginx_modules_http_xslt? ( dev-libs/libxml2 dev-libs/libxslt )
 	nginx_modules_http_lua? ( || ( dev-lang/lua dev-lang/luajit ) )
 	nginx_modules_http_auth_pam? ( virtual/pam )
-	nginx_modules_http_metrics? ( dev-libs/yajl )"
+	nginx_modules_http_metrics? ( dev-libs/yajl )
+	nginx_modules_http_dav_ext? ( dev-libs/expat )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
 	arm? ( dev-libs/libatomic_ops )
@@ -198,7 +213,8 @@ PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_lua? ( nginx_modules_http_rewrite )
-	nginx_modules_http_naxsi? ( pcre )"
+	nginx_modules_http_naxsi? ( pcre )
+	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -281,7 +297,8 @@ src_configure() {
 
 	if use nginx_modules_http_ngx_pagespeed; then
 	    mv ${WORKDIR}/psol ${NGX_PAGESPEED_MODULE_WD}/
-        myconf+="${myconf} --add-module=${NGX_PAGESPEED_MODULE_WD}"
+        cd ${WORKDIR}; epatch "${FILESDIR}/${P}-fix-syslog-pagespeed.patch"; cd ${S}
+		myconf+="${myconf} --add-module=${NGX_PAGESPEED_MODULE_WD}"
     fi
 
 	if use nginx_modules_http_fastcgi; then
@@ -343,6 +360,16 @@ src_configure() {
 	if use nginx_modules_http_naxsi ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_NAXSI_MODULE_WD}"
+	fi
+
+	if use rtmp ; then
+		http_enabled=1
+		myconf+=" --add-module=${RTMP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_dav_ext ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_DAV_EXT_MODULE_WD}"
 	fi
 
 	if use http || use http-cache; then
@@ -423,8 +450,14 @@ src_install() {
 	rm -rf "${D}"/usr/html || die
 
 	keepdir /var/log/nginx "${NGINX_HOME_TMP}"/{,client,proxy,fastcgi,scgi,uwsgi}
-	fperms 0700 /var/log/nginx "${NGINX_HOME_TMP}"/{,client,proxy,fastcgi,scgi,uwsgi}
-	fowners ${PN}:${PN} /var/log/nginx "${NGINX_HOME_TMP}"/{,client,proxy,fastcgi,scgi,uwsgi}
+
+	# this solves a problem with SELinux where nginx doesn't see the directories
+	# as root and tries to create them as nginx
+	fperms 0750 "${NGINX_HOME_TMP}"
+	fowners ${PN}:root "${NGINX_HOME_TMP}"
+
+	fperms 0700 /var/log/nginx "${NGINX_HOME_TMP}"/{client,proxy,fastcgi,scgi,uwsgi}
+	fowners ${PN}:${PN} /var/log/nginx "${NGINX_HOME_TMP}"/{client,proxy,fastcgi,scgi,uwsgi}
 
 	# logrotate
 	insinto /etc/logrotate.d
@@ -487,6 +520,16 @@ src_install() {
 
 		docinto ${HTTP_NAXSI_MODULE_P}
 		newdoc "${HTTP_NAXSI_MODULE_WD}"/../naxsi_config/default_location_config.example nbs.rules
+	fi
+
+	if use rtmp; then
+		docinto ${RTMP_MODULE_P}
+		dodoc "${RTMP_MODULE_WD}"/{AUTHORS,README.md,TODO,stat.xsl}
+	fi
+
+	if use nginx_modules_http_dav_ext; then
+		docinto ${HTTP_DAV_EXT_MODULE_P}
+		dodoc "${HTTP_DAV_EXT_MODULE_WD}"/README
 	fi
 }
 
