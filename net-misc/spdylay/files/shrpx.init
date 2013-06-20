@@ -13,15 +13,13 @@ depend() {
 start() {
 	ebegin "Starting shrpx"
 	start-stop-daemon --start \
-	  --pidfile=${pidfile} \
-	  --make-pidfile \
-	  --exec /usr/bin/shrpx -- ${SHRPX_CONF}
+	  --exec /usr/bin/shrpx -- --pid-file=${pidfile} ${SHRPX_CONF}
 }
 
 stop() {
         ebegin "Stopping shrpx"
 	  start-stop-daemon --stop \
-	    --pidfile=${pidfile} || retval=$?
+	    --pidfile ${pidfile} || retval=$?
 
 }
 
