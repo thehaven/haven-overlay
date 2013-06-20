@@ -24,7 +24,7 @@ LICENSE=""
 RESTRICT="mirror"
 SLOT="0"
 
-DEPEND="|| ( ( >=www-client/phantomjs-bin-1.5.0 ) ( >=www-client/phantomjs-1.5.0 ) )"
+DEPEND=">=www-client/phantomjs-1.5.0"
 RDEPEND="${DEPEND}"
 
 src_install(){
