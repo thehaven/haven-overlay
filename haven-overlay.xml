@@ -9,7 +9,7 @@
       <email>haven@thehavennet.org.uk</email>
       <name>Simon Alman</name>
     </owner>
-    <source type="git">git@github.com:thehaven/haven-overlay.git</source>
+    <source type="git">https://github.com/thehaven/haven-overlay.git</source>
     <feed>https://github.com/thehaven/haven-overlay/commits/master.atom</feed>
   </repo>
 </repositories>
