@@ -2,7 +2,7 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name><![CDATA[haven]]></name>
+    <name><![CDATA[haven-overlay]]></name>
     <description><![CDATA[Haven's custom ebuilds]]></description>
     <homepage>https://github.com/thehaven/haven-overlay</homepage>
     <owner>
