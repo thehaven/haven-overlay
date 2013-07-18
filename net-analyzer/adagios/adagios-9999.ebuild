@@ -20,3 +20,18 @@ DEPEND="net-analyzer/okconfig
 		net-analyzer/pnp4nagios
 		net-analyzer/mk-livestatus"
 RDEPEND="${DEPEND}"
+
+pkg_postinst() {
+    elog "Run the following to setup adagios:"
+    elog ""
+    elog "mkdir -p /etc/nagios/adagios"
+    elog "pynag config --append cfg_dir=/etc/nagios/adagios"
+    elog ""
+    elog "If you want to play with the experimental status view:"
+    elog "pynag config --append \"broker_module=/usr/lib64/nagios/brokers/npcdmod.o config_file=/etc/pnp4nagios/npcd.cfg\""
+    elog "pynag config --append \"broker_module=/usr/lib64/mk-livestatus/livestatus.o /var/spool/nagios/cmd/livestatus\""
+    elog "pynag config --set \"process_performance_data=1\""
+    elog ""
+    elog "For more information read the docs:"
+    elog "http://adagios.org/"
+}
