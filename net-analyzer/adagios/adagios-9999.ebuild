@@ -27,6 +27,8 @@ pkg_postinst() {
     elog "mkdir -p /etc/nagios/adagios"
     elog "pynag config --append cfg_dir=/etc/nagios/adagios"
     elog ""
+    elog "Add: cfg_dir=/etc/nagios/adagios to nagios.cfg to pull any created files in from adagios"
+	elog ""
     elog "If you want to play with the experimental status view:"
     elog "pynag config --append \"broker_module=/usr/lib64/nagios/brokers/npcdmod.o config_file=/etc/pnp4nagios/npcd.cfg\""
     elog "pynag config --append \"broker_module=/usr/lib64/mk-livestatus/livestatus.o /var/spool/nagios/cmd/livestatus\""
