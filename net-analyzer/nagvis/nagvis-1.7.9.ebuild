@@ -25,11 +25,6 @@ RDEPEND="|| ( net-analyzer/nagios net-analyzer/icinga )
 need_php_httpd
 want_apache2
 
-pkg_setup() {
-	confutils_require_built_with_all dev-lang/php gd nls json session pdo sqlite3 sockets mysql unicode xml
-	depend.apache_pkg_setup
-}
-
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-base-path.patch
 	epatch "${FILESDIR}"/${P}-global-definitions.patch
@@ -57,7 +52,13 @@ src_install() {
 	fi
 
 	insinto /etc/nagvis
-	doins -r etc/{conf.d,automaps,geomap,.htaccess,nagvis.ini.php-sample}
+	if use automap; then
+	  doins -r etc/automaps
+	fi
+	if use apache2; then
+	  doins etc/{.htaccess,apache2-nagvis.conf-sample}
+	fi
+	doins -r etc/{conf.d,geomap,maps,nagvis.ini.php-sample}
 	fowners apache:root /etc/nagvis
 	fperms 0664 /etc/nagvis/nagvis.ini.php-sample
 	dosym /etc/nagvis /usr/share/nagvis/etc
