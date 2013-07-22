@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="-* ~x86 ~amd64"
 IUSE=""
 
-DEPEND="net-analyzer/okconfig
+DEPEND="<dev-python/django-1.5
+		net-analyzer/okconfig
 		net-analyzer/pynag
 		net-analyzer/pnp4nagios
 		net-analyzer/mk-livestatus"
