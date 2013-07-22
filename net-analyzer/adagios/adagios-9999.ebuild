@@ -31,7 +31,7 @@ pkg_postinst() {
 	elog ""
     elog "If you want to play with the experimental status view:"
     elog "pynag config --append \"broker_module=/usr/lib64/npcdmod.o config_file=/etc/pnp/npcd.cfg\""
-	elog "pynag config --append \"broker_module=/usr/lib64/mk-livestatus/livestatus.o /var/spool/nagios/cmd/livestatus\""
+	elog "pynag config --append \"broker_module=/usr/lib64/mk-livestatus/livestatus.o /var/nagios/rw/live\""
     elog "pynag config --set \"process_performance_data=1\""
     elog ""
     elog "For more information read the docs:"
