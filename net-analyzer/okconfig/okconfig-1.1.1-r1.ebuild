@@ -20,7 +20,10 @@ IUSE="+adagios"
 DEPEND="dev-python/paramiko
 		net-analyzer/nagios
 		>net-analyzer/pynag-0.4.6"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+		net-analyzer/fping[suid]
+		net-analyzer/traceroute
+"
 
 pkg_postinst() {
     elog "Run the following to setup okconfig:"
