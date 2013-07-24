@@ -15,7 +15,7 @@ EGIT_COMMIT=${P}${REVISION}
 LICENSE=""
 SLOT="0"
 KEYWORDS="-* ~x86 ~amd64"
-IUSE=""
+IUSE="+adagios"
 
 DEPEND="dev-python/paramiko
 		net-analyzer/nagios
@@ -27,4 +27,16 @@ pkg_postinst() {
     elog ""
 	elog "okconfig init"
 	elog "okconfig verify"
+	elog
+	if use adagios; then
+	  insinto /etc/
+	  newins ${FILESDIR}/okconfig.cfg okconfig.cfg || die
+	  if [ ! -d "/etc/nagios/okconfig" ]; then 
+	    okconfig init
+	    okconfig verify
+	  fi
+	  if [ ! -d "/etc/nagios/okconfig/examples" ]; then mkdir /etc/nagios/okconfig/examples; fi
+	  chown -Rf nobody:nagios /etc/nagios/okconfig
+	  chmod -R g+rwX /etc/nagios/okconfig
+	fi	
 }

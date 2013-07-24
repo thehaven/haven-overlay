@@ -36,4 +36,7 @@ pkg_postinst() {
     elog ""
     elog "For more information read the docs:"
     elog "http://adagios.org/"
+
+    # Create a symlink pointing to the default configs:
+    if [ ! -f /etc/adagios ]; then ln -s /usr/lib64/python2.7/site-packages/adagios/etc/adagios /etc/adagios; fi
 }
