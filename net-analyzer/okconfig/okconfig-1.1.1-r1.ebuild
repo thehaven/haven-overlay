@@ -41,5 +41,8 @@ pkg_postinst() {
 	  if [ ! -d "/etc/nagios/okconfig/examples" ]; then mkdir /etc/nagios/okconfig/examples; fi
 	  chown -Rf nobody:nagios /etc/nagios/okconfig
 	  chmod -R g+rwX /etc/nagios/okconfig
-	fi	
+	fi
+	elog "In order to use the network scan feature of okconfig you will need to symlink fping so a non-root user can see it:"
+	elog "ln -s /usr/sbin/fping /usr/bin/fping"
+	elog "Alternatively alter your PATH variable for the user running okconfig"
 }
