@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="net-analyzer/nagios-core"
+DEPEND="|| ( net-analyzer/nagios-core net-analyzer/nrpe )"
 RDEPEND="${DEPEND}"
 
 src_install() {
