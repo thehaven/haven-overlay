@@ -129,6 +129,11 @@ src_install() {
     doins ${WORKDIR}/${P}/check_bl/check_bl
     doins ${WORKDIR}/${P}/check_apcext.pl/check_snmp_apc_ups
     doins ${WORKDIR}/${P}/check_apcext.pl/check_apcext.pl
+
+    fowners -R root:nagios /usr/lib64/nagios/plugins
+    fperms -R g+rwx /usr/lib64/nagios/plugins
+    fperms -R u+rwx /usr/lib64/nagios/plugins
+
 }
 
 pkg_postinst() {
