@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 src_install() {
 # find . -type f -print | grep -v git | grep -v spec | grep -v README | grep -v LICENSE | grep -v COPYING | grep -v rel-eng  sed 's/^.\//    doins ${WORKDIR}\/${P}\//g'
 
-	insinto /var/lib64/nagios/plugins/
+	insinto /usr/lib64/nagios/plugins/
 
     doins ${WORKDIR}/${P}/misc/nagios_autodiscover
     doins ${WORKDIR}/${P}/misc/check_tftp.py
