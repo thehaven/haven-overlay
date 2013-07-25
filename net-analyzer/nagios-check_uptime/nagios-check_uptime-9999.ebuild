@@ -22,9 +22,3 @@ src_configure() {
   eautoreconf || die "autoconf failed"
   econf --libexecdir=/usr/lib64/nagios/plugins
 }
-
-src_install() {
-  fowners -R root:nagios /usr/lib64/nagios/plugins
-  fperms -R g+rwx /usr/lib64/nagios/plugins
-  fperms -R u+rwx /usr/lib64/nagios/plugins
-}
