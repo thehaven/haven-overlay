@@ -23,6 +23,7 @@ DEPEND="dev-python/paramiko
 RDEPEND="${DEPEND}
 		net-analyzer/fping[suid]
 		net-analyzer/traceroute
+		net-analyzer/nagios-plugins-opinkerfi
 "
 
 pkg_postinst() {
