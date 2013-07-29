@@ -20,6 +20,11 @@ RDEPEND="${DEPEND}
 	dev-python/graphite-web
 	dev-python/rawes"
 
+src_prepare() {
+    echo "Cloning timeserieswidget files into /timeserieswidget:"
+	cd ${WORKDIR}/${P} && git clone https://github.com/vimeo/timeserieswidget.git
+}
+
 src_install() {
 	insinto /opt/graph-explorer
 	doins -r ${WORKDIR}/${P}/*
