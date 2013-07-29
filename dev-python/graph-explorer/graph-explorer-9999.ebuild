@@ -9,6 +9,8 @@ inherit git-2
 DESCRIPTION="Enterprise scalable realtime graphing"
 HOMEPAGE="https://github.com/vimeo/graph-explorer"
 EGIT_REPO_URI="https://github.com/vimeo/graph-explorer.git"
+EGIT_OPTIONS="--recurse-submodules=yes --progress"
+EGIT_HAS_SUBMODULES=true
 
 SLOT="0"
 LICENSE=""
@@ -21,8 +23,7 @@ RDEPEND="${DEPEND}
 	dev-python/rawes"
 
 src_prepare() {
-    echo "Cloning timeserieswidget files into /timeserieswidget:"
-	cd ${WORKDIR}/${P} && git clone https://github.com/vimeo/timeserieswidget.git
+	cd ${WORKDIR}/${P}/ && git submodule update --init --recursive || die "Failed git submodule recurse"
 }
 
 src_install() {
