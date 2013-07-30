@@ -11,10 +11,11 @@ HOMEPAGE="https://github.com/vimeo/graph-explorer"
 EGIT_REPO_URI="https://github.com/vimeo/graph-explorer.git"
 EGIT_OPTIONS="--recurse-submodules=yes --progress"
 EGIT_HAS_SUBMODULES=true
+EGIT_COMMIT="2013.06.13"
 
 SLOT="0"
 LICENSE=""
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
