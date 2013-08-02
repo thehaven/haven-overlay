@@ -12,10 +12,11 @@ inherit distutils git-2
 DESCRIPTION="a small server for collecting and translating metrics for Graphite"
 HOMEPAGE="https://github.com/cloudant/bucky"
 EGIT_REPO_URI="https://github.com/cloudant/bucky.git"
+EGIT_COMMIT="0.1.0"
 
 LICENSE="BSD-4"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="runit"
 
 DEPEND=""
