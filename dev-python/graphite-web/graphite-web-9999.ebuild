@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}
 	dev-python/django[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
 	dev-python/pytz
-	dev-python/twisted
+	dev-python/twisted-core
 	dev-python/whisper[${PYTHON_USEDEP}]"
 
 pkg_postinst() {
