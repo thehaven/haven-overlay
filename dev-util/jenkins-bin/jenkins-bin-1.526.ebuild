@@ -33,8 +33,5 @@ src_install() {
     newinitd "${FILESDIR}/init.sh" jenkins
     newconfd "${FILESDIR}/conf" jenkins
 
-	insinto /usr/lib/tmpfiles.d
-	doins	"${FILESDIR}/jenkins.conf"
-
     fowners jenkins:jenkins /var/run/jenkins /var/log/jenkins /var/lib/jenkins /var/lib/jenkins/home /var/lib/jenkins/backup
 }
