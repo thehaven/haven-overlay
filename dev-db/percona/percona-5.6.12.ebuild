@@ -33,7 +33,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="embedded test"
 
-DEPEND=""
+DEPEND="!dev-db/mysql
+		!dev-db/mariadb"
 RDEPEND="${DEPEND}
 		dev-libs/libaio
 		>=sys-apps/openrc-0.7.0
