@@ -29,7 +29,7 @@ NGX_PAGESPEED_PSOL_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODUL
 
 # syslog
 SYSLOG_MODULE_PV="0.25"
-SYSLOG_MODULE_NGINX_PV="1.3.14"
+SYSLOG_MODULE_NGINX_PV="1.4.0"
 SYSLOG_MODULE_P="ngx_syslog-${SYSLOG_MODULE_PV}"
 SYSLOG_MODULE_URI="https://github.com/yaoweibin/nginx_syslog_patch/archive/v${SYSLOG_MODULE_PV}.tar.gz"
 SYSLOG_MODULE_WD="${WORKDIR}/nginx_syslog_patch-${SYSLOG_MODULE_PV}"
@@ -128,7 +128,6 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 										https://github.com/pagespeed/ngx_pagespeed/archive/master.zip -> ${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODULE_PV}.zip 
 										${NGX_PAGESPEED_PSOL_URI} -> ${NGX_PAGESPEED_PSOL_P}-${NGX_PAGESPEED_PSOL_PV}.tar.gz							    	
 									  )
-	syslog? ( ${SYSLOG_MODULE_URI} -> ${SYSLOG_MODULE_P}.tar.gz )
 	${DEVEL_KIT_MODULE_URI} -> ${DEVEL_KIT_MODULE_P}.tar.gz
 	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
 	nginx_modules_http_headers_more? ( ${HTTP_HEADERS_MORE_MODULE_URI} -> ${HTTP_HEADERS_MORE_MODULE_P}.tar.gz )
@@ -169,7 +168,7 @@ NGINX_MODULES_3RD="
 	http_dav_ext
 	http_ngx_pagespeed"
 
-IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl syslog userland_GNU vim-syntax"
+IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl userland_GNU vim-syntax"
 
 for mod in $NGINX_MODULES_STD; do
 	IUSE="${IUSE} +nginx_modules_http_${mod}"
@@ -249,9 +248,9 @@ pkg_setup() {
 src_prepare() {
 	epatch "${FILESDIR}/${P}-fix-perl-install-path.patch"
 
-	if use syslog; then
-		epatch "${SYSLOG_MODULE_WD}"/syslog_${SYSLOG_MODULE_NGINX_PV}.patch
-	fi
+	#if use syslog; then
+	#	epatch "${FILESDIR}"/syslog_${SYSLOG_MODULE_NGINX_PV}.patch
+	#fi
 
 	if use nginx_modules_http_upstream_check; then
 		epatch "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.2.6+.patch
@@ -277,9 +276,9 @@ src_configure() {
 	use pcre-jit  && myconf+=" --with-pcre-jit"
 
 	# syslog support
-	if use syslog; then
-		myconf+=" --add-module=${SYSLOG_MODULE_WD}"
-	fi
+	#if use syslog; then
+	#	myconf+=" --add-module=${SYSLOG_MODULE_WD}"
+	#fi
 
 	# HTTP modules
 	for mod in $NGINX_MODULES_STD; do
