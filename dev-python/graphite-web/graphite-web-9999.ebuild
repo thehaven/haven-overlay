@@ -40,6 +40,12 @@ pkg_postinst() {
 
 	# Create symlink to config dir:
 	dosym /opt/graphite/conf /etc/graphite
+	# Create graphite-manage for easier management:
+	chmod a+x /opt/graphite/webapp/graphite/manage.py
+	dosym /opt/graphite/webapp/graphite/manage.py /usr/bin/graphite-manage
+	# Create search-index symlink
+	dosym /opt/graphite/bin/build-index.sh /usr/bin/graphite-build-search-index
+
 	elog "View configs in /etc/graphite and ensure a legit (non-sample) copy of each config file exists before starting graphite"
 	elog "Once the configs are in order run:"
 	elog "cd /opt/graphite/webapp/graphite && python ./manage.py syncdb"
