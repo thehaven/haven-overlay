@@ -27,13 +27,6 @@ NGX_PAGESPEED_PSOL_PV="1.6.29.5"
 NGX_PAGESPEED_PSOL_URI="https://dl.google.com/dl/page-speed/psol/${NGX_PAGESPEED_PSOL_PV}.tar.gz"
 NGX_PAGESPEED_PSOL_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODULE_PV}
 
-# syslog
-SYSLOG_MODULE_PV="0.25"
-SYSLOG_MODULE_NGINX_PV="1.4.0"
-SYSLOG_MODULE_P="ngx_syslog-${SYSLOG_MODULE_PV}"
-SYSLOG_MODULE_URI="https://github.com/yaoweibin/nginx_syslog_patch/archive/v${SYSLOG_MODULE_PV}.tar.gz"
-SYSLOG_MODULE_WD="${WORKDIR}/nginx_syslog_patch-${SYSLOG_MODULE_PV}"
-
 # devel_kit (https://github.com/simpl/ngx_devel_kit, BSD license)
 DEVEL_KIT_MODULE_PV="0.2.18"
 DEVEL_KIT_MODULE_P="ngx_devel_kit-${DEVEL_KIT_MODULE_PV}-r1"
@@ -248,10 +241,6 @@ pkg_setup() {
 src_prepare() {
 	epatch "${FILESDIR}/${P}-fix-perl-install-path.patch"
 
-	#if use syslog; then
-	#	epatch "${FILESDIR}"/syslog_${SYSLOG_MODULE_NGINX_PV}.patch
-	#fi
-
 	if use nginx_modules_http_upstream_check; then
 		epatch "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.2.6+.patch
 	fi
@@ -274,11 +263,6 @@ src_configure() {
 	use libatomic && myconf+=" --with-libatomic"
 	use pcre      && myconf+=" --with-pcre"
 	use pcre-jit  && myconf+=" --with-pcre-jit"
-
-	# syslog support
-	#if use syslog; then
-	#	myconf+=" --add-module=${SYSLOG_MODULE_WD}"
-	#fi
 
 	# HTTP modules
 	for mod in $NGINX_MODULES_STD; do
@@ -468,11 +452,6 @@ src_install() {
 		cd "${S}"/objs/src/http/modules/perl/
 		einstall DESTDIR="${D}" INSTALLDIRS=vendor
 		fixlocalpod
-	fi
-
-	if use syslog; then
-		docinto ${SYSLOG_MODULE_P}
-		dodoc "${SYSLOG_MODULE_WD}"/README
 	fi
 
 	if use nginx_modules_http_push; then
