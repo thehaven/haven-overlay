@@ -77,6 +77,22 @@ src_configure() {
 	cmake-utils_src_configure
 }
 
+src_install() {
+
+		cmake-utils_src_install
+
+		# Convenience links
+		einfo "Making Convenience links for mysqlcheck multi-call binary"
+		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqlanalyze"
+		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqlrepair"
+		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqloptimize"
+
+		cat <<-EOF > "${T}"/80mysql-libdir
+		LDPATH="${EPREFIX}/usr/$(get_libdir)/mysql"
+		EOF
+		doenvd "${T}"/80mysql-libdir
+}
+
 pkg_postinst() {
         insinto /etc/conf.d/
         newins ${FILESDIR}/conf.d.mysql mysql
