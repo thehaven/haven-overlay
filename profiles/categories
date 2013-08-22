@@ -13,6 +13,7 @@ dev-vcs
 eclass
 media-libs
 media-sound
+media-tv
 net-analyzer
 net-dns
 net-fs
