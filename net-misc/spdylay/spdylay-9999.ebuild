@@ -50,3 +50,8 @@ src_install() {
 	insinto /etc/conf.d/
 	newins "${FILESDIR}/shrpx.conf" "shrpx"
 }
+
+pkg_postinst() {
+	# Fix permissions on init.
+	chmod 755 /etc/init.d/shrpx
+}
