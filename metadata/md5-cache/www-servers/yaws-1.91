@@ -1,0 +1,11 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-lang/erlang
+DESCRIPTION=Yaws is a high performance HTTP 1.1 web server.
+HOMEPAGE=http://yaws.hyber.org/
+KEYWORDS=~x86 ~ppc ~sparc ~amd64
+LICENSE=BSD
+RDEPEND=dev-lang/erlang
+SLOT=0
+SRC_URI=http://yaws.hyber.org/download/yaws-1.91.tar.gz
+_eclasses_=eutils	63afaaed8aa819fdcb814c7cd39495a2	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=26a7ca359376fbc8a03493548eac94df

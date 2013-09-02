@@ -1,0 +1,9 @@
+DEFINED_PHASES=install prepare unpack
+DEPEND=dev-vcs/git
+DESCRIPTION=Enterprise scalable realtime graphing
+EAPI=5
+HOMEPAGE=https://github.com/vimeo/graph-explorer
+RDEPEND=dev-python/graphite-web dev-python/rawes
+SLOT=0
+_eclasses_=git-2	e92e09651292b1bef5656592364550f7
+_md5_=3859db92cceae213e66bda8941111fb9

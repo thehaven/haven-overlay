@@ -1,0 +1,8 @@
+DEFINED_PHASES=-
+DEPEND=app-vim/nagios-syntax net-analyzer/adagios net-analyzer/mk-livestatus net-analyzer/nagios net-analyzer/nagios-check_logfiles net-analyzer/nagios-check_multi net-analyzer/nagios-check_mysql_health net-analyzer/nagios-plugins net-analyzer/nagios-plugins-snmp net-analyzer/nagvis net-analyzer/nrpe net-analyzer/pnp4nagios
+DESCRIPTION=Nagios meta build for pulling in all the nagios dependancies in one shot, heavily influenced by OMD
+EAPI=4
+KEYWORDS=~amd64
+RDEPEND=app-vim/nagios-syntax net-analyzer/adagios net-analyzer/mk-livestatus net-analyzer/nagios net-analyzer/nagios-check_logfiles net-analyzer/nagios-check_multi net-analyzer/nagios-check_mysql_health net-analyzer/nagios-plugins net-analyzer/nagios-plugins-snmp net-analyzer/nagvis net-analyzer/nrpe net-analyzer/pnp4nagios
+SLOT=0
+_md5_=b563e537b5dad5f63a7f17c0c8b4d523

@@ -1,0 +1,14 @@
+DEFINED_PHASES=postinst
+DEPEND=sys-cluster/corosync || ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice ) dev-util/pkgconfig
+DESCRIPTION=Distributed Storage System for KVM.
+EAPI=3
+HOMEPAGE=http://www.osrg.net/sheepdog/
+IUSE=bash-completion
+KEYWORDS=~amd64
+LICENSE=GPL-2
+PDEPEND=bash-completion? ( app-shells/bash-completion )
+RDEPEND=sys-cluster/corosync || ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice ) bash-completion? ( app-admin/eselect )
+SLOT=0
+SRC_URI=https://github.com/collie/sheepdog/tarball/v0.5.2
+_eclasses_=bash-completion	f913ed18b57a2d3372c4291680454db4	eutils	63afaaed8aa819fdcb814c7cd39495a2	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=af96b0471cb38d1473f05d325b857e51

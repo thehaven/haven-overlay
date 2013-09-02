@@ -1,0 +1,26 @@
+Instructions for compiling
+
+https://github.com/pagespeed/ngx_pagespeed/wiki/Building-PSOL-From-Source
+https://developers.google.com/speed/pagespeed/module/build_ngx_pagespeed_from_source
+http://src.chromium.org/svn/trunk/tools/depot_tools/README
+
+svn co http://src.chromium.org/svn/trunk/tools/depot_tools
+export PATH=$PATH:~/bin/depot_tools
+mkdir ~/mod_pagespeed
+cd ~/mod_pagespeed
+gclient config http://modpagespeed.googlecode.com/svn/tags/1.6.29.3/src
+gclient sync --force --jobs=1
+cd src/
+make AR.host="$PWD/build/wrappers/ar.sh" \
+  AR.target="$PWD/build/wrappers/ar.sh" \
+  BUILDTYPE=Release \
+  mod_pagespeed_test pagespeed_automatic_test
+
+cd ~/mod_pagespeed/src/net/instaweb/automatic
+make CXXFLAGS="-DSERF_HTTPS_FETCHING=0" \
+ BUILDTYPE=Release \
+ AR.host="$PWD/../../../build/wrappers/ar.sh" \
+ AR.target="$PWD/../../../build/wrappers/ar.sh" \
+ all
+
+Them move onto compiling pagespeed

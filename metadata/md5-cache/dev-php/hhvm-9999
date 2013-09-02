@@ -1,0 +1,8 @@
+DEFINED_PHASES=-
+DEPEND=dev-libs/libevent[hiphop] >=net-misc/curl-7.28 dev-cpp/glog >=dev-libs/jemalloc-3 dev-libs/libmemcached sys-libs/libunwind >=dev-libs/libmemcached-0.39
+DESCRIPTION=HHVM, very fast php JIT
+EAPI=5
+KEYWORDS=~amd64
+RDEPEND=dev-libs/libevent[hiphop] >=net-misc/curl-7.28 dev-cpp/glog >=dev-libs/jemalloc-3 dev-libs/libmemcached sys-libs/libunwind >=dev-libs/libmemcached-0.39
+SLOT=0
+_md5_=b23bf164aeeb13de807548b75897c0c5

@@ -1,0 +1,9 @@
+DEFINED_PHASES=postinst
+DESCRIPTION=NXLOG is a universal log collector and forwarder supporting different platforms
+EAPI=4
+HOMEPAGE=http://nxlog-ce.sourceforge.net/
+KEYWORDS=~amd64
+LICENSE=GPL-2 LGPL-2.1
+SLOT=0
+SRC_URI=mirror://sourceforge/nxlog-ce/nxlog-ce-2.2.1017.tar.gz
+_md5_=728547c90e0cf611c54d60df9c41970d

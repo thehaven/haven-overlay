@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install postinst prepare test
+DEPEND=!dev-db/mysql !dev-db/mariadb sys-devel/make >=dev-util/cmake-2.8.9 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
+DESCRIPTION=Percona Server with XtraDB is a backwards-compatible replacement for MySQL that is much faster and more scalable, easier to monitor and tune, and has features to make operational tasks easier. It is designed to excel for cloud computing, support NoSQL access, and take full advantage of modern hardware such as SSD and Flash storage.
+EAPI=5
+HOMEPAGE=http://www.percona.com/software/percona-server/
+IUSE=embedded test
+KEYWORDS=~amd64
+LICENSE=GPL
+RDEPEND=!dev-db/mysql !dev-db/mariadb dev-libs/libaio >=sys-apps/openrc-0.7.0
+SLOT=0
+SRC_URI=amd64? ( http://www.percona.com/downloads/Percona-Server-5.6/Percona-Server-5.6.12-rc60.4/source/Percona-Server-5.6.12-rc60.4.tar.gz )
+_eclasses_=cmake-utils	92319f03251f1235bc887cc84e5aef21	eutils	63afaaed8aa819fdcb814c7cd39495a2	flag-o-matic	d900015de4e092f26d8c0a18b6bd60de	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=de582a2fe235efce725283dd1e7b1b1f

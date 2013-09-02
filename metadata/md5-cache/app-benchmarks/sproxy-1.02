@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst
+DEPEND=dev-perl/HTML-Parser dev-perl/URI
+DESCRIPTION=Sproxy replaces Scout as the preferred method of URL harvest for Siege. It is an HTTP proxy server written in perl and designed to collect all URL information in a siege-friendly format. All necessary modules are bundled with the source. Sproxy is built with GNU autotools.
+HOMEPAGE=http://www.joedog.org/JoeDog/Sproxy
+IUSE=bash-completion
+KEYWORDS=amd64 ~hppa ~mips ppc x86
+LICENSE=GPL-2
+PDEPEND=bash-completion? ( app-shells/bash-completion )
+RDEPEND=dev-perl/HTML-Parser dev-perl/URI bash-completion? ( app-admin/eselect )
+SLOT=0
+SRC_URI=ftp://sid.joedog.org/pub/sproxy/sproxy-latest.tar.gz
+_eclasses_=bash-completion	f913ed18b57a2d3372c4291680454db4	eutils	63afaaed8aa819fdcb814c7cd39495a2	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=c6b7023a6248228b2513f89e80492862

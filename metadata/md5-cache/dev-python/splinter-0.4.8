@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install postinst postrm prepare setup test
+DEPEND=dev-python/setuptools || ( =dev-lang/python-2.7* =dev-lang/python-2.6* =dev-lang/python-2.5* )
+DESCRIPTION=browser abstraction for web acceptance testing
+EAPI=4
+HOMEPAGE=UNKNOWN
+KEYWORDS=~amd64
+RDEPEND=!<dev-python/lxml-2.4.0 >=dev-python/lxml-2.3.1 >=dev-python/selenium-2.25.0 dev-python/setuptools test? ( dev-python/coverage ) test? ( dev-python/flask ) || ( =dev-lang/python-2.7* =dev-lang/python-2.6* =dev-lang/python-2.5* )
+SLOT=0
+SRC_URI=http://pypi.python.org/packages/source/s/splinter/splinter-0.4.8.tar.gz
+_eclasses_=distutils	34e0f373c466bb0e97ba194735f1acf2	multilib	892e597faee02a5b94eb02ab512e7622	python	7aff825f110c83fa8c77f14ba3c71c47	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f
+_md5_=c4083d189e7056536e1e8f1367b4dff1

@@ -1,0 +1,8 @@
+DEFINED_PHASES=-
+DEPEND=dev-util/re2c dev-cpp/tbb virtual/mysql >=dev-libs/boost-1.37 dev-libs/expat >=dev-libs/icu-4.2 dev-libs/libdwarf dev-libs/libevent[hiphop] dev-libs/libmcrypt dev-libs/libmemcached dev-libs/libpcre dev-libs/libxml2 dev-libs/oniguruma dev-libs/openssl >=dev-util/cmake-2.6 media-libs/gd net-misc/curl[hiphop] net-libs/c-client sys-devel/flex >=sys-devel/gcc-4.3[cxx] sys-devel/bison sys-devel/binutils sys-libs/libcap sys-libs/libunwind sys-libs/zlib
+DESCRIPTION=Hiphop, converts php into c++
+EAPI=3
+KEYWORDS=~amd64
+RDEPEND=dev-util/re2c dev-cpp/tbb virtual/mysql >=dev-libs/boost-1.37 dev-libs/expat >=dev-libs/icu-4.2 dev-libs/libdwarf dev-libs/libevent[hiphop] dev-libs/libmcrypt dev-libs/libmemcached dev-libs/libpcre dev-libs/libxml2 dev-libs/oniguruma dev-libs/openssl >=dev-util/cmake-2.6 media-libs/gd net-misc/curl[hiphop] net-libs/c-client sys-devel/flex >=sys-devel/gcc-4.3[cxx] sys-devel/bison sys-devel/binutils sys-libs/libcap sys-libs/libunwind sys-libs/zlib
+SLOT=0
+_md5_=34499d78a601be6ccae9c695a6791857

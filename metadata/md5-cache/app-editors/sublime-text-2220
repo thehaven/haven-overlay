@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=Sublime Text is a sophisticated text editor for code, html and prose
+EAPI=4
+HOMEPAGE=http://www.sublimetext.com
+KEYWORDS=~amd64 ~x86
+LICENSE=Sublime
+RDEPEND=media-libs/libpng:1.2 >=x11-libs/gtk+-2.24.8-r1:2
+RESTRICT=mirror
+SLOT=0
+SRC_URI=amd64? ( http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202%20Build%202220%20x64.tar.bz2 ) x86? ( http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202%20Build%202220.tar.bz2 )
+_eclasses_=eutils	63afaaed8aa819fdcb814c7cd39495a2	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=0e727a9db8f1e6599a777c0dfd2482ef

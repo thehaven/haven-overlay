@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile configure install postinst unpack
+DEPEND=>=sys-devel/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3 dev-vcs/git
+DESCRIPTION=The experimental SPDY protocol version 2 and 3 implementation in C
+EAPI=4
+HOMEPAGE=http://spdylay.sourceforge.net/
+KEYWORDS=~amd64
+RDEPEND=>=sys-devel/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3
+SLOT=0
+_eclasses_=git-2	e92e09651292b1bef5656592364550f7
+_md5_=5fe90f1a22b3e95f0f8b0952e6bda0ea
