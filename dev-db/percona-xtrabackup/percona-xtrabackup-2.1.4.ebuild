@@ -15,19 +15,20 @@ SRC_URI="http://www.percona.com/redir/downloads/XtraBackup/XtraBackup-${PV}/sour
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="mysql51 mysql51plugin +mysql55 percona51 percona55"
+IUSE="mysql51 mysql51plugin mysql55 percona51 percona55 percona56"
 
 DEPEND="dev-util/cmake
 	dev-libs/libaio
 	mysql51? ( sys-devel/automake:1.10 )
 	mysql51plugin? ( sys-devel/automake:1.10 )
 	percona51? ( sys-devel/automake:1.10 dev-vcs/bzr )
-	percona55? ( dev-vcs/bzr )"
+	percona55? ( dev-vcs/bzr )
+	percona56? ( dev-vcs/bzr )"
 
 S="${WORKDIR}/${MY_PV}"
 
 pkg_setup() {
-  if ! ( use mysql51 || use mysql51plugin || use mysql55 || use percona51 || use percona55 ); then
+  if ! ( use mysql51 || use mysql51plugin || use mysql55 || use percona51 || use percona55 || use percona56 ); then
     die "Please select a target!"
   fi
 
@@ -58,6 +59,10 @@ src_compile() {
 	AUTO_DOWNLOAD="yes" ${S}/utils/build.sh xtradb55
   fi
 
+  if use percona56; then
+    AUTO_DOWNLOAD="yes" ${S}/utils/build.sh xtradb56
+  fi
+
 }
 
 src_install() {	
@@ -83,6 +88,10 @@ src_install() {
 	  dobin src/xtrabackup_55
 	fi
 	
+    if use percona56; then
+      dobin src/xtrabackup_56
+    fi
+
 	doman doc/xtrabackup.1
 }
 
@@ -92,5 +101,6 @@ pkg_postinst() {
 	elog "for MySQL 5.1 (plugin): xtrabackup_plugin"
 	elog "for MySQL 5.5: xtrabackup_innodb55" 
 	elog "for Percona XtraDB 5.1: xtrabackup" 
-	elog "for Percona XtraDB 5.5: xtrabackup_55" 
+	elog "for Percona XtraDB 5.5: xtrabackup_55"
+	elog "for Percona XtraDB 5.6: xtrabackup_56"
 }

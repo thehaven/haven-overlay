@@ -113,15 +113,11 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
-	find "${ED}" -name '*.la' -exec rm -f {} +
-	rm -rf "${ED}"/etc/
+        default
+        find "${ED}" -name '*.la' -delete
+        rm -rf "${ED}"/etc/
 
-	# https://sourceforge.net/tracker/index.php?func=detail&aid=1705197&group_id=976&atid=350976
-	insinto /usr/share/aclocal
-	doins docs/libcurl/libcurl.m4
-
-	dodoc CHANGES README
-	dodoc docs/FEATURES docs/INTERNALS
-	dodoc docs/MANUAL docs/FAQ docs/BUGS docs/CONTRIBUTE
+        # https://sourceforge.net/tracker/index.php?func=detail&aid=1705197&group_id=976&atid=350976
+        insinto /usr/share/aclocal
+        doins docs/libcurl/libcurl.m4
 }
