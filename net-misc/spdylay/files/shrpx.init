@@ -15,9 +15,9 @@ start() {
 	start-stop-daemon --start \
 	  --exec /usr/bin/shrpx -- --pid-file=${pidfile} ${SHRPX_CONF}
 
-    	# Incement pid by one
-    	newpid=`awk '{ printf "%d", $1+1 }' < ${pidfile}`
-    	echo ${newpid} > ${pidfile}
+    	# Incement pid by one (not needed currently as upstream fixed)
+    	#newpid=`awk '{ printf "%d", $1+1 }' < ${pidfile}`
+    	#echo ${newpid} > ${pidfile}
 
 }
 
