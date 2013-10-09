@@ -1,0 +1,42 @@
+diff --git a/sys-fs/zfs/metadata.xml b/sys-fs/zfs/metadata.xml
+index 767507c..1f87148 100644
+--- a/sys-fs/zfs/metadata.xml
++++ b/sys-fs/zfs/metadata.xml
+@@ -6,6 +6,7 @@
+ 		<name>Richard Yao</name>
+ 	</maintainer>
+ 	<use>
++		<flag name="dracut">Install Dracut initramfs module</flag>
+ 		<flag name="kernel-builtin">Disable dependency on sys-fs/zfs-kmod under the assumption that ZFS is part of the kernel source tree</flag>
+ 		<flag name="rootfs">Enable dependencies required for booting off a pool containing a rootfs</flag>
+ 		<flag name="test-suite">Install regression test suite</flag>
+diff --git a/sys-fs/zfs/zfs-0.6.2-r1.ebuild b/sys-fs/zfs/zfs-0.6.2-r1.ebuild
+index f3ac208..a750f6f 100644
+--- a/sys-fs/zfs/zfs-0.6.2-r1.ebuild
++++ b/sys-fs/zfs/zfs-0.6.2-r1.ebuild
+@@ -26,7 +26,7 @@ HOMEPAGE="http://zfsonlinux.org/"
+ 
+ LICENSE="BSD-2 CDDL MIT"
+ SLOT="0"
+-IUSE="bash-completion custom-cflags kernel-builtin +rootfs selinux test-suite static-libs"
++IUSE="bash-completion custom-cflags dracut kernel-builtin +rootfs selinux test-suite static-libs"
+ RESTRICT="test"
+ 
+ COMMON_DEPEND="
+@@ -58,6 +58,7 @@ RDEPEND="${COMMON_DEPEND}
+ 		app-misc/pax-utils
+ 		!<sys-boot/grub-2.00-r2:2
+ 		)
++	dracut? ( sys-kernel/dracut )
+ "
+ 
+ pkg_setup() {
+@@ -116,7 +117,7 @@ src_configure() {
+ src_install() {
+ 	autotools-utils_src_install
+ 	gen_usr_ldscript -a uutil nvpair zpool zfs
+-	rm -rf "${ED}usr/lib/dracut"
++	use dracut || rm -rf "${ED}usr/lib/dracut"
+ 	use test-suite || rm -rf "${ED}usr/share/zfs"
+ 
+ 	use bash-completion && newbashcomp "${FILESDIR}/bash-completion" zfs

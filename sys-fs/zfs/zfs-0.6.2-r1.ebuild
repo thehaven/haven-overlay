@@ -30,7 +30,7 @@ HOMEPAGE="http://zfsonlinux.org/"
 
 LICENSE="BSD-2 CDDL MIT"
 SLOT="0"
-IUSE="bash-completion custom-cflags kernel-builtin +rootfs selinux test-suite static-libs"
+IUSE="bash-completion custom-cflags dracut kernel-builtin +rootfs selinux test-suite static-libs"
 RESTRICT="test"
 
 COMMON_DEPEND="
@@ -62,6 +62,7 @@ RDEPEND="${COMMON_DEPEND}
 		app-misc/pax-utils
 		!<sys-boot/grub-2.00-r2:2
 		)
+	dracut? ( sys-kernel/dracut )
 "
 
 pkg_setup() {
@@ -97,6 +98,10 @@ src_configure() {
 		--with-udevdir="$(udev_get_udevdir)"
 		--with-blkid
 		$(use_with selinux)
+        if use dracut
+        then
+          --with-dracutdir="/usr/lib/dracut/modules.d/"
+        fi
 	)
 	autotools-utils_src_configure
 
@@ -114,7 +119,7 @@ src_configure() {
 src_install() {
 	autotools-utils_src_install
 	gen_usr_ldscript -a uutil nvpair zpool zfs
-	rm -rf "${ED}usr/lib/dracut"
+	use dracut || rm -rf "${ED}usr/lib/dracut"
 	use test-suite || rm -rf "${ED}usr/share/zfs"
 
 	use bash-completion && newbashcomp "${FILESDIR}/bash-completion" zfs
