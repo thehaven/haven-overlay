@@ -88,10 +88,6 @@ src_configure() {
 		--with-linux-obj="${KV_OUT_DIR}"
 		--with-udevdir="$(udev_get_udevdir)"
 		$(use_with selinux)
-		if use dracut
-		then
-		  --with-dracutdir="/usr/lib/dracut/modules.d/"
-		fi
 	)
 	autotools-utils_src_configure
 

@@ -98,11 +98,7 @@ src_configure() {
 		--with-udevdir="$(udev_get_udevdir)"
 		--with-blkid
 		$(use_with selinux)
-        if use dracut
-        then
-          --with-dracutdir="/usr/lib/dracut/modules.d/"
-        fi
-	)
+		)
 	autotools-utils_src_configure
 
 	# prepare systemd unit and helper script
