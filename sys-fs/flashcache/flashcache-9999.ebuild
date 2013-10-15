@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit eutils git linux-mod
+inherit eutils git-2 linux-mod
 
 EGIT_REPO_URI="git://github.com/facebook/flashcache.git"
 KEYWORDS="~amd64 ~x86"
