@@ -21,7 +21,7 @@ RDEPEND="dev-vcs/git"
 DEPEND="${RDEPEND}"
 
 src_unpack() {
-   git_src_unpack
+   git-2_src_unpack
    cd "${S}"
 #   epatch ${FILESDIR}/flashcache-2.6.36-rw_barrier.patch  
 }
