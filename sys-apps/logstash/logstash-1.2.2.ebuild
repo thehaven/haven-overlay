@@ -8,8 +8,9 @@ inherit eutils
 
 DESCRIPTION="a tool for managing events and logs."
 HOMEPAGE="http://logstash.net/"
-DIST="monolithic"
-#DIST="flatjar"
+#DIST="monolithic"
+DIST="flatjar"
+#SRC_URI="https://download.elasticsearch.org/logstash/logstash/${P}-${DIST}.jar"
 SRC_URI="https://logstash.objects.dreamhost.com/release/${P}-${DIST}.jar"
 LICENSE="Apache-2.0"
 
