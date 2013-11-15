@@ -178,7 +178,8 @@ NGINX_MODULES_3RD="
 	http_echo
 	http_security
 	http_push_stream
-	http_ngx_pagespeed"
+	http_ngx_pagespeed
+	http_redislog"
 
 IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl userland_GNU vim-syntax"
 
@@ -317,11 +318,17 @@ src_configure() {
 		fi
 	done
 
-       if use nginx_modules_http_ngx_pagespeed; then
-           mv ${WORKDIR}/psol ${NGX_PAGESPEED_MODULE_WD}/
+    if use nginx_modules_http_ngx_pagespeed; then
+    	mv ${WORKDIR}/psol ${NGX_PAGESPEED_MODULE_WD}/
         cd ${WORKDIR}; epatch "${FILESDIR}/${P}-fix-syslog-pagespeed.patch"; cd ${S}
-               myconf+="${myconf} --add-module=${NGX_PAGESPEED_MODULE_WD}"
+        myconf+="${myconf} --add-module=${NGX_PAGESPEED_MODULE_WD}"
     fi
+
+	# redislog ( http://www.binpress.com/app/nginx-redislog-module/ )
+	if use nginx_modules_http_redislog; then
+		unzip -d ${WORKDIR} ${FILESDIR}/nginx-redislog-module-1.0.2.zip
+		myconf+=" --add-module=${WORKDIR}/nginx-redislog-module"	
+	fi
 
 	if use nginx_modules_http_fastcgi; then
 		myconf+=" --with-http_realip_module"
