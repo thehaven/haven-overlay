@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/mysql/mysql-5.5.ebuild,v 1.6 2012/12/05 11:24:27 grobian Exp $
 
-EAPI="2"
+EAPI="5"
 
 DESCRIPTION="Virtual for MySQL client or database"
 HOMEPAGE=""
