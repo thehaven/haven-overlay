@@ -24,9 +24,10 @@ MY_PV="${MY_P}.${MY_POINT}-${MY_STABLE}${MY_PATCH}"
 MY_PN="Percona-Server-${MY_PV}.Linux.x86_64"
 MY_S="Percona-Server-${MY_PV}"
 
-SRC_URI="amd64? (
-http://www.percona.com/redir/downloads/Percona-Server-${MY_P}/Percona-Server-${MY_PV}/release-${MY_PS}/${REVISION}/source/Percona-Server-${MY_PV}.tar.gz )
-"
+# http://www.percona.com/redir/downloads/Percona-Server-5.6/Percona-Server-5.6.14-rel62.0/source/Percona-Server-5.6.14-rel62.0.tar.gz
+
+#SRC_URI="amd64? ( http://www.percona.com/redir/downloads/Percona-Server-${MY_P}/Percona-Server-${MY_PV}/release-${MY_PS}/${REVISION}/source/Percona-Server-${MY_PV}.tar.gz )"
+SRC_URI="amd64? ( http://www.percona.com/redir/downloads/Percona-Server-${MY_P}/Percona-Server-${MY_PV}/source/Percona-Server-${MY_PV}.tar.gz )"
 
 LICENSE="GPL"
 SLOT="0"
