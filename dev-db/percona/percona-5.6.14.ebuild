@@ -37,6 +37,7 @@ IUSE="embedded test"
 DEPEND="!dev-db/mysql
 		!dev-db/mariadb"
 RDEPEND="${DEPEND}
+		dev-db/mysql-init-scripts
 		dev-libs/libaio
 		>=sys-apps/openrc-0.7.0
 		"
