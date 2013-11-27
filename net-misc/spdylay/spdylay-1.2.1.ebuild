@@ -9,10 +9,11 @@ inherit git-2
 DESCRIPTION="The experimental SPDY protocol version 2 and 3 implementation in C"
 HOMEPAGE="http://spdylay.sourceforge.net/"
 EGIT_REPO_URI="git://github.com/tatsuhiro-t/spdylay.git"
+EGIT_COMMIT="v${PV}"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="amd64"
 IUSE=""
 
 DEPEND="
