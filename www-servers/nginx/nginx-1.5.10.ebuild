@@ -1,6 +1,5 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-servers/nginx/nginx-1.5.6.ebuild,v 1.1 2013/10/24 06:41:17 dev-zero Exp $
 
 EAPI="5"
 
@@ -18,12 +17,12 @@ EAPI="5"
 GENTOO_DEPEND_ON_PERL="no"
 
 # ngx_pagespeed (https://github.com/pagespeed/ngx_pagespeed, Apache 2 license)
-NGX_PAGESPEED_MODULE_PV="1.7.30.1-beta"
+NGX_PAGESPEED_MODULE_PV="1.7.30.3-beta"
 NGX_PAGESPEED_MODULE_P="ngx_pagespeed"
 NGX_PAGESPEED_MODULE_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-master
 # psol required for pagespeed
 NGX_PAGESPEED_PSOL_P="ngx_pagespeed_psol"
-NGX_PAGESPEED_PSOL_PV="1.7.30.1"
+NGX_PAGESPEED_PSOL_PV="1.7.30.3"
 NGX_PAGESPEED_PSOL_URI="https://dl.google.com/dl/page-speed/psol/${NGX_PAGESPEED_PSOL_PV}.tar.gz"
 NGX_PAGESPEED_PSOL_WD=${WORKDIR}/${NGX_PAGESPEED_MODULE_P}-${NGX_PAGESPEED_MODULE_PV}
 
@@ -40,7 +39,7 @@ HTTP_UPLOAD_PROGRESS_MODULE_URI="https://github.com/masterzen/nginx-upload-progr
 HTTP_UPLOAD_PROGRESS_MODULE_WD="${WORKDIR}/nginx-upload-progress-module-${HTTP_UPLOAD_PROGRESS_MODULE_PV}"
 
 # http_headers_more (http://github.com/agentzh/headers-more-nginx-module, BSD license)
-HTTP_HEADERS_MORE_MODULE_PV="0.23"
+HTTP_HEADERS_MORE_MODULE_PV="0.25"
 HTTP_HEADERS_MORE_MODULE_P="ngx_http_headers_more-${HTTP_HEADERS_MORE_MODULE_PV}-r1"
 HTTP_HEADERS_MORE_MODULE_URI="https://github.com/agentzh/headers-more-nginx-module/archive/v${HTTP_HEADERS_MORE_MODULE_PV}.tar.gz"
 HTTP_HEADERS_MORE_MODULE_WD="${WORKDIR}/headers-more-nginx-module-${HTTP_HEADERS_MORE_MODULE_PV}"
@@ -57,14 +56,14 @@ HTTP_SLOWFS_CACHE_MODULE_P="ngx_http_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}
 HTTP_SLOWFS_CACHE_MODULE_URI="http://labs.frickle.com/files/ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}.tar.gz"
 HTTP_SLOWFS_CACHE_MODULE_WD="${WORKDIR}/ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
-# http_fancyindex (http://wiki.nginx.org/NgxFancyIndex, BSD license)
+# http_fancyindex (https://github.com/aperezdc/ngx-fancyindex, BSD license)
 HTTP_FANCYINDEX_MODULE_PV="0.3.3"
 HTTP_FANCYINDEX_MODULE_P="ngx_http_fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v${HTTP_FANCYINDEX_MODULE_PV}.tar.gz"
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/chaoslawful/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.9.2"
+HTTP_LUA_MODULE_PV="0.9.5rc2"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/chaoslawful/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -94,26 +93,26 @@ HTTP_NAXSI_MODULE_URI="https://github.com/nbs-system/naxsi/archive/${HTTP_NAXSI_
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
 
 # nginx-rtmp-module (http://github.com/arut/nginx-rtmp-module, BSD license)
-RTMP_MODULE_PV="1.0.6"
+RTMP_MODULE_PV="1.1.2"
 RTMP_MODULE_P="ngx_rtmp-${RTMP_MODULE_PV}"
 RTMP_MODULE_URI="http://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
 
 # nginx-dav-ext-module (http://github.com/arut/nginx-dav-ext-module, BSD license)
-HTTP_DAV_EXT_MODULE_PV="0.0.2"
+HTTP_DAV_EXT_MODULE_PV="0.0.3"
 HTTP_DAV_EXT_MODULE_P="ngx_http_dav_ext-${HTTP_DAV_EXT_MODULE_PV}"
 HTTP_DAV_EXT_MODULE_URI="http://github.com/arut/nginx-dav-ext-module/archive/v${HTTP_DAV_EXT_MODULE_PV}.tar.gz"
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
 
 # echo-nginx-module (https://github.com/agentzh/echo-nginx-module, BSD license)
-HTTP_ECHO_MODULE_PV="0.49"
+HTTP_ECHO_MODULE_PV="0.51"
 HTTP_ECHO_MODULE_P="ngx_http_echo-${HTTP_ECHO_MODULE_PV}"
 HTTP_ECHO_MODULE_URI="https://github.com/agentzh/echo-nginx-module/archive/v${HTTP_ECHO_MODULE_PV}.tar.gz"
 HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
 
 # mod_security for nginx (https://modsecurity.org/, Apache-2.0)
 # keep the MODULE_P here consistent with upstream to avoid tarball duplication
-HTTP_SECURITY_MODULE_PV="2.7.5"
+HTTP_SECURITY_MODULE_PV="2.7.7"
 HTTP_SECURITY_MODULE_P="modsecurity-apache_${HTTP_SECURITY_MODULE_PV}"
 HTTP_SECURITY_MODULE_URI="https://www.modsecurity.org/tarball/${HTTP_SECURITY_MODULE_PV}/${HTTP_SECURITY_MODULE_P}.tar.gz"
 HTTP_SECURITY_MODULE_WD="${WORKDIR}/${HTTP_SECURITY_MODULE_P}"
@@ -266,7 +265,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 
 	if use nginx_modules_http_upstream_check; then
-		epatch "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.2.6+.patch
+		#epatch "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.2.6+.patch
+		epatch "${FILESDIR}"/upstream-check-1.5.8.patch
 	fi
 
 	if use nginx_modules_http_security; then
@@ -567,7 +567,7 @@ src_install() {
 
 	if use rtmp; then
 		docinto ${RTMP_MODULE_P}
-		dodoc "${RTMP_MODULE_WD}"/{AUTHORS,README.md,TODO,stat.xsl}
+		dodoc "${RTMP_MODULE_WD}"/{AUTHORS,README.md,stat.xsl}
 	fi
 
 	if use nginx_modules_http_dav_ext; then
@@ -577,7 +577,7 @@ src_install() {
 
 	if use nginx_modules_http_echo; then
 		docinto ${HTTP_ECHO_MODULE_P}
-		dodoc "${HTTP_ECHO_MODULE_WD}"/{README,README.markdown,doc/HttpEchoModule.wiki}
+		dodoc "${HTTP_ECHO_MODULE_WD}"/{README.markdown,doc/HttpEchoModule.wiki}
 	fi
 
 	if use nginx_modules_http_security; then
