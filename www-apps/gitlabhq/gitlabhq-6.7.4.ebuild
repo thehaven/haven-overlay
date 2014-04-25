@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,17 +17,17 @@ USE_RUBY="ruby19"
 PYTHON_DEPEND="2:2.5"
 
 EGIT_REPO_URI="https://github.com/gitlabhq/gitlabhq.git"
-EGIT_COMMIT="708a0d421e42522c6f10ff272d40db36b2205d96" # 4-0-stable
+EGIT_COMMIT="v${PV}"
 
-inherit eutils git-2 python ruby-ng
+inherit eutils git-2 python ruby-ng versionator user
 
 DESCRIPTION="GitLab is a free project and repository management application"
 HOMEPAGE="https://github.com/gitlabhq/gitlabhq"
 
 LICENSE="MIT"
-SLOT="4.0"
+SLOT=$(get_version_component_range 1-2)
 KEYWORDS="~amd64 ~x86"
-IUSE="analytics memcached mysql +perf-patch +postgres public-projects +unicorn"
+IUSE="memcached mysql +postgres +unicorn"
 
 ## Gems dependencies:
 #   charlock_holmes		dev-libs/icu
@@ -52,7 +52,7 @@ GEMS_DEPEND="
 DEPEND="${GEMS_DEPEND}
 	$(ruby_implementation_depend ruby19 '=' -1.9.3*)[readline,ssl,yaml]
 	dev-vcs/git
-	dev-vcs/gitolite[gitlab(-)]
+	dev-vcs/gitlab-shell
 	net-misc/curl
 	virtual/ssh"
 RDEPEND="${DEPEND}
@@ -62,25 +62,24 @@ ruby_add_bdepend "
 	virtual/rubygems
 	>=dev-ruby/bundler-1.0"
 
-# Patches by Czech Technical University :)
-RUBY_PATCHES=(
-	"${P}-r1-fix-gemfile.patch"
-	"${P}-fix-checks-gentoo.patch"
-	"${P}-fix-passenger.patch"
-)
-use perf-patch && RUBY_PATCHES+=( "${P}-performance.patch" )
-use public-projects && RUBY_PATCHES+=( "${P}-public-projects.patch" )
-use postgres && RUBY_PATCHES+=( "${P}-fix-wiki-pg.patch" )
-use analytics && RUBY_PATCHES+=( "${P}-google-analytics.patch" )
+#RUBY_PATCHES=(
+#	"${P}-fix-checks-gentoo.patch"
+#)
 
-MY_NAME="gitlab"
-MY_USER="gitlab"
-DEST_DIR="/opt/${MY_NAME}-${SLOT}"
-CONF_DIR="/etc/${MY_NAME}-${SLOT}"
+GIT_USER="git"
+GIT_GROUP="git"
+GIT_HOME=$(getent passwd $GIT_USER  | cut -d: -f6)
+DEST_DIR="/opt/${PN}-${SLOT}"
+CONF_DIR="/etc/${PN}-${SLOT}"
+
+GIT_REPOS="${GIT_HOME}/repositories"
+GIT_SATELLITES="${GIT_HOME}/gitlab-satellites"
+GITLAB_SHELL="/var/lib/gitlab-shell"
+GITLAB_SHELL_HOOKS="${GITLAB_SHELL}/hooks"
 
 pkg_setup() {
-    enewgroup ${MY_USER}
-    enewuser ${MY_USER} -1 /bin/bash ${DEST_DIR} "${MY_USER}"
+    enewgroup ${GIT_GROUP}
+    enewuser ${GIT_USER} -1 -1 ${DEST_DIR} "$GIT_GROUP}"
 }
 
 all_ruby_unpack() {
@@ -88,14 +87,16 @@ all_ruby_unpack() {
 }
 
 each_ruby_prepare() {
+	
+	# fix path to repo and gitlab-shell hooks
+	test -d "${GITLAB_SHELL_HOOKS}" || die "Gitlab Shell hooks directory not found: \"${GITLAB_SHELL_HOOKS}. Have you properly installed dev-vcs/gitlab-shell"?
 
-	# fix Gitolite paths
-	local gitolite_repos=/var/lib/gitolite/repositories
-	local gitolite_hooks=/var/lib/gitolite/.gitolite/hooks
 	sed -i \
-		-e "s|\(\s*repos_path:\s\)/home/git.*|\1${gitolite_repos}/|" \
-		-e "s|\(\s*hooks_path:\s\)/home/git.*|\1${gitolite_hooks}/|" \
-		config/gitlab.yml.example || die "failed to filter gitolite.yml.example"
+		-e "s|\(\s*repos_path:\s\)/.*|\1 ${GIT_REPOS}/|" \
+		-e "s|\(\s*hooks_path:\s\)/.*|\1 ${GITLAB_SHELL_HOOKS}/|" \
+		-e "s|\(\s*path:\s\)/.*/gitlab-satellites/|\1 ${GIT_SATELLITES}/|" \
+		-e "s|\(\s*GITLAB_SHELL:\s*\)|\1\n\tpath: \"${GITLAB_SHELL}\"|" \
+		config/gitlab.yml.example || die "failed to filter gitlab.yml.example"
 	
 	# modify database settings
 	sed -i \
@@ -112,15 +113,11 @@ each_ruby_prepare() {
 		|| die "failed to filter secret_token.rb"
 	
 	# remove needless files
-	rm -r .git
+	#rm -r .git Satisfy gitlab::check.
 	rm .foreman .gitignore Procfile .travis.yml
 	use unicorn || rm config/unicorn.rb.example
 	use postgres || rm config/database.yml.postgresql
 	use mysql || rm config/database.yml.mysql
-
-	# remove zzet's stupid migration which expetcs that users are so foolish 
-	# to use PostgreSQL's superuser in database.yml...
-	rm db/migrate/20121009205010_postgres_create_integer_cast.rb
 
 	# remove dependency on therubyracer and libv8 (we're using nodejs instead)
 	local tfile; for tfile in Gemfile{,.lock}; do
@@ -143,13 +140,22 @@ each_ruby_prepare() {
 			config/environments/production.rb \
 			|| die "failed to modify production.rb"
 	fi
+
+	# Update pathes for unicorn
+	if use unicorn; then
+		sed -i \
+			-e "s#/home/git/gitlab#${DEST_DIR}#" \
+			config/unicorn.rb.example \
+			|| die "failed to modify unicorn.rb.example"
+	fi
 }
 
 each_ruby_install() {
-	local dest=${DEST_DIR}
-	local conf=/etc/${MY_NAME}-${SLOT}
-	local temp=/var/tmp/${MY_NAME}-${SLOT}
-	local logs=/var/log/${MY_NAME}-${SLOT}
+	local dest="${DEST_DIR}"
+	local conf="/etc/${PN}-${SLOT}"
+	local temp="/var/tmp/${PN}-${SLOT}"
+	local logs="/var/log/${PN}-${SLOT}"
+	local uploads="${DEST_DIR}/public/uploads"
 
 	## Prepare directories ##
 
@@ -160,10 +166,14 @@ each_ruby_install() {
 	diropts -m755
 	keepdir "${conf}"
 	dodir "${dest}" 
+	dodir "${uploads}"
 
 	dosym "${temp}" "${dest}/tmp"
 	dosym "${logs}" "${dest}/log"
 
+	## Link gitlab-shell into git home
+	dosym "${GITLAB_SHELL}" "${GIT_HOME}/gitlab-shell"
+	
 	## Install configs ##
 
 	insinto "${conf}"
@@ -187,7 +197,7 @@ each_ruby_install() {
 
 	dodir /etc/logrotate.d
 	sed -e "s|@LOG_DIR@|${logs}|" \
-		"${FILESDIR}"/gitlab.logrotate > "${D}"/etc/logrotate.d/${MY_NAME}-${SLOT} \
+		"${FILESDIR}"/gitlab.logrotate > "${D}"/etc/logrotate.d/${PN}-${SLOT} \
 		|| die "failed to filter gitlab.logrotate"
 
 	## Install gems via bundler ##
@@ -200,6 +210,10 @@ each_ruby_install() {
 	done
 	local bundle_args="--deployment ${without:+--without ${without}}"
 
+	# Fix invalid ldflags for charlock_holmes, 
+	# see https://github.com/brianmario/charlock_holmes/issues/32
+	${RUBY} /usr/bin/bundle config build.charlock_holmes --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -rdynamic -Wl,-export-dynamic -Wl,--no-undefined -lz -licuuc'
+
 	einfo "Running bundle install ${bundle_args} ..."
 	${RUBY} /usr/bin/bundle install ${bundle_args} || die "bundler failed"
 
@@ -211,22 +225,19 @@ each_ruby_install() {
 	rm -Rf ${gemsdir}/cache
 
 	# fix permissions
-	fowners -R ${MY_USER}:${MY_USER} "${dest}" "${conf}" "${temp}" "${logs}"
-	fperms +x script/rails resque{,_dev}.sh
+	fowners -R ${GIT_USER}:${GIT_GROUP} "${dest}" "${conf}" "${temp}" "${logs}"
+	fperms +x script/rails
+	fperms o+Xr "${temp}" # Let nginx access the unicorn socket
 
 	## RC scripts ##
-
-	local resque_queue="$(sed -ne 's/^.*QUEUE=\([^ ]*\) .*$/\1/p' resque.sh)"
-
-	local rcscript=gitlab-support.init
-	use unicorn && rcscript=gitlab-unicorn.init
+	local rcscript=${P}.init
 
 	cp "${FILESDIR}/${rcscript}" "${T}" || die
 	sed -i \
-		-e "s|@USER@|${MY_USER}|" \
-		-e "s|@GROUP@|${MY_USER}|" \
+		-e "s|@GIT_USER@|${GIT_USER}|" \
+		-e "s|@GIT_GROUP@|${GIT_USER}|" \
 		-e "s|@SLOT@|${SLOT}|" \
-		-e "s|@GITLAB_HOME@|${dest}|" \
+		-e "s|@DEST_DIR@|${dest}|" \
 		-e "s|@LOG_DIR@|${logs}|" \
 		-e "s|@RESQUE_QUEUE@|${resque_queue}|" \
 		"${T}/${rcscript}" \
@@ -237,19 +248,20 @@ each_ruby_install() {
 		"${T}/${rcscript}" || die "failed to filter ${rcscript}"
 	fi
 
-	newinitd "${T}/${rcscript}" "${MY_NAME}-${SLOT}"
+	newinitd "${T}/${rcscript}" "${PN}-${SLOT}"
 }
 
 pkg_postinst() {
-	if [ ! -e "${DEST_DIR}/.ssh/id_rsa" ]; then
-		einfo "Generating SSH key for gitlab"
-		su -l ${MY_USER} -c "
-			ssh-keygen -q -N '' -t rsa -f ${DEST_DIR}/.ssh/id_rsa" \
+	if [ ! -e "${GIT_HOME}/.ssh/id_rsa" ]; then
+		einfo "Generating SSH key for git user"
+		su -l ${GIT_USER} -s /bin/sh -c "
+			ssh-keygen -q -N '' -t rsa -f ${GIT_HOME}/.ssh/id_rsa" \
 			|| die "failed to generate SSH key"
 	fi
-	if [ ! -e "${DEST_DIR}/.gitconfig" ]; then
-		einfo "Setting git user"
-		su -l ${MY_USER} -c "
+	if [ ! -e "${GIT_HOME}/.gitconfig" ]; then
+		einfo "Setting git user in ${GIT_HOME}/.gitconfig, feel free to "
+		einfo "modify this file according to your needs!"
+		su -l ${GIT_USER} -s /bin/sh -c "
 			git config --global user.email 'gitlab@localhost';
 			git config --global user.name 'GitLab'" \
 			|| die "failed to setup git name and email"
@@ -263,10 +275,10 @@ pkg_postinst() {
 	elog "   and edit this file in order to configure your database settings"
 	elog "   for \"production\" environment."
 	elog
-	elog "3. Then you should create database for your GitLab instance."
+	elog "3. If this is a new installation, you should create database for your GitLab instance."
 	elog
 	if use postgres; then
-        elog   "If you have local PostgreSQL running, just copy&run:"
+        elog "  If you have local PostgreSQL running, just copy&run:"
         elog "      su postgres"
         elog "      psql -c \"CREATE ROLE gitlab PASSWORD 'gitlab' \\"
         elog "          NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;\""
@@ -279,7 +291,7 @@ pkg_postinst() {
 		elog "      CREATE CAST (integer AS text) WITH INOUT AS IMPLICIT;"
 		elog
 	fi
-	elog "4. Finally execute the following command to initlize environment:"
+	elog "4. Finally execute the following command to initlize or update the environment:"
 	elog "       emerge --config \"=${CATEGORY}/${PF}\""
 	elog "   Note: Do not forget to start Redis server."
 	elog
@@ -303,80 +315,61 @@ pkg_config() {
 		die
 	fi
 
-	# read Gitolite base and hooks path from gitlab.yml
-	local repos_path="$(sed -n \
-		-e '/^gitolite:/,/^\w:/s/\s*repos_path:\s*\(.*\)\s*$/\1/p' \
-		"${CONF_DIR}/gitlab.yml")"
-	local hooks_path="$(sed -n \
-		-e '/^gitolite:/,/^\w:/s/\s*hooks_path:\s*\(.*\)\s*$/\1/p' \
-		"${CONF_DIR}/gitlab.yml")"
-	local ssh_user="$(sed -n \
-		-e '/^gitolite:/,/^\w:/s/\s*ssh_user:\s*\(.*\)\s*$/\1/p' \
-		"${CONF_DIR}/gitlab.yml")"
-	
-	if [ -z "${hooks_path}" ] || [ -z "${repos_path}" ] || [ -z "${ssh_user}" ]; then
-		eerror "Could not find repos_path, hooks_path or ssh_user in your gitlab.yml"
-		die
-	fi
-
-	# check if Gitolite's repos_path is in its home
-	local git_home=$(getent passwd ${ssh_user} | cut -d: -f6)
-	if [ ! "$(dirname "${repos_path}")" -ef "${git_home}" ]; then
-		eerror "Gitolite's repos_path from gitlab.yml is not in the HOME of"
-		eerror "${ssh_user} user in passwd"; die
-	fi
-
-	# add git to gitlab group
-	usermod -a -G ${ssh_user} ${MY_USER} \
-		|| "failed to add ${ssh_user} to ${MY_USER} group"
-
-
-	## Initialize Gitolite ##
-
-	# if Gitolite is not initialized yet
-	if [ ! -d "${repos_path}" ]; then
-		# copy GitLab's SSH key
-		cp "${DEST_DIR}/.ssh/id_rsa.pub" "${git_home}/gitlab.pub" \
-			|| die "failed to copy GitLab's SSH key to ${git_home}"
-
-		einfo "Initializing Gitolite"
-		su -l ${ssh_user} -c "
-			gitolite setup -pk ${git_home}/gitlab.pub" \
-			|| die "failed to initialize Gitolite"
-
-		rm "${git_home}/gitlab.pub"
-	fi
-	chmod -R ug+rwXs,o-rwx "${repos_path}" \
-		|| die "failed to change permissions on ${repos_path}"
-	chmod 750 "${repos_path}"/.gitolite \
-		|| die "failed to change permissions on ${repos_path}/.gitolite"
-
-	# copy git hook
-	einfo "Copying git hook to ${hooks_path}"
-	hooks_path+=/common
-	cp ${DEST_DIR}/lib/hooks/post-receive "${hooks_path}" \
-		|| die "failed to copy hook to ${hooks_path}"
-	chown ${ssh_user}:${ssh_user} "${hooks_path}/post-receive" || die "failed to change perms"
-	chmod 750 "${hooks_path}/post-receive" || die "failed to change perms"
-
-
 	## Initialize app ##
 
 	local RAILS_ENV=${RAILS_ENV:-production}
 	local RUBY=${RUBY:-ruby19}
 	local BUNDLE="${RUBY} /usr/bin/bundle"
 
-	einfo "Initializing database ..."
-	su -l ${MY_USER} -c "
-		export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
-		cd ${DEST_DIR}
-		${BUNDLE} exec rake gitlab:app:setup RAILS_ENV=${RAILS_ENV}" \
-		|| die "failed to run rake gitlab:app:setup"
-	
-	einfo "Precompiling assests ..."
-	su -l ${MY_USER} -c "
-		export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
-		cd ${DEST_DIR}
-		${BUNDLE} exec rake assets:precompile:all RAILS_ENV=${RAILS_ENV}" \
-		|| die "failed to precompile assets"
+	# Ask user whether this is the first installation
+	einfon "Do you want to upgrade an existing installation? [Y|n] "
+	do_upgrade=""
+	while true
+	do
+		read -r do_upgrade
+		if [[ $do_upgrade == "n" || $do_upgrade == "N" ]] ; then do_upgrade="" && break
+		elif [[ $do_upgrade == "y" || $do_upgrade == "Y" || $do_upgrade == "" ]] ; then do_upgrade=1 && break
+		else eerrorn "Please type either \"Y\" or \"N\" ... " ; fi
+	done
+
+	if [[ $do_upgrade ]] ; then
+
+        einfo "Migration database ..."
+        su -l ${GIT_USER} -s /bin/sh -c "
+            export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
+            cd ${DEST_DIR} 
+            ${BUNDLE} exec rake db:migrate RAILS_ENV=production
+            ${BUNDLE} exec rake gitlab:satellites:create RAILS_ENV=production" \
+            || die "failed to migrate database."
+
+        einfo "Clear redis cache ..."
+        su -l ${GIT_USER} -s /bin/sh -c "
+            export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
+            cd ${DEST_DIR}
+            ${BUNDLE} exec rake cache:clear RAILS_ENV=production" \
+            || die "failed to run cache:clear"
+
+        einfo "Clear and precompile assets ..."
+        su -l ${GIT_USER} -s /bin/sh -c "
+            export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
+            cd ${DEST_DIR}
+            ${BUNDLE} exec rake assets:clean RAILS_ENV=production
+            ${BUNDLE} exec rake assets:precompile RAILS_ENV=production" \
+            || die "failed to run assets:precompile"
+
+	else
+
+		einfo "Initializing database ..."
+		su -l ${GIT_USER} -s /bin/sh -c "
+			export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8
+			cd ${DEST_DIR}
+			${BUNDLE} exec rake gitlab:setup RAILS_ENV=${RAILS_ENV}" \
+				|| die "failed to run rake gitlab:setup"
+	fi
+
+	einfo "You might want to run the following in order to check your application status:"
+	einfo "# cd ${DEST_DIR}"
+	einfo "# ${BUNDLE} exec rake gitlab:check RAILS_ENV=production"
+	einfo ""
+	einfo "GitLab is prepared, now you should configure your web server."
 }
