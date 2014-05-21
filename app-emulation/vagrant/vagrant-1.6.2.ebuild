@@ -31,9 +31,11 @@ RDEPEND="${RDEPEND}
 
 ruby_add_rdepend "
     >=dev-ruby/bundler-1.5.2
+	>=dev-ruby/celluloid-0.15.2
 	>=dev-ruby/childprocess-0.5.0
 	>=dev-ruby/erubis-2.7.0
 	dev-ruby/i18n:0.6
+	>=dev-ruby/rb-kqueue-0.2.2
 	>=dev-ruby/listen-2.7.1
 	>=dev-ruby/log4r-1.1.9
 	>=dev-ruby/net-ssh-2.6.6

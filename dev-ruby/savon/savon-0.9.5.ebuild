@@ -21,5 +21,4 @@ ruby_add_rdepend "
 				  >=dev-ruby/rspec-2.5.0
 				  >=dev-ruby/mocha-0.9.8
 				  >=dev-ruby/timecop-0.3.5
-				  dev-ruby/autotest
 				  "
