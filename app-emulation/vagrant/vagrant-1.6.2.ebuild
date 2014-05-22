@@ -1,16 +1,16 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vagrant/vagrant-1.2.2-r1.ebuild,v 1.1 2013/07/08 00:01:28 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vagrant/vagrant-1.4.3-r2.ebuild,v 1.2 2014/04/02 16:20:56 vikraman Exp $
 
 EAPI="5"
-USE_RUBY="ruby19"
+USE_RUBY="ruby20"
 
 RUBY_FAKEGEM_EXTRADOC="CHANGELOG.md README.md"
 RUBY_FAKEGEM_GEMSPEC="vagrant.gemspec"
-RUBY_FAKEGEM_EXTRAINSTALL="config keys plugins templates"
+RUBY_FAKEGEM_EXTRAINSTALL="keys plugins templates"
 RUBY_FAKEGEM_TASK_DOC=""
 
-inherit ruby-fakegem eutils
+inherit ruby-fakegem ruby-ng
 
 DESCRIPTION="A tool for building and distributing virtual machines using VirtualBox"
 HOMEPAGE="http://vagrantup.com/"
@@ -25,17 +25,23 @@ IUSE="test"
 RESTRICT="test"
 
 RDEPEND="${RDEPEND}
+	app-arch/libarchive
 	net-misc/curl
 	!x64-macos? ( || ( app-emulation/virtualbox app-emulation/virtualbox-bin ) )"
 
 ruby_add_rdepend "
-	>=dev-ruby/childprocess-0.3.7
+    >=dev-ruby/bundler-1.5.2
+	>=dev-ruby/celluloid-0.15.2
+	>=dev-ruby/childprocess-0.5.0
 	>=dev-ruby/erubis-2.7.0
 	dev-ruby/i18n:0.6
-	>=dev-ruby/json-1.5.1
+	>=dev-ruby/rb-kqueue-0.2.2
+	>=dev-ruby/listen-2.7.1
 	>=dev-ruby/log4r-1.1.9
 	>=dev-ruby/net-ssh-2.6.6
 	>=dev-ruby/net-scp-1.1.0
+	>=dev-ruby/wdm-0.1.0
+	>=dev-ruby/winrm-1.1.3
 "
 
 ruby_add_bdepend "
@@ -49,12 +55,12 @@ all_ruby_prepare() {
 	rm Gemfile || die
 
 	# loosen dependencies
-	sed -e '/childprocess\|erubis\|log4r\|net-scp\|net-ssh/s/~>/>=/' \
-		-e '/json/s/, "< 1.8.0"//' \
+	sed -e '/childprocess\|erubis\|log4r\|net-scp/s/~>/>=/' \
+		-e '/net-ssh/s:, "< 2.8.0"::' \
 		-i ${PN}.gemspec || die
 
-	epatch "${FILESDIR}"/${PN}-1.2.1-no-warning.patch
-	epatch "${FILESDIR}"/${P}-rvm.patch
+	epatch "${FILESDIR}"/${PN}-1.6.2-no-warning.patch
+	epatch "${FILESDIR}"/${PN}-1.6.2-rvm.patch
 }
 
 pkg_postinst() {
