@@ -42,6 +42,8 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}/percona-server-${MY_PV}"
 PERCONA_VER=${MY_PV}
 
+#$ ./configure --without-plugin-innobase --with-plugins=partition,archive,blackhole,csv,example,federated,innodb_plugin --without-embedded-server --with-pic --with-extra-charsets=complex --with-ssl --enable-assembler --enable-local-infile --enable-thread-safe-client --enable-profiling --with-readline
+
 src_configure() {
 	# cmake -L lists the cache variables:
 	# https://wikis.oracle.com/display/mysql/Autotools+to+CMake+Transition+Guide
@@ -67,6 +69,11 @@ src_configure() {
 	    "-DINSTALL_SQLBENCHDIR=share/mysql"
 	    "-DINSTALL_SUPPORTFILESDIR=${EPREFIX}/usr/share/mysql"
 	    "-DWITH_COMMENT=\"Gentoo Linux ${PF}\""
+		"-DWITH_SSL=system"
+		"-DWITH_PLUGINS=partition,archive,blackhole,csv,example,federated,innodb_plugin"
+		"-DENABLE_ASSEMBLER=1"
+		"-DENABLE_THREAD_SAFE_CLIENT=1"
+		"-DENABLE_PROFILING=1"
 		"-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 		"-DBUILD_CONFIG=mysql_release"
 		"-DFEATURE_SET=community"
@@ -85,6 +92,10 @@ src_install() {
 		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqlanalyze"
 		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqlrepair"
 		dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqloptimize"
+
+		# Fix mysqlclient_r library expectation for qtsql ebuild 
+		dosym "/usr/lib64/mysql/libperconaserverclient.a" "/usr/lib64/mysql/libmysqlclient_r.a"
+		dosym "/usr/lib64/mysql/libperconaserverclient.so" "/usr/lib64/mysql/libmysqlclient_r.so"
 
 		cat <<-EOF > "${T}"/80mysql-libdir
 		LDPATH="${EPREFIX}/usr/$(get_libdir)/mysql"
