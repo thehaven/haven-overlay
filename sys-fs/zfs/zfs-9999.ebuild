@@ -1,11 +1,10 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/zfs/zfs-9999.ebuild,v 1.48 2013/09/05 19:44:53 mgorny Exp $
 
 EAPI="5"
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python{2_6,2_7,3_1,3_2,3_3} )
 
-inherit python-single-r1
+inherit python-r1
 
 AT_M4DIR="config"
 AUTOTOOLS_AUTORECONF="1"
@@ -27,13 +26,12 @@ inherit bash-completion-r1 flag-o-matic toolchain-funcs autotools-utils udev sys
 DESCRIPTION="Userland utilities for ZFS Linux kernel module"
 HOMEPAGE="http://zfsonlinux.org/"
 
-LICENSE="BSD-2 CDDL MIT"
+LICENSE="BSD-2 CDDL bash-completion? ( MIT )"
 SLOT="0"
-IUSE="bash-completion custom-cflags dracut kernel-builtin +rootfs selinux test-suite static-libs"
+IUSE="bash-completion custom-cflags debug dracut kernel-builtin +rootfs test-suite static-libs"
 RESTRICT="test"
 
 COMMON_DEPEND="
-	selinux? ( sys-libs/libselinux )
 	sys-apps/util-linux[static-libs?]
 	sys-libs/zlib[static-libs(+)?]
 	virtual/awk
@@ -69,6 +67,14 @@ pkg_setup() {
 }
 
 src_prepare() {
+    if [ ${PV} != "9999" ]
+    then
+        # Apply patch set
+        EPATCH_SUFFIX="patch" \
+        EPATCH_FORCE="yes" \
+        epatch "${WORKDIR}/${PN}-kmod-${MY_PV}-patches"
+    fi
+
 	# Update paths
 	sed -e "s|/sbin/lsmod|/bin/lsmod|" \
 		-e "s|/usr/bin/scsi-rescan|/usr/sbin/rescan-scsi-bus|" \
@@ -87,7 +93,8 @@ src_configure() {
 		--with-linux="${KV_DIR}"
 		--with-linux-obj="${KV_OUT_DIR}"
 		--with-udevdir="$(udev_get_udevdir)"
-		$(use_with selinux)
+        --with-blkid
+        $(use_enable debug)
 	)
 	autotools-utils_src_configure
 
@@ -104,11 +111,11 @@ src_configure() {
 
 src_install() {
 	autotools-utils_src_install
-	gen_usr_ldscript -a uutil nvpair zpool zfs
+	gen_usr_ldscript -a uutil nvpair zpool zfs zfs_core
 	use dracut || rm -rf "${ED}usr/lib/dracut"
 	use test-suite || rm -rf "${ED}usr/share/zfs"
 
-	use bash-completion && newbashcomp "${FILESDIR}/bash-completion" zfs
+	use bash-completion && newbashcomp "${FILESDIR}/bash-completion-r1" zfs
 
 	exeinto /usr/libexec
 	doexe "${T}/zfs-init.sh"
