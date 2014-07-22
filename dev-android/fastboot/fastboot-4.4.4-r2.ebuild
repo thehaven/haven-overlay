@@ -15,7 +15,7 @@ EGIT_COMMIT="android-${PV}_${PR}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="sys-libs/zlib"
 RDEPEND="${DEPEND}"

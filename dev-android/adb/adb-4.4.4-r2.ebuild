@@ -10,10 +10,11 @@ DESCRIPTION="android debug bridge"
 HOMEPAGE="android.googlesource.com"
 
 EGIT_REPO_URI="http://android.googlesource.com/platform/system/core.git"
+EGIT_COMMIT="android-${PV}_${PR}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="sys-libs/zlib
 	dev-libs/openssl"
