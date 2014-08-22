@@ -83,7 +83,23 @@ HTTP_DRIZZLE_MODULE_SHA1="44f8593"
 HTTP_FORM_INPUT_MODULE_PV="0.07"
 HTTP_FORM_INPUT_MODULE_P="form-input-nginx-module-${HTTP_FORM_INPUT_MODULE_PV}"
 
+# http_auth_pam (http://web.iti.upv.es/~sto/nginx/, BSD-2 license)
+HTTP_AUTH_PAM_MODULE_PV="1.3"
+HTTP_AUTH_PAM_MODULE_P="ngx_http_auth_pam-${HTTP_AUTH_PAM_MODULE_PV}"
+HTTP_AUTH_PAM_MODULE_URI="http://web.iti.upv.es/~sto/nginx/ngx_http_auth_pam_module-${HTTP_AUTH_PAM_MODULE_PV}.tgz"
+HTTP_AUTH_PAM_MODULE_WD="${WORKDIR}/ngx_http_auth_pam_module-${HTTP_AUTH_PAM_MODULE_PV}"
 
+# http_upstream_check (https://github.com/yaoweibin/nginx_upstream_check_module, BSD license)
+HTTP_UPSTREAM_CHECK_MODULE_PV="0.1.9"
+HTTP_UPSTREAM_CHECK_MODULE_P="ngx_http_upstream_check-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
+HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/v${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
+HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
+
+# http_metrics (https://github.com/zenops/ngx_metrics, BSD license)
+HTTP_METRICS_MODULE_PV="0.1.1"
+HTTP_METRICS_MODULE_P="ngx_metrics-${HTTP_METRICS_MODULE_PV}"
+HTTP_METRICS_MODULE_URI="https://github.com/madvertise/ngx_metrics/archive/v${HTTP_METRICS_MODULE_PV}.tar.gz"
+HTTP_METRICS_MODULE_WD="${WORKDIR}/ngx_metrics-${HTTP_METRICS_MODULE_PV}"
 
 # naxsi-core (https://github.com/nbs-system/naxsi, GPLv2+)
 HTTP_NAXSI_MODULE_PV="0.53-2"
@@ -183,6 +199,12 @@ SRC_URI="http://tengine.taobao.org/download/${P}.tar.gz
 	nginx_modules_http_lua? ( https://github.com/openresty/lua-nginx-module/tarball/v${HTTP_LUA_MODULE_PV} -> ${HTTP_LUA_MODULE_P}.tar.gz )
 	nginx_modules_http_drizzle? ( https://github.com/chaoslawful/drizzle-nginx-module/tarball/v${HTTP_DRIZZLE_MODULE_PV} -> ${HTTP_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_http_form_input? ( https://github.com/calio/form-input-nginx-module/tarball/v${HTTP_FORM_INPUT_MODULE_PV} -> ${HTTP_FORM_INPUT_MODULE_P}.tar.gz )
+    nginx_modules_http_auth_pam? ( ${HTTP_AUTH_PAM_MODULE_URI} -> ${HTTP_AUTH_PAM_MODULE_P}.tar.gz )
+    nginx_modules_http_upstream_check? ( ${HTTP_UPSTREAM_CHECK_MODULE_URI} -> ${HTTP_UPSTREAM_CHECK_MODULE_P}.tar.gz )
+    nginx_modules_http_metrics? ( ${HTTP_METRICS_MODULE_URI} -> ${HTTP_METRICS_MODULE_P}.tar.gz )
+    nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )
+    rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )
+    nginx_modules_http_dav_ext? ( ${HTTP_DAV_EXT_MODULE_URI} -> ${HTTP_DAV_EXT_MODULE_P}.tar.gz )
 	nginx_modules_http_echo? ( https://github.com/openresty/echo-nginx-module/tarball/v${HTTP_ECHO_MODULE_PV} -> ${HTTP_ECHO_MODULE_P}.tar.gz )
 	nginx_modules_http_rds_json? ( https://github.com/openresty/rds-json-nginx-module/tarball/v${HTTP_RDS_JSON_MODULE_PV} -> ${HTTP_RDS_JSON_MODULE_P}.tar.gz )
 	nginx_modules_http_srcache? ( https://github.com/openresty/srcache-nginx-module/tarball/v${HTTP_SRCACHE_MODULE_PV} -> ${HTTP_SRCACHE_MODULE_P}.tar.gz )
@@ -196,10 +218,7 @@ SRC_URI="http://tengine.taobao.org/download/${P}.tar.gz
 	nginx_modules_http_upload_progress? ( https://github.com/masterzen/nginx-upload-progress-module/tarball/v${HTTP_UPLOAD_PROGRESS_MODULE_PV} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_request? ( http://mdounin.ru/files/${HTTP_AUTH_REQUEST_MODULE_P}.tar.gz )
 	nginx_modules_http_slowfs_cache? ( http://labs.frickle.com/files/${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
-	pam? ( http://web.iti.upv.es/~sto/nginx/ngx_http_auth_pam_module-1.1.tar.gz )
 	rrd? ( http://wiki.nginx.org/images/9/9d/Mod_rrd_graph-0.2.0.tar.gz )"
-LICENSE="BSD BSD-2 GPL-2 MIT
-	pam? ( as-is )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
@@ -209,23 +228,50 @@ split_clients upstream_ip_hash userid uwsgi "
 NGINX_MODULES_OPT="addition concat sysguard spdy dav degradation flv geoip gzip_static image_filter
 mp4 perl random_index realip secure_link stub_status sub xslt"
 NGINX_MODULES_MAIL="imap pop3 smtp"
-NGINX_MODULES_3RD="http_cache_purge http_headers_more http_passenger http_redis http_push
-http_upload http_ey_balancer http_slowfs_cache http_ndk http_lua http_form_input
-http_echo http_memc http_drizzle http_rds_json http_postgres http_coolkit
-http_auth_request http_set_misc http_srcache http_array_var
-http_xss http_iconv http_upload_progress http_syslog"
+NGINX_MODULES_3RD="
+		http_cache_purge
+		http_headers_more
+		http_passenger
+		http_redis
+		http_push
+		http_upload
+		http_ey_balancer
+		http_slowfs_cache
+		http_ndk http_lua
+		http_form_input
+		http_echo
+		http_memc
+		http_drizzle
+		http_rds_json
+		http_postgres
+		http_coolkit
+		http_auth_request
+		http_set_misc
+		http_srcache
+		http_array_var
+		http_xss
+		http_iconv
+		http_upload_progress
+		http_auth_pam
+		http_upstream_check
+		http_metrics
+		http_naxsi
+	    http_dav_ext
+		http_syslog"
 # http_set_cconv"
 
 REQUIRED_USE="	nginx_modules_http_lua? ( nginx_modules_http_ndk )
 		nginx_modules_http_rds_json? ( || ( nginx_modules_http_drizzle nginx_modules_http_postgres ) )
 		nginx_modules_http_form_input? ( nginx_modules_http_ndk )
+    	nginx_modules_http_naxsi? ( pcre )
+	    nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
+		nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 		nginx_modules_http_set_misc? ( nginx_modules_http_ndk )
 		nginx_modules_http_iconv? ( nginx_modules_http_ndk )
 		nginx_modules_http_array_var? ( nginx_modules_http_ndk )"
 #		nginx_modules_http_set_cconv? ( nginx_modules_http_ndk )
 
-IUSE="aio debug +http +http-cache ipv6 libatomic pam +pcre perftools rrd
-ssl vim-syntax +luajit"
+IUSE="aio debug +http +http-cache ipv6 libatomic pam +pcre perftools rrd rtmp ssl vim-syntax +luajit"
 
 for mod in $NGINX_MODULES_STD; do
 	IUSE="${IUSE} +nginx_modules_http_${mod}"
@@ -258,6 +304,9 @@ CDEPEND="
 	nginx_modules_http_xslt? ( dev-libs/libxml2 dev-libs/libxslt )
 	nginx_modules_http_drizzle? ( dev-db/drizzle )
 	nginx_modules_http_lua? ( luajit? ( dev-lang/luajit:2 ) !luajit? ( >=dev-lang/lua-5.1 ) )
+    nginx_modules_http_auth_pam? ( virtual/pam )
+	nginx_modules_http_metrics? ( dev-libs/yajl )
+	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_passenger? (
 		$(ruby_implementation_depend ruby19)
 		>=dev-ruby/rubygems-0.9.0
@@ -317,7 +366,6 @@ pkg_setup() {
 src_unpack() {
 	# prevent ruby-ng.eclass from messing with src_unpack
 	default
-	use pam && unpack "ngx_http_auth_pam_module-1.1.tar.gz"
 	use rrd && unpack "Mod_rrd_graph-0.2.0.tar.gz"
 }
 
@@ -453,6 +501,42 @@ src_configure() {
 		myconf+=" --add-module=${WORKDIR}/${HTTP_POSTGRES_MODULE_P}"
 	fi
 
+# http_auth_pam
+    if use nginx_modules_http_auth_pam; then
+        http_enabled=1
+        myconf+=" --add-module=${HTTP_AUTH_PAM_MODULE_WD}"
+    fi
+
+# http_upstream_check
+    if use nginx_modules_http_upstream_check; then
+        http_enabled=1
+        myconf+=" --add-module=${HTTP_UPSTREAM_CHECK_MODULE_WD}"
+    fi
+
+# http_metrics
+    if use nginx_modules_http_metrics; then
+        http_enabled=1
+        myconf+=" --add-module=${HTTP_METRICS_MODULE_WD}"
+    fi
+
+# http_naxsi
+    if use nginx_modules_http_naxsi ; then
+        http_enabled=1
+        myconf+=" --add-module=${HTTP_NAXSI_MODULE_WD}"
+    fi
+
+# http_rtmp
+    if use rtmp ; then
+        http_enabled=1
+        myconf+=" --add-module=${RTMP_MODULE_WD}"
+    fi
+
+# http_dav_ext
+    if use nginx_modules_http_dav_ext ; then
+        http_enabled=1
+        myconf+=" --add-module=${HTTP_DAV_EXT_MODULE_WD}"
+    fi
+
 # http_coolkit
 	if use nginx_modules_http_coolkit; then
 		http_enabled=1
@@ -557,7 +641,6 @@ src_configure() {
 
 	use perftools && myconf+=" --with-google_perftools_module"
 	use rrd && myconf+=" --add-module=${WORKDIR}/mod_rrd_graph-0.2.0"
-	use pam && myconf+=" --add-module=${WORKDIR}/ngx_http_auth_pam_module-1.1"
 	use nginx_modules_http_syslog && myconf+=" --with-syslog"
 
 	# MAIL modules
@@ -691,6 +774,36 @@ src_install() {
 		dodoc "${WORKDIR}"/"openresty-echo-nginx-module-${HTTP_ECHO_MODULE_SHA1}"/README
 	fi
 
+    if use nginx_modules_http_auth_pam; then
+        docinto ${HTTP_AUTH_PAM_MODULE_P}
+        dodoc "${HTTP_AUTH_PAM_MODULE_WD}"/{README,ChangeLog}
+    fi
+
+    if use nginx_modules_http_upstream_check; then
+        docinto ${HTTP_UPSTREAM_CHECK_MODULE_P}
+        dodoc "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/{README,CHANGES}
+    fi
+
+    if use nginx_modules_http_metrics; then
+        docinto ${HTTP_METRICS_MODULE_P}
+        dodoc "${HTTP_METRICS_MODULE_WD}"/README.md
+    fi
+
+    if use nginx_modules_http_naxsi; then
+        insinto /etc/nginx
+        doins "${HTTP_NAXSI_MODULE_WD}"/../naxsi_config/naxsi_core.rules
+    fi
+
+    if use rtmp; then
+        docinto ${RTMP_MODULE_P}
+        dodoc "${RTMP_MODULE_WD}"/{AUTHORS,README.md,stat.xsl}
+    fi
+
+    if use nginx_modules_http_dav_ext; then
+        docinto ${HTTP_DAV_EXT_MODULE_P}
+        dodoc "${HTTP_DAV_EXT_MODULE_WD}"/README
+    fi
+
 # http_srcache
 	if use nginx_modules_http_srcache; then
 		docinto "${HTTP_SRCACHE_MODULE_P}"
@@ -773,7 +886,6 @@ src_install() {
 		rake fakeroot
 	fi
 
-	use pam && newdoc "${WORKDIR}"/ngx_http_auth_pam_module-1.1/README README.pam
 }
 
 pkg_postinst() {
