@@ -13,7 +13,7 @@ SLOT="0.2"
 KEYWORDS="~*"
 IUSE="doc static-libs"
 
-RDEPEND="app-text/libwpd:0.9[tools]
+RDEPEND="app-text/libwpd:0.10[tools]
 	dev-libs/librevenge"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
