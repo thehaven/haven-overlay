@@ -33,7 +33,7 @@ src_install() {
 	dolib.so libdwarf.so || die
 
 	insinto /usr/include
-	doins dwarf.h libdwarf.h || die
+	doins libdwarf.h || die
 
 	dodoc NEWS README CHANGES || die
 }
