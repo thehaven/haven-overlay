@@ -6,7 +6,6 @@
 		<name>Mike Gilbert</name>
 	</maintainer>
 	<use>
-		<flag name="deluge">Enable deluge output plugin</flag>
-		<flag name="transmission">Enable transmission output plugin</flag>
+		<flag name="transmission">Support comminucation with <pkg>net-p2p/transmission</pkg></flag>
 	</use>
 </pkgmetadata>
