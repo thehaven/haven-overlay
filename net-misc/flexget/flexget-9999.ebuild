@@ -43,7 +43,7 @@ DEPEND="
 	dev-python/jinja[${PYTHON_USEDEP}]
 	>=dev-python/requests-1.0[${PYTHON_USEDEP}]
 	<dev-python/requests-2.99[${PYTHON_USEDEP}]
-	=dev-python/python-dateutil-2.1*[${PYTHON_USEDEP}]
+	>=dev-python/python-dateutil-2.1[${PYTHON_USEDEP}]
 	>=dev-python/jsonschema-2.0[${PYTHON_USEDEP}]
 	dev-python/python-tvrage[${PYTHON_USEDEP}]
 	dev-python/tmdb3[${PYTHON_USEDEP}]
