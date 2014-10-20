@@ -24,7 +24,7 @@ HOMEPAGE="http://flexget.com/"
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="test transmission"
+IUSE="test transmission web"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
@@ -50,6 +50,7 @@ DEPEND="
 	dev-python/path-py[${PYTHON_USEDEP}]
 	>=dev-python/guessit-0.9.3[${PYTHON_USEDEP}]
 	dev-python/apscheduler[${PYTHON_USEDEP}]
+	web? ( dev-python/cherrypy dev-python/flask dev-python/jinja ) 
 "
 RDEPEND="${DEPEND}
 	transmission? ( dev-python/transmissionrpc[${PYTHON_USEDEP}] )
