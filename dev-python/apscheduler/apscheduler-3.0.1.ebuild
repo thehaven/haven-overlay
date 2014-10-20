@@ -15,10 +15,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-        dev-python/futures
-        >dev-python/six-1.4.0
-        dev-python/pytz
-        dev-python/tzlocal
+		dev-python/futures
+		>dev-python/six-1.4.0
+		dev-python/pytz
+		dev-python/tzlocal
 "
 
 S="${WORKDIR}/APScheduler-${PV}"
