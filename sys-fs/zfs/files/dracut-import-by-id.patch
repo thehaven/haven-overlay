@@ -1,0 +1,22 @@
+diff --git dracut/90zfs/mount-zfs.sh.in dracut/90zfs/mount-zfs.sh.in
+index ca4e466..b9661b7 100755
+--- dracut/90zfs/mount-zfs.sh.in
++++ dracut/90zfs/mount-zfs.sh.in
+@@ -23,7 +23,7 @@ case "$root" in
+ 				[ "$zfsbootfs" = "no pools available" ] ; then
+ 				# Not there, so we need to import everything.
+ 				info "ZFS: Attempting to import additional pools."
+-				zpool import -N -a ${ZPOOL_FORCE}
++				zpool import -d /dev/disk/by-id -N -a ${ZPOOL_FORCE}
+ 				zfsbootfs=`zpool list -H -o bootfs | sed -n '/^-$/ !p' | sed 'q'`
+ 				if [ "$?" != "0" ] || [ "$zfsbootfs" = "" ] || \
+ 					[ "$zfsbootfs" = "no pools available" ] ; then
+@@ -50,7 +50,7 @@ case "$root" in
+ 				# pool wasn't imported automatically by the kernel module, so
+ 				# try it manually.
+ 				info "ZFS: Importing pool ${pool}..."
+-				if ! zpool import -N ${ZPOOL_FORCE} $pool ; then
++				if ! zpool import -d /dev/disk/by-id -N ${ZPOOL_FORCE} $pool ; then
+ 					warn "ZFS: Unable to import pool ${pool}."
+ 					rootok=0
+ 
