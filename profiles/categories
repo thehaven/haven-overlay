@@ -14,6 +14,7 @@ eclass
 media-libs
 media-sound
 media-tv
+media-video
 net-analyzer
 net-dns
 net-fs
