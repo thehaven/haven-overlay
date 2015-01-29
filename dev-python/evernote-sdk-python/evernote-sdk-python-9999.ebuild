@@ -19,7 +19,7 @@ IUSE=""
 
 RDEPEND="
 	dev-libs/thrift[python]
-	dev-python/oauth2
+	|| ( dev-python/oauth2 dev-python/python3-oauth2 )
 "
 
 pkg_setup() {
