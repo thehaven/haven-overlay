@@ -1,6 +1,8 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.4.1.2.ebuild,v 1.3 2015/02/28 12:15:26 dilfridge Exp $
 
-EAPI="5"
+EAPI=5
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -24,8 +26,8 @@ ADDONS_URI="http://dev-www.libreoffice.org/src/"
 BRANDING="${PN}-branding-gentoo-0.8.tar.xz"
 # PATCHSET="${P}-patchset-01.tar.xz"
 
-[[ ${PV} == *9999* ]] && SCM_ECLASS="git-2"
-inherit base autotools bash-completion-r1 check-reqs eutils java-pkg-opt-2 kde4-base pax-utils python-single-r1 multilib toolchain-funcs flag-o-matic nsplugins ${SCM_ECLASS}
+[[ ${PV} == *9999* ]] && SCM_ECLASS="git-r3"
+inherit base multiprocessing autotools bash-completion-r1 check-reqs eutils java-pkg-opt-2 kde4-base pax-utils python-single-r1 multilib toolchain-funcs flag-o-matic versionator ${SCM_ECLASS}
 unset SCM_ECLASS
 
 DESCRIPTION="LibreOffice, a full office productivity suite"
@@ -56,12 +58,9 @@ unset DEV_URI
 # Really required addons
 # These are bundles that can't be removed for now due to huge patchsets.
 # If you want them gone, patches are welcome.
-ADDONS_SRC+=" ${ADDONS_URI}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/OpenCOLLADA-master-6509aa13af.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/libgltf/3d9ea1f2828c46f8ba94b88a87b3326d-libgltf-0.0.0.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/CoinMP-1.7.6.tgz"
 ADDONS_SRC+=" ${ADDONS_URI}/d62650a6f908e85643e557a236ea989c-vigra1.6.0.tar.gz"
 ADDONS_SRC+=" ${ADDONS_URI}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz" # modifies source code
+ADDONS_SRC+=" collada? ( ${ADDONS_URI}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2 )"
 ADDONS_SRC+=" java? ( ${ADDONS_URI}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip )"
 ADDONS_SRC+=" libreoffice_extensions_wiki-publisher? ( ${ADDONS_URI}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip )" # no release for 8 years, should we package it?
 ADDONS_SRC+=" libreoffice_extensions_scripting-javascript? ( ${ADDONS_URI}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip )" # Does not build with 1.6 rhino at all
@@ -73,8 +72,8 @@ unset ADDONS_URI
 unset EXT_URI
 unset ADDONS_SRC
 
-IUSE="bluetooth +branding +cups dbus debug eds firebird gnome gstreamer +gtk
-gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc +webdav"
+IUSE="bluetooth +branding coinmp collada +cups dbus debug eds firebird gltf gnome gstreamer
++gtk gtk3 jemalloc kde mysql odk postgres telepathy test vlc"
 
 LO_EXTS="nlpsolver scripting-beanshell scripting-javascript wiki-publisher"
 # Unpackaged separate extensions:
@@ -91,7 +90,7 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~*"
+KEYWORDS="~amd64 ~arm ~x86 ~amd64-linux ~x86-linux"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
@@ -104,22 +103,21 @@ COMMON_DEPEND="
 	>=app-text/libebook-0.1.1
 	>=app-text/libetonyek-0.1.1
 	app-text/liblangtag
-	>=app-text/libmspub-0.1.1
-	>=app-text/libmwaw-0.3.1
-	>=app-text/libodfgen-0.1.1
-	>=app-text/libwpd-0.10.0[tools]
-	>=app-text/libwpg-0.3.0
+	>=app-text/libmspub-0.1.0
+	>=app-text/libmwaw-0.3.4
+	>=app-text/libodfgen-0.1.0
+	app-text/libwpd:0.10[tools]
+	app-text/libwpg:0.3
 	>=app-text/libwps-0.3.0
-	>=app-text/poppler-0.16:=[xpdf-headers(+),cxx]
+	>=app-text/poppler-0.16:=[cxx]
 	>=dev-cpp/clucene-2.3.3.4-r2
-	dev-cpp/libcmis:0.4
+	=dev-cpp/libcmis-0.5*
 	dev-db/unixODBC
-	>=dev-libs/boost-1.46:=
+	>=dev-libs/boost-1.55:=
 	dev-libs/expat
 	>=dev-libs/hyphen-2.7.1
 	>=dev-libs/icu-4.8.1.1:=
-	>=dev-libs/libatomic_ops-7.2d
-	=dev-libs/liborcus-0.7*:=
+	>=dev-libs/liborcus-0.7.0
 	>=dev-libs/librevenge-0.0.1
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
@@ -129,15 +127,16 @@ COMMON_DEPEND="
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2
-	>=media-libs/glew-1.10.0
-	media-libs/glm
+	>=media-libs/glew-1.10
 	>=media-libs/harfbuzz-0.9.18:=[icu(+)]
 	media-libs/lcms:2
-	>=media-libs/libpng-1.4
+	>=media-libs/libpng-1.4:0=
 	>=media-libs/libcdr-0.1.0
 	>=media-libs/libfreehand-0.1.0
+	media-libs/libpagemaker
 	>=media-libs/libvisio-0.1.0
 	>=net-misc/curl-7.21.4
+	net-libs/neon
 	net-nds/openldap
 	sci-mathematics/lpsolve
 	virtual/jpeg:0
@@ -145,11 +144,16 @@ COMMON_DEPEND="
 	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
+	virtual/glu
+	virtual/opengl
 	bluetooth? ( net-wireless/bluez )
+	coinmp? ( sci-libs/coinor-mp )
+	collada? ( >=media-libs/opencollada-1.2.2_p20150207 )
 	cups? ( net-print/cups )
 	dbus? ( >=dev-libs/dbus-glib-0.92 )
 	eds? ( gnome-extra/evolution-data-server )
 	firebird? ( >=dev-db/firebird-2.5 )
+	gltf? ( media-libs/libgltf )
 	gnome? ( gnome-base/gconf:2 )
 	gtk? (
 		x11-libs/gdk-pixbuf[X]
@@ -171,17 +175,12 @@ COMMON_DEPEND="
 		dev-java/tomcat-servlet-api:3.0
 	)
 	mysql? ( >=dev-db/mysql-connector-c++-1.1.0 )
-	opengl? (
-		virtual/glu
-		virtual/opengl
-	)
-	postgres? ( >=dev-db/postgresql-base-9.0[kerberos] )
+	postgres? ( >=dev-db/postgresql-9.0[kerberos] )
 	telepathy? (
 		dev-libs/glib:2
 		>=net-libs/telepathy-glib-0.18.0
 		>=x11-libs/gtk+-2.24:2
 	)
-	webdav? ( net-libs/neon )
 "
 
 RDEPEND="${COMMON_DEPEND}
@@ -189,15 +188,16 @@ RDEPEND="${COMMON_DEPEND}
 	!app-office/libreoffice-bin-debug
 	!<app-office/openoffice-bin-3.4.0-r1
 	!app-office/openoffice
-	media-fonts/libertine-ttf
+	media-fonts/libertine
 	media-fonts/liberation-fonts
 	media-fonts/urw-fonts
 	java? ( >=virtual/jre-1.6 )
+	kde? ( || ( $(add_kdeapps_dep kioclient) $(add_kdebase_dep kioclient) ) )
 	vlc? ( media-video/vlc )
 "
 
 if [[ ${PV} != *9999* ]]; then
-	PDEPEND="~app-office/libreoffice-l10n-${PV}"
+	PDEPEND="=app-office/libreoffice-l10n-$(get_version_component_range 1-2)*"
 else
 	# Translations are not reliable on live ebuilds
 	# rather force people to use english only.
@@ -208,6 +208,7 @@ fi
 #        after everything upstream is under gbuild
 #        as dmake execute tests right away
 DEPEND="${COMMON_DEPEND}
+	>=dev-libs/libatomic_ops-7.2d
 	>=dev-libs/libxml2-2.7.8
 	dev-libs/libxslt
 	dev-perl/Archive-Zip
@@ -215,7 +216,7 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/gperf-3
 	dev-util/intltool
 	>=dev-util/mdds-0.10.3:=
-	virtual/pkgconfig
+	media-libs/glm
 	net-misc/npapi-sdk
 	>=sys-apps/findutils-4.4.2
 	sys-devel/bison
@@ -225,6 +226,7 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-devel/make-3.82
 	sys-devel/ucpp
 	sys-libs/zlib
+	virtual/pkgconfig
 	x11-libs/libXt
 	x11-libs/libXtst
 	x11-proto/randrproto
@@ -241,12 +243,22 @@ DEPEND="${COMMON_DEPEND}
 
 PATCHES=(
 	# not upstreamable stuff
-	"${FILESDIR}/${PN}-3.7-system-pyuno.patch"
+	"${FILESDIR}/${PN}-4.4-system-pyuno.patch"
+
+	# from 4.4 branch
+	"${FILESDIR}/${PN}-4.4.0.3-gcc-4.9-Os-link-failure.patch" # bug 538348
+
+	# from master branch
+	"${FILESDIR}/${PN}-4.4.0.3-telepathy-build-fix.patch"
+	"${FILESDIR}/${PN}-4.4.1.2-add-kde4-open-url-script.patch"
+	"${FILESDIR}/${PN}-4.4.1.2-improve-KDE4FilePicker.patch"
+	"${FILESDIR}/${PN}-4.3.5.2-remove-bashisms.patch" # bug 525454
 )
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	bluetooth? ( dbus )
+	collada? ( gltf )
 	gnome? ( gtk )
 	eds? ( gnome )
 	telepathy? ( gtk )
@@ -255,8 +267,6 @@ REQUIRED_USE="
 	libreoffice_extensions_scripting-javascript? ( java )
 	libreoffice_extensions_wiki-publisher? ( java )
 "
-
-RESTRICT="mirror"
 
 CHECKREQS_MEMORY="512M"
 CHECKREQS_DISK_BUILD="6G"
@@ -277,7 +287,7 @@ pkg_pretend() {
 
 	# Ensure pg version but we have to be sure the pg is installed (first
 	# install on clean system)
-	if use postgres && has_version dev-db/postgresql-base; then
+	if use postgres && has_version dev-db/postgresql; then
 		 pgslot=$(postgresql-config show)
 		 if [[ ${pgslot//.} < 90 ]] ; then
 			eerror "PostgreSQL slot must be set to 9.0 or higher."
@@ -311,12 +321,10 @@ src_unpack() {
 		for mod in ${MODULES}; do
 			mypv=${PV/.9999}
 			[[ ${mypv} != ${PV} ]] && EGIT_BRANCH="${PN}-${mypv/./-}"
-			EGIT_PROJECT="${PN}/${mod}"
-			EGIT_SOURCEDIR="${WORKDIR}/${P}"
-			[[ ${mod} != core ]] && EGIT_SOURCEDIR="${WORKDIR}/${PN}-${mod}-${PV}"
+			EGIT_CHECKOUT_DIR="${WORKDIR}/${P}"
+			[[ ${mod} != core ]] && EGIT_CHECKOUT_DIR="${WORKDIR}/${PN}-${mod}-${PV}"
 			EGIT_REPO_URI="git://anongit.freedesktop.org/${PN}/${mod}"
-			EGIT_NOUNPACK="true"
-			git-2_src_unpack
+			git-r3_src_unpack
 			if [[ ${mod} != core ]]; then
 				mod2=${mod}
 				# mapping does not match on help
@@ -326,7 +334,7 @@ src_unpack() {
 				rm -rf "${WORKDIR}/${PN}-${mod}-${PV}"
 			fi
 		done
-		unset EGIT_PROJECT EGIT_SOURCEDIR EGIT_REPO_URI EGIT_BRANCH
+		unset EGIT_CHECKOUT_DIR EGIT_REPO_URI EGIT_BRANCH
 	fi
 }
 
@@ -336,6 +344,11 @@ src_prepare() {
 	# System python 2.7 enablement:
 	export PYTHON_CFLAGS=$(python_get_CFLAGS)
 	export PYTHON_LIBS=$(python_get_LIBS)
+
+	if use collada; then
+		export OPENCOLLADA_CFLAGS="-I/usr/include/opencollada/COLLADABaseUtils -I/usr/include/opencollada/COLLADAFramework -I/usr/include/opencollada/COLLADASaxFrameworkLoader -I/usr/include/opencollada/GeneratedSaxParser"
+		export OPENCOLLADA_LIBS="-L /usr/$(get_libdir)/opencollada -lOpenCOLLADABaseUtils -lOpenCOLLADAFramework -lOpenCOLLADASaxFrameworkLoader -lGeneratedSaxParser"
+	fi
 
 	# patchset
 	if [[ -n ${PATCHSET} ]]; then
@@ -356,7 +369,7 @@ src_prepare() {
 		-e "s:%eprefix%:${EPREFIX}:g" \
 		-e "s:%libdir%:$(get_libdir):g" \
 		-i pyuno/source/module/uno.py \
-		-i scripting/source/pyprov/officehelper.py || die
+		-i pyuno/source/officehelper.py || die
 	# sed in the tests
 	sed -i \
 		-e 's#all : build unitcheck#all : build#g' \
@@ -377,10 +390,6 @@ src_configure() {
 	local internal_libs
 	local lo_ext
 	local ext_opts
-	local jbs=$(sed -ne 's/.*\(-j[[:space:]]*\|--jobs=\)\([[:digit:]]\+\).*/\2/;T;p' <<< "${MAKEOPTS}")
-
-	# recheck that there is some value in jobs
-	[[ -z ${jbs} ]] && jbs="1"
 
 	# sane: just sane.h header that is used for scan in writer, not
 	#       linked or anything else, worthless to depend on
@@ -451,6 +460,8 @@ src_configure() {
 		--enable-cairo-canvas \
 		--enable-graphite \
 		--enable-largefile \
+		--enable-mergelibs \
+		--enable-neon \
 		--enable-python=system \
 		--enable-randr \
 		--enable-randr-link \
@@ -469,15 +480,16 @@ src_configure() {
 		--disable-online-update \
 		--disable-systray \
 		--with-alloc=$(use jemalloc && echo "jemalloc" || echo "system") \
+		--with-build-version="Gentoo official package" \
 		--enable-extension-integration \
 		--with-external-dict-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-hyph-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-thes-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-tar="${DISTDIR}" \
 		--with-lang="" \
-		--with-parallelism=${jbs} \
+		--with-parallelism=$(makeopts_jobs) \
 		--with-system-ucpp \
-		--with-vendor="Funtoo Linux" \
+		--with-vendor="Gentoo Foundation" \
 		--with-x \
 		--without-fonts \
 		--without-myspell-dicts \
@@ -485,26 +497,29 @@ src_configure() {
 		--with-helppack-integration \
 		--without-sun-templates \
 		$(use_enable bluetooth sdremote-bluetooth) \
+		$(use_enable coinmp) \
+		$(use_enable collada) \
 		$(use_enable cups) \
 		$(use_enable debug) \
 		$(use_enable dbus) \
 		$(use_enable eds evolution2) \
 		$(use_enable firebird firebird-sdbc) \
+		$(use_enable gltf) \
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
-		$(use_enable gstreamer) \
+		$(use_enable gstreamer gstreamer-1-0) \
 		$(use_enable gtk) \
 		$(use_enable gtk3) \
 		$(use_enable kde kde4) \
 		$(use_enable mysql ext-mariadb-connector) \
 		$(use_enable odk) \
-		$(use_enable opengl) \
 		$(use_enable postgres postgresql-sdbc) \
 		$(use_enable telepathy) \
-		$(use_enable vba) \
 		$(use_enable vlc) \
-		$(use_enable webdav neon) \
+		$(use_with coinmp system-coinmp) \
+		$(use_with collada system-opencollada) \
+		$(use_with gltf system-libgltf) \
 		$(use_with java) \
 		$(use_with mysql system-mysql-cppconn) \
 		$(use_with odk doxygen) \
@@ -514,6 +529,11 @@ src_configure() {
 }
 
 src_compile() {
+	# more and more LO stuff tries to use OpenGL, including tests during build
+	# bug 501508, bug 540624 and probably more
+	addpredict /dev/dri
+	addpredict /dev/nvidiactl
+
 	# hack for offlinehelp, this needs fixing upstream at some point
 	# it is broken because we send --without-help
 	# https://bugs.freedesktop.org/show_bug.cgi?id=46506
@@ -549,16 +569,17 @@ src_install() {
 
 	# Fix bash completion placement
 	newbashcomp "${ED}"/etc/bash_completion.d/libreoffice.sh ${PN}
-	rm -rf "${ED}"/etc/
+	bashcomp_alias \
+		libreoffice \
+		unopkg loimpress lobase localc lodraw lomath lowriter lofromtemplate loweb loffice
+	rm -rf "${ED}"/etc/ || die
 
 	if use branding; then
 		insinto /usr/$(get_libdir)/${PN}/program
 		newins "${WORKDIR}/branding-sofficerc" sofficerc
+		dodir /etc/env.d
 		echo "CONFIG_PROTECT=/usr/$(get_libdir)/${PN}/program/sofficerc" > "${ED}"/etc/env.d/99${PN}
 	fi
-
-	# symlink the nsplugin to proper location
-	# use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
 
 	# Hack for offlinehelp, this needs fixing upstream at some point.
 	# It is broken because we send --without-help
@@ -568,6 +589,10 @@ src_install() {
 
 	# Remove desktop files for support to old installs that can't parse mime
 	rm -rf "${ED}"/usr/share/mimelnk/
+
+	# FIXME: Hack add missing file
+	insinto /usr/$(get_libdir)/${PN}/program
+	doins "${S}"/instdir/program/libsaxlo.so
 
 	pax-mark -m "${ED}"/usr/$(get_libdir)/libreoffice/program/soffice.bin
 	pax-mark -m "${ED}"/usr/$(get_libdir)/libreoffice/program/unopkg.bin
