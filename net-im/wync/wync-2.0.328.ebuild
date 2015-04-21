@@ -6,20 +6,29 @@ EAPI=5
 
 DESCRIPTION="Lync for Linux"
 HOMEPAGE="http://fisil.com/linuxlync.html"
-SRC_URI="http://fisil.com/linux/wync_debian64_v${PV}.deb"
+SRC_URI="http://fisil.com/linux/wync_ubuntu64_v${PV}.deb"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=""
+DEPEND="
+	dev-libs/openssl
+	net-misc/freerdp
+	sys-libs/glibc
+	sys-libs/zlib
+	x11-libs/libX11
+	x11-libs/libXfixes
+	x11-libs/libXdmcp
+	x11-libs/libXau
+"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
     mkdir "${S}"
     cd "${S}"
-    unpack wync_debian64_v${PV}.deb 
+    unpack wync_ubuntu64_v${PV}.deb 
     unpack ./data.tar.gz
 }
 
