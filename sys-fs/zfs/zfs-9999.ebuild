@@ -75,7 +75,7 @@ src_prepare() {
         epatch "${WORKDIR}/${PN}-kmod-${MY_PV}-patches"
     fi
 
-	epatch ${FILESDIR}/dracut-import-by-id.patch
+	#epatch ${FILESDIR}/dracut-import-by-id.patch
 
 	# Update paths
 	sed -e "s|/sbin/lsmod|/bin/lsmod|" \
