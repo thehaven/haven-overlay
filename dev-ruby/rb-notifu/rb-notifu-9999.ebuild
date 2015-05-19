@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=5
-USE_RUBY="ruby19 ruby20"
+USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
 inherit ruby-fakegem ${EGIT_REPO_URI:+git-2}
 

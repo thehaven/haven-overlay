@@ -16,9 +16,12 @@ SLOT="${PV}"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-ruby_add_rdepend "
-				  >=dev-ruby/rake-0.8.7
-				  >=dev-ruby/rspec-2.5.0
-				  >=dev-ruby/mocha-0.9.8
-				  >=dev-ruby/timecop-0.3.5
+ruby_add_rdepend ">=dev-ruby/akami-1.2.0
+				  >=dev-ruby/builder-2.1.2
+				  >=dev-ruby/gyoku-1.1.0
+				  >=dev-ruby/httpi-0.9.0 <dev-ruby/httpi-1.0.0
+				  >=dev-ruby/nokogiri-1.4.0
+				  <dev-ruby/nokogiri-1.6
+				  =dev-ruby/nori-1.0.0
+				  >=dev-ruby/wasabi-1.0.0 <dev-ruby/wasabi-2.0.0
 				  "
