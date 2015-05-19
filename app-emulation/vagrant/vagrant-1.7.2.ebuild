@@ -40,7 +40,7 @@ ruby_add_rdepend "
 	>=dev-ruby/net-ssh-2.6.6 <dev-ruby/net-ssh-2.10.0
 	>=dev-ruby/net-sftp-2.1
 	>=dev-ruby/net-scp-1.1.0
-	>dev-ruby/nokogiri-1.6.3.1
+	=dev-ruby/nokogiri-1.6.3.1
 	>=dev-ruby/rest-client-1.6.0 <dev-ruby/rest-client-2.0
 	>=dev-ruby/rubygems-1.3.6
 	>=dev-ruby/rb-kqueue-0.2.0
