@@ -24,7 +24,14 @@ SLOT="1"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x64-macos"
 IUSE=""
 
-ruby_add_rdepend ">=dev-ruby/rb-inotify-0.9.0"
+ruby_add_rdepend "
+	>=dev-ruby/rb-inotify-0.9.0
+	dev-ruby/celluloid
+	dev-ruby/celluloid-io
+	dev-ruby/rspec
+	dev-ruby/rspec-retry
+	dev-ruby/coveralls
+"
 
 all_ruby_prepare() {
 	sed -i -e '/[Cc]overalls/d' spec/spec_helper.rb || die
