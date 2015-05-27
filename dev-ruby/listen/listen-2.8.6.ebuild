@@ -4,7 +4,7 @@
 
 EAPI=5
 
-USE_RUBY="ruby19 ruby20 ruby21 jruby"
+USE_RUBY="ruby19 ruby20 ruby21 ruby22 jruby"
 
 RUBY_FAKEGEM_RECIPE_TEST="rspec"
 
@@ -24,11 +24,10 @@ SLOT="1"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x64-macos"
 IUSE=""
 
-ruby_add_rdepend ">=dev-ruby/rb-inotify-0.9.0"
-
-all_ruby_prepare() {
-	sed -i -e '/[Cc]overalls/d' spec/spec_helper.rb || die
-
-	# Drop dependencies for file system events not available on Gentoo.
-	sed -i -e '/\(fsevent\|kqueue\)/d' ${RUBY_FAKEGEM_GEMSPEC} || die
-}
+ruby_add_rdepend "
+	>=dev-ruby/celluloid-io-0.15.0
+	>=dev-ruby/rspec-3.0.0 <dev-ruby/rspec-3.0.1
+	dev-ruby/rspec-retry
+	dev-ruby/coveralls
+	dev-ruby/rake
+"
