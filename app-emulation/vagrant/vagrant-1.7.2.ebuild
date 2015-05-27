@@ -33,7 +33,7 @@ ruby_add_rdepend "
     >=dev-ruby/bundler-1.5.2 <dev-ruby/bundler-1.8.0
 	>=dev-ruby/childprocess-0.5.0 <dev-ruby/childprocess-0.5.1
 	>=dev-ruby/erubis-2.7.0 <dev-ruby/erubis-2.7.1
-	>dev-ruby/ruby-checkpoint-0.1.1 <dev-ruby/ruby-checkpoint-0.1.2
+	>dev-ruby/hashicorp-checkpoint-0.1.1 <dev-ruby/hashicorp-checkpoint-0.1.2
     >=dev-ruby/i18n-0.6.0:0.6
 	>=dev-ruby/listen-2.8.0 <dev-ruby/listen-2.8.1
 	>=dev-ruby/log4r-1.1.9 <dev-ruby/log4r-1.1.11
