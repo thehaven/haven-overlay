@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=5
-USE_RUBY="ruby19 ruby20"
+USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
 inherit ruby-fakegem ${EGIT_REPO_URI:+git-2}
 
@@ -18,12 +18,12 @@ fi
 if [[ -n ${EGIT_REPO_URI} ]]; then
     SRC_URI=""
 else
-	SRC_URI="${GITHUB_URI}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="${GITHUB_URI}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 LICENSE="Apache-2.0"
 SLOT="${PV}"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 ruby_add_rdepend ">=dev-ruby/guard-0.2.0"
