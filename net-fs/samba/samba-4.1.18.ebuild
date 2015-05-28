@@ -20,13 +20,17 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addns ads aio avahi bi_heimdal client cluster cups dmapi fam gnutls iprint
+IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls iprint
 ldap quota selinux syslog systemd test winbind"
 
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	!bi_heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
+	virtual/krb5
+	|| ( 
+		app-crypt/mit-krb5
+		>=app-crypt/heimdal-1.5[-ssl]	
+	)
 	dev-libs/iniparser
 	dev-libs/popt
 	sys-libs/readline:=
@@ -43,7 +47,6 @@ CDEPEND="${PYTHON_DEPS}
 	virtual/pam
 	acl? ( virtual/acl )
 	addns? ( net-dns/bind-tools[gssapi] )
-	bi_heimdal? ( !>=app-crypt/heimdal-1.5[-ssl] )
 	aio? ( dev-libs/libaio )
 	cluster? ( >=dev-db/ctdb-1.0.114_p1 )
 	cups? ( net-print/cups )
@@ -98,7 +101,6 @@ src_configure() {
 	local myconf=''
 	use "cluster" && myconf+=" --with-ctdb-dir=/usr"
 	use "test" && myconf+=" --enable-selftest"
-	use "bi_heimdal" && myconf+=" --bundled-libraries=heimdal"
 	myconf="${myconf} \
 		--enable-fhs \
 		--sysconfdir=/etc \
@@ -110,8 +112,6 @@ src_configure() {
 		--disable-rpath-install \
 		--nopyc \
 		--nopyo \
-		--bundled-libraries=NONE \
-		--builtin-libraries=NONE \
 		$(use_with addns dnsupdate) \
 		$(use_with acl acl-support) \
 		$(use_with ads) \
@@ -131,6 +131,7 @@ src_configure() {
 		$(use_with systemd) \
 		$(use_with winbind)
 		"
+	has_version "app-crypt/mit-krb5" && myconf+=" --with-system-mitkrb5"
 	use "ads" && myconf+=" --with-shared-modules=idmap_ad"
 
 	CPPFLAGS="-I/usr/include/et ${CPPFLAGS}" \
