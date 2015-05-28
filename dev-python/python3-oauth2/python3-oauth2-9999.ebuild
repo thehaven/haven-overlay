@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~*"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
-RDEPEND="!dev-python/oauth2"
+RDEPEND="!dev-python/oauth2
+		dev-python/parse"
 
 python_prepare_all() {
 	rm -r tests

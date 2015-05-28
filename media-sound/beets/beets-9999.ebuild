@@ -41,7 +41,7 @@ RDEPEND="
 	beatport? ( dev-python/requests[${PYTHON_USEDEP}] )
 	bpd? ( dev-python/bluelet[${PYTHON_USEDEP}] )
 	chroma? ( dev-python/pyacoustid[${PYTHON_USEDEP}] )
-	convert? ( media-video/ffmpeg:0[encode] )
+	convert? ( || (  media-video/ffmpeg:0[encode]  media-video/libav[encode] ) )
 	discogs? ( dev-python/discogs-client[${PYTHON_USEDEP}] )
 	doc? ( dev-python/sphinx )
 	echonest? ( dev-python/pyechonest[${PYTHON_USEDEP}] )
