@@ -7,11 +7,11 @@ USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
 inherit ruby-fakegem
 
-DESCRIPTION="This is a simple wrapper over the kqueue BSD event notification interface"
-HOMEPAGE="http://rubygems.org/gems/rb-kqueue"
-SRC_URI="https://github.com/mat813/rb-kqueue/archive/v${PV}.tar.gz -> ${P}-git.tgz"
+DESCRIPTION="Easily find out the truthiness of any Ruby object."
+HOMEPAGE="https://github.com/ymendel/truthy"
+SRC_URI="https://github.com/ymendel/truthy/archive/v${PV}.tar.gz -> ${P}-git.tgz"
 
-LICENSE="BSD"
+LICENSE="Apache-2.0"
 SLOT="${PV}"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
