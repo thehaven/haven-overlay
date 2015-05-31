@@ -30,7 +30,7 @@ RDEPEND="
 	dev-cpp/glog
 	dev-cpp/tbb
 	dev-db/sqlite
-	hack? ( >=dev-lang/ocaml-3.12[ocamlopt] )
+	>=dev-lang/ocaml-3.12[ocamlopt]
 	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
