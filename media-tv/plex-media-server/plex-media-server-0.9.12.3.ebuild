@@ -4,11 +4,12 @@
 
 EAPI="2"
 
-inherit eutils
-MAGIC="215-020456b"
+inherit eutils user
+MAGIC="1173-937aac3"
+
 # URI_PRE="http://plexapp.com/repo/pool/main/p/plexmediaserver/plexmediaserver_${PV}.${MAGIC}_"
 # this does not seem to work atm(/anymore?)
-URI_PRE="http://plex.r.worldssl.net/plex-media-server/${PV}.${MAGIC}/plexmediaserver_${PV}.${MAGIC}_"
+URI_PRE="http://downloads.plex.tv/plex-media-server/${PV}.${MAGIC}/plexmediaserver_${PV}.${MAGIC}_"
 
 DESCRIPTION="Plex Media Server is a free media library that is intended for use with a plex client available for OS X, iOS and Android systems. It is a standalone product which can be used in conjunction with every program, that knows the API. For managing the library a web based interface is provided."
 HOMEPAGE="http://www.plexapp.com/"
@@ -42,8 +43,8 @@ pkg_preinst() {
 	einfo "updating init script"
 	# replace debian specific init scripts with gentoo specific ones
         rm data/etc/init.d/plexmediaserver
-	rm -r data/etc/init
-	cp "${FILESDIR}"/pms_initd_1 data/etc/init.d/plex-media-server
+		rm -r data/etc/init
+		cp "${FILESDIR}"/pms_initd_1 data/etc/init.d/plex-media-server
         chmod 755 data/etc/init.d/plex-media-server
 
 	einfo "moving config files"
