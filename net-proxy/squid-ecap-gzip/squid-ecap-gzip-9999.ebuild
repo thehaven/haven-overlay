@@ -18,3 +18,7 @@ SLOT="0"
 DEPEND="net-libs/libecap
 		net-proxy/squid"
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+    epatch "${FILESDIR}"/squid-ecap-gzip_all_text_compressed.patch
+}
