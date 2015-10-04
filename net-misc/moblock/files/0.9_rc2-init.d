@@ -1,7 +1,12 @@
 #!/sbin/runscript
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+depend() {
+	need net
+	use logger
+}
 
 checkconfig() {
 	test -s "${BLOCKLISTFILE}" && return
@@ -83,16 +88,14 @@ start() {
 		iptables -I MOBLOCK_FW --destination $IP -j RETURN
 	done
 
-	# Loopback traffic fix
-
-	iptables -I INPUT -p all -i lo -j ACCEPT
-	iptables -I OUTPUT -p all -o lo -j ACCEPT
+	iptables -I OUTPUT -p all -m state --state NEW -m mark --mark ${REJECT_MARK} -j REJECT
+	iptables -I FORWARD -p all -m state --state NEW -m mark --mark ${REJECT_MARK} -j REJECT
 
 	# Here you can change block list and log files
 
 	if start-stop-daemon --start --quiet --background --pidfile ${PIDFILE} \
 			--exec /usr/sbin/moblock -- \
-			${BLOCKLISTTYPE} "${BLOCKLISTFILE}" "${LOGFILE}"; then
+			${BLOCKLISTTYPE} "${BLOCKLISTFILE}" ${MOBLOCK_OPTS} -r ${REJECT_MARK} "${LOGFILE}"; then
 		eend 0
 	else
 		# If startup failed, we need to cleanup iptables
@@ -108,8 +111,8 @@ cleanup_iptables() {
 		iptables -D FORWARD -p all -m state --state NEW -j MOBLOCK_FW
 	fi
 
-	iptables -D INPUT -p all -i lo -j ACCEPT
-	iptables -D OUTPUT -p all -o lo -j ACCEPT
+	iptables -D OUTPUT -p all -m state --state NEW -m mark --mark $REJECT_MARK -j REJECT
+	iptables -D FORWARD -p all -m state --state NEW -m mark --mark $REJECT_MARK -j REJECT
 
 	iptables -F MOBLOCK_IN
 	iptables -X MOBLOCK_IN

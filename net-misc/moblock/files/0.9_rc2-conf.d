@@ -1,31 +1,29 @@
-# /etc/conf.d/moblock.paranoid.example: Used by /usr/sbin/moblock{,-stats,-update}
-# This moblock configuration provides the most protection, but will also greatly
-# limit what you can access on the Internet, possibly including Gentoo mirrors.
-# Individual blocklists (as opposed to pipfilter.dat) are used to reduce update
-# bandwidth.
-
 ACTIVATE_CHAINS=1
-#WHITE_TCP_IN="ssh"
+WHITE_TCP_IN="ssh"
 WHITE_UDP_IN=""
-#WHITE_TCP_OUT="ftp http https"
+WHITE_TCP_OUT="ftp http https"
 WHITE_UDP_OUT=""
 WHITE_TCP_FORWARD=""
 WHITE_UDP_FORWARD=""
-WHITE_IP_IN="91.186.30.235"         # Gentoo rSync
-WHITE_IP_OUT="91.186.30.235"        # Gentoo rSync
-WHITE_IP_FORWARD="91.186.30.235"    # Gentoo rSync
+WHITE_IP_IN=""
+WHITE_IP_OUT=""
+WHITE_IP_FORWARD=""
 BLACK_IP_IN=""
 BLACK_IP_OUT=""
 BLACK_IP_FORWARD=""
+REJECT_MARK="10"
+
+# -t : Log packages including timestamp
+# -s : Log to syslog
+MOBLOCK_OPTS="-t -s"
+
+# Recommended Exclusions (will be downloaded from one of the mirrors)
+WHITELISTS+="exclusions "
 
 TARGET="NFQUEUE"
 
 PIDFILE="/var/run/moblock.pid"
 LOGFILE="/var/log/moblock.log"
-
-# Do not edit WGET_EXTRA_OPTIONS without understanding how the getAFile
-# function in moblock-update works.
-WGET_EXTRA_OPTIONS="--tries=2 --timeout=30"
 
 # Valid values for BLOCKLISTTYPE:
 #     -d    blocklist is an ipfilter.dat file
@@ -38,12 +36,11 @@ BLOCKLISTFILE="/var/db/moblock/guarding.p2p"
 BLOCKLISTDIR="/var/cache/moblock"
 
 BLOCKLISTSUFFIX="gz"
-BLOCKLISTURLS="
-	http://www.bluetack.co.uk/config/BLOCKLIST.SUFFIX
-	http://www.bluetack.nl/bluetack/BLOCKLIST.SUFFIX
-	http://www.btack.info/bluetack/BLOCKLIST.SUFFIX
-	http://www.bluetack.info/temp/BLOCKLIST.SUFFIX
-	http://list.iblocklist.com/?list=bt_BLOCKLIST
+BLOCKLISTSERVERS="
+	http://www.bluetack.co.uk/config
+	http://www.bluetack.nl/bluetack
+	http://www.btack.info/bluetack
+	http://www.bluetack.info/temp
 "
 
 # This mirror is broken, it doesn't return a real HTTP error code when it
@@ -53,8 +50,6 @@ BLOCKLISTURLS="
 # For more information on blocklists, go read
 # http://www.bluetack.co.uk/modules.php?name=FAQ&myfaq=yes&id_cat=6&categories=Blacklists+FAQ
 
-# Recommended Exclusions (will be downloaded from one of the mirrors)
-WHITELISTS+="exclusions "
 
 ##############################################################################
 # The Block Lists
@@ -63,27 +58,24 @@ WHITELISTS+="exclusions "
 # un-comminging them out.
 ##############################################################################
 
-# Ad-Trackers and Bad Porn
+# All known Microsoft Corp and associated IP ranges from around
+# the world.
+BLOCKLISTS+="Microsoft "
+
+# Ad Trackers
 BLOCKLISTS+="ads-trackers-and-bad-pr0n "
 
-# People who have been reported for bad deeds in p2p (having files that
-# contain viruses, etc.) (ex templist)
-BLOCKLISTS+="badpeers "
-
-# Bogon Addresses List
+# Bogon Addresses
 BLOCKLISTS+="bogon "
 
 # DShield (http://www.dshield.org)
 BLOCKLISTS+="dshield "
 
 # Educational Institution Ranges
-BLOCKLISTS+="edu "
+#BLOCKLISTS+="edu "
 
 # LAN Blacklist 0.* 10.* and 192.168.* Ranges
 #BLOCKLISTS+="fornonlancomputers "
-
-# Stops spam, fakes and worms in the Gnutella net.
-BLOCKLISTS+="gnutella "
 
 # Hijacked IP address blocks
 BLOCKLISTS+="hijacked "
@@ -110,23 +102,21 @@ BLOCKLISTS+="level2 "
 # Level 3
 BLOCKLISTS+="level3 "
 
-# All known Microsoft Corp and associated IP ranges from around the world.
-BLOCKLISTS+="Microsoft "
-
 # Suspicious IP's that are under investigation.
 BLOCKLISTS+="rangetest "
 
 # Webspiders and bots (includes Google, Yahoo!, et. al.)
-BLOCKLISTS+="spider "
+#BLOCKLISTS+="spider "
 
 # Spyware, adware, malware and trojans initiated from web sites.
 BLOCKLISTS+="spyware "
 
+# People who have been reported for bad deeds in p2p (having files that
+# contain viruses, etc.)
+BLOCKLISTS+="templist "
+
 # Trojans & port scanners.
 BLOCKLISTS+="trojan "
-
-# Bad Sites that use exploits and forums with a lot of spam.
-BLOCKLISTS+="webexploit-forumspam "
 
 # eMule "Normal" IP Filter - A compilation of the below lists.  Please DO NOT
 # use this in addition to any of the below.  You cannot mix and match .p2p and
@@ -140,10 +130,10 @@ BLOCKLISTS+="webexploit-forumspam "
 # * iana-reserved
 # * level1
 # * level2
-# * badpeers
+# * templist
 #BLOCKLISTS+="nipfilter.dat "
 
-# eMule "Paranoid" IP Filter - A compilation of ALL of the above lists.  DO NOT
+# eMule "Parinoid" IP Filter - A compilation of ALL of the above lists.  DO NOT
 # use this in addition to the above lists as you will just be wasting bandwidth.
 #BLOCKLISTS+="pipfilter.dat "
 
