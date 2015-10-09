@@ -11,7 +11,7 @@ inherit distutils-r1 eutils git-2
 
 EGIT_REPO_URI="git://github.com/sampsyo/beets.git"
 if [[ ${PV} != *9999* ]] ; then
-    EGIT_COMMIT="tags/$(echo ${PV//_/-} | tr '[:lower:]' '[:upper:]' )"
+    EGIT_COMMIT="v${PV}"
 fi
 
 if [[ ${PV} == *9999* ]]; then
@@ -26,7 +26,6 @@ MY_P=${PN}-${MY_PV}
 DESCRIPTION="A media library management system for obsessive-compulsive music geeks"
 HOMEPAGE="http://beets.radbox.org/ http://pypi.python.org/pypi/beets"
 
-KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="MIT"
 IUSE="beatport bpd chroma convert doc discogs echonest echonest_tempo lastgenre mpdstats replaygain test web"

@@ -7,16 +7,25 @@ EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="sqlite"
 
-inherit distutils-r1 eutils
+inherit distutils-r1 eutils git-2
+
+EGIT_REPO_URI="git://github.com/sampsyo/beets.git"
+if [[ ${PV} != *9999* ]] ; then
+    EGIT_COMMIT="v${PV}"
+fi
+
+if [[ ${PV} == *9999* ]]; then
+    KEYWORDS="-*"
+else
+    KEYWORDS="~amd64 ~x86"
+fi
 
 MY_PV=${PV/_beta/-beta.}
 MY_P=${PN}-${MY_PV}
 
 DESCRIPTION="A media library management system for obsessive-compulsive music geeks"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 HOMEPAGE="http://beets.radbox.org/ http://pypi.python.org/pypi/beets"
 
-KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="MIT"
 IUSE="beatport bpd chroma convert doc discogs echonest echonest_tempo lastgenre mpdstats replaygain test web"
@@ -26,12 +35,13 @@ RDEPEND="
 	>=dev-python/python-musicbrainz-ngs-0.4[${PYTHON_USEDEP}]
 	dev-python/unidecode[${PYTHON_USEDEP}]
 	>=media-libs/mutagen-1.22[${PYTHON_USEDEP}]
+	dev-python/jellyfish[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/enum34[${PYTHON_USEDEP}]
 	beatport? ( dev-python/requests[${PYTHON_USEDEP}] )
 	bpd? ( dev-python/bluelet[${PYTHON_USEDEP}] )
 	chroma? ( dev-python/pyacoustid[${PYTHON_USEDEP}] )
-	convert? ( media-video/ffmpeg:0[encode] )
+	convert? ( || (  media-video/ffmpeg:0[encode]  media-video/libav[encode] ) )
 	discogs? ( dev-python/discogs-client[${PYTHON_USEDEP}] )
 	doc? ( dev-python/sphinx )
 	echonest? ( dev-python/pyechonest[${PYTHON_USEDEP}] )
@@ -82,7 +92,7 @@ python_test() {
 }
 
 python_install_all() {
-	doman man/beet.1 man/beetsconfig.5
+	#doman man/beet.1 man/beetsconfig.5
 
 	use doc && dohtml -r docs/_build/html/
 }
