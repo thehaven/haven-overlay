@@ -28,7 +28,7 @@ HOMEPAGE="http://beets.radbox.org/ http://pypi.python.org/pypi/beets"
 
 SLOT="0"
 LICENSE="MIT"
-IUSE="beatport bpd chroma convert doc discogs echonest echonest_tempo lastgenre mpdstats replaygain test web"
+IUSE="beatport bpd chroma convert doc discogs echonest echonest_tempo flac gstreamer lastgenre mpdstats ogg opus replaygain test web"
 
 RDEPEND="
 	dev-python/munkres[${PYTHON_USEDEP}]
@@ -37,18 +37,26 @@ RDEPEND="
 	>=media-libs/mutagen-1.22[${PYTHON_USEDEP}]
 	dev-python/jellyfish[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
-	dev-python/enum34[${PYTHON_USEDEP}]
+	>=dev-python/enum34-1.0.4[${PYTHON_USEDEP}]
 	beatport? ( dev-python/requests[${PYTHON_USEDEP}] )
 	bpd? ( dev-python/bluelet[${PYTHON_USEDEP}] )
 	chroma? ( dev-python/pyacoustid[${PYTHON_USEDEP}] )
 	convert? ( || (  media-video/ffmpeg:0[encode]  media-video/libav[encode] ) )
 	discogs? ( dev-python/discogs-client[${PYTHON_USEDEP}] )
 	doc? ( dev-python/sphinx )
-	echonest? ( dev-python/pyechonest[${PYTHON_USEDEP}] )
+	echonest? ( >=dev-python/pyechonest-8.0.1[${PYTHON_USEDEP}] )
 	echonest_tempo? ( dev-python/pyechonest[${PYTHON_USEDEP}] )
 	mpdstats? ( dev-python/python-mpd[${PYTHON_USEDEP}] )
 	lastgenre? ( dev-python/pylast[${PYTHON_USEDEP}] )
-	replaygain? ( || ( media-sound/mp3gain media-sound/aacgain ) )
+    replaygain? (
+            gstreamer? ( media-libs/gstreamer:1.0[introspection]
+                    media-libs/gst-plugins-good:1.0
+                    dev-python/pygobject:3[${PYTHON_USEDEP}]
+                    ogg? ( media-plugins/gst-plugins-ogg )
+                    flac? ( media-plugins/gst-plugins-flac:1.0 )
+                    opus? ( media-plugins/gst-plugins-opus:1.0 ) )
+            !gstreamer? ( || ( media-sound/mp3gain
+                    media-sound/aacgain ) ) )
 	web? ( dev-python/flask[${PYTHON_USEDEP}] )
 "
 
@@ -64,14 +72,14 @@ src_prepare() {
 		if ! use $flag ; then
 			rm -r beetsplug/${flag}.py || \
 			rm -r beetsplug/${flag}/ ||
-				die "Unable to remove $flag plugin"
+				die "Unable to remove ${flag} plugin"
 		fi
 	done
 
 	for flag in bpd lastgenre web;do
 		if ! use $flag ; then
-			sed -i "s:'beetsplug.$flag',::" setup.py || \
-				die "Unable to disable $flag plugin "
+			sed -i "s:'beetsplug.${flag}',::" -i setup.py || \
+				die "Unable to disable ${flag} plugin "
 		fi
 	done
 
@@ -85,7 +93,7 @@ python_compile_all() {
 
 python_test() {
 	cd test
-	if ! use web;then
+	if ! use web; then
 		rm test_web.py || die "Failed to remove test_web.py"
 	fi
 	"${PYTHON}" testall.py || die "Testsuite failed"
