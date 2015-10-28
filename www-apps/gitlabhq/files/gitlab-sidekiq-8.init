@@ -16,7 +16,7 @@ sidekiq_command_args="exec sidekiq -q ${sidekiq_queues} -P ${sidekiq_pidfile} -L
 
 depend() {
 	need redis
-	use net
+	use net gitlab-git-http-server
 }
 
 start() {
