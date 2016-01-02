@@ -53,6 +53,15 @@ DEPEND="
 	>=dev-python/pytvmaze-1.4.0[${PYTHON_USEDEP}]
 	>=dev-python/pyScss-1.3.4[${PYTHON_USEDEP}]
 	>=dev-python/flask-login-0.3.2[${PYTHON_USEDEP}]
+	>=dev-python/flask-compress-1.2.1[${PYTHON_USEDEP}]
+	>=dev-python/cssmin-0.2.0[${PYTHON_USEDEP}]
+	>=dev-python/flask-assets-0.11[${PYTHON_USEDEP}]
+	>=dev-python/cherrypy-3.7.0[${PYTHON_USEDEP}]
+	=dev-python/flask-restplus-0.7.2[${PYTHON_USEDEP}]
+	>=dev-python/ordereddict-1.1[${PYTHON_USEDEP}]
+	>=dev-python/flask-restful-0.3.3[${PYTHON_USEDEP}]
+	virtual/python-pathlib[${PYTHON_USEDEP}]
+	>=dev-python/webassets-0.11[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}
 	transmission? ( dev-python/transmissionrpc[${PYTHON_USEDEP}] )
