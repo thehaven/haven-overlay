@@ -72,6 +72,14 @@ DEPEND="
 SLOT="0"
 LICENSE="PHP-3"
 
+# Issues with GCC > 5 for boost and hhvm
+# https://github.com/facebook/hhvm/issues/5184 
+CXXFLAGS=' -Wno-error=narrowing -Wno-bool-compare -D_GLIBCXX_USE_CXX11_ABI=0 -DFOLLY_HAVE_MALLOC_H'
+
+# Try using Clang (LLVM) instead:
+CC='clang'
+CXX='clang++'
+
 pkg_pretend() {
 	if [[ $(gcc-major-version) -lt 4 ]] || \
 			( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 8 ]] ) \

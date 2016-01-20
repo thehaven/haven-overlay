@@ -10,13 +10,13 @@ EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 case ${PV} in
 9999)
 	EGIT_BRANCH="master"
-	KEYWORDS="~amd64"
+	KEYWORDS=""
 	;;
 *)
 	# For now, git is the only way to fetch releases
 	# https://github.com/facebook/hhvm/issues/2806
 	EGIT_COMMIT="HHVM-${PV}"
-	KEYWORDS="amd64"
+	KEYWORDS="~amd64"
 	;;
 esac
 
@@ -30,7 +30,7 @@ RDEPEND="
 	dev-cpp/glog
 	dev-cpp/tbb
 	dev-db/sqlite
-	>=dev-lang/ocaml-3.12[ocamlopt]
+	hack? ( >=dev-lang/ocaml-3.12[ocamlopt] )
 	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
@@ -39,7 +39,7 @@ RDEPEND="
 	>=dev-libs/jemalloc-3.0.0[stats]
 	jsonc? ( dev-libs/json-c )
 	dev-libs/libdwarf
-	>=dev-libs/libevent-2.0.9 <dev-libs/libevent-2.1.0
+	>=dev-libs/libevent-2.0.9
 	dev-libs/libmcrypt
 	dev-libs/libmemcached
 	dev-libs/libpcre
