@@ -10,8 +10,8 @@ inherit unpacker eutils
 DESCRIPTION="Packer is a tool for creating machine and container images for multiple platforms from a single source configuration"
 HOMEPAGE="https://packer.io/"
 
-SRC_URI_AMD64="https://dl.bintray.com/mitchellh/${MY_PN}/${MY_PN}_${PV}_linux_amd64.zip"
-SRC_URI_X86="https://dl.bintray.com/mitchellh/${MY_PN}/${MY_PN}_${PV}_linux_386.zip"
+SRC_URI_AMD64="https://releases.hashicorp.com/packer/${PV}/${MY_PN}_${PV}_linux_amd64.zip"
+SRC_URI_X86="https://releases.hashicorp.com/packer/${PV}/${MY_PN}_${PV}_linux_386.zip"
 SRC_URI="
     amd64? ( ${SRC_URI_AMD64} )
     x86? ( ${SRC_URI_X86} )
