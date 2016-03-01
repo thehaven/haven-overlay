@@ -1,4 +1,4 @@
-This is the personal gentoo layman repository.
+This is the personal gentoo layman repository for Haven (Simon Alman).
 
 Many of the ebuilds in here are copied/borrowed/edited versions of those
 found in other layman repositories. They are kept upto date for my own
