@@ -39,7 +39,7 @@ DEPEND="
 	dev-python/PyRSS2Gen[${PYTHON_USEDEP}]
 	dev-python/pynzb[${PYTHON_USEDEP}]
 	dev-python/progressbar[${PYTHON_USEDEP}]
-	>=dev-python/rebulk-0.7.0[${PYTHON_USEDEP}]
+	>=dev-python/rebulk-0.7.1[${PYTHON_USEDEP}]
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/rpyc[${PYTHON_USEDEP}]
 	dev-python/jinja[${PYTHON_USEDEP}]
