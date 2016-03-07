@@ -44,4 +44,3 @@ src_install() {
 
 	make_wrapper "${MY_PN}" "${dir}/bin/${MY_PN}"
 }
-
