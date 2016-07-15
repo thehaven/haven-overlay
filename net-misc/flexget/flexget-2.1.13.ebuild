@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5})
 
 inherit distutils-r1 eutils
 
@@ -42,14 +42,14 @@ DEPEND="
 	dev-python/jinja[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.8.0[${PYTHON_USEDEP}]
 	<dev-python/requests-3[${PYTHON_USEDEP}]
-	>=dev-python/python-dateutil-2.5.2[${PYTHON_USEDEP}]
+    >=dev-python/python-dateutil-2.5.2
 	>=dev-python/jsonschema-2.0[${PYTHON_USEDEP}]
 	dev-python/path-py[${PYTHON_USEDEP}]
 	dev-python/pathlib[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
-	<dev-python/guessit-2.0.4[${PYTHON_USEDEP}]
+	<=dev-python/guessit-2.0.4[${PYTHON_USEDEP}]
 	>=dev-python/cherrypy-3.7.0[${PYTHON_USEDEP}]
-	dev-python/APScheduler[${PYTHON_USEDEP}]
+	>=dev-python/APScheduler-3.2.0[${PYTHON_USEDEP}]
 	>=dev-python/flask-0.7[${PYTHON_USEDEP}]
 	>=dev-python/flask-restful-0.3.3[${PYTHON_USEDEP}]
 	=dev-python/flask-restplus-0.8.6[${PYTHON_USEDEP}]
