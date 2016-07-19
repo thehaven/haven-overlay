@@ -18,7 +18,7 @@ IUSE="+asm bindist cryptodev gmp kerberos rfc3779 sctp cpu_flags_x86_sse2 sslv2 
 RESTRICT="!bindist? ( bindist )"
 
 RDEPEND=">=app-misc/c_rehash-1.7-r1
-	cryptodev? ( sys-kernel/cryptodev )
+	sys-kernel/cryptodev
 	gmp? ( >=dev-libs/gmp-5.1.3-r1[static-libs(+)?,${MULTILIB_USEDEP}] )
 	zlib? ( >=sys-libs/zlib-1.2.8-r1[static-libs(+)?,${MULTILIB_USEDEP}] )
 	kerberos? ( >=app-crypt/mit-krb5-1.11.4[${MULTILIB_USEDEP}] )"
@@ -150,7 +150,7 @@ multilib_src_configure() {
 		enable-mdc2 \
 		enable-rc5 \
 		enable-tlsext \
-		-DHAVE_CRYPTODEV -DUSE_CRYPTODEV_DIGESTS \
+		-DHAVE_CRYPTODEV \
 		$(use_ssl asm) \
 		$(use_ssl gmp gmp -lgmp) \
 		$(use_ssl kerberos krb5 --with-krb5-flavor=${krb5}) \
