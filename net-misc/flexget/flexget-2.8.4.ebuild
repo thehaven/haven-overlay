@@ -33,7 +33,6 @@ DEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	>=dev-python/beautifulsoup-4.5:4[${PYTHON_USEDEP}]
 	>=dev-python/html5lib-0.11[${PYTHON_USEDEP}]
-	<dev-python/html5lib-0.9999999[${PYTHON_USEDEP}]
 	dev-python/PyRSS2Gen[${PYTHON_USEDEP}]
 	dev-python/pynzb[${PYTHON_USEDEP}]
 	dev-python/rpyc[${PYTHON_USEDEP}]
