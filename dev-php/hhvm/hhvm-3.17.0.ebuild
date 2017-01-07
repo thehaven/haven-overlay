@@ -8,10 +8,12 @@ inherit eutils git-2 user
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 
-EGIT_BRANCH="master"
-KEYWORDS="-*"
+# For now, git is the only way to fetch releases
+# https://github.com/facebook/hhvm/issues/2806
+EGIT_COMMIT="HHVM-${PV}"
+KEYWORDS="-* ~amd64"
 
-IUSE="debug jsonc xen zend-compat cpu_flags_x86_avx2"
+IUSE="cpu_flags_x86_avx2 debug jsonc xen zend-compat"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
