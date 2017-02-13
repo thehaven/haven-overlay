@@ -25,6 +25,15 @@ DEPEND=">=dev-python/arrow-0.8.0
 "
 RDEPEND="${DEPEND}"
 
-python_test() {
-    "${PYTHON}" tests/api_tests.py || die "Testing failed with ${EPYTHON}"
+python_prepare_all() {
+    rm -r test
+    distutils-r1_python_prepare_all
+}
+
+python_install_all() {
+	# mv /usr/bin/b2 to /usr/local/bin/b2 prevent collisions with boost:
+	mkdir -p ${PORTAGE_BUILDDIR}/image/usr/local/bin/
+	rm ${PORTAGE_BUILDDIR}/image/usr/bin/b2
+    ln -s ${PORTAGE_BUILDDIR}/image/usr/lib/python-exec/python-exec2 ${PORTAGE_BUILDDIR}/image/usr/local/bin/b2
+	distutils-r1_python_install_all
 }
