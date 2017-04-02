@@ -10,11 +10,11 @@ depend() {
 }
 
 start() {
-	checkpath -dq -o madsonic:madsonic -m 755 /run/madsonic/
+	checkpath -dq -o ${MADSONIC_USER}:madsonic -m 755 /run/madsonic/
 
 	ebegin "Starting ${SVCNAME}"
 	start-stop-daemon \
-		--start --user "${MADSONIC_USER}" --name madsonic \
+		--start --user "${MADSONIC_USER}" --wait 15 --name madsonic \
 		--env HOME="${MADSONIC_HOME}" --exec /usr/bin/madsonic \
 		--pidfile="${PIDFILE}" \
 		--nicelevel "${NICELEVEL}" \
@@ -24,7 +24,7 @@ start() {
 		--port="${MADSONIC_PORT}" \
 		--https-port="${MADSONIC_HTTPS_PORT}" \
 		--context-path="${MADSONIC_CONTEXT_PATH}" \
-		--init-memory=192
+		--init-memory=192 \
 		--max-memory="${MADSONIC_MAX_MEMORY}" \
 		--default-music-folder="${MADSONIC_DEFAULT_MUSIC_FOLDER}" \
 		--default-upload-folder="${MADSONIC_DEFAULT_UPLOAD_FOLDER}" \

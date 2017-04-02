@@ -10,11 +10,11 @@ depend() {
 }
 
 start() {
-	checkpath -dq -o subsonic:subsonic -m 755 /run/subsonic/
+	checkpath -dq -o ${SUBSONIC_USER}:subsonic -m 755 /run/subsonic/
 
 	ebegin "Starting ${SVCNAME}"
 	start-stop-daemon \
-		--start --user "${SUBSONIC_USER}" --name subsonic \
+		--start --user "${SUBSONIC_USER}" --wait 5 --name subsonic \
 		--env HOME="${SUBSONIC_HOME}" --exec /usr/bin/subsonic \
 		--pidfile="${PIDFILE}" \
 		--nicelevel "${NICELEVEL}" \
