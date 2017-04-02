@@ -10,7 +10,7 @@ MY_PN="${PN//-bin}"
 
 DESCRIPTION="Subsonic is a complete, personal media streaming solution"
 HOMEPAGE="http://www.subsonic.org/"
-SRC_URI="http://subsonic.org/download/${MY_PN}-${PV}-standalone.tar.gz"
+SRC_URI="https://s3-eu-west-1.amazonaws.com/subsonic-public/download/${MY_PN}-${PV}-standalone.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
