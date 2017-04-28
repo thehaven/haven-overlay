@@ -58,6 +58,7 @@ DEPEND="
 	>=dev-python/future-0.15.2[${PYTHON_USEDEP}]
 	>=dev-python/colorclass-2.2.0[${PYTHON_USEDEP}]
 	>=dev-python/terminaltables-3.1.0[${PYTHON_USEDEP}]
+	dev-python/zxcvbn-python[${PYTHON_USEDEP}]
 	"
 RDEPEND="${DEPEND}
 	transmission? ( dev-python/transmissionrpc[${PYTHON_USEDEP}] )
