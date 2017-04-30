@@ -22,7 +22,10 @@ RDEPEND="|| ( media-video/mplayer
 		media-sound/lame
 		media-video/flvstreamer
 		dev-perl/libwww-perl
+		dev-perl/LWP-Protocol-https
+		dev-perl/Mojolicious
 		dev-perl/XML-LibXML
+		dev-perl/XML-Simple
 		media-video/atomicparsley
 		"
 DEPEND=""
