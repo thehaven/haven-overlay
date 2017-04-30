@@ -9,11 +9,11 @@ inherit git-r3
 DESCRIPTION="BBC Iplayer downloading application"
 HOMEPAGE="http://linuxcentre.net/get_iplayer/"
 EGIT_REPO_URI="https://github.com/get-iplayer/get_iplayer.git"
-EGIT_BRANCH='master'
+EGIT_COMMIT="v${PV}"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 RDEPEND="|| ( media-video/mplayer
