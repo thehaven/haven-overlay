@@ -19,7 +19,7 @@ RDEPEND="
 	media-video/mediainfo
 	dev-db/sqlite"
 IUSE="updater"
-MY_PN="NzbDrone"
+#MY_PN="NzbDrone"
 S=${WORKDIR}/${MY_PN}
 
 pkg_setup() {
@@ -45,7 +45,7 @@ src_install() {
 	insinto /etc/logrotate.d
 	insopts -m0644 -o root -g root
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
-
+    mkdir -p /var/log/${PN} && chown ${PN}:${PN} /var/log/${PN}
 
 	insinto "/usr/share/"
 	doins -r "${S}"
