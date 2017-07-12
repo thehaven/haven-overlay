@@ -1,0 +1,26 @@
+# ChangeLog for net-nntp/headphones
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 Nov 2014; Daniel Rune Jensen (soehest) <drunejensen@gmail.com>
+  headphones-9999.ebuild:
+  Small fix to allow installation. Thanks to Fenix4k for reporting.
+
+  25 Mar 2014; Daniel Rune Jensen (soehest) <drunejensen@gmail.com>
+  headphones-9999.ebuild, -Changelog:
+  Added python sqlite check. (Thanks Benny)
+
+  09 Oct 2012; Daniel Rune Jensen (soehest) <daniel@eth0.dk>
+  headphones-9999.ebuild:
+  Changes to files/headphones.conf, files/headphones.init and
+  headphones-9999.ebuild: Ebuild maintance and fix for missing 
+  update notification.
+
+*headphones-9999 (25 Aug 2012)
+
+  25 Aug 2012; Daniel Rune Jensen (soehest) <daniel@eth0.dk>
+  +headphones-9999.ebuild, +metadata.xml, +files/headphones.conf,
+  +files/headphones.ini, +files/headphones.init,
+  +files/headphones.logrotate
+  Initial commit of headphones-9999 ebuild.
+
