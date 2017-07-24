@@ -4,16 +4,18 @@
 
 EAPI=5
 
-inherit eutils user systemd
+inherit eutils git-2 user systemd
 
-SRC_URI="http://update.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+#SRC_URI="http://update.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+EGIT_REPO_URI="https://github.com/Sonarr/Sonarr.git"
+EGIT_COMMIT="v${PV}"
 
 DESCRIPTION="Sonarr is a PVR for Usenet and BitTorrent users."
 HOMEPAGE="http://www.sonarr.tv"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="~amd64 ~x86"
 RDEPEND="
 	>=dev-lang/mono-3.12.1
 	media-video/mediainfo
@@ -27,10 +29,10 @@ pkg_setup() {
 	enewuser ${PN} -1 -1 /var/lib/sonarr ${PN}
 }
 
-src_unpack() {
-	unpack ${A}
-	mv ${MY_PN} ${PN}
-}
+#src_unpack() {
+#	unpack ${A}
+#	mv ${MY_PN} ${PN}
+#}
 
 src_install() {
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
