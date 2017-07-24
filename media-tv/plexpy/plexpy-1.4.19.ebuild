@@ -33,4 +33,5 @@ src_install() {
 	fowners -R plex:plex "/opt/plexpy"
 
 	systemd_dounit  "${FILESDIR}"/plexpy.service
+	newinitd "${FILESDIR}/${PN}.init" ${PN}
 }

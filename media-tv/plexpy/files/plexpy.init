@@ -1,0 +1,42 @@
+#!/sbin/openrc-run
+
+depend() {
+  after net
+}
+
+## Variables
+user=plex
+prog=plexpy
+lockfile=/var/lock/${prog}
+homedir=/opt/plexpy
+datadir=/opt/plexpy
+configfile=/opt/plexpy/config.ini
+pidfile=/var/run/plexpy.pid
+
+options="--daemon --config $configfile --pidfile $pidfile --datadir $datadir --nolaunch --quiet"
+
+start() {
+        # Start daemon.
+        ebegin "Starting $prog: "
+        start-stop-daemon --start --user "${user}" \
+          --pidfile ${pidfile} \
+          --name ${prog} \
+          --progress \
+          --exec /usr/bin/python2.7 ${homedir}/PlexPy.py -- ${options}
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch $lockfile
+        return $RETVAL
+}
+
+stop() {
+        ebegin "Stopping $prog: "
+        start-stop-daemon --stop --user "${user}" \
+          --pidfile "${pidfile}" \
+          --name ${prog} \
+          --progress
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && rm -f $lockfile
+        return $RETVAL
+}
