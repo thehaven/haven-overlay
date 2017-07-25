@@ -45,7 +45,6 @@ stop() {
 	ebegin "Stopping ${SVCNAME}"
 	start-stop-daemon --stop --user "${MADSONIC_USER}" \
 		--pidfile "${PIDFILE}" \
-		--wait 15000 \
-		--progress
+		--retry 15
 	eend $?
 }
