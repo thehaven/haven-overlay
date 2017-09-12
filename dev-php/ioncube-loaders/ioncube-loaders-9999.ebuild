@@ -24,7 +24,6 @@ PHP_EXT_S=${S}
 DESCRIPTION="PHP extension that support for running PHP scripts encoded with ionCube's encoder"
 HOMEPAGE="http://www.ioncube.com/"
 SRC_URI="https://www.ioncube.com/php7-linux-${MY_ARCH}-beta8.tgz"
-SRC_URI="http://downloads2.ioncube.com/loader_downloads/ioncube_loaders_lin_${MY_ARCH}.tar.bz2"
 LICENSE="${PN}"
 SLOT="0"
 IUSE=""
@@ -45,8 +44,7 @@ pkg_setup() {
 
 src_unpack() {
     unpack ${A}
-
-    IONCUBE_SO_FILE="${PHP_EXT_NAME}_lin_${PHP_VER}.so"
+	IONCUBE_SO_FILE="${PHP_EXT_NAME}_lin_${MY_ARCH}_7.0b8.so"
     cd ${S}
     mkdir modules
     mv ${IONCUBE_SO_FILE} "modules/${PHP_EXT_NAME}.so"

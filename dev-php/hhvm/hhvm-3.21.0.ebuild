@@ -11,12 +11,12 @@ EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 # For now, git is the only way to fetch releases
 # https://github.com/facebook/hhvm/issues/2806
 EGIT_COMMIT="HHVM-${PV}"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 
-IUSE="cpu_flags_x86_avx2 debug jsonc xen zend-compat"
+IUSE="debug jsonc mysql-socket xen zend-compat hack postgres cpu_flags_x86_sse4_2"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
-HOMEPAGE="https://github.com/facebook/hhvm"
+HOMEPAGE="http://www.hhvm.com"
 
 RDEPEND="
 	app-arch/bzip2
@@ -24,7 +24,7 @@ RDEPEND="
 	dev-cpp/tbb
 	dev-db/sqlite
 	>=dev-lang/ocaml-3.12[ocamlopt]
-	|| ( dev-ml/ocamlbuild <dev-lang/ocaml-4.02.3-r1 )
+	dev-ml/ocamlbuild[ocamlopt]
 	>=dev-libs/boost-1.49[context]
 	dev-libs/cloog
 	dev-libs/elfutils
@@ -41,8 +41,7 @@ RDEPEND="
 	dev-libs/libxslt
 	>=dev-libs/libzip-0.11.0
 	dev-libs/oniguruma
-	dev-libs/openssl[-bindist]
-	dev-libs/re2
+	dev-libs/openssl
 	media-gfx/imagemagick
 	media-libs/freetype
 	media-libs/gd[jpeg,png]
@@ -56,16 +55,31 @@ RDEPEND="
 	virtual/mysql
 "
 
+PDEPEND="
+	!dev-php/hhvm-pgsql
+"
+
 DEPEND="
 	${RDEPEND}
-	>=dev-util/cmake-2.8.7
+	>=dev-util/cmake-3.7.2
 	sys-devel/binutils[static-libs]
 	sys-devel/bison
 	sys-devel/flex
+	postgres? ( dev-db/postgresql )
 "
 
 SLOT="0"
 LICENSE="PHP-3"
+
+pkg_pretend() {
+	if [[ $(gcc-major-version) -lt 4 ]] || \
+			( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 8 ]] ) \
+			; then
+		eerror "${PN} needs to be built with gcc-4.8 or later."
+		eerror "Please use gcc-config to switch to gcc-4.8 or later version."
+		die
+	fi
+}
 
 pkg_setup() {
 	ebegin "Creating hhvm user and group"
@@ -77,11 +91,13 @@ pkg_setup() {
 src_prepare()
 {
 	git submodule update --init --recursive
+	epatch "${FILESDIR}/hhvm_change_library_include_path.patch"
 }
 
 src_configure()
 {
 	CMAKE_BUILD_TYPE="Release"
+
 	if use debug; then
 		CMAKE_BUILD_TYPE="Debug"
 	fi
@@ -98,9 +114,20 @@ src_configure()
 		HHVM_OPTS="${HHVM_OPTS} -DENABLE_ZEND_COMPAT=ON"
 	fi
 
-	if use cpu_flags_x86_avx2; then
-		HHVM_OPTS="${HHVM_OPTS} -DENABLE_AVX2=ON"
+	if use mysql-socket; then
+		ebegin "Searching for MySQL socket..."
+		if [[ -S /var/run/mysqld/mysqld.sock ]]; then
+			eend $?
+		else
+			eerror "Socket not found. Please start the MySQL/MariaDB server."
+			die "MySQL socket support enabled but server isn't running"
+		fi
+	else
+		HHVM_OPTS="${HHVM_OPTS} -DMYSQL_UNIX_SOCK_ADDR=/dev/null"
 	fi
+
+	# Fix for https://github.com/facebook/hhvm/issues/7503
+	HHVM_OPTS="${HHVM_OPTS} -DCMAKE_C_FLAGS=-O2 -DCMAKE_CXX_FLAGS=-O2"
 
 	econf -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" ${HHVM_OPTS}
 }
@@ -109,13 +136,15 @@ src_install()
 {
 	emake install DESTDIR="${D}"
 
-	dobin hphp/hack/bin/hh_client
-	dobin hphp/hack/bin/hh_server
-	dobin hphp/hack/bin/hh_single_type_check
-	dodir "/usr/share/hhvm/hack"
-	cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
-	cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
-	cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
+	if use hack; then
+		dobin hphp/hack/bin/hh_client
+		dobin hphp/hack/bin/hh_server
+		dobin hphp/hack/bin/hh_parse
+		dobin hphp/hack/bin/hh_single_type_check
+		dodir "/usr/share/hhvm/hack"
+		cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
+		cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
+	fi
 
 	newinitd "${FILESDIR}"/hhvm.initd-r4 hhvm
 	newconfd "${FILESDIR}"/hhvm.confd-r4 hhvm
