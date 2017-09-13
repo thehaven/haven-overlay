@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils user systemd
 
-SRC_URI="https://github.com/Jackett/Jackett/releases/download/v${PV}/Jackett.Binaries.Mono.tar.gz"
+SRC_URI="https://github.com/Jackett/Jackett/releases/download/v${PV}/Jackett.Binaries.Mono.tar.gz -> ${P}.tar.gz"
 
 DESCRIPTION="API Support for your favorite torrent trackers."
 HOMEPAGE="https://github.com/Jackett/Jackett"
