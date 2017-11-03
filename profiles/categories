@@ -1,4 +1,5 @@
 app-admin
+app-eselect
 app-benchmarks
 app-editors
 app-emulation
@@ -7,6 +8,7 @@ dev-android
 dev-db
 dev-java
 dev-libs
+dev-nodejs
 dev-php
 dev-python
 dev-vcs
