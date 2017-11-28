@@ -28,7 +28,7 @@ HOMEPAGE="http://beets.radbox.org/ http://pypi.python.org/pypi/beets"
 
 SLOT="0"
 LICENSE="MIT"
-IUSE="beatport bpd chroma convert doc discogs echonest echonest_tempo flac gstreamer lastgenre mpdstats ogg opus replaygain test web"
+IUSE="beatport bpd chroma convert doc discogs flac gstreamer lastgenre mpdstats ogg opus replaygain test web"
 
 RDEPEND="
 	dev-python/munkres[${PYTHON_USEDEP}]
@@ -44,8 +44,6 @@ RDEPEND="
 	convert? ( || (  media-video/ffmpeg:0[encode]  media-video/libav[encode] ) )
 	discogs? ( dev-python/discogs-client[${PYTHON_USEDEP}] )
 	doc? ( dev-python/sphinx )
-	echonest? ( >=dev-python/pyechonest-8.0.1[${PYTHON_USEDEP}] )
-	echonest_tempo? ( dev-python/pyechonest[${PYTHON_USEDEP}] )
 	mpdstats? ( dev-python/python-mpd[${PYTHON_USEDEP}] )
 	lastgenre? ( dev-python/pylast[${PYTHON_USEDEP}] )
     replaygain? (
@@ -67,7 +65,7 @@ S=${WORKDIR}/${MY_P}
 
 src_prepare() {
 	# remove plugins that do not have appropriate dependencies installed
-	for flag in beatport bpd chroma convert discogs echonest echonest_tempo lastgenre \
+	for flag in beatport bpd chroma convert discogs lastgenre \
 				mpdstats replaygain web;do
 		if ! use $flag ; then
 			rm -r beetsplug/${flag}.py || \
