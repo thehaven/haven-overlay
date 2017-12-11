@@ -9,14 +9,14 @@
 [Unit]
 Description=GitLab Unicorn Server
 Requires=redis.service
-Wants=postgresql-10.0.service
-After=redis.service postgresql-10.0.service
+Wants=postgresql-10.service
+After=redis.service postgresql-10.service
 
 [Service]
 User=git
 WorkingDirectory=/opt/gitlabhq-10.1
 Environment=RAILS_ENV=production
-SyslogIdentifier=gitlab-unicorn
+SyslogIdentifier=gitlabhq-10.1-unicorn
 PIDFile=/opt/gitlabhq-10.1/tmp/pids/unicorn.pid
 
 ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c /opt/gitlabhq-10.1/config/unicorn.rb -E production"

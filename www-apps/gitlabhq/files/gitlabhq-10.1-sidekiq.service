@@ -9,8 +9,8 @@
 [Unit]
 Description=GitLab Sidekiq Worker
 Requires=redis.service
-Wants=postgresql-10.0.service
-After=redis.service postgresql-10.0.service
+Wants=postgresql-10.service
+After=redis.service postgresql-10.service
 
 [Service]
 Type=forking
