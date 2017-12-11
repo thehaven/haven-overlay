@@ -7,8 +7,8 @@ description="GitLab 10.0 on Unicorns"
 
 : ${gitlab_user:=git}
 : ${gitlab_group:=git}
-: ${gitlab_home:="/opt/gitlabhq-10.0"}
-: ${gitlab_log:="/var/log/gitlabhq-10.0"}
+: ${gitlab_home:="/opt/gitlabhq-10.1"}
+: ${gitlab_log:="/var/log/gitlabhq-10.1"}
 
 : ${unicorn_pidfile:="${gitlab_home}/tmp/pids/unicorn.pid"}
 : ${unicorn_log:="${gitlab_log}/unicorn.log"}
