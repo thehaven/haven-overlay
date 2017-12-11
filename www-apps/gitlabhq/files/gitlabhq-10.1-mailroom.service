@@ -21,8 +21,8 @@ PIDFile=/opt/gitlabhq-10.1/tmp/pids/gitlab-mailroom.pid
 Type=oneshot
 RemainAfterExit=yes
 
-ExecStart=/opt/gitlabhq-10.1/bin/mail_room start
-ExecStop=/opt/gitlabhq-10.1/bin/mail_room stop
+ExecStart=/usr/bin/env /bin/sh /opt/gitlabhq-10.1/bin/mail_room start
+ExecStop=/usr/bin/env /bin/sh /opt/gitlabhq-10.1/bin/mail_room stop
 
 [Install]
 WantedBy=multi-user.target
