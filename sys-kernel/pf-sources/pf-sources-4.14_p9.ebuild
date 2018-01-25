@@ -5,7 +5,6 @@
 EAPI="5"
 inherit readme.gentoo-r1 toolchain-funcs versionator
 
-COMPRESSTYPE=".xz"
 K_USEPV="yes"
 UNIPATCH_STRICTORDER="yes"
 K_SECURITY_UNSUPPORTED="1"
@@ -20,8 +19,8 @@ DESCRIPTION="Linux kernel fork with new features, including the -ck patchset (BF
 HOMEPAGE="https://pf.natalenko.name/"
 
 PF_VERS="6"
-PF_FILE="patch-${PV/_p*/}-pf${PV/*_p/}${COMPRESSTYPE}"
-PF_URI="https://pf.natalenko.name/sources/$(get_version_component_range 1-2)/${PF_FILE}"
+PF_FILE="v${PV/_p*/}...v${PV/_p*/}-pf${PV/*_p/}.diff"
+PF_URI="https://github.com/pfactum/pf-kernel/compare/${PF_FILE}"
 SRC_URI="${KERNEL_URI} ${PF_URI}" # \${EXPERIMENTAL_URI}
 
 KEYWORDS="-* ~amd64 ~ppc ~ppc64 ~x86"
