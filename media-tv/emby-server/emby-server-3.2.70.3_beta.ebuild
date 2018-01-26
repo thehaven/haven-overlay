@@ -47,6 +47,10 @@ src_unpack() {
 }
 
 src_prepare() {
+	# https://github.com/nvllsvm/emby-unlocked/
+	#patch -N -p1 -r - Emby.Server.Implementations/Security/PluginSecurityManager.cs < "${FILESDIR}"/PluginSecurityManager.cs.patch || die
+	#cp "${FILESDIR}"/connectionmanager.js  ./MediaBrowser.WebDashboard/dashboard-ui/bower_components/emby-apiclient/connectionmanager.js || die
+
 	MAGICKWAND=$(ldconfig -p | grep MagickWand.*.so$ | cut -d" " -f4)
 	MAGICKWAND=${MAGICKWAND##*/}
 	einfo "adapting to imagemagick library to: ${MAGICKWAND}"
