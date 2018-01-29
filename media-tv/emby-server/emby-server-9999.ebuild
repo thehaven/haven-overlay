@@ -8,7 +8,7 @@ inherit eutils user git-r3
 
 DESCRIPTION="Emby Server (formerly known as MediaBrowser Server) is a software that indexes a lot of different kinds of media and allows for them to be retrieved and played through the DLNA protocol on any device capable of processing them."
 HOMEPAGE="http://emby.media/"
-KEYWORDS="**"
+KEYWORDS=""
 EGIT_REPO_URI="https://github.com/MediaBrowser/Emby/"
 EGIT_BRANCH="dev"
 SLOT="0"
