@@ -106,6 +106,7 @@ src_install() {
 	dodoc {ABOUT,ISSUES,README}.txt licenses/*
 
 	systemd_newunit "${FILESDIR}"/sabnzbd_at.service 'sabnzbd@.service'
+    systemd_newunit "${FILESDIR}"/sabnzbd.service 'sabnzbd.service'
 }
 
 pkg_postinst() {
