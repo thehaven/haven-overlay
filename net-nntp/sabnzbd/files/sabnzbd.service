@@ -2,7 +2,7 @@
 Description=SABnzbd binary newsreader
 
 [Service]
-ExecStart=/usr/share/sabnzbd/SABnzbd.py --logging 1 --browser 0
+ExecStart=/usr/share/sabnzbd/SABnzbd.py --logging 1 --browser 0 --config-file /etc/sabnzbd/sabnzbd.ini --logging /var/log/sabnzbd/sabnzbd.log
 User=sabnzbd
 Group=sabnzbd
 
