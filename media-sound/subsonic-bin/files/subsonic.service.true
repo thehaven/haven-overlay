@@ -14,7 +14,7 @@ ExecStart=/usr/bin/subsonic \
 	--max-memory=${SUBSONIC_MAX_MEMORY} \
 	--default-music-folder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
 	--default-podcast-folder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
-	--default-playlist-folder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \
+	--default-playlist-folder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER}
 PIDFile=/run/subsonic/subsonic.pid
 
 [Install]
