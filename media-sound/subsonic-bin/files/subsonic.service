@@ -6,7 +6,7 @@ User=subsonic
 Group=subsonic
 EnvironmentFile=/etc/conf.d/subsonic
 ExecStart=/usr/bin/subsonic \
-	--pidfile=/run/subsonic/subsonic.pid \
+	--pidfile=/var/run/subsonic/subsonic.pid \
 	--home=${SUBSONIC_HOME} \
 	--host=${SUBSONIC_HOST} \
 	--port=${SUBSONIC_PORT} \
@@ -16,7 +16,7 @@ ExecStart=/usr/bin/subsonic \
 	--default-music-folder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
 	--default-podcast-folder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
 	--default-playlist-folder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER}
-PIDFile=/run/subsonic/subsonic.pid
+PIDFile=/var/run/subsonic/subsonic.pid
 PrivateTmp=true
 
 [Install]
