@@ -6,7 +6,6 @@ User=subsonic
 Group=subsonic
 ExecStart=/usr/bin/subsonic \
 	--pidfile=/run/subsonic/subsonic.pid \
-	--update=false \
 	--home=${SUBSONIC_HOME} \
 	--host=${SUBSONIC_HOST} \
 	--port=${SUBSONIC_PORT} \
