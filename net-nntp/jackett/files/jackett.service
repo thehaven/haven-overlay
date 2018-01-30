@@ -7,7 +7,7 @@ User=jackett
 Group=jackett
 
 Type=simple
-ExecStart=/usr/bin/mono /usr/share/jackett/NzbDrone.exe -nobrowser
+ExecStart=/usr/bin/mono /usr/share/work/Jackett/JackettConsole.exe --DataFolder /var/lib/jackett --IgnoreSslErrors true
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
