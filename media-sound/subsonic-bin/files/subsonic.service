@@ -1,0 +1,31 @@
+[Unit]
+Description=Subsonic media streaming solution
+
+[Service]
+User=subsonic
+Group=subsonic
+EnvironmentFile=/etc/conf.d/subsonic
+ExecStart=/usr/bin/subsonic \
+	--init-memory=192 \
+	--pidfile=/run/subsonic/subsonic.pid \
+	--update=false \
+	--home=${SUBSONIC_HOME} \
+	--host=${SUBSONIC_HOST} \
+	--port=${SUBSONIC_PORT} \
+	--https-port=${SUBSONIC_HTTPS_PORT} \
+	--context-path=${SUBSONIC_CONTEXT_PATH} \
+	--max-memory=${SUBSONIC_MAX_MEMORY} \
+	--default-music-folder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
+	--default-upload-folder=${SUBSONIC_DEFAULT_UPLOAD_FOLDER} \
+	--default-podcast-folder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
+	--default-playlist-import-folder=${SUBSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER} \
+	--default-playlist-export-folder=${SUBSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER} \
+	--default-playlist-backup-folder=${SUBSONIC_DEFAULT_PLAYLIST_BACKUP_FOLDER} \
+	--default-transcode-folder=${SUBSONIC_DEFAULT_TRANSCODE_FOLDER} \
+	--timezone=${SUBSONIC_DEFAULT_TIMEZONE} \
+	--gzip=${SUBSONIC_GZIP}
+PIDFile=/run/subsonic/subsonic.pid
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
