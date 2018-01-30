@@ -9,7 +9,7 @@ PYTHON_REQUIRED_USE="sqlite"
 
 EGIT_REPO_URI="https://github.com/rembo10/headphones.git"
 
-inherit eutils user git-2
+inherit eutils user git-2 systemd
 
 DESCRIPTION="Automatic music downloader for SABnzbd"
 HOMEPAGE="https://github.com/rembo10/headphones#readme"
@@ -17,7 +17,7 @@ HOMEPAGE="https://github.com/rembo10/headphones#readme"
 LICENSE="GPL-2" # only
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="systemd"
 
 pkg_setup() {
 	# Create headphones group
@@ -54,6 +54,11 @@ src_install() {
 
 	insinto /usr/share/${PN}
 	doins -r data headphones lib Headphones.py version.txt
+
+    if use systemd; then
+        systemd_dounit "${FILESDIR}"/headphones.service
+    fi
+
 }
 
 pkg_postinst() {
