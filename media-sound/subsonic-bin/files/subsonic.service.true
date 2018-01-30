@@ -5,7 +5,6 @@ Description=Subsonic media streaming solution
 User=subsonic
 Group=subsonic
 ExecStart=/usr/bin/subsonic \
-	--init-memory=192 \
 	--pidfile=/run/subsonic/subsonic.pid \
 	--update=false \
 	--home=${SUBSONIC_HOME} \
@@ -15,14 +14,8 @@ ExecStart=/usr/bin/subsonic \
 	--context-path=${SUBSONIC_CONTEXT_PATH} \
 	--max-memory=${SUBSONIC_MAX_MEMORY} \
 	--default-music-folder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
-	--default-upload-folder=${SUBSONIC_DEFAULT_UPLOAD_FOLDER} \
 	--default-podcast-folder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
-	--default-playlist-import-folder=${SUBSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER} \
-	--default-playlist-export-folder=${SUBSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER} \
-	--default-playlist-backup-folder=${SUBSONIC_DEFAULT_PLAYLIST_BACKUP_FOLDER} \
-	--default-transcode-folder=${SUBSONIC_DEFAULT_TRANSCODE_FOLDER} \
-	--timezone=${SUBSONIC_DEFAULT_TIMEZONE} \
-	--gzip=${SUBSONIC_GZIP}
+	--default-playlist-folder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \
 PIDFile=/run/subsonic/subsonic.pid
 
 [Install]
