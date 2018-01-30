@@ -16,7 +16,7 @@ SRC_URI="http://madsonic.org/download/6.3/${DATE}_madsonic-${PV}-standalone.tar.
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="ffmpeg lame systemd xmp"
+IUSE="+ffmpeg +lame systemd xmp"
 
 DEPEND=""
 RDEPEND="virtual/jre
