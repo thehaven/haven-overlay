@@ -21,7 +21,7 @@ IUSE="+ffmpeg +lame systemd xmp"
 DEPEND=""
 RDEPEND="virtual/jre
 	lame? ( media-sound/lame )
-	ffmpeg? ( virtual/ffmpeg )
+	ffmpeg? ( virtual/ffmpeg[encode,mp3] )
 	systemd? ( sys-apps/systemd )
 	xmp? ( media-sound/xmp )"
 
