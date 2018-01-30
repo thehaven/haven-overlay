@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 
@@ -25,15 +24,13 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="console geoip +gtk +libnotify sound -webinterface"
+IUSE="console geoip gtk libnotify sound webinterface"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	sound? ( gtk )
 	libnotify? ( gtk )
 "
-PATCHES=(
-	#"${FILESDIR}/${PN}-1.3.12-fix_scheduler_plugin.patch"
-)
+PATCHES=()
 
 CDEPEND=">=net-libs/libtorrent-rasterbar-1.0.9-r1[python,${PYTHON_USEDEP}]"
 DEPEND="${CDEPEND}
