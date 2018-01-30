@@ -1,17 +1,35 @@
+# The directory where Subsonic will create files.
+# Make sure it is writable.
+SUBSONIC_HOME=/var/lib/subsonic
 
-# Host and port to listen on
+# The host name or IP address on which to bind Subsonic.
+# Only relevant if you have multiple network interfaces and want
+# to make Subsonic available on only one of them.
 SUBSONIC_HOST=0.0.0.0
+
+# The port on which Subsonic will listen for
+# incoming HTTP traffic.
 SUBSONIC_PORT=4040
 
-# To disable https, set to 0
+# The port on which Subsonic will listen for
+# incoming HTTPS traffic.
 SUBSONIC_HTTPS_PORT=0
 
+# The context path, i.e., the last part of the Subsonic" URL.
+# Typically '/' or '/subsonic'.
 SUBSONIC_CONTEXT_PATH=/
-SUBSONIC_MAX_MEMORY=100
 
-# Music directories
+# The memory limit (max Java heap size) in megabytes.
+SUBSONIC_MAX_MEMORY='512'
+
+# Configure Subsonic to use this folder for music.
+# This option only has effect the first time Subsonic is started.
 SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music
+
+# Configure Subsonic to use this folder for Podcasts.
 SUBSONIC_DEFAULT_PODCAST_FOLDER=/var/music/Podcast
+
+# Configure Subsonic to use this folder for playlists.
 SUBSONIC_DEFAULT_PLAYLIST_FOLDER=/var/playlists
 
 NICELEVEL=0
