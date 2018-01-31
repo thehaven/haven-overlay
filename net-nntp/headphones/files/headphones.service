@@ -1,5 +1,6 @@
 [Unit]
 Description=Headphones - Automatic music downloader for SABnzbd
+After=network.target network-online.target
 
 [Service]
 ExecStart=/usr/bin/python2.7 /usr/share/headphones/Headphones.py --daemon --config /etc/headphones/headphones.ini --datadir /var/headphones --nolaunch --quiet
