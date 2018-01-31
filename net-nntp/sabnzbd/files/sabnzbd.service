@@ -1,5 +1,6 @@
 [Unit]
 Description=SABnzbd binary newsreader
+After=network.target network-online.target
 
 [Service]
 ExecStart=/usr/share/sabnzbd/SABnzbd.py --logging 1 --browser 0 --config-file /etc/sabnzbd/sabnzbd.ini
