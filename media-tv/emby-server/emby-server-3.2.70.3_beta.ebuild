@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils user git-r3
+inherit eutils user git-r3 systemd
 
 DESCRIPTION="Emby Server (formerly known as MediaBrowser Server) is a software that indexes a lot of different kinds of media and allows for them to be retrieved and played through the DLNA protocol on any device capable of processing them."
 HOMEPAGE="http://emby.media/"
@@ -84,6 +84,11 @@ src_install() {
 
 	einfo "prepare data directory"
 	dodir ${DATA_DIR}
+
+	systemd_dounit "${FILESDIR}/emby-server.service"
+    dodir ${INSTALL_DIR}
+	cp "${FILESDIR}/systemctl_restart.sh" ${INSTALL_DIR}
+	chmod 750 "${INSTALL_DIR}/systemctl_restart.sh"
 }
 
 pkg_postinst() {

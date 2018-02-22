@@ -1,0 +1,20 @@
+[Unit]
+Description=Emby Daemon
+After=syslog.target network.target
+
+[Service]
+User=emby
+Group=emby
+
+Type=simple
+Environment=MONO_THREADS_PER_CPU="250",MONO_GC_PARAMS="nursery-size=256m"
+# systemctl_restart.sh needs to be created it  should basically just be the following
+# #!/bin/sh
+# /usr/bin/sudo systemctl restart emby-daemon.service
+ExecStart=/usr/bin/mono --optimize=all /opt/emby-server/MediaBrowser.Server.Mono.exe -programdata /var/lib/emby-server -ffmpeg /usr/bin/ffmpeg -ffprobe /usr/bin/ffprobe -restartpath /opt/emby-server/emby-server/systemctl_restart.sh
+TimeoutStopSec=20
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
