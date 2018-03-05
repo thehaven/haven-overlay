@@ -4,7 +4,7 @@ After = network.target
 Requires = network.target
 
 [Service]
-ExecStart=/usr/bin/radicale --foreground -D
+ExecStart=/usr/bin/env python3 -m radicale --foreground --config /etc/radicale/config --logging-config /etc/radicale/logging -D
 Restart = on-failure
 User = radicale
 UMask = 0027
@@ -16,6 +16,6 @@ ProtectKernelTunables = true
 ProtectKernelModules = true
 ProtectControlGroups = true
 NoNewPrivileges = true
-ReadWritePaths = /var/lib/radicale
+ReadWritePaths = /var/lib/radicale/collections
 [Install]
 WantedBy = multi-user.target
