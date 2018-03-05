@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils git-2 user
+inherit eutils git-2 user systemd
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
 
@@ -154,4 +154,7 @@ src_install()
 	newins "${FILESDIR}"/php.ini php.ini.dist
 	newins "${FILESDIR}"/server.ini server.ini
 	newins "${FILESDIR}"/server.ini server.ini.dist
+	dodir /var/lib/hhvm
+	dodir /var/run/hhvm
+	systemd_dounit "${FILESDIR}/hhvm.service"
 }
