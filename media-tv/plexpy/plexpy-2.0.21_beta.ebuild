@@ -11,7 +11,7 @@ DESCRIPTION="A python based web application for monitoring your Plex Media Serve
 HOMEPAGE="https://github.com/JonnyWong16/plexpy"
 SRC_URI="https://github.com/JonnyWong16/${PN}/archive/v${PV/_beta/-beta}.tar.gz -> ${P}.tar.gz"
 
-S=${WORKDIR}/${P/_beta/-beta}
+S=${WORKDIR}/Tautulli-${PV/_beta/-beta}
 
 LICENSE="GPL-3"
 SLOT="0"
