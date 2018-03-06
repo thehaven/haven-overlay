@@ -18,5 +18,6 @@ RDEPEND="${DEPEND}"
 src_install() {
   if [[ -f Makefile ]] || [[ -f GNUmakefile ]] || [[ -f makefile ]] ; then
     emake DESTDIR="${D}" install
+	keepdir /var/lib/systemd-swap/swapfc/
   fi
 }
