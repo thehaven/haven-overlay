@@ -14,3 +14,9 @@ IUSE=""
 
 DEPEND="sys-apps/systemd"
 RDEPEND="${DEPEND}"
+
+src_install() {
+  if [[ -f Makefile ]] || [[ -f GNUmakefile ]] || [[ -f makefile ]] ; then
+    emake DESTDIR="${D}" install
+  fi
+}
