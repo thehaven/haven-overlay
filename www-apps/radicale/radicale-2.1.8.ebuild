@@ -16,18 +16,38 @@ SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-3 systemd"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64 ~x86"
+IUSE="+bcrypt"
 
-DEPEND="dev-python/passlib"
-RDEPEND=">=dev-python/vobject-0.9.5[${PYTHON_USEDEP}]"
+RDEPEND=">=dev-python/vobject-0.9.5[${PYTHON_USEDEP}]
+    bcrypt? ( dev-python/passlib[bcrypt,${PYTHON_USEDEP}] )"
 
 S=${WORKDIR}/${MY_P}
 
 RDIR=/var/lib/radicale
 LDIR=/var/log/radicale
 
-#PATCHES=( "${FILESDIR}"/${P}-config.patch )
+pkg_pretend() {
+    if [[ -f ${RDIR}/.props && ${MERGE_TYPE} != buildonly ]]; then
+        eerror "It looks like you have a version 1 database in ${RDIR}."
+        eerror "You must convert this database to version 2 format before upgrading."
+        eerror "You may want to back up the old database before migrating."
+        eerror
+        eerror "If you have kept the Gentoo-default database configuration, this will work:"
+        eerror "1. Stop any running instance of Radicale."
+        eerror "2. Run \`radicale --export-storage ~/radicale-exported\`."
+        eerror "3. Run \`chown -R radicale: ~/radicale-exported\`"
+        eerror "4. Run \`mv \"${RDIR}\" \"${RDIR}.old\"\`."
+        eerror "5. Install Radicale version 2."
+        eerror "6. Run \`mv ~/radicale-exported \"${RDIR}/collections\"\`."
+        eerror
+        eerror "For more details, or if you are have a more complex configuration,"
+        eerror "please see the migration guide: http://radicale.org/1to2/"
+        eerror "If you do a custom migration, please ensure the database is cleaned out of"
+        eerror "${RDIR}, including the hidden .props file."
+        die
+    fi
+}
 
 pkg_setup() {
 	enewgroup radicale
@@ -57,20 +77,12 @@ python_install_all() {
 
 	# fcgi and wsgi files
 	exeinto /usr/share/${PN}
-	doexe radicale.wsgi
-	doexe radicale.fcgi
+	doexe radicale.wsgi radicale.fcgi
 
 	distutils-r1_python_install_all
 }
 
 pkg_postinst() {
-	einfo "A sample WSGI and FastCGI script are in ${EROOT}usr/share/${PN}."
-	einfo "Radicale supports different authentication backends that depend on external libraries."
-	einfo "Please install"
-	optfeature "LDAP auth" dev-python/python-ldap
-	optfeature "PAM auth" dev-python/python-pam
-	optfeature "HTTP auth" dev-python/requests
-	optfeature "FastCGI mode" dev-python/flup
-	optfeature "Database storage backend" dev-python/sqlalchemy
-	einfo "Please note that some of these libraries are Python 2 only."
+    einfo "A sample WSGI script has been put into ${ROOT%/}/usr/share/${PN}."
+    einfo "You will also find there an example FastCGI script."
 }
