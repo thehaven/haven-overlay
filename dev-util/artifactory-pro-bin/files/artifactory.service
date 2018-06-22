@@ -1,0 +1,20 @@
+[Unit]
+Description=Setup Systemd script for Artifactory in Tomcat Servlet Engine
+After=network.target
+
+[Service]
+Type=forking
+GuessMainPID=yes
+Restart=always
+RestartSec=5
+LimitAS=infinity
+LimitRSS=infinity
+LimitCORE=infinity
+LimitNOFILE=65536
+PIDFile=/opt/artifactory/run/artifactory.pid
+ExecStart=/opt/artifactory/bin/artifactoryManage.sh start
+ExecStop=/opt/artifactory/bin/artifactoryManage.sh stop
+
+[Install]
+WantedBy=multi-user.target
+Alias=artifactory.service
