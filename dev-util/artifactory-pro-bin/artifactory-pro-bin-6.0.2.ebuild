@@ -99,6 +99,12 @@ src_install() {
 	keepdir ${TOMCAT_HOME}/work
 	keepdir /var/opt/jfrog/artifactory/run
 
+	insinto /opt/artifactory/etc/
+    doins ${FILESDIR}/"default"
+    
+    insinto /opt/artifactory/misc/service/
+	doins ${FILESDIR}/artifactory.service
+
 	newconfd "${FILESDIR}/confd" ${MY_PN}
 	newinitd "${FILESDIR}/initd-r3" ${MY_PN}
 

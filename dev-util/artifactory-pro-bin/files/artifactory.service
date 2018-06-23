@@ -6,12 +6,10 @@ After=network.target
 Type=forking
 GuessMainPID=yes
 Restart=always
-RestartSec=5
 LimitAS=infinity
 LimitRSS=infinity
 LimitCORE=infinity
 LimitNOFILE=65536
-PIDFile=/opt/artifactory/run/artifactory.pid
 ExecStart=/opt/artifactory/bin/artifactoryManage.sh start
 ExecStop=/opt/artifactory/bin/artifactoryManage.sh stop
 
