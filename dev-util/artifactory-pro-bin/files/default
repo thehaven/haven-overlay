@@ -5,11 +5,19 @@ export ARTIFACTORY_HOME=/opt/artifactory
 export ARTIFACTORY_USER=artifactory
 export START_LOCAL_REPLICATOR=true
 
-export TOMCAT_HOME=/opt/artifactory/tomcat
-export ARTIFACTORY_PID=/opt/artifactory/run/artifactory.pid
+export TOMCAT_HOME="/opt/artifactory/tomcat"
+export ARTIFACTORY_PID="/opt/artifactory/run/artifactory.pid"
 
-export JAVA_OPTIONS="-server -Xms512m -Xmx2g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\"kill -9 %p\""
-export JAVA_OPTIONS="$JAVA_OPTIONS -Djruby.compile.invokedynamic=false -Dfile.encoding=UTF8 -Dartdist=zip -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Djava.security.egd=file:/dev/./urandom"
+export CATALINA_BASE="/opt/artifactory/tomcat"
+export CATALINA_HOME="/opt/artifactory/tomcat"
+export CATALINA_TMPDIR="/opt/artifactory/tomcat/temp"
+export JRE_HOME="/usr"
+export CLASSPATH="/opt/artifactory/tomcat/bin/bootstrap.jar:/opt/artifactory/tomcat/bin/tomcat-juli.jar"
+export CATALINA_PID="/opt/artifactory/run/artifactory.pid"
+
+export JAVA_OPTIONS="-server -Xms512m -Xmx4g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+UseG1GC"
+#export JAVA_OPTIONS="-server -Xms512m -Xmx2g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\"kill -9 %p\""
+#export JAVA_OPTIONS="$JAVA_OPTIONS -Djruby.compile.invokedynamic=false -Dfile.encoding=UTF8 -Dartdist=zip -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Djava.security.egd=file:/dev/./urandom"
 
 # Timeout waiting for artifactory to start
-# START_TMO=60
+START_TMO=60

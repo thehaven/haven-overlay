@@ -3,6 +3,19 @@ Description=Setup Systemd script for Artifactory in Tomcat Servlet Engine
 After=network.target
 
 [Service]
+Environment="ARTIFACTORY_HOME=/opt/artifactory"
+Environment="ARTIFACTORY_USER=artifactory"
+Environment="START_LOCAL_REPLICATOR=true"
+Environment="TOMCAT_HOME=/opt/artifactory/tomcat"
+Environment="ARTIFACTORY_PID=/opt/artifactory/run/artifactory.pid"
+Environment="CATALINA_BASE=/opt/artifactory/tomcat"
+Environment="CATALINA_HOME=/opt/artifactory/tomcat"
+Environment="CATALINA_TMPDIR=/opt/artifactory/tomcat/temp"
+Environment="JRE_HOME=/usr"
+Environment="CLASSPATH=/opt/artifactory/tomcat/bin/bootstrap.jar:/opt/artifactory/tomcat/bin/tomcat-juli.jar"
+Environment="CATALINA_PID=/opt/artifactory/run/artifactory.pid"
+Environment="JAVA_OPTIONS=-server -Xms512m -Xmx4g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+UseG1GC"
+
 Type=forking
 GuessMainPID=yes
 Restart=always
@@ -10,8 +23,10 @@ LimitAS=infinity
 LimitRSS=infinity
 LimitCORE=infinity
 LimitNOFILE=65536
-ExecStart=/opt/artifactory/bin/artifactoryManage.sh start
-ExecStop=/opt/artifactory/bin/artifactoryManage.sh stop
+User=artifactory
+Group=artifactory
+ExecStart=/opt/artifactory/tomcat/bin/catalina.sh start
+ExecStop=/opt/artifactory/tomcat/bin/catalina.sh stop
 
 [Install]
 WantedBy=multi-user.target
