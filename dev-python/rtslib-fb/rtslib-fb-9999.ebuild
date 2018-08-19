@@ -2,15 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/rtslib/rtslib-9999.ebuild,v 1.2 2012/08/09 04:09:49 patrick Exp $
 
-EAPI=4
+EAPI=5
 
-#EGIT_REPO_URI="git://linux-iscsi.org/${PN}.git"
+PYTHON_COMPAT=( python2_7 )
 EGIT_REPO_URI="git://github.com/agrover/rtslib-fb.git"
-PYTHON_DEPEND="2"
-RESTRICT_PYTHON_ABIS="3.* 2.5-jython"
-SUPPORT_PYTHON_ABIS="1"
 
-inherit eutils distutils git-2 python
+inherit eutils distutils-r1 git-r3 python-r1
 
 DESCRIPTION="RTSLib Community Edition for target_core_mod/ConfigFS"
 HOMEPAGE="https://github.com/agrover/rtslib-fb"

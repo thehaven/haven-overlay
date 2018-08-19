@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=6
 
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python2_7 pypy )
 
-inherit distutils subversion
+inherit distutils-r1 subversion
 
 DESCRIPTION="A utility to automatically download enclosures and other objects
 linked to from various types of RSS feeds. Works well on podcasts, videocasts,
@@ -34,7 +33,7 @@ src_unpack() {
 }
 
 src_install() {
-	distutils_src_install
+	distutils-r1_src_install
 }
 
 pkg_postinst() {
