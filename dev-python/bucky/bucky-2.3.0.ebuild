@@ -2,12 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-PYTHON_DEPEND="2"
-RESTRICT_PYTHON_ABIS="3.*"
-SUPPORT_PYTHON_ABIS="1"
+EAPI=6
+PYTHON_COMPAT=( python2_7 )
 
-inherit distutils git-2
+inherit distutils-r1 git-r3
 
 DESCRIPTION="a small server for collecting and translating metrics for Graphite"
 HOMEPAGE="https://github.com/cloudant/bucky"

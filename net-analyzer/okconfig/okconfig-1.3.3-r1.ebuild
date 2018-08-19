@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
-inherit distutils eutils git-2
+PYTHON_COMPAT=( python2_7 )
+
+inherit distutils-r1 eutils git-r3
 
 DESCRIPTION="Ready made monitoring packs for Nagios"
 HOMEPAGE="http://okconfig.org/"

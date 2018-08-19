@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=6
 
-inherit python distutils git-2
+PYTHON_COMPAT=( python2_7 )
+
+inherit python-r1 distutils-r1 git-r3
 
 DESCRIPTION="Evernote SDK for Python"
 HOMEPAGE="http://dev.evernote.com"
