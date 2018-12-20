@@ -27,7 +27,7 @@ IUSE="ssl"
 
 RDEPEND=">=virtual/jre-1.8"
 DEPEND=">=virtual/jdk-1.8
-        dev-java/oracle-jdk-bin:1.8
+		dev-java/oracle-jdk-bin:1.8
 		app-arch/unzip
 		app-shells/bash"
 
@@ -35,7 +35,8 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
 pkg_setup() {
 	enewgroup artifactory
-	enewuser artifactory -1 /bin/sh -1 artifactory
+	#enewuser artifactory -1 /bin/sh -1 artifactory
+	useradd -r -g artifactory -s /bin/sh -d /opt/artifactory artifactory
 }
 
 limitsdfile=40-${MY_PN}.conf
