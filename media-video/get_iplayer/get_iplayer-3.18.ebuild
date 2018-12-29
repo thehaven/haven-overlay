@@ -21,6 +21,7 @@ RDEPEND="|| ( media-video/mplayer
 		virtual/ffmpeg
 		media-sound/lame
 		media-video/flvstreamer
+		dev-perl/CGI
 		dev-perl/libwww-perl
 		dev-perl/LWP-Protocol-https
 		dev-perl/Mojolicious
