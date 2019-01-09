@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -6,13 +6,13 @@ EAPI="6"
 [[ ${PV} == *9999 ]] && SCM="git-r3"
 inherit user versionator toolchain-funcs flag-o-matic systemd linux-info $SCM
 
-MY_P="${PN}-${PVR/-r/-rc}"
+MY_P="${PN}-${PV/_beta/-dev}"
 
 DESCRIPTION="A TCP/HTTP reverse proxy for high availability environments"
-HOMEPAGE="http://haproxy.1wt.eu"
+HOMEPAGE="http://www.haproxy.org"
 if [[ ${PV} != *9999 ]]; then
 	SRC_URI="http://haproxy.1wt.eu/download/$(get_version_component_range 1-2)/src/${MY_P}.tar.gz"
-	KEYWORDS="**"
+	KEYWORDS="~amd64 ~arm ~ppc ~x86"
 else
 	EGIT_REPO_URI="http://git.haproxy.org/git/haproxy-$(get_version_component_range 1-2).git/"
 	EGIT_BRANCH=master
@@ -20,8 +20,11 @@ fi
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-IUSE="+crypt doc examples libressl slz net_ns +pcre pcre-jit ssl tools vim-syntax +zlib lua device-atlas 51degrees wurfl"
+IUSE="+crypt doc examples libressl slz net_ns +pcre pcre-jit pcre2 pcre2-jit ssl
+systemd +threads tools vim-syntax +zlib lua device-atlas 51degrees wurfl"
 REQUIRED_USE="pcre-jit? ( pcre )
+	pcre2-jit? ( pcre2 )
+	pcre? ( !pcre2 )
 	device-atlas? ( pcre )
 	?? ( slz zlib )"
 
@@ -29,6 +32,10 @@ DEPEND="
 	pcre? (
 		dev-libs/libpcre
 		pcre-jit? ( dev-libs/libpcre[jit] )
+	)
+	pcre2? (
+		dev-libs/libpcre
+		pcre2-jit? ( dev-libs/libpcre2[jit] )
 	)
 	ssl? (
 		!libressl? ( dev-libs/openssl:0=[zlib?] )
@@ -46,6 +53,8 @@ DOCS=( CHANGELOG CONTRIBUTING MAINTAINERS README )
 CONTRIBS=( halog iprange )
 # ip6range is present in 1.6, but broken.
 version_is_at_least 1.7.0 $PV && CONTRIBS+=( ip6range spoa_example tcploop )
+# TODO: mod_defender - requires apache / APR, modsecurity - the same
+version_is_at_least 1.8.0 $PV && CONTRIBS+=( hpack )
 
 haproxy_use() {
 	(( $# != 2 )) && die "${FUNCNAME} <USE flag> <make option>"
@@ -65,11 +74,14 @@ pkg_setup() {
 
 src_compile() {
 	local -a args=(
+		V=1
 		TARGET=linux2628
 		USE_GETADDRINFO=1
 		USE_TFO=1
 	)
 
+	# TODO: PCRE2_WIDTH?
+	args+=( $(haproxy_use threads THREAD) )
 	args+=( $(haproxy_use crypt LIBCRYPT) )
 	args+=( $(haproxy_use net_ns NS) )
 	args+=( $(haproxy_use pcre PCRE) )
@@ -81,6 +93,7 @@ src_compile() {
 	args+=( $(haproxy_use 51degrees 51DEGREES) )
 	args+=( $(haproxy_use device-atlas DEVICEATLAS) )
 	args+=( $(haproxy_use wurfl WURFL) )
+	args+=( $(haproxy_use systemd SYSTEMD) )
 
 	# For now, until the strict-aliasing breakage will be fixed
 	append-cflags -fno-strict-aliasing
@@ -90,23 +103,22 @@ src_compile() {
 
 	if use tools ; then
 		for contrib in ${CONTRIBS[@]} ; do
+			# Those two includes are a workaround for hpack Makefile missing those
 			emake -C contrib/${contrib} \
-				CFLAGS="${CFLAGS}" OPTIMIZE="${CFLAGS}" LDFLAGS="${LDFLAGS}" CC=$(tc-getCC) ${args[@]}
+				CFLAGS="${CFLAGS} -I../../include/ -I../../ebtree/" OPTIMIZE="${CFLAGS}" LDFLAGS="${LDFLAGS}" CC=$(tc-getCC) ${args[@]}
 		done
 	fi
 }
 
 src_install() {
 	dosbin haproxy
-	dosym /usr/sbin/haproxy /usr/bin/haproxy
+	dosym ../sbin/haproxy /usr/bin/haproxy
 
 	newconfd "${FILESDIR}/${PN}.confd" $PN
-	newinitd "${FILESDIR}/${PN}.initd-r5" $PN
+	newinitd "${FILESDIR}/${PN}.initd-r6" $PN
 
 	doman doc/haproxy.1
 
-	#dosbin haproxy-systemd-wrapper
-	#dosym /usr/sbin/haproxy-systemd-wrapper /usr/bin/haproxy-systemd-wrapper
 	systemd_dounit contrib/systemd/haproxy.service
 
 	einstalldocs
@@ -129,6 +141,7 @@ src_install() {
 		has "spoa_example" "${CONTRIBS[@]}" && newbin contrib/spoa_example/spoa haproxy_spoa_example
 		has "spoa_example" "${CONTRIBS[@]}" && newdoc contrib/spoa_example/README README.spoa_example
 		has "tcploop" "${CONTRIBS[@]}" && newbin contrib/tcploop/tcploop haproxy_tcploop
+		has "hpack" "${CONTRIBS[@]}" && newbin contrib/hpack/gen-rht haproxy_hpack
 	fi
 
 	if use examples ; then
