@@ -18,7 +18,6 @@ K_NOSETEXTRAVERSION="don't_set_it"
 DESCRIPTION="Linux kernel fork with new features, including the -ck patchset (BFS), BFQ, TuxOnIce and UKSM"
 HOMEPAGE="https://pf.natalenko.name/"
 
-PF_VERS="6"
 PF_FILE="v${PV/_p*/}...v${PV/_p*/}-pf${PV/*_p/}.diff"
 PF_URI="https://github.com/pfactum/pf-kernel/compare/${PF_FILE}"
 SRC_URI="${KERNEL_URI} ${PF_URI}" # \${EXPERIMENTAL_URI}
