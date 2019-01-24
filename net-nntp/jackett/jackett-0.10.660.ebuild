@@ -15,7 +15,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
-	>=dev-lang/mono-3.12.1
+	>=dev-lang/mono-5.8
 	net-misc/curl
 	"
 S=${WORKDIR}/${MY_PN}
