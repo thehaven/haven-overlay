@@ -1,89 +1,169 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit golang-vcs-snapshot
-#inherit systemd
-
-EGO_PN=github.com/snapcore/snapd
-EGO_SRC=github.com/snapcore/snapd/...
-EGIT_COMMIT="181f66ac30bc3a2bfb8e83c809019c037d34d1f3"
+inherit bash-completion-r1 linux-info systemd
 
 DESCRIPTION="Service and tools for management of snap packages"
 HOMEPAGE="http://snapcraft.io/"
-# rather than reference the git commit, it is better to src_uri to the package version (if possible) for future compatibility and ease of reading
-# non-standard versioning upstream makes package renaming (below) prudent
-SRC_URI="https://github.com/snapcore/${PN}/archive/${PV}.tar.gz -> ${PF}.tar.gz"
+SRC_URI="https://github.com/snapcore/${PN}/releases/download/${PV}/${PN}_${PV}.vendor.tar.xz -> ${P}.tar.xz"
 
 LICENSE="GPL-3"
 SLOT="0"
+IUSE=""
 KEYWORDS="~amd64"
+RESTRICT="primaryuri"
 
-# mirrors are restricted for unofficial packages
-RESTRICT="mirror"
-
-RDEPEND="sys-fs/squashfs-tools:*"
-
-# Not sure if the runtime dependencies need to be duplicated in the build dependencies, but added them to be safe
+RDEPEND="!sys-apps/snap-confine
+	sys-libs/libseccomp[static-libs]
+	sys-apps/apparmor
+	dev-libs/glib
+	sys-fs/squashfs-tools:*"
 DEPEND="${RDEPEND}
-	dev-vcs/git
-	dev-vcs/bzr"
-# Original ebuild had blank list of IUSE, so line was removed
+	>=dev-lang/go-1.9
+	dev-python/docutils
+	sys-fs/xfsprogs"
 
-# TODO: package all the upstream dependencies
-# TODO: ensure that used kernel supports xz compression for squashfs
-# TODO: enable tests
-# TODO: ship man page for snap
-# TODO: use more of the gentoo golang packaging helpers
-# TODO: put /var/lib/snpad/desktop on XDG_DATA_DIRS
+MY_S="${S}/src/github.com/snapcore/${PN}"
+PKG_LINGUAS="am bs ca cs da de el en_GB es fi fr gl hr ia id it ja lt ms nb oc pt_BR pt ru sv tr ug zh_CN"
+
+CONFIG_CHECK="	CGROUPS \
+		CGROUP_DEVICE \
+		CGROUP_FREEZER \
+		NAMESPACES \
+		SQUASHFS \
+		SQUASHFS_ZLIB \
+		SQUASHFS_LZO \
+		SQUASHFS_XZ \
+		BLK_DEV_LOOP \
+		SECCOMP \
+		SECCOMP_FILTER"
+
+export GOPATH="${S}/${PN}"
+export MINE="github.com/snapd"
+
+src_unpack() {
+	debug-print-function $FUNCNAME "$@"
+
+	mkdir -pv "${S}/src/github.com/${PN}/"
+	if [ ${A} != "" ]; then
+		unpack ${A}
+		mv "${S}"/* "${S}/src/github.com/${PN}"
+	fi
+	ln -sv . "${S}/src/github.com"/snapcore
+}
+
+src_configure() {
+	debug-print-function $FUNCNAME "$@"
+
+	cd "${S}/src/${MINE}/cmd/"
+	pwd
+	cat <<EOF > "version_generated.go"
+package cmd
+
+func init() {
+        Version = "${PV}"
+}
+EOF
+	echo "${PV}" > "VERSION"
+	echo "VERSION=${PV}" > "../data/info"
+
+	test -f configure.ac	# Sanity check, are we in the right directory?
+	rm -f config.status
+	autoreconf -i -f	# Regenerate the build system
+	econf --enable-maintainer-mode --disable-silent-rules
+}
 
 src_compile() {
-	# Create a writable GOROOT in order to avoid sandbox violations.
-	cp -sR "$(go env GOROOT)" "${T}/goroot" || die
-	rm -rf "${T}/goroot/src/${EGO_SRC}" || die
-	rm -rf "${T}/goroot/pkg/$(go env GOOS)_$(go env GOARCH)/${EGO_SRC}" || die
-	export GOROOT="${T}/goroot"
-	# Exclude $(get_golibdir_gopath) from GOPATH, for bug 577908 which may
-	# or may not manifest, depending on what libraries are installed.
-	export GOPATH="${WORKDIR}/${P}"
-	cd src/${EGO_PN} && ./get-deps.sh
-	go install -v "${EGO_PN}/cmd/snapd" || die
-	go install -v "${EGO_PN}/cmd/snap" || die
-	# go install -v -work -x ${EGO_BUILD_FLAGS} "${EGO_PN}/cmd/snapd" || die
+	debug-print-function $FUNCNAME "$@"
+
+	C="${S}/src/${MINE}/cmd/"
+	emake -C "${S}/src/${MINE}/data/"
+	emake -C "${C}"
+
+	export GOPATH="${S}/"
+	VX="-v -x" # or "-v -x" for verbosity
+	for I in snapctl snap-exec snap snapd snap-seccomp snap-update-ns; do
+		einfo "go building: ${I}"
+		go install $VX "github.com/snapcore/${PN}/cmd/${I}"
+	done
+	"${S}/bin/snap" help --man > "${C}/snap/snap.1"
+	rst2man.py "${C}/snap-confine/"snap-confine.{rst,1}
+	rst2man.py "${C}/snap-discard-ns/"snap-discard-ns.{rst,5}
+
+	CV="-v" # or "-c -v" for checks and verbosity
+	for I in ${PKG_LINGUAS};do
+		einfo -n "building mo: ${I}"
+		msgfmt ${CV} --output-file="${S}/src/${MINE}/po/${I}.mo" "${S}/src/${MINE}/po/${I}.po"
+	done
 }
 
 src_install() {
-	# Install snap and snapd
-	export GOPATH="${WORKDIR}/${P}"
-	exeinto /usr/bin
-	dobin "$GOPATH/bin/snap"
-	exeinto /usr/lib/snapd/
-	doexe "$GOPATH/bin/snapd"
-	cd "src/${EGO_PN}" || die
-	# Install systemd units
-	systemd_dounit debian/snapd.{service,socket}
-	systemd_dounit debian/snapd.refresh.{service,timer}
-	# Work around https://github.com/zyga/snapd-gentoo/issues/1
-	#sed -i -e 's/RandomizedDelaySec=/#RandomizedDelaySec=/' debian/snapd.refresh.timer
-	# NOTE: the two "frameworks" units should be dropped upstream soon
-	systemd_dounit debian/snapd.frameworks.target
-	systemd_dounit debian/snapd.frameworks-pre.target
-	# Put /snap/bin on PATH
-	dodir /etc/profile.d/
-	echo 'PATH=$PATH:/snap/bin' > ${D}/etc/profile.d/snapd.sh
+	debug-print-function $FUNCNAME "$@"
+
+	C="${S}/src/${MINE}/cmd"
+	DS="${S}/src/${MINE}/data/systemd"
+
+	mkdir /var/lib/snapd
+
+	doman \
+		"${C}/snap-confine/snap-confine.1" \
+		"${C}/snap/snap.1" \
+		"${C}/snap-discard-ns/snap-discard-ns.5"
+
+	systemd_dounit \
+		"${DS}/snapd.service"		"${DS}/snapd.socket"
+
+	cd "${S}/src/${MINE}"
+	dodir  \
+		"/etc/profile.d" \
+		"/usr/lib/snapd" \
+		"/usr/share/dbus-1/services" \
+		"/usr/share/polkit-1/actions"
+
+	exeinto "/usr/lib/${PN}"
+	doexe \
+			data/completion/etelpmoc.sh \
+			data/completion/complete.sh
+	insinto "/usr/share/selinux/targeted/include/snapd/"
+	doins \
+			data/selinux/snappy.if \
+			data/selinux/snappy.te \
+			data/selinux/snappy.fc
+	doexe "${C}"/decode-mount-opts/decode-mount-opts
+	doexe "${C}"/snap-discard-ns/snap-discard-ns
+
+	insinto "/usr/share/dbus-1/services/"
+	doins data/dbus/io.snapcraft.Launcher.service
+	insinto "/usr/share/polkit-1/actions/"
+	doins data/polkit/io.snapcraft.snapd.policy
+	doexe "${S}/bin"/snapd
+	doexe "${S}/bin"/snap-exec
+	doexe "${S}/bin"/snap-update-ns
+	doexe "${S}/bin"/snap-seccomp ### missing libseccomp
+
+	insinto "/usr/lib/snapd/"
+	doins "${S}/src/${MINE}/data/info"
+	insinto "/etc/profile.d/"
+	doins data/env/snapd.sh "${ED}/etc/profile.d/"
+	dodoc	"${S}/src/${MINE}/packaging/ubuntu-14.04"/copyright \
+		"${S}/src/${MINE}/packaging/ubuntu-16.04"/changelog
+
+	dobin "${S}/bin"/{snap,snapctl}
+
+	dobashcomp data/completion/snap
+
+	domo "${S}/src/${MINE}/po/"*.mo
+
+	exeopts -m6755
+	doexe "${C}"/snap-confine/snap-confine
 }
 
-pkg_postinst() {
-	systemctl enable snapd.socket
-	systemctl enable snapd.refresh.timer
-}
-
-# added package post-removal instructions for tidying up added services
 pkg_postrm() {
+	debug-print-function $FUNCNAME "$@"
+
 	systemctl disable snapd.service
 	systemctl stop snapd.service
 	systemctl disable snapd.socket
-	systemctl disable snapd.refresh.timer
 }
