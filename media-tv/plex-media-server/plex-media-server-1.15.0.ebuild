@@ -44,7 +44,7 @@ EXECSTACKED_BINS=( "${ED}/usr/lib/plexmediaserver/libgnsdk_dsp.so*" )
 BINS_TO_PAX_MARK=( "${ED}/usr/lib/plexmediaserver/Plex Script Host" )
 
 S="${WORKDIR}"
-PATCHES=( "${FILESDIR}/virtualenv_start_pms.patch" )
+#PATCHES=( "${FILESDIR}/virtualenv_start_pms.patch" )
 
 pkg_setup() {
 	enewgroup ${_USERNAME}
