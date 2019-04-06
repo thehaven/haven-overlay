@@ -5,21 +5,21 @@ EAPI="6"
 
 PYTHON_COMPAT=( python{3_4,3_5,3_6} )
 
-inherit eutils distutils-r1 user systemd
+inherit eutils distutils-r1 user
 
 MY_PN="Radicale"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="A simple CalDAV calendar server"
-HOMEPAGE="http://radicale.org/"
+HOMEPAGE="https://radicale.org/"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
-LICENSE="GPL-3 systemd"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-python/passlib"
+DEPEND=""
 RDEPEND=">=dev-python/vobject-0.9.5[${PYTHON_USEDEP}]"
 
 S=${WORKDIR}/${MY_P}
@@ -27,7 +27,7 @@ S=${WORKDIR}/${MY_P}
 RDIR=/var/lib/radicale
 LDIR=/var/log/radicale
 
-#PATCHES=( "${FILESDIR}"/${P}-config.patch )
+PATCHES=( "${FILESDIR}"/${P}-config.patch )
 
 pkg_setup() {
 	enewgroup radicale
@@ -39,7 +39,6 @@ python_install_all() {
 
 	# init file
 	newinitd "${FILESDIR}"/radicale.init.d radicale
-    systemd_dounit "${FILESDIR}/radicale.service"
 
 	# directories
 	diropts -m0750
