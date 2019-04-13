@@ -16,6 +16,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
 	>=dev-lang/mono-3.12.1
+	media-libs/chromaprint[tools]
 	net-misc/curl
 	"
 S=${WORKDIR}/${MY_PN}
