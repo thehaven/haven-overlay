@@ -7,21 +7,21 @@ EAPI=6
 inherit eutils user systemd
 
 MY_PN="${PN//-bin}"
+DATE="20190510" # http://beta.madsonic.org/pages/changelog.jsp
 
 DESCRIPTION="Madsonic is a complete, personal media streaming solution"
 HOMEPAGE="http://www.madsonic.org/"
-#SRC_URI="http://subsonic.org/download/${MY_PN}-${PV}-standalone.tar.gz"
-SRC_URI="http://madsonic.org/download/6.3/20170529_madsonic-${PV}-standalone.tar.gz -> madsonic-${PV}-standalone.tar.gz"
+SRC_URI="http://madsonic.org/download/${PV%.*}/${DATE}_madsonic-${PV}-standalone.tar.gz -> madsonic-${PV}-standalone.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="**"
-IUSE="ffmpeg lame systemd xmp"
+KEYWORDS="~amd64 ~x86"
+IUSE="+ffmpeg +lame systemd xmp"
 
 DEPEND=""
 RDEPEND="virtual/jre
 	lame? ( media-sound/lame )
-	ffmpeg? ( virtual/ffmpeg )
+	ffmpeg? ( virtual/ffmpeg[encode,mp3] )
 	systemd? ( sys-apps/systemd )
 	xmp? ( media-sound/xmp )"
 
