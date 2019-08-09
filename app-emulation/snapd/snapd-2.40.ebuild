@@ -12,7 +12,7 @@ SRC_URI="https://github.com/snapcore/${PN}/releases/download/${PV}/${PN}_${PV}.v
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64"
+KEYWORDS="**"
 RESTRICT="primaryuri"
 
 RDEPEND="!sys-apps/snap-confine
