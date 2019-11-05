@@ -57,4 +57,7 @@ src_install() {
 
 	systemd_dounit "${FILESDIR}/sonarr.service"
 	systemd_newunit "${FILESDIR}/sonarr.service" "${PN}@.service"
+
+	# Update the mono trust store with latest certs:
+	sudo -u ${PN} cert-sync --quiet --user /etc/ssl/certs/ca-certificates.crt
 }
