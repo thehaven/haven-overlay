@@ -13,7 +13,7 @@ etc_dir="/etc/sonarr"
 var_dir="/var/lib/sonarr"
 log_dir="/var/log/sonarr"
 log_file="sonarr.log"
-program="$APP_DIR/NzbDrone.exe"
+program="$APP_DIR/Sonarr.exe"
 bin=`which mono`
 
 check_config() {
