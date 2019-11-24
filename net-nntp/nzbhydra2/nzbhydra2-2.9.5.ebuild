@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
 inherit eutils user systemd
 
@@ -29,11 +29,19 @@ pkg_setup() {
 src_install() {
 
 	local dir="/opt/${PN}"
-	insinto ${dir}
-	doins lib/core-${PV}-exec.jar nzbhydra2wrapper.py nzbhydra2 || die
 
-	keepdir /opt/${PN}
-	fowners ${PN}:${PN} /opt/${PN} || die
+	insinto ${dir}
+	doins nzbhydra2wrapper.py readme.md changelog.md || die
+	insinto ${dir}/lib
+	doins lib/core-${PV}-exec.jar || die
+
+	exeinto ${dir}
+	doexe nzbhydra2 || die
+
+	fowners -R ${PN}:${PN} /opt/${PN} || die
+
+	keepdir /opt/${PN}/data
+	mkdir -p /opt/${PN}/data/logs && chown -R ${PN}:${PN} /opt/${PN}/data
 
 	systemd_dounit "${FILESDIR}/${PN}.service"
 	systemd_newunit "${FILESDIR}/${PN}.service" "${PN}@.service"
