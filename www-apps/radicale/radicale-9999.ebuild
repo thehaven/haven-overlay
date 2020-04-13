@@ -29,6 +29,7 @@ SLOT="0"
 IUSE="+bcrypt"
 
 RDEPEND="sys-apps/util-linux
+	dev-python/defusedxml[${PYTHON_USEDEP}]
 	>=dev-python/vobject-0.9.6[${PYTHON_USEDEP}]
 	>=dev-python/python-dateutil-2.7.3[${PYTHON_USEDEP}]
 	bcrypt? ( dev-python/passlib[bcrypt,${PYTHON_USEDEP}] )"
