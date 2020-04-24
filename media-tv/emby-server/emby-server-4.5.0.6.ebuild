@@ -15,8 +15,7 @@ LICENSE="GPL-2"
 IUSE=""
 RESTRICT="mirror test"
 
-# Remove _beta from source directory name:
-S=${WORKDIR}/${P/_beta/}
+S=${WORKDIR}/Emby.Releases-${PV}
 
 RDEPEND=">=dev-lang/mono-4.6.0
 	>=media-video/ffmpeg-2[vpx]
