@@ -1,74 +1,71 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI="5"
-inherit readme.gentoo-r1 toolchain-funcs versionator
+EAPI=6
 
-K_USEPV="yes"
-UNIPATCH_STRICTORDER="yes"
+# Define what default functions to run
+ETYPE="sources"
+
+# No 'experimental' USE flag provided, but we still want to use genpatches
+K_EXP_GENPATCHES_NOUSE="1"
+
+# Just get basic genpatches, -pf patch set already includes vanilla-linux
+# updates
+K_GENPATCHES_VER="2"
+
+# -pf already sets EXTRAVERSION to kernel Makefile
+K_NOSETEXTRAVERSION="1"
+
+# Not supported by the Gentoo security team
 K_SECURITY_UNSUPPORTED="1"
 
-CKV="$(get_version_component_range 1-2)"
-ETYPE="sources"
-inherit kernel-2
+# We want the very basic patches from gentoo-sources, experimental patch is
+# already included in pf-sources
+K_WANT_GENPATCHES="base extras"
+
+inherit eutils kernel-2
 detect_version
-K_NOSETEXTRAVERSION="don't_set_it"
 
-DESCRIPTION="Linux kernel fork with new features, including the -ck patchset (BFS), BFQ, TuxOnIce and UKSM"
-HOMEPAGE="https://pf.natalenko.name/"
+DESCRIPTION="Linux kernel fork that includes the pf-kernel patchset and Gentoo's genpatches"
+HOMEPAGE="https://gitlab.com/post-factum/pf-kernel/-/wikis/README
+	https://dev.gentoo.org/~mpagano/genpatches/"
+SRC_URI="${KERNEL_URI}
+	https://github.com/pfactum/pf-kernel/compare/v${PV/_p*/}...v${PV/_p*/}-pf${PV/*_p/}.diff -> ${P}.patch
+	https://dev.gentoo.org/~mpagano/genpatches/tarballs/genpatches-${PV/_p*/}-${K_GENPATCHES_VER}.base.tar.xz
+	https://dev.gentoo.org/~mpagano/genpatches/tarballs/genpatches-${PV/_p*/}-${K_GENPATCHES_VER}.extras.tar.xz"
 
-PF_FILE="v${PV/_p*/}...v${PV/_p*/}-pf${PV/*_p/}.diff"
-PF_URI="https://github.com/pfactum/pf-kernel/compare/${PF_FILE}"
-SRC_URI="${KERNEL_URI} ${PF_URI}" # \${EXPERIMENTAL_URI}
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
-KEYWORDS="-* ~amd64 ~ppc ~ppc64 ~x86"
-IUSE=""
+S="${WORKDIR}/linux-${PVR}-pf"
 
-KV_FULL="${PVR}-pf"
-S="${WORKDIR}"/linux-"${KV_FULL}"
+PATCHES=( "${DISTDIR}/${P}.patch" )
 
-DISABLE_AUTOFORMATTING="yes"
-DOC_CONTENTS="
-${P} has the following optional runtime dependencies:
-- sys-apps/tuxonice-userui: provides minimal userspace progress
-information related to suspending and resuming process.
-- sys-power/hibernate-script or sys-power/pm-utils: runtime utilities
-for hibernating and suspending your computer."
+K_EXTRAEINFO="For more info on pf-sources and details on how to report problems,
+	see: ${HOMEPAGE}."
 
-pkg_pretend() {
-	# 547868
-	if [[ $(gcc-version) < 4.9 ]]; then
-			eerror ""
-			eerror "${P} needs an active GCC 4.9+ compiler"
-			eerror ""
-			die "${P} needs an active sys-devel/gcc >= 4.9"
-	fi
-}
-
-pkg_setup(){
-	ewarn
+pkg_setup() {
+	ewarn ""
 	ewarn "${PN} is *not* supported by the Gentoo Kernel Project in any way."
 	ewarn "If you need support, please contact the pf developers directly."
 	ewarn "Do *not* open bugs in Gentoo's bugzilla unless you have issues with"
 	ewarn "the ebuilds. Thank you."
-	ewarn
+	ewarn ""
+
 	kernel-2_pkg_setup
 }
 
-src_prepare(){
-	epatch "${DISTDIR}"/"${PF_FILE}"
-}
+src_prepare() {
+	default
 
-src_install() {
-	kernel-2_src_install
-	readme.gentoo_create_doc
+	# Temporary fix due to 5.6 iwlwifi mess
+	find "${S}" -name "10*linux*" -delete || die
+
+	kernel-2_src_prepare
 }
 
 pkg_postinst() {
 	kernel-2_pkg_postinst
-	readme.gentoo_print_elog
-}
 
-K_EXTRAEINFO="For more info on pf-sources and details on how to report problems,
-see: ${HOMEPAGE}."
+	elog "Optional features:"
+	optfeature "Userspace KSM helper" sys-process/uksmd
+}
