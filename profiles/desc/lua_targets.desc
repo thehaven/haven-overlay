@@ -1,0 +1,5 @@
+# This file contains descriptions of LUA_TARGETS USE_EXPAND flags.
+lua51 - Install modules for dev-lang/lua:5.1
+lua52 - Install modules for dev-lang/lua:5.2
+lua53 - Install modules for dev-lang/lua:5.3
+luajit2 - Install modules for dev-lang/luajit:2
