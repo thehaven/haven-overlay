@@ -1,0 +1,4 @@
+dev-lang/lua
+dev-lang/luajit
+app-eselect/eselect-lua
+virtual/lua
