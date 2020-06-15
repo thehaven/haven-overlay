@@ -27,7 +27,6 @@ IUSE="ssl"
 
 RDEPEND=">=virtual/jre-1.8"
 DEPEND=">=virtual/jdk-1.8
-		dev-java/oracle-jdk-bin:1.8
 		app-arch/unzip
 		app-shells/bash"
 
