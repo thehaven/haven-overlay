@@ -2,32 +2,28 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 PYTHON_COMPAT=(python{2_7,3_3})
 inherit user eutils python-any-r1
 
 DESCRIPTION="Performance Co-Pilot, system performance and analysis framework"
 HOMEPAGE="http://pcp.io"
-
-if [[ ${PV} == 9999* ]] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/performancecopilot/pcp.git"
-	KEYWORDS=""
-fi
-
+SRC_URI="https://github.com/performancecopilot/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="+ssp +pie +threads +infiniband +discovery systemd X qt4 python +papi +perfevent +manager webapi doc"
+IUSE="+ssp +pie threads infiniband discovery systemd X qt4 python papi perfevent manager webapi doc"
 
-DEPEND="systemd? ( sys-apps/systemd )
+DEPEND=" systemd? ( sys-apps/systemd )
 X? ( x11-libs/libXt )
 qt4? ( dev-qt/qtcore:4 )
 python? ( ${PYTHON_DEPS} )
 perfevent? ( dev-libs/libpfm )
 papi? ( dev-libs/papi )
 discovery? ( net-dns/avahi[dbus] )
-webapi? ( net-libs/libmicrohttpd )"
-#doc? ( app-doc/xmlto ) 
+webapi? ( net-libs/libmicrohttpd[messages] )"
+#doc? ( app-doc/xmlto )
+
 RDEPEND="${DEPEND}"
 
 pkg_setup(){
@@ -40,7 +36,7 @@ pkg_setup(){
 	fi
 
 	if [ -z "$(egetent passwd pcp 2>/dev/null)" ]; then
-		enewuser pcp -1	-1 /var/lib/pcp pcp
+		enewuser pcp -1    -1 /var/lib/pcp pcp
 		einfo
 		einfo "The user 'pcp' has been created."
 		einfo
@@ -48,9 +44,6 @@ pkg_setup(){
 	use python && python-any-r1_pkg_setup
 }
 
-src_prepare() {
-	epatch_user
-}
 src_configure() {
 	# Setting xmlto as default documentation generator
 	use doc && export BOOK_TOOLCHAIN="xmlto"
@@ -82,5 +75,5 @@ src_compile(){
 
 src_install() {
 	DIST_ROOT=${D} emake -j1 install
-	dodoc CHANGELOG README
+	dodoc CHANGELOG README.md
 }

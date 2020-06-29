@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit user pam autotools eutils git-r3
+inherit user pam autotools eutils
 
+KEYWORDS="~amd64 ~x86"
 DESCRIPTION="Server Administration Web Interface "
 HOMEPAGE="http://cockpit-project.org/"
-SRC_URI=""
+SRC_URI="https://github.com/cockpit-project/${PN}/releases/download/${PV}/${P}.tar.xz"
 
 if [[ ${PV} == 9999* ]] ; then
 	inherit git-r3
@@ -18,24 +19,24 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="+debug test +maintainer-mode doc"
+IUSE="+debug test +maintainer-mode +pcp doc"
 
 REQUIRED_USE="maintainer-mode debug"
 
 DEPEND="
-	>=net-libs/libssh-0.6[server]
-	>=dev-libs/json-glib-1.0.0
+	>=net-libs/libssh-0.8.6[server]
+	>=dev-libs/json-glib-1.4.4
 	>=sys-auth/polkit-0.105
 	sys-fs/lvm2
 	app-crypt/mit-krb5
 	dev-util/gdbus-codegen
-	sys-apps/pcp
+	pcp? ( sys-apps/pcp )
 	net-libs/nodejs[npm]
 	app-admin/sudo"
-#doc? ( app-doc/xmlto )"
 
+#doc? ( app-doc/xmlto )"
 RDEPEND="${DEPEND}
-	>=virtual/libgudev-230
+	>=virtual/libgudev-232
 	net-libs/glib-networking[ssl]"
 
 pkg_setup(){
@@ -54,24 +55,21 @@ pkg_setup(){
 	fi
 }
 src_prepare() {
-	epatch_user
+	eapply_user
 	eautoreconf
-
-	pushd  "${S}/tools"
-	einfo "Insalling nodejs packages"
-	npm install || die "Couldn't install nodejs modules"
-	popd
 }
 
 src_configure() {
-	local myconf="--localstatedir=$ROOT/var \
-		--with-pamdir=/lib64/security \
-		--with-cockpit-user=cockpit-ws \
-		--with-cockpit-group=cockpit-ws \
-		$(use_enable maintainer-mode) \
-		$(use_enable debug) \
-		$(use_enable doc) "
-	econf ${myconf}
+	local myconf=(
+		$(use_enable maintainer-mode)
+		$(use_enable debug)
+		$(use_enable pcp)
+		$(use_enable doc)
+		"--with-pamdir=/lib64/security "
+		"--with-cockpit-user=cockpit-ws "
+		"--with-cockpit-group=cockpit-ws"
+		"--localstatedir=${ROOT}/var")
+	econf "${myconf[@]}"
 }
 src_install(){
 	emake DESTDIR="${D}"  install || die "emake install failed"
