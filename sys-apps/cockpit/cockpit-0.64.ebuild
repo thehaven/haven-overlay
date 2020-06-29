@@ -4,11 +4,12 @@
 
 EAPI=5
 
-inherit user pam autotools eutils git-r3
+inherit user pam autotools eutils
 
+KEYWORDS="~amd64 ~x86"
 DESCRIPTION="Server Administration Web Interface "
 HOMEPAGE="http://cockpit-project.org/"
-SRC_URI=""
+SRC_URI="https://github.com/cockpit-project/${PN}/releases/download/${PV}/${P}.tar.bz2"
 
 if [[ ${PV} == 9999* ]] ; then
 	inherit git-r3
@@ -32,8 +33,8 @@ DEPEND="
 	sys-apps/pcp
 	net-libs/nodejs[npm]
 	app-admin/sudo"
-#doc? ( app-doc/xmlto )"
 
+#doc? ( app-doc/xmlto )"
 RDEPEND="${DEPEND}
 	>=virtual/libgudev-230
 	net-libs/glib-networking[ssl]"
@@ -56,22 +57,17 @@ pkg_setup(){
 src_prepare() {
 	epatch_user
 	eautoreconf
-
-	pushd  "${S}/tools"
-	einfo "Insalling nodejs packages"
-	npm install || die "Couldn't install nodejs modules"
-	popd
 }
 
 src_configure() {
-	local myconf="--localstatedir=$ROOT/var \
-		--with-pamdir=/lib64/security \
-		--with-cockpit-user=cockpit-ws \
-		--with-cockpit-group=cockpit-ws \
+	local myconf="--localstatedir=${ROOT}/var \
 		$(use_enable maintainer-mode) \
 		$(use_enable debug) \
-		$(use_enable doc) "
-	econf ${myconf}
+		$(use_enable doc) \
+		--with-pamdir=/lib64/security \
+		--with-cockpit-user=cockpit-ws \
+		--with-cockpit-group=cockpit-ws"
+	econf "${myconf}"
 }
 src_install(){
 	emake DESTDIR="${D}"  install || die "emake install failed"
