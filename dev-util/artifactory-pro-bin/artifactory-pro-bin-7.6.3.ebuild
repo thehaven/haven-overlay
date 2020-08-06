@@ -18,16 +18,16 @@ MY_PV="${PV/-bin}"
 
 DESCRIPTION="The world's most advanced repository manager for maven"
 HOMEPAGE="http://www.jfrog.org/products.php"
-SRC_URI="https://bintray.com/standAloneDownload/downloadArtifact?product=artifactory&artifactPath=%2Fjfrog%2Fartifactory-pro%2Forg%2Fartifactory%2Fpro%2Fjfrog-artifactory-pro%2F${MY_PV}%2Fjfrog-artifactory-pro-${MY_PV}.zip&callback_id=anonymous -> ${MY_P}.zip"
+SRC_URI="https://bintray.com/jfrog/artifactory-pro/download_file?file_path=org%2Fartifactory%2Fpro%2Fjfrog-artifactory-pro%2F${MY_PV}%2Fjfrog-artifactory-pro-${MY_PV}-linux.tar.gz&callback_id=anonymous -> ${MY_P}.tar.gz"
 
 LICENSE="AGPL-3+"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="**"
 IUSE="ssl"
 
-RDEPEND=">=virtual/jre-1.8"
-DEPEND=">=virtual/jdk-1.8
-		dev-java/oracle-jdk-bin:1.8
+RDEPEND="virtual/jre"
+DEPEND="virtual/jdk
+		dev-java/openjdk-bin
 		app-arch/unzip
 		app-shells/bash"
 
@@ -35,8 +35,7 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
 pkg_setup() {
 	enewgroup artifactory
-	#enewuser artifactory -1 /bin/sh -1 artifactory
-	useradd -r -g artifactory -s /bin/sh -d /opt/artifactory artifactory
+	enewuser artifactory -1 /bin/sh -1 artifactory
 }
 
 limitsdfile=40-${MY_PN}.conf
@@ -50,38 +49,32 @@ print_limitsdfile() {
 src_prepare() {
 	default
 
-	if use ssl ; then
-		cp "${FILESDIR}/artifactory.xml" tomcat/conf/Catalina/localhost/artifactory.xml || die
-		cp "${FILESDIR}/server.xml" tomcat/conf/server.xml || die
-	fi
-
 	# Reverse https://www.jfrog.com/jira/browse/RTFACT-7123
 	sed -i -e "s%artifactory.repo.global.disabled=true%artifactory.repo.global.disabled=false%g;" \
-		etc/artifactory.system.properties || die
-
-	# See FIXME in src_install(), this can probably go away,
-	# but catalina.sh may need to be fixed for that:
-	sed -i -e "s%/etc/opt/jfrog/artifactory/default%/etc/conf.d/${MY_PN}%g;" \
-		misc/service/setenv.sh || die
+		app/misc/etc/artifactory/artifactory.system.properties || die
 
 	einfo "Generating ${limitsdfile}"
 	print_limitsdfile > "${S}/${limitsdfile}"
 }
 
 src_install() {
-	local ARTIFACTORY_HOME="/opt/artifactory"
+	local JFROG_HOME="/opt/jfrog"
+	local ARTIFACTORY_HOME="${JFROG_HOME}/artifactory"
 	local TOMCAT_HOME="${ARTIFACTORY_HOME}/tomcat"
 
 	insinto ${ARTIFACTORY_HOME}
-	doins -r etc logs misc tomcat webapps
+	doins -r app var
 
 	dodir /etc/opt/jfrog
-	dosym ${ARTIFACTORY_HOME}/etc /etc/opt/jfrog/artifactory
+	dosym ${ARTIFACTORY_HOME}/var/etc /etc/opt/jfrog/artifactory
 
-	dosym ${ARTIFACTORY_HOME}/logs /var/log/artifactory
+	dosym ${ARTIFACTORY_HOME}/var/logs /var/log/artifactory
 
-	exeinto ${ARTIFACTORY_HOME}/bin
-	doexe bin/*
+	exeinto ${ARTIFACTORY_HOME}/app/bin
+	doexe app/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/third-party/java/bin/
+	doexe app/third-party/java/bin/*
 
 	# FIXME: this is called by catalina.sh (it echoes the variables before starting
 	# artifactory, as well as makes sure log dir, etc. exists). Those directories
@@ -90,29 +83,37 @@ src_install() {
 	# variables are actually used anywhere (from reading code don't appear to be
 	# actually needed)
 	exeinto ${TOMCAT_HOME}/bin
-	doexe misc/service/setenv.sh
-	doexe tomcat/bin/*
+	doexe app/misc/service/setenv.sh
+	doexe app/artifactory/tomcat/bin/*
 
-	keepdir ${ARTIFACTORY_HOME}/backup
-	keepdir ${ARTIFACTORY_HOME}/data
-	keepdir ${ARTIFACTORY_HOME}/run
-	keepdir ${ARTIFACTORY_HOME}/work
+	keepdir ${ARTIFACTORY_HOME}/var/backup
+	keepdir ${ARTIFACTORY_HOME}/var/data
+	keepdir ${ARTIFACTORY_HOME}/var/log
+	keepdir ${ARTIFACTORY_HOME}/var/run
+	keepdir ${ARTIFACTORY_HOME}/var/work
 	keepdir ${TOMCAT_HOME}/logs/catalina
 	keepdir ${TOMCAT_HOME}/temp
 	keepdir ${TOMCAT_HOME}/work
 	keepdir /var/opt/jfrog/artifactory/run
 
-	insinto /opt/artifactory/etc/
-    doins ${FILESDIR}/"default"
-    
-    insinto /opt/artifactory/misc/service/
+	# Optional
+	keepdir ${ARTIFACTORY_HOME}/var/backup/artifactory
+	keepdir ${ARTIFACTORY_HOME}/var/backup/access
+	keepdir ${ARTIFACTORY_HOME}/var/backup/replicator
+	keepdir ${ARTIFACTORY_HOME}/var/log/archived/access
+	keepdir ${ARTIFACTORY_HOME}/var/log/archived/replicator
+
+	insinto ${ARTIFACTORY_HOME}/etc/
+	doins ${FILESDIR}/"default"
+
+	insinto ${ARTIFACTORY_HOME}/misc/service/
 	doins ${FILESDIR}/artifactory.service
 
 	newconfd "${FILESDIR}/confd" ${MY_PN}
 	newinitd "${FILESDIR}/initd-r3" ${MY_PN}
 
-    systemd_dounit "${FILESDIR}/artifactory.service"
-    systemd_newunit "${FILESDIR}/artifactory.service" "${PN}@.service"
+	systemd_dounit "${FILESDIR}/artifactory.service"
+	systemd_newunit "${FILESDIR}/artifactory.service" "${PN}@.service"
 
 	fowners -R artifactory:artifactory ${ARTIFACTORY_HOME}
 	fperms -R u+w ${TOMCAT_HOME}/work
