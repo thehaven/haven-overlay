@@ -68,13 +68,43 @@ src_install() {
 	dodir /etc/opt/jfrog
 	dosym ${ARTIFACTORY_HOME}/var/etc /etc/opt/jfrog/artifactory
 
-	dosym ${ARTIFACTORY_HOME}/var/logs /var/log/artifactory
+	dosym ${ARTIFACTORY_HOME}/var/log /var/log/artifactory
 
 	exeinto ${ARTIFACTORY_HOME}/app/bin
 	doexe app/bin/*
 
+	exeinto ${ARTIFACTORY_HOME}/app/event/bin
+	doexe app/event/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/router/bin/
+	doexe app/router/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/replicator/bin/
+	doexe app/replicator/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/metadata/bin/
+	doexe app/metadata/bin/*
+
 	exeinto ${ARTIFACTORY_HOME}/app/third-party/java/bin/
 	doexe app/third-party/java/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/artifactory/tomcat/bin/
+	doexe app/artifactory/tomcat/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/third-party/node/bin
+	doexe app/third-party/node/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/third-party/java/bin
+	doexe app/third-party/java/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/third-party/libxml2/bin
+	doexe app/third-party/libxml2/bin/*
+
+	exeinto ${ARTIFACTORY_HOME}/app/frontend/bin
+	doexe app/frontend/bin/frontend.sh
+
+	#exeinto ${ARTIFACTORY_HOME}/app/frontend/bin/server/dist/node_modules/*/bin/
+	#doexe app/frontend/bin/server/dist/node_modules/*/bin/*
 
 	# FIXME: this is called by catalina.sh (it echoes the variables before starting
 	# artifactory, as well as makes sure log dir, etc. exists). Those directories
@@ -89,6 +119,7 @@ src_install() {
 	keepdir ${ARTIFACTORY_HOME}/var/backup
 	keepdir ${ARTIFACTORY_HOME}/var/data
 	keepdir ${ARTIFACTORY_HOME}/var/log
+	keepdir ${ARTIFACTORY_HOME}/var/log/tomcat
 	keepdir ${ARTIFACTORY_HOME}/var/run
 	keepdir ${ARTIFACTORY_HOME}/var/work
 	keepdir ${TOMCAT_HOME}/logs/catalina
@@ -103,17 +134,17 @@ src_install() {
 	keepdir ${ARTIFACTORY_HOME}/var/log/archived/access
 	keepdir ${ARTIFACTORY_HOME}/var/log/archived/replicator
 
-	insinto ${ARTIFACTORY_HOME}/etc/
-	doins ${FILESDIR}/"default"
+	#insinto ${ARTIFACTORY_HOME}/etc/
+	#doins ${FILESDIR}/"default"
 
-	insinto ${ARTIFACTORY_HOME}/misc/service/
-	doins ${FILESDIR}/artifactory.service
+	#insinto ${ARTIFACTORY_HOME}/misc/service/
+	#doins ${FILESDIR}/artifactory.service
 
 	newconfd "${FILESDIR}/confd" ${MY_PN}
 	newinitd "${FILESDIR}/initd-r3" ${MY_PN}
 
-	systemd_dounit "${FILESDIR}/artifactory.service"
-	systemd_newunit "${FILESDIR}/artifactory.service" "${PN}@.service"
+	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
+	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
 
 	fowners -R artifactory:artifactory ${ARTIFACTORY_HOME}
 	fperms -R u+w ${TOMCAT_HOME}/work
