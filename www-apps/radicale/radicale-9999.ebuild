@@ -83,7 +83,7 @@ python_install_all() {
 
 	# fcgi and wsgi files
 	exeinto /usr/share/${PN}
-	doexe radicale.fcgi radicale.wsgi
+	doexe radicale.wsgi
 
 	distutils-r1_python_install_all
 }
