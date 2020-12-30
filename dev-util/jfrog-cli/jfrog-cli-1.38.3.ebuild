@@ -52,13 +52,13 @@ EGO_SUM=(
 	"github.com/hashicorp/hcl v1.0.0/go.mod"
 	"github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99"
 	"github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod"
-	"github.com/jfrog/gocmd v0.1.13"
-	"github.com/jfrog/gocmd v0.1.13/go.mod"
+	"github.com/jfrog/gocmd v0.1.15"
+	"github.com/jfrog/gocmd v0.1.15/go.mod"
 	"github.com/jfrog/gofrog v1.0.6"
 	"github.com/jfrog/gofrog v1.0.6/go.mod"
-	"github.com/jfrog/jfrog-client-go v0.9.0/go.mod"
-	"github.com/jfrog/jfrog-client-go v0.9.1"
-	"github.com/jfrog/jfrog-client-go v0.9.1/go.mod"
+	"github.com/jfrog/jfrog-client-go v0.10.0/go.mod"
+	"github.com/jfrog/jfrog-client-go v0.12.0"
+	"github.com/jfrog/jfrog-client-go v0.12.0/go.mod"
 	"github.com/kevinburke/ssh_config v0.0.0-20180830205328-81db2a75821e"
 	"github.com/kevinburke/ssh_config v0.0.0-20180830205328-81db2a75821e/go.mod"
 	"github.com/klauspost/compress v1.4.1/go.mod"
@@ -187,7 +187,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 src_compile() {
-	./build.sh || die
+	./build/build.sh || die
 }
 
 src_install() {
