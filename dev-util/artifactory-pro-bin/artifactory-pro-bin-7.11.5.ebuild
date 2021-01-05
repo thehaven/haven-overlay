@@ -145,11 +145,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	# remove files failing QA dependency since we don't use X11 for this package:
-	rm ${ARTIFACTORY_HOME}/app/third-party/java/lib/libawt_xawt.so
-	rm ${ARTIFACTORY_HOME}/app/third-party/java/lib/libjsound.so
-	rm ${ARTIFACTORY_HOME}/app/third-party/java/lib/libsplashscreen.so
-
 	# Systemd Init:
 	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
 	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
