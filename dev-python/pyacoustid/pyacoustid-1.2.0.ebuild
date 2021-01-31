@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyacoustid/pyacoustid-1.0.0-r1.ebuild,v 1.1 2014/04/02 05:26:04 idella4 Exp $
 
-EAPI=5
-
-PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
+EAPI="6"
+PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} pypy )
 
 inherit distutils-r1
 
