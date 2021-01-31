@@ -79,11 +79,7 @@ BDEPEND="
 		)
 	')"
 
-PATCHES=(
-	"${FILESDIR}/${PV}-0001-compatibility-with-breaking-changes-to-the-ast-modul.patch"
-	"${FILESDIR}/${PV}-0002-Disable-test_completion.patch"
-	"${FILESDIR}/${PV}-0003-Try-to-work-around-a-Werkzeug-change.patch"
-)
+PATCHES=()
 
 DOCS=( README.rst docs/changelog.rst )
 
@@ -98,8 +94,6 @@ python_prepare_all() {
 	rm test/test_embyupdate.py || die "Failed to remove test_embyupdate.py"
 	rm test/test_lastgenre.py || die "Failed to remove test_lastgenre.py"
 	rm test/test_spotify.py || die "Failed to remove test_spotify.py"
-	# Not working and dropped in master
-	rm test/test_mediafile.py || die "Failed to remove test_mediafile.py"
 }
 
 python_compile_all() {
@@ -109,7 +103,6 @@ python_compile_all() {
 python_install_all() {
 	distutils-r1_python_install_all
 
-	doman man/*
 	use doc && local HTML_DOCS=( docs/build/html/. )
 	einstalldocs
 
