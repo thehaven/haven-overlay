@@ -1,0 +1,36 @@
+EAPI=7
+
+DESCRIPTION="DevOps Management at Scale"
+HOMEPAGE="https://jfrog.com/mission-control/"
+SRC_URI="https://bintray.com/jfrog/jfrog-mc/download_file?file_path=linux/${PV}/jfrog-mc-${PV}-linux.tar.gz -> jfrog-mc-${PV}.tar.gz"
+
+inherit user
+
+LICENSE=""
+SLOT="0"
+KEYWORDS="~amd64"
+
+RDEPEND="virtual/jre"
+DEPEND="virtual/jdk
+		dev-java/openjdk-bin
+		app-arch/unzip
+		app-shells/bash
+		app-misc/elasticsearch
+		dev-db/postgresql
+		"
+
+S="${WORKDIR}/${PN#*-}-${PV}"
+
+JFROG_HOME="/opt/jfrog"
+MC_HOME="${JFROG_HOME}/mc"
+
+pkg_setup() {
+		enewgroup artifactory
+		enewuser artifactory -1 /bin/sh -1 artifactory
+}
+
+src_install() {
+	dodir ${MC_HOME}/mc || die
+	cp -rf . ${MC_HOME}/ || die
+	chown -Rf artifactory:artifactory ${MC_HOME} || die
+}
