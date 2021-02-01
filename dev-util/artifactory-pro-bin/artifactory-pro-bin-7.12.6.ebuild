@@ -118,6 +118,7 @@ src_install() {
 
 	keepdir ${ARTIFACTORY_HOME}/var/backup
 	keepdir ${ARTIFACTORY_HOME}/var/data
+	keepdir ${ARTIFACTORY_HOME}/var/etc
 	keepdir ${ARTIFACTORY_HOME}/var/log
 	keepdir ${ARTIFACTORY_HOME}/var/log/tomcat
 	keepdir ${ARTIFACTORY_HOME}/var/run
