@@ -34,6 +34,11 @@ src_install() {
 	cp -rf . ${MC_HOME}/ || die
 	chown -Rf artifactory:artifactory ${MC_HOME} || die
 
+	insinto /etc/sysctl.d/
+	doins "${FILESDIR}/elasticsearch.conf"
+
+	keepdir ${MC_HOME}/var/etc
+
 	systemd_dounit "${FILESDIR}/jfrog-mc.service" || die
 	systemd_newunit "${FILESDIR}/jfrog-mc.service" "${PN}@.service" || die
 }
