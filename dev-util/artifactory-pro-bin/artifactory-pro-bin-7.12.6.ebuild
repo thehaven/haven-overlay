@@ -33,6 +33,10 @@ DEPEND="virtual/jdk
 
 S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
+JFROG_HOME="/opt/jfrog"
+ARTIFACTORY_HOME="${JFROG_HOME}/artifactory"
+TOMCAT_HOME="${ARTIFACTORY_HOME}/tomcat"
+
 pkg_setup() {
 	enewgroup artifactory
 	enewuser artifactory -1 /bin/sh -1 artifactory
@@ -58,10 +62,6 @@ src_prepare() {
 }
 
 src_install() {
-	local JFROG_HOME="/opt/jfrog"
-	local ARTIFACTORY_HOME="${JFROG_HOME}/artifactory"
-	local TOMCAT_HOME="${ARTIFACTORY_HOME}/tomcat"
-
 	insinto ${ARTIFACTORY_HOME}
 	doins -r app var
 
@@ -134,21 +134,18 @@ src_install() {
 	keepdir ${ARTIFACTORY_HOME}/var/log/archived/access
 	keepdir ${ARTIFACTORY_HOME}/var/log/archived/replicator
 
-	#insinto ${ARTIFACTORY_HOME}/etc/
-	#doins ${FILESDIR}/"default"
-
-	#insinto ${ARTIFACTORY_HOME}/misc/service/
-	#doins ${FILESDIR}/artifactory.service
-
 	newconfd "${FILESDIR}/confd" ${MY_PN}
 	newinitd "${FILESDIR}/initd-r3" ${MY_PN}
-
-	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
-	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
 
 	fowners -R artifactory:artifactory ${ARTIFACTORY_HOME}
 	fperms -R u+w ${TOMCAT_HOME}/work
 
 	insinto /etc/security/limits.d
 	doins "${S}/${limitsdfile}"
+}
+
+pkg_postinst() {
+	# Systemd Init:
+	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
+	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
 }
