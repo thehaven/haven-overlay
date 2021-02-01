@@ -30,8 +30,8 @@ pkg_setup() {
 }
 
 src_install() {
-	dodir ${MC_HOME} || die
-	cp -rf . ${MC_HOME}/ || die
+	mkdir -p ${MC_HOME} || die
+	cp -rf . ${MC_HOME} || die
 	chown -Rf artifactory:artifactory ${MC_HOME} || die
 
 	insinto /etc/sysctl.d/
