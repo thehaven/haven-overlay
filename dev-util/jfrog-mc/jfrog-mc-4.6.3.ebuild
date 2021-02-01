@@ -19,7 +19,7 @@ DEPEND="virtual/jdk
 		dev-db/postgresql
 		"
 
-S="${WORKDIR}/${PN#*-}-${PV}"
+S="${WORKDIR}/${PN}-${PV}-linux"
 
 JFROG_HOME="/opt/jfrog"
 MC_HOME="${JFROG_HOME}/mc"
@@ -33,4 +33,9 @@ src_install() {
 	dodir ${MC_HOME}/mc || die
 	cp -rf . ${MC_HOME}/ || die
 	chown -Rf artifactory:artifactory ${MC_HOME} || die
+}
+
+pkg_postinst() {
+	einfo "Follow setup instructions at the link below:"
+	einfo "https://www.jfrog.com/confluence/display/JFROG/Installing+Mission+Control#InstallingMissionControl-LinuxArchiveInstallation"
 }
