@@ -4,7 +4,7 @@ DESCRIPTION="DevOps Management at Scale"
 HOMEPAGE="https://jfrog.com/mission-control/"
 SRC_URI="https://bintray.com/jfrog/jfrog-mc/download_file?file_path=linux/${PV}/jfrog-mc-${PV}-linux.tar.gz -> jfrog-mc-${PV}.tar.gz"
 
-inherit user
+inherit user systemd
 
 LICENSE=""
 SLOT="0"
@@ -33,6 +33,9 @@ src_install() {
 	dodir ${MC_HOME}/mc || die
 	cp -rf . ${MC_HOME}/ || die
 	chown -Rf artifactory:artifactory ${MC_HOME} || die
+
+	systemd_dounit "${FILESDIR}/jfrog-mc.service" || die
+	systemd_newunit "${FILESDIR}/jfrog-mc.service" "${PN}@.service" || die
 }
 
 pkg_postinst() {
