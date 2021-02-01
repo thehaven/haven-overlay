@@ -22,7 +22,7 @@ SRC_URI="https://bintray.com/jfrog/artifactory-pro/download_file?file_path=org%2
 
 LICENSE="AGPL-3+"
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="~amd64"
 IUSE="ssl"
 
 RDEPEND="virtual/jre"
