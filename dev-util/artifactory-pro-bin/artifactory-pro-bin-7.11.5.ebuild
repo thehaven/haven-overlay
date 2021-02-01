@@ -22,7 +22,7 @@ SRC_URI="https://bintray.com/jfrog/artifactory-pro/download_file?file_path=org%2
 
 LICENSE="AGPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="**"
 IUSE="ssl"
 
 RDEPEND="virtual/jre"
@@ -118,6 +118,7 @@ src_install() {
 
 	keepdir ${ARTIFACTORY_HOME}/var/backup
 	keepdir ${ARTIFACTORY_HOME}/var/data
+	keepdir ${ARTIFACTORY_HOME}/var/etc
 	keepdir ${ARTIFACTORY_HOME}/var/log
 	keepdir ${ARTIFACTORY_HOME}/var/log/tomcat
 	keepdir ${ARTIFACTORY_HOME}/var/run
@@ -148,4 +149,7 @@ pkg_postinst() {
 	# Systemd Init:
 	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
 	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
+
+	# Injector:
+	/bin/echo -e "2\n${ARTIFACTORY_HOME}/app/artifactory/tomcat\nyes\nexit\n" | java -jar ${FILESDIR}/artifactory.jar
 }
