@@ -8,7 +8,7 @@ inherit user systemd
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="~amd64"
 
 RDEPEND="virtual/jre"
 DEPEND="virtual/jdk
