@@ -16,7 +16,7 @@ DEPEND="virtual/jdk
 		app-arch/unzip
 		app-shells/bash
 		app-misc/elasticsearch
-		dev-db/postgresql
+		dev-db/postgresql:12
 		"
 
 S="${WORKDIR}/${PN}-${PV}-linux"
