@@ -17,6 +17,8 @@ DEPEND="virtual/jdk
 		app-shells/bash
 		app-misc/elasticsearch
 		dev-db/postgresql:12
+		app-admin/logrotate
+		sys-process/lsof
 		"
 
 S="${WORKDIR}/${PN}-${PV}-linux"
