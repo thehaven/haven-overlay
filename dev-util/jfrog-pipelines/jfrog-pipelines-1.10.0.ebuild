@@ -17,6 +17,7 @@ DEPEND="dev-lang/python
 		net-analyzer/openbsd-netcat
 		dev-db/postgresql
 		app-emulation/docker-compose
+		dev-util/jfrog-cli
 		"
 
 S="${WORKDIR}/${PN#*-}-${PV}"
