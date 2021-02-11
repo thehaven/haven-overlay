@@ -58,7 +58,7 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-DOCS=( AUTHORS NEWS README.md README.generic README.kernel  TODO )
+DOCS=( AUTHORS NEWS README.md README.generic README.kernel )
 
 QA_MULTILIB_PATHS="usr/lib/dracut/.*"
 
