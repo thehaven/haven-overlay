@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit toolchain-funcs flag-o-matic linux-info linux-mod
+inherit toolchain-funcs flag-o-matic linux-info linux-mod meson
 
 DESCRIPTION="A set of libraries and drivers for fast packet processing"
 HOMEPAGE="http://dpdk.org/"
@@ -23,6 +23,8 @@ DEPEND="
 	${DEPEND}
 	!net-libs/dpdk:stable
 	dev-lang/nasm
+	dev-util/meson
+	dev-util/ninja
 "
 
 function ctarget() {
@@ -41,30 +43,23 @@ pkg_setup() {
 }
 
 src_configure() {
-	ARCH=$(ctarget) emake config \
-		T=$(ctarget)-native-linuxapp-$(tc-get-compiler-type)
+	meson_src_configure
 }
 
 src_compile() {
-	cd "${S}/build" || die
-	ARCH=$(ctarget) V=1 emake \
-		RTE_DEVEL_BUILD=n \
-		CONFIG_RTE_BUILD_SHARED_LIB=y \
-		CONFIG_RTE_LIBRTE_PMD_OPENSSL=$(use ssl && echo 'y' || echo 'n') \
-		EXTRA_CFLAGS="${CFLAGS}"
-	use static-libs && ARCH=$(ctarget) V=1 emake \
-		RTE_DEVEL_BUILD=n \
-		CONFIG_RTE_BUILD_SHARED_LIB=n \
-		CONFIG_RTE_LIBRTE_PMD_OPENSSL=$(use ssl && echo 'y' || echo 'n') \
-		EXTRA_CFLAGS="${CFLAGS}"
+	meson build
+	ninja -C build
 }
 
 src_install() {
-	pushd "${S}/build" > /dev/null || die
-	sed -i -e 's/^ifdef\ T/ifdef\ TMPL/' ../mk/rte.sdkinstall.mk
-	ARCH=$(ctarget) V=1 emake install \
-			DESTDIR=${D} \
-			libdir="${EPREFIX}/usr/$(get_libdir)" \
-			prefix="${EPREFIX}/usr"
-	popd > /dev/null
+	meson_src_install
+}
+
+pkg_postinst() {
+	einfo "Installer based off: https://core.dpdk.org/doc/quick-start/"
+	einfo ""
+	einfo "Remember to configure huge pages memory:"
+	einfo "		mkdir -p /dev/hugepages"
+	einfo "		mountpoint -q /dev/hugepages || mount -t hugetlbfs nodev /dev/hugepages"
+	einfo "		echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages"
 }
