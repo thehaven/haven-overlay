@@ -14,6 +14,7 @@ DEPEND="dev-lang/python
 		app-misc/jq
 		app-misc/yq
 		net-misc/curl
+		dev-python/virtualenv
 		net-analyzer/openbsd-netcat
 		dev-db/postgresql
 		app-emulation/docker-compose
