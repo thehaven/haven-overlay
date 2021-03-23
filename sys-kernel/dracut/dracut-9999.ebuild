@@ -62,9 +62,9 @@ DOCS=( AUTHORS README.md README.generic README.kernel )
 
 QA_MULTILIB_PATHS="usr/lib/dracut/.*"
 
-PATCHES=(
-	"${FILESDIR}"/gentoo-ldconfig-paths.patch
-)
+#PATCHES=(
+#	"${FILESDIR}"/gentoo-ldconfig-paths.patch
+#)
 
 src_configure() {
 	local myconf=(
