@@ -40,6 +40,8 @@ RDEPEND="
 		dev-python/requests[${PYTHON_MULTI_USEDEP}]
 		>=dev-python/six-1.9[${PYTHON_MULTI_USEDEP}]
 		dev-python/unidecode[${PYTHON_MULTI_USEDEP}]
+		dev-python/confuse[${PYTHON_MULTI_USEDEP}]
+		dev-python/mediafile[${PYTHON_MULTI_USEDEP}]
 	')"
 DEPEND="
 	${RDEPEND}
