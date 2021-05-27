@@ -145,6 +145,12 @@ src_install() {
 	doins "${S}/${limitsdfile}"
 }
 
+pkg_preinst() {
+	# Clean up old install before installing new:
+	rm "${ARTIFACTORY_HOME}/var/etc/artifactory/logback.xml"
+	rm -Rf "${ARTIFACTORY_HOME}/app"
+}
+
 pkg_postinst() {
 	# Systemd Init:
 	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
