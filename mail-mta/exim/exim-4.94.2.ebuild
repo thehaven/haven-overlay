@@ -5,7 +5,7 @@ EAPI="7"
 
 inherit db-use toolchain-funcs multilib pam systemd
 
-IUSE="arc +dane dcc +dkim dlfunc dmarc +dnsdb doc dovecot-sasl dsn elibc_glibc exiscan-acl gnutls idn ipv6 ldap lmtp maildir mbx mysql nis pam perl pkcs11 postgres +prdr proxy radius redis sasl selinux spf sqlite srs +ssl syslog tcpd +tpda X"
+IUSE="arc +dane dcc +dkim dlfunc dmarc +dnsdb doc dovecot-sasl dsn elibc_glibc exiscan-acl gnutls idn ipv6 ldap lmtp maildir mbx mysql nis pam perl pkcs11 postgres +prdr proxy radius redis sasl selinux spf sqlite srs +srs-alt srs-native +ssl syslog tcpd +tpda X"
 REQUIRED_USE="
 	arc? ( dkim spf )
 	dane? ( ssl !gnutls )
@@ -14,7 +14,10 @@ REQUIRED_USE="
 	gnutls? ( ssl )
 	pkcs11? ( ssl )
 	spf? ( exiscan-acl )
-	srs? ( exiscan-acl )
+	srs? (
+		exiscan-acl
+		^^ ( srs-alt srs-native )
+	)
 "
 # NOTE on USE="gnutls dane", gnutls[dane] is masked in base, unmasked
 # for x86 and amd64 only, due to this, repoman won't allow depending on
@@ -25,13 +28,13 @@ REQUIRED_USE="
 # incorrect, but b) is the only "correct" view from repoman.
 
 SDIR=$([[ ${PV} == *_rc* ]]   && echo /test
-	[[ ${PV} == *.*.*.* ]] && echo /fixes)
+	 [[ ${PV} == *.*.*.* ]] && echo /fixes)
 COMM_URI="https://downloads.exim.org/exim4${SDIR}"
 
 DESCRIPTION="A highly configurable, drop-in replacement for sendmail"
-SRC_URI="${COMM_URI}/${P//rc/RC}.tar.xz
+SRC_URI="${COMM_URI}/${P//_rc/-RC}.tar.xz
 	mirror://gentoo/system_filter.exim.gz
-	doc? ( ${COMM_URI}/${PN}-pdf-${PV//rc/RC}.tar.xz )"
+	doc? ( ${COMM_URI}/${PN}-pdf-${PV//_rc/-RC}.tar.xz )"
 HOMEPAGE="https://www.exim.org/"
 
 SLOT="0"
@@ -67,7 +70,7 @@ COMMON_DEPEND=">=sys-apps/sed-4.0.5
 	redis? ( dev-libs/hiredis )
 	spf? ( >=mail-filter/libspf2-1.2.5-r1 )
 	dmarc? ( mail-filter/opendmarc )
-	srs? ( mail-filter/libsrs_alt )
+	srs? ( srs-alt? ( mail-filter/libsrs_alt ) )
 	X? (
 		x11-libs/libX11
 		x11-libs/libXmu
@@ -103,7 +106,7 @@ RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-exim )
 	"
 
-S=${WORKDIR}/${P//rc/RC}
+S=${WORKDIR}/${P//_rc/-RC}
 
 src_prepare() {
 	# Legacy patches which need a respin for -p1
@@ -112,13 +115,10 @@ src_prepare() {
 	eapply     "${FILESDIR}"/exim-4.93-as-needed-ldflags.patch # 352265, 391279
 	eapply -p0 "${FILESDIR}"/exim-4.76-crosscompile.patch # 266591
 	eapply     "${FILESDIR}"/exim-4.69-r1.27021.patch
-	eapply     "${FILESDIR}"/exim-4.93-localscan_dlopen.patch
-	eapply -p2 "${FILESDIR}"/exim-4.93-radius.patch # 720364
-	eapply     "${FILESDIR}"/exim-4.93-CVE-2020-12783.patch # 722484
-	eapply     "${FILESDIR}"/exim-4.93-fno-common.patch # 723430
+	eapply     "${FILESDIR}"/exim-4.94-localscan_dlopen.patch
 
 	if use maildir ; then
-		eapply "${FILESDIR}"/exim-4.20-maildir.patch
+		eapply "${FILESDIR}"/exim-4.94-maildir.patch
 	else
 		eapply -p0 "${FILESDIR}"/exim-4.80-spool-mail-group.patch # 438606
 	fi
@@ -436,10 +436,23 @@ src_configure() {
 
 	# Sender Rewriting Scheme
 	if use srs; then
-		cat >> Makefile <<- EOC
-			EXPERIMENTAL_SRS=yes
-			EXTRALIBS_EXIM += -lsrs_alt
-		EOC
+		# NOTE: we currently USE-default to srs-alt, because this is
+		# what USE=srs used to be.  Eventually we want to rid ourselves
+		# of this external implementation.
+		if use srs-alt; then
+			# historical default, from 4.95 this becomes
+			# EXPERIMENTAL_SRS_ALT
+			cat >> Makefile <<- EOC
+				EXPERIMENTAL_SRS=yes
+				EXTRALIBS_EXIM += -lsrs_alt
+			EOC
+		fi
+		if use srs-native; then
+			# this one becomes SUPPORT_SRS in 4.95
+			cat >> Makefile <<- EOC
+				EXPERIMENTAL_SRS_NATIVE=yes
+			EOC
+		fi
 	fi
 
 	# Delivery Sender Notifications extra information in fail message
@@ -585,8 +598,19 @@ pkg_postinst() {
 		einfo "documentation at the bottom of this prerelease message:"
 		einfo "  http://article.gmane.org/gmane.mail.exim.devel/3579"
 	fi
-	use srs && einfo "SRS support is experimental"
+	if use srs ; then
+		einfo "SRS support is experimental in this release of Exim"
+		if use srs-alt; then
+			elog "You are using libsrs_alt to implement SRS support."
+			elog "In future release of Exim, the native SRS implementation"
+			elog "(USE=srs-native) will become the default.  Please prepare"
+			elog "your package.use or switch to USE=srs-native now."
+		fi
+	fi
 	use dsn && einfo "extra information in fail DSN message is experimental"
-	elog "The obsolete acl condition 'demime' is removed, the replacements"
-	elog "are the ACLs acl_smtp_mime and acl_not_smtp_mime"
+	einfo
+	elog "Note that this release contains a tainted variable check that"
+	elog "is likely to break your configuration used with Exim 4.93 and before."
+	elog "Please check your transports for occurences of \$local_part, and"
+	elog "use a replacement like \$local_part_data where possible."
 }
