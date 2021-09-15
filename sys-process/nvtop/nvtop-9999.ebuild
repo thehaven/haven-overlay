@@ -19,10 +19,10 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 
-IUSE="debug unicode"
+IUSE="debug"
 
 RDEPEND="
-	sys-libs/ncurses:0=[unicode?]
+	sys-libs/ncurses
 	x11-drivers/nvidia-drivers
 "
 

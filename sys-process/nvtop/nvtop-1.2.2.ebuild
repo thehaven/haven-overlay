@@ -27,10 +27,10 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 
-IUSE="debug unicode"
+IUSE="debug"
 
 RDEPEND="
-	sys-libs/ncurses:0=[unicode?]
+	sys-libs/ncurses
 	x11-drivers/nvidia-drivers
 "
 
@@ -39,10 +39,6 @@ DEPEND="${RDEPEND}"
 BDEPEND="
 	virtual/pkgconfig
 "
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-1.0.0-fix-ncurses.patch
-)
 
 src_configure() {
 	local CMAKE_CONF="
