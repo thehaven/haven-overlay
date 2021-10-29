@@ -34,6 +34,7 @@ pkg_setup() {
 }
 
 src_install() {
+	mkdir -p ${PIPELINES_HOME}/installer || die
 	dodir ${PIPELINES_HOME}/installer || die
 	cp -rf . ${PIPELINES_HOME}/installer || die
 	dodir  ${PIPELINES_HOME}/installer/scripts/x86_64/Gentoo_ || die

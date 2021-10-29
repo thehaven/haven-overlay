@@ -33,9 +33,12 @@ pkg_setup() {
 }
 
 src_install() {
+	mkdir -p ${PIPELINES_HOME}/installer || die
 	dodir ${PIPELINES_HOME}/installer || die
 	cp -rf . ${PIPELINES_HOME}/installer || die
 	dodir  ${PIPELINES_HOME}/installer/scripts/x86_64/Gentoo_ || die
 	cp -rf ${FILESDIR}/Gentoo_/ ${PIPELINES_HOME}/installer/scripts/x86_64/Gentoo_ || die
+	dodir  ${PIPELINES_HOME}/installer/scripts/x86_64/Gentoo_2.8 || die
+	cp -rf ${FILESDIR}/Gentoo_/ ${PIPELINES_HOME}/installer/scripts/x86_64/Gentoo_2.8 || die
 	chown -Rf pipelines:pipelines ${PIPELINES_HOME}/installer || die
 }
