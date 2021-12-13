@@ -4,9 +4,8 @@
 EAPI=7
 
 DISTUTILS_SINGLE_IMPL=1
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="sqlite"
-DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1 bash-completion-r1 optfeature
 
@@ -17,7 +16,7 @@ else
 	MY_PV=${PV/_beta/-beta.}
 	MY_P=${PN}-${MY_PV}
 	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64"
 	S="${WORKDIR}/${MY_P}"
 fi
 
@@ -32,7 +31,6 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	$(python_gen_cond_dep '
 		>=dev-python/jellyfish-0.7.1[${PYTHON_USEDEP}]
-		dev-python/mediafile[${PYTHON_USEDEP}]
 		dev-python/munkres[${PYTHON_USEDEP}]
 		>=media-libs/mutagen-1.33[${PYTHON_USEDEP}]
 		>=dev-python/python-musicbrainzngs-0.4[${PYTHON_USEDEP}]
@@ -41,6 +39,9 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		>=dev-python/six-1.9[${PYTHON_USEDEP}]
 		dev-python/unidecode[${PYTHON_USEDEP}]
+		dev-python/reflink[${PYTHON_USEDEP}]
+		dev-python/confuse[${PYTHON_USEDEP}]
+		dev-python/mediafile[${PYTHON_USEDEP}]
 	')"
 DEPEND="
 	${RDEPEND}
@@ -52,7 +53,7 @@ BDEPEND="
 	$(python_gen_cond_dep '
 		test? (
 			dev-db/sqlite[icu]
-			dev-python/beautifulsoup[${PYTHON_USEDEP}]
+			dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 			dev-python/bluelet[${PYTHON_USEDEP}]
 			dev-python/discogs-client[${PYTHON_USEDEP}]
 			dev-python/flask[${PYTHON_USEDEP}]
@@ -77,10 +78,9 @@ BDEPEND="
 			media-sound/mp3gain
 			media-plugins/gst-plugins-libav:1.0
 			media-video/ffmpeg:0[encode]
+			app-shells/bash-completion
 		)
 	')"
-
-PATCHES=()
 
 DOCS=( README.rst docs/changelog.rst )
 
@@ -88,13 +88,6 @@ distutils_enable_tests pytest
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
-
-	# Tests that need network
-	rm test/test_art.py || die "Failed to remove test_art.py"
-	rm test/test_discogs.py || die "Failed to remove test_discogs.py"
-	rm test/test_embyupdate.py || die "Failed to remove test_embyupdate.py"
-	rm test/test_lastgenre.py || die "Failed to remove test_lastgenre.py"
-	rm test/test_spotify.py || die "Failed to remove test_spotify.py"
 }
 
 python_compile_all() {
@@ -104,6 +97,7 @@ python_compile_all() {
 python_install_all() {
 	distutils-r1_python_install_all
 
+	doman man/*
 	use doc && local HTML_DOCS=( docs/build/html/. )
 	einstalldocs
 
