@@ -13,7 +13,7 @@ EGIT_BRANCH='df-youtube-unthrottle-patch'
 #EGIT_REPO_URI="https://github.com/ytdl-org/${PN}.git"
 
 LICENSE="public-domain"
-KEYWORDS="**"
+KEYWORDS="~amd64 amd64"
 SLOT="0"
 
 RDEPEND="
