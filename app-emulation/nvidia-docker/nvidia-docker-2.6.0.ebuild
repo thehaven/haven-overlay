@@ -14,7 +14,7 @@ IUSE=""
 DEPEND=""
 
 RDEPEND="${DEPEND}
-	app-emulation/docker
+	app-containers/docker
 	app-emulation/nvidia-container-runtime
 	x11-drivers/nvidia-drivers"
 
