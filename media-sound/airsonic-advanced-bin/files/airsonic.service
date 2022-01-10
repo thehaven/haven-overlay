@@ -1,0 +1,20 @@
+[Unit]
+Description=Airsonic media streaming solution
+
+[Service]
+User=airsonic
+Group=airsonic
+RuntimeDirectory=airsonic
+ExecStart=/usr/bin/java \
+	-Dairsonic.home='/var/lib/airsonic' \
+	-Dserver.address='0.0.0.0' \
+	-Dserver.port='8080' \
+	-Xmx1024m \
+	-Dserver.context-path='/' \
+	-Dlogging.file='/var/log/airsonic/airsonic.log' \
+	-jar /usr/bin/airsonic.war
+PIDFile=/run/airsonic/airsonic.pid
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
