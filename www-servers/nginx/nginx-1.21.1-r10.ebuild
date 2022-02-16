@@ -892,7 +892,7 @@ DEPEND="
 ##QA_WX_LOAD="usr/sbin/nginx"
 
 PDEPEND="
-	vim-syntax? ( ~app-vim/nginx-syntax-${PV} )
+	vim-syntax? ( app-vim/nginx-syntax )
 	nginx_modules_stream_lua? (
 		dev-lua/resty-core
 		dev-lua/resty-lrucache
