@@ -4,12 +4,12 @@
   <repo quality="experimental" status="unofficial">
     <name><![CDATA[haven-overlay]]></name>
     <description><![CDATA[Haven's custom ebuilds]]></description>
-    <homepage>https://github.com/thehaven/haven-overlay</homepage>
+    <homepage>https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay</homepage>
     <owner>
       <email>haven@thehavennet.org.uk</email>
       <name>Simon Alman</name>
     </owner>
-    <source type="git">https://github.com/thehaven/haven-overlay.git</source>
-    <feed>https://github.com/thehaven/haven-overlay/commits/master.atom</feed>
+    <source type="git">https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/haven-overlay.git</source>
+    <feed>https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/commits/master.atom</feed>
   </repo>
 </repositories>
