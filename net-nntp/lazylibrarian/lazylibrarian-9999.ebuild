@@ -21,10 +21,17 @@ IUSE=""
 DEPEND="${PYTHON_DEPS}
 		dev-python/apprise[${PYTHON_USEDEP}]
 		dev-python/cherrypy[${PYTHON_USEDEP}]
+		dev-python/pillow[${PYTHON_USEDEP}]
+		dev-python/pip[${PYTHON_USEDEP}]
+		dev-python/pyopenssl[${PYTHON_USEDEP}]
 		dev-python/python-levenshtein[${PYTHON_USEDEP}]
 		dev-python/unidecode[${PYTHON_USEDEP}]
 		dev-python/urllib3[${PYTHON_USEDEP}]
-		app-misc/jq"
+		app-arch/unrar
+		app-misc/jq
+		app-text/ghostscript-gpl
+		media-libs/libjpeg-turbo
+		sys-libs/zlib"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
