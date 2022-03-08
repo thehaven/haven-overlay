@@ -56,9 +56,9 @@ src_install() {
 	doins "${FILESDIR}/${PN}.ini"
 
 	# Rotation of log files
-	insinto /etc/logrotate.d
-	insopts -m0644 -o root -g root
-	newins "${FILESDIR}/${PN}.logrotate" ${PN}
+	#insinto /etc/logrotate.d
+	#insopts -m0644 -o root -g root
+	#newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
 	# wierd stuff ;-)
 	last_commit=$(git rev-parse HEAD)
