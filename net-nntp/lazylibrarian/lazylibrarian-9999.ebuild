@@ -43,7 +43,7 @@ src_install() {
 	dodoc README.md
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
-	newinitd "${FILESDIR}/${PN}.init" ${PN}
+	newinitd "${FILESDIR}/${PN}.initd" ${PN}
 
 	keepdir /var/${PN}
 	fowners -R ${PN}:${PN} /var/${PN}
