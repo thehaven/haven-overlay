@@ -20,6 +20,7 @@ IUSE=""
 
 DEPEND="${PYTHON_DEPS}
 		dev-python/apprise[${PYTHON_USEDEP}]
+		dev-python/cherrypy[${PYTHON_USEDEP}]
 		dev-python/python-levenshtein[${PYTHON_USEDEP}]
 		dev-python/unidecode[${PYTHON_USEDEP}]
 		dev-python/urllib3[${PYTHON_USEDEP}]
