@@ -4,7 +4,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6..10} )
 
 EGIT_REPO_URI="https://gitlab.com/LazyLibrarian/LazyLibrarian.git"
 
@@ -20,7 +20,10 @@ IUSE=""
 
 DEPEND="${PYTHON_DEPS}
 		dev-python/apprise[${PYTHON_USEDEP}]
-		dev-python/unidecode[${PYTHON_USEDEP}]"
+		dev-python/python-levenshtein[${PYTHON_USEDEP}]
+		dev-python/unidecode[${PYTHON_USEDEP}]
+		dev-python/urllib3[${PYTHON_USEDEP}]
+		app-misc/jq"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
