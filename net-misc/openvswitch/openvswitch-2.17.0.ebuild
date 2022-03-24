@@ -25,7 +25,7 @@ RDEPEND="
 	debug? ( dev-lang/perl )"
 DEPEND="${RDEPEND}
 	sys-apps/util-linux[caps]
-	net-libs/dpdk"
+	>=net-libs/dpdk-22.03"
 BDEPEND="virtual/pkgconfig"
 
 PATCHES="
