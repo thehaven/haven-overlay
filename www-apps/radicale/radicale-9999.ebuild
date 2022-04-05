@@ -1,18 +1,14 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=8
 
-PYTHON_COMPAT=( python3_{4,5,6,7,8} )
+PYTHON_COMPAT=( python3_{8..10} )
 
-inherit distutils-r1 eutils user systemd git-r3
-
-MY_PN="radicale"
-MY_P="${MY_PN}-${PV}"
+inherit distutils-r1 systemd git-r3
 
 DESCRIPTION="A simple CalDAV calendar server"
 HOMEPAGE="https://radicale.org/"
-
 EGIT_REPO_URI="https://github.com/Kozea/Radicale.git"
 if [[ ${PV} != *9999* ]] ; then
     EGIT_COMMIT="v${PV}"
@@ -26,80 +22,82 @@ fi
 
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE="+bcrypt"
+KEYWORDS="~amd64 ~arm ~x86"
 
-RDEPEND="sys-apps/util-linux
+MY_PN="radicale"
+MY_P="${MY_PN}-${PV}"
+
+RDEPEND="
+	>=acct-user/radicale-0-r2
+	acct-group/radicale
+	dev-python/bcrypt[${PYTHON_USEDEP}]
 	dev-python/defusedxml[${PYTHON_USEDEP}]
-	>=dev-python/vobject-0.9.6[${PYTHON_USEDEP}]
-	>=dev-python/python-dateutil-2.7.3[${PYTHON_USEDEP}]
-	bcrypt? ( dev-python/passlib[bcrypt,${PYTHON_USEDEP}] )"
+	dev-python/passlib[${PYTHON_USEDEP}]
+	dev-python/python-dateutil[${PYTHON_USEDEP}]
+	dev-python/vobject[${PYTHON_USEDEP}]
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	sys-apps/util-linux
+"
 
-S=${WORKDIR}/${MY_P}
+BDEPEND="
+	${RDEPEND}
+	test? (
+		dev-python/waitress[${PYTHON_USEDEP}]
+	)
+"
 
-RDIR=/var/lib/${PN}
+distutils_enable_tests --install pytest
 
-pkg_pretend() {
-	if [[ -f ${RDIR}/.props && ${MERGE_TYPE} != buildonly ]]; then
-		eerror "It looks like you have a version 1 database in ${RDIR}."
-		eerror "You must convert this database to version 2 format before upgrading."
-		eerror "You may want to back up the old database before migrating."
-		eerror
-		eerror "If you have kept the Gentoo-default database configuration, this will work:"
-		eerror "1. Stop any running instance of Radicale."
-		eerror "2. Run \`radicale --export-storage ~/radicale-exported\`."
-		eerror "3. Run \`chown -R radicale: ~/radicale-exported\`"
-		eerror "4. Run \`mv \"${RDIR}\" \"${RDIR}.old\"\`."
-		eerror "5. Install Radicale version 2."
-		eerror "6. Run \`mv ~/radicale-exported \"${RDIR}/collections\"\`."
-		eerror
-		eerror "For more details, or if you are have a more complex configuration,"
-		eerror "please see the migration guide: https://radicale.org/1to2/"
-		eerror "If you do a custom migration, please ensure the database is cleaned out of"
-		eerror "${RDIR}, including the hidden .props file."
-		die
-	fi
+S="${WORKDIR}/${MY_P}"
+
+RDIR=/var/lib/"${PN}"
+
+DOCS=( DOCUMENTATION.md CHANGELOG.md )
+
+src_prepare() {
+	sed -i '/^addopts =/d' setup.cfg || die
+	distutils-r1_src_prepare
 }
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 ${RDIR} ${PN}
+python_test() {
+	epytest radicale/tests/
 }
 
 python_install_all() {
 	rm README* || die
-
 	# init file
-	newinitd "${FILESDIR}"/radicale-r2.init.d radicale
-	systemd_newunit "${FILESDIR}/${PN}.service.${PV}" "${PN}.service"
+	newinitd "${FILESDIR}"/radicale-r3.init.d radicale
+	systemd_dounit "${FILESDIR}/${PN}.service"
 
 	# directories
-	keepdir ${RDIR}
-	fowners ${PN}:${PN} ${RDIR}
-	fperms 0750 ${RDIR}
+	keepdir "${RDIR}"
+	fperms 0750 "${RDIR}"
+	fowners "${PN}:${PN}" "${RDIR}"
 
 	# config file
-	insinto /etc/${PN}
+	insinto /etc/"${PN}"
 	doins config
 
 	# fcgi and wsgi files
-	exeinto /usr/share/${PN}
+	exeinto /usr/share/"${PN}"
 	doexe radicale.wsgi
 
 	distutils-r1_python_install_all
 }
 
 pkg_postinst() {
-	local _erdir="${EROOT%/}${RDIR}"
+	local _erdir="${EROOT}${RDIR}"
 
-	einfo "A sample WSGI script has been put into ${EROOT%/}/usr/share/${PN}."
+	einfo "A sample WSGI script has been put into ${EROOT}/usr/share/${PN}."
 	einfo "You will also find there an example FastCGI script."
 	if [[ $(stat --format="%U:%G:%a" "${_erdir}") != "${PN}:${PN}:750" ]]
 	then
-		ewarn "Unsafe file permissions detected on ${_erdir}. This probably comes"
-		ewarn "from an earlier version of this ebuild."
+		ewarn ""
+		ewarn "Unsafe file permissions detected on ${_erdir}."
+		ewarn "This probably comes from an earlier version of this ebuild."
 		ewarn "To fix run:"
-		ewarn "  \`chown -R ${PN}:${PN} ${_erdir}\`"
-		ewarn "  \`chmod 0750 ${_erdir}\`"
-		ewarn "  \`chmod -R o= ${_erdir}\`"
+		ewarn "#  \`chown -R ${PN}:${PN} ${_erdir}\`"
+		ewarn "#  \`chmod 0750 ${_erdir}\`"
+		ewarn "#  \`chmod -R o= ${_erdir}\`"
 	fi
 }
