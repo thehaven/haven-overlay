@@ -5,6 +5,7 @@ app-benchmarks
 app-editors
 app-emulation
 app-text
+app-vim
 dev-android
 dev-db
 dev-java
