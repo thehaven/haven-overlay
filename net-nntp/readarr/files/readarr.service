@@ -1,0 +1,16 @@
+[Unit]
+Description=Looks and smells like Sonarr but made for music. http://readarr.audio/.
+After=syslog.target network.target network-online.target
+
+[Service]
+User=readarr
+Group=readarr
+
+Type=simple
+ExecStart=/usr/share/work/Readarr/Readarr --DataFolder /var/lib/readarr --IgnoreSslErrors true
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
