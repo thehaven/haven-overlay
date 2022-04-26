@@ -21,6 +21,7 @@ RDEPEND="
 	net-misc/curl
 	www-client/elinks
 	"
+MY_PN="Readarr"
 S=${WORKDIR}/${MY_PN}
 
 pkg_setup() {
@@ -49,10 +50,10 @@ src_install() {
 	mkdir -p /var/log/${PN} && chown ${PN}:${PN} /var/log/${PN}
 
 	insinto "/usr/share/work"
-	doins -r "${S}/Readarr"
+	doins -r "${S}/${MY_PN}"
 
-	exeinto "/usr/share/work/Readarr"
-	doexe "${S}/Readarr/Readarr"
+	exeinto "/usr/share/work/${MY_PN}"
+	doexe "${S}/${MY_PN}/${MY_PN}"
 
 	systemd_dounit "${FILESDIR}/${PN}.service"
 	systemd_newunit "${FILESDIR}/${PN}.service" "${PN}@.service"
