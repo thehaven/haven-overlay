@@ -1,0 +1,17 @@
+[Unit]
+Description=Radarr Daemon
+After=syslog.target network.target network-online.target
+
+[Service]
+User=radarr
+Group=radarr
+
+Type=simple
+WorkingDirectory=/var/lib/radarr
+ExecStart=/usr/share/work/Radarr/radarr/Radarr -nobrowser
+TimeoutStopSec=20
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
