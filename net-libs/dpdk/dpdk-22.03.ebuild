@@ -23,6 +23,7 @@ DEPEND="
 	${DEPEND}
 	!net-libs/dpdk:stable
 	dev-lang/nasm
+	dev-libs/jansson
 	dev-util/meson
 	dev-util/ninja
 "
