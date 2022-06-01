@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=7
 
 inherit eutils user systemd
 
-SRC_URI="https://github.com/lidarr/Lidarr/releases/download/v${PV}/Lidarr.master.${PV}.linux.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Lidarr/Lidarr/releases/download/v${PV}/Lidarr.master.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 
 DESCRIPTION="Looks and smells like Sonarr but made for music. http://lidarr.audio/"
 HOMEPAGE="https://github.com/lidarr/Lidarr"
@@ -19,7 +19,8 @@ RDEPEND="
 	media-libs/chromaprint[tools]
 	net-misc/curl
 	"
-S=${WORKDIR}/${MY_PN}
+MY_PN='Lidarr'
+S=${WORKDIR}/${PN}
 
 pkg_setup() {
 	enewgroup ${PN}
@@ -46,8 +47,12 @@ src_install() {
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 	mkdir -p /var/log/${PN} && chown ${PN}:${PN} /var/log/${PN}
 
-	insinto "/usr/share/"
+	insinto "/usr/share/work/${MY_PN}"
 	doins -r "${S}"
+
+	exeinto "/usr/share/work/${MY_PN}/${PN}"
+	doexe "${S}/${MY_PN}"
+	doexe "${S}/fpcalc"
 
 	systemd_dounit "${FILESDIR}/${PN}.service"
 	systemd_newunit "${FILESDIR}/${PN}.service" "${PN}@.service"

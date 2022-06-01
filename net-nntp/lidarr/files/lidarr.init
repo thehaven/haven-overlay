@@ -13,8 +13,7 @@ etc_dir="/etc/lidarr"
 var_dir="/var/lib/lidarr"
 log_dir="/var/log/lidarr"
 log_file="lidarr.log"
-program="$APP_DIR/LidarrConsole.exe"
-bin=`which mono`
+program="$APP_DIR/Lidarr"
 
 check_config() {
 
@@ -38,7 +37,7 @@ start() {
         ebegin "Starting Lidarr"
         start-stop-daemon --start --background --make-pidfile --pidfile ${pidfile}\
         -u ${USER} -g ${GROUP}\
-        --exec ${bin} ${program} -- --DataFolder ${var_dir}
+        --exec ${program} -- --DataFolder ${var_dir}
         eend $?
 }
 

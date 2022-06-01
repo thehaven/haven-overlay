@@ -7,7 +7,7 @@ User=lidarr
 Group=lidarr
 
 Type=simple
-ExecStart=/usr/bin/mono /usr/share/work/Lidarr/Lidarr.exe --DataFolder /var/lib/lidarr --IgnoreSslErrors true
+ExecStart=/usr/share/work/Lidarr/lidarr/Lidarr --DataFolder /var/lib/lidarr --IgnoreSslErrors true
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure

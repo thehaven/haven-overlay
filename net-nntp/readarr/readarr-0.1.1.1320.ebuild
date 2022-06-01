@@ -6,24 +6,27 @@ EAPI=6
 
 inherit eutils user systemd
 
-SRC_URI="https://github.com/lidarr/Lidarr/releases/download/v${PV}/Lidarr.develop.${PV}.linux.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Readarr/Readarr/releases/download/v${PV}/Readarr.develop.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 
-DESCRIPTION="Looks and smells like Sonarr but made for music. http://lidarr.audio/"
-HOMEPAGE="https://github.com/lidarr/Lidarr"
+DESCRIPTION="Looks and smells like Sonarr but made for music. http://readarr.audio/"
+HOMEPAGE="https://github.com/readarr/Readarr"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
 	>=dev-lang/mono-3.12.1
+	dev-util/lttng-ust
 	media-libs/chromaprint[tools]
 	net-misc/curl
+	www-client/elinks
 	"
+MY_PN="Readarr"
 S=${WORKDIR}/${MY_PN}
 
 pkg_setup() {
 	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/lidarr ${PN}
+	enewuser ${PN} -1 -1 /var/lib/readarr ${PN}
 }
 
 src_unpack() {
@@ -46,8 +49,11 @@ src_install() {
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 	mkdir -p /var/log/${PN} && chown ${PN}:${PN} /var/log/${PN}
 
-	insinto "/usr/share/"
-	doins -r "${S}"
+	insinto "/usr/share/work"
+	doins -r "${S}/${MY_PN}"
+
+	exeinto "/usr/share/work/${MY_PN}"
+	doexe "${S}/${MY_PN}/${MY_PN}"
 
 	systemd_dounit "${FILESDIR}/${PN}.service"
 	systemd_newunit "${FILESDIR}/${PN}.service" "${PN}@.service"
@@ -57,5 +63,5 @@ src_install() {
 }
 
 post_instal() {
-	su -c "wget -O - https://curl.haxx.se/ca/cacert.pem | cert-sync --user /dev/stdin" -s /bin/sh lidarr
+	su -c "wget -O - https://curl.haxx.se/ca/cacert.pem | cert-sync --user /dev/stdin" -s /bin/sh readarr
 }
