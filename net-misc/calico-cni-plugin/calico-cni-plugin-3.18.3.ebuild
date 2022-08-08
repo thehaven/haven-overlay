@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND="dev-go/glide
 		>=dev-lang/go-1.7"
-RDEPEND="net-misc/cni-plugins"
+RDEPEND="app-containers/cni-plugins"
 RESTRICT="network-sandbox collision-detect protect-owned"
 
 src_compile() {
