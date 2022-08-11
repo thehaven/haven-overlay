@@ -1,24 +1,28 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-GITHUB_PN="nvidia-container-toolkit"
-EGO_PN_VCS="github.com/NVIDIA/${GITHUB_PN}"
-EGO_PN="${EGO_PN_VCS}"
+EGO_PN="github.com/NVIDIA/${PN}"
 
-inherit golang-build
+inherit go-module
 
 DESCRIPTION="NVIDIA container runtime toolkit"
 HOMEPAGE="https://github.com/NVIDIA/nvidia-container-toolkit"
 
 if [[ "${PV}" == "9999" ]] ; then
-	inherit golang-vcs
+	EGIT_REPO_URI="https://github.com/NVIDIA/${PN}.git"
+	inherit git-r3
+
+	src_unpack() {
+		git-r3_src_unpack
+		go-module_live_vendor
+	}
 else
-	inherit golang-vcs-snapshot
 	SRC_URI="
-		https://github.com/NVIDIA/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
+		https://github.com/NVIDIA/${PN}/archive/v${PV/_rc/-rc.}.tar.gz -> ${P}.tar.gz
 	"
+	S="${WORKDIR}/${PN}-${PV/_rc/-rc.}"
 	KEYWORDS="~amd64"
 fi
 
@@ -39,11 +43,11 @@ BDEPEND="
 "
 
 src_compile() {
-	emake binary
+	emake binaries
 }
 
 src_install() {
-	dobin "${T}/${PN}"
+	dobin "${PN}"
 	into "/usr/bin"
 	dosym "${PN}" "/usr/bin/nvidia-container-runtime-hook"
 	insinto "/etc/nvidia-container-runtime"
