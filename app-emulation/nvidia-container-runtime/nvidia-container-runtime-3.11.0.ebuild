@@ -4,7 +4,7 @@ EAPI=6
 inherit rpm
 DESCRIPTION="A modified version of runc adding a custom pre-start hook to all containers"
 HOMEPAGE="https://github.com/NVIDIA/nvidia-container-runtime"
-SRC_URI="https://nvidia.github.io/nvidia-container-runtime/centos7/x86_64/${PN}-2.0.0-1.docker18.03.0.x86_64.rpm"
+SRC_URI="https://nvidia.github.io/nvidia-container-runtime/centos8/x86_64/${PN}-2.0.0-1.docker18.03.0.x86_64.rpm"
 
 LICENSE="BSD"
 SLOT="0"
@@ -13,6 +13,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
+		>=app-emulation/nvidia-container-toolkit-1.11.0
 		sys-libs/libnvidia-container
 		sys-libs/libseccomp
 		"
