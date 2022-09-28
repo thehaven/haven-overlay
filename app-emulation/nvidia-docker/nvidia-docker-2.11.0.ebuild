@@ -15,7 +15,7 @@ DEPEND=""
 
 RDEPEND="${DEPEND}
 	app-containers/docker
-	app-emulation/nvidia-container-runtime
+	app-emulation/nvidia-container-toolkit
 	x11-drivers/nvidia-drivers"
 
 src_compile() {
