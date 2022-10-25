@@ -1751,7 +1751,6 @@ src_install() {
 	doins -r public
 	doins babel.config.js
 	doins next.config.js
-	doins ormconfig.js
 	doins overseerr-api.yml
 	doins package.json
 	doins postcss.config.js
