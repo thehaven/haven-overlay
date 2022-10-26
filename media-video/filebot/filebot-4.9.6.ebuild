@@ -1,7 +1,7 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit java-utils-2
 
@@ -9,22 +9,23 @@ DESCRIPTION="Java-based tools to rename TV shows, download subtitles, and valida
 HOMEPAGE="https://www.filebot.net/"
 
 MY_PN="FileBot"
-SRC_URI="https://get.filebot.net/${PN}/BETA/${MY_PN}_${PV}-portable.tar.xz"
+SRC_URI="https://get.filebot.net/${PN}/${MY_PN}_${PV}/${MY_PN}_${PV}-portable.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="amd64"
 
 RDEPEND="
 	|| (
-		dev-java/oracle-jdk-bin:1.8
-		dev-java/oracle-jre-bin:1.8
+		dev-java/openjdk:17
 	)
 	media-libs/chromaprint[tools]
 	media-libs/fontconfig
 	media-libs/libmediainfo[curl,mms]
-	media-video/mediainfo[curl,mms]
 "
+JAVA_PKG_WANT_BUILD_VM="openjdk-17"
+JAVA_PKG_WANT_SOURCE=17
+JAVA_PKG_WANT_TARGET=17
 
 S="${WORKDIR}"
 
@@ -40,7 +41,7 @@ src_install() {
 	for i in jar/*;do java-pkg_dojar "$i";done
 	exeopts -m755
 	exeinto "/usr/bin"
-	newexe "${FILESDIR}/filebot-4.8.5.sh" "${PN}"
+	newexe "${FILESDIR}/filebot.sh-r1" "${PN}"
 	insopts -m644
 	insinto "/usr/share/pixmaps"
 	doins "${FILESDIR}/${PN}.svg"

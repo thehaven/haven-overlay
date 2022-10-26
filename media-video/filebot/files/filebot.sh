@@ -1,2 +1,19 @@
-#!/bin/bash
-java -Dunixfs=false -Xmx256m -Dapplication.update=skip -Dapplication.deployment=portable -DuseExtendedFileAttributes=true -DuseCreationDate=false -Dfile.encoding="UTF-8" -Dsun.jnu.encoding="UTF-8" -Dapplication.dir=$HOME/.filebot -Djava.io.tmpdir=$HOME/.filebot/temp -Djna.library.path=/usr/share/filebot/lib/ -Djava.library.path=/usr/share/filebot/lib/ -Dsun.net.client.defaultConnectTimeout=5000 -Dsun.net.client.defaultReadTimeout=25000 -jar /usr/share/filebot/lib/FileBot.jar "$@"
+#!/bin/sh
+APP_ROOT=/usr/share/filebot/lib
+
+if [ -z "$HOME" ]; then
+	echo '$HOME must be set'
+	exit 1
+fi
+
+# add APP_ROOT to LD_LIBRARY_PATH
+if [ ! -z "$LD_LIBRARY_PATH" ]; then
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$APP_ROOT"
+else
+	export LD_LIBRARY_PATH="$APP_ROOT"
+fi
+
+# select application data folder
+APP_DATA="$HOME/.filebot"
+
+java -Dunixfs=false -DuseGVFS=true -DuseExtendedFileAttributes=true -DuseCreationDate=false -Djava.net.useSystemProxies=true -Djna.nosys=false -Djna.nounpack=true -Dapplication.deployment=deb -Dnet.filebot.gio.GVFS="$XDG_RUNTIME_DIR/gvfs" -Dapplication.dir="$APP_DATA" -Djava.io.tmpdir="$APP_DATA/temp" -Dnet.filebot.AcoustID.fpcalc="/usr/bin/fpcalc" $JAVA_OPTS -jar "$APP_ROOT/FileBot.jar" "$@"
