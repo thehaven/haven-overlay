@@ -153,6 +153,8 @@ pkg_preinst() {
 
 pkg_postinst() {
 	# Systemd Init:
+	insinto ${ARTIFACTORY_HOME}/app/misc/service/
+	doins ${FILESDIR}/artifactory.service
 	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
 	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
 
