@@ -144,6 +144,7 @@ src_install() {
 	insinto /etc/security/limits.d
 	doins "${S}/${limitsdfile}"
 
+	mkdir -p ${ARTIFACTORY_HOME}/app/misc/service
 	insinto ${ARTIFACTORY_HOME}/app/misc/service/
 	doins ${FILESDIR}/artifactory.service
 }
