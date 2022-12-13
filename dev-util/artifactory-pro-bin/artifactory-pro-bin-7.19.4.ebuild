@@ -19,7 +19,6 @@ MY_PV="${PV/-bin}"
 DESCRIPTION="The world's most advanced repository manager for maven"
 HOMEPAGE="http://www.jfrog.org/products.php"
 SRC_URI="https://releases.jfrog.io/artifactory/artifactory-pro/org/artifactory/pro/jfrog-artifactory-pro/${MY_PV}/jfrog-artifactory-pro-${MY_PV}-linux.tar.gz -> ${MY_P}.tar.gz"
-#SRC_URI="https://bintray.com/jfrog/artifactory-pro/download_file?file_path=org%2Fartifactory%2Fpro%2Fjfrog-artifactory-pro%2F${MY_PV}%2Fjfrog-artifactory-pro-${MY_PV}-linux.tar.gz&callback_id=anonymous -> ${MY_P}.tar.gz"
 
 LICENSE="AGPL-3+"
 SLOT="0"
