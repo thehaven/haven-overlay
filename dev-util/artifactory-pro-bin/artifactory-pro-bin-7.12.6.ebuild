@@ -144,7 +144,6 @@ src_install() {
 	insinto /etc/security/limits.d
 	doins "${S}/${limitsdfile}"
 
-	mkdir -p ${ARTIFACTORY_HOME}/app/misc/service
 	insinto ${ARTIFACTORY_HOME}/app/misc/service/
 	doins ${FILESDIR}/artifactory.service
 }
@@ -157,9 +156,9 @@ pkg_preinst() {
 
 pkg_postinst() {
 	# Systemd Init:
-	systemd_dounit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
-	systemd_newunit "${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
+	systemd_dounit "${EROOT}/${ARTIFACTORY_HOME}/app/misc/service/artifactory.service"
+	systemd_newunit "${EROOT}/${ARTIFACTORY_HOME}/app/misc/service/artifactory.service" "${PN}@.service"
 
 	# Injector:
-	/bin/echo -e "2\n${ARTIFACTORY_HOME}/app/artifactory/tomcat\nyes\nexit\n" | java -jar ${FILESDIR}/artifactory.jar
+	/bin/echo -e "2\n${EROOT}/${ARTIFACTORY_HOME}/app/artifactory/tomcat\nyes\nexit\n" | java -jar ${FILESDIR}/artifactory.jar
 }
