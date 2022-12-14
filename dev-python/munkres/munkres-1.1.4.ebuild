@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/munkres/munkres-1.0.5.4-r2.ebuild,v 1.2 2013/06/08 15:08:53 sochotnicky Exp $
 
-EAPI="6"
+EAPI="8"
 PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} pypy )
 
 inherit distutils-r1
