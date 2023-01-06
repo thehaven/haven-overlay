@@ -49,6 +49,8 @@ src_install() {
 
 	exeinto "/usr/share/work/${MY_PN}/radarr/"
 	doexe "${S}/${MY_PN}"
+	doexe "${S}/ffprobe"
+	doexe "${S}/createdump"
 
 	systemd_dounit "${FILESDIR}/radarr-v4.service"
 	systemd_newunit "${FILESDIR}/radarr-v4.service" "${PN}@.service"
