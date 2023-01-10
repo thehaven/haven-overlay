@@ -8,7 +8,7 @@
 # Upstream now releases source and instructions (yay!), but most of artifactory's
 # dependencies are not in portage yet.
 
-EAPI=6
+EAPI=7
 
 inherit user systemd
 
