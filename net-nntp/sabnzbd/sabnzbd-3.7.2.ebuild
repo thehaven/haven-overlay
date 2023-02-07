@@ -1,10 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="7"
+EAPI="8"
 
 # Require python-2 with sqlite USE flag
-PYTHON_COMPAT=( python3_{6..8} )
+PYTHON_COMPAT=( python3_{8..11} )
 PYTHON_REQ_USE="sqlite"
 
 inherit python-single-r1 systemd
@@ -32,15 +32,17 @@ COMMON_DEPS="
 	acct-group/sabnzbd
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
-		dev-python/chardet[${PYTHON_MULTI_USEDEP}]
-		dev-python/cheetah3[${PYTHON_MULTI_USEDEP}]
-		dev-python/cherrypy[${PYTHON_MULTI_USEDEP}]
-		dev-python/configobj[${PYTHON_MULTI_USEDEP}]
-		dev-python/cryptography[${PYTHON_MULTI_USEDEP}]
-		>=dev-python/feedparser-6[${PYTHON_MULTI_USEDEP}]
-		dev-python/notify2[${PYTHON_MULTI_USEDEP}]
-		dev-python/portend[${PYTHON_MULTI_USEDEP}]
-		>=dev-python/sabyenc-4.0.0[${PYTHON_MULTI_USEDEP}]
+		dev-python/chardet[${PYTHON_USEDEP}]
+		dev-python/cheetah3[${PYTHON_USEDEP}]
+		dev-python/cherrypy[${PYTHON_USEDEP}]
+		dev-python/configobj[${PYTHON_USEDEP}]
+		dev-python/cryptography[${PYTHON_USEDEP}]
+		>=dev-python/feedparser-6[${PYTHON_USEDEP}]
+		>=dev-python/guessit-3.1.0[${PYTHON_USEDEP}]
+		dev-python/notify2[${PYTHON_USEDEP}]
+		dev-python/portend[${PYTHON_USEDEP}]
+		dev-python/puremagic[${PYTHON_USEDEP}]
+		>=dev-python/sabyenc-5.4.2[${PYTHON_USEDEP}]
 	')
 "
 
