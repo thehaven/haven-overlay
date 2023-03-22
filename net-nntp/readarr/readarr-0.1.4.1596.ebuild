@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=7
 
 inherit eutils user systemd
 
-SRC_URI="https://github.com/readarr/Readarr/releases/download/v${PV}/Readarr.develop.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Readarr/Readarr/releases/download/v${PV}/Readarr.develop.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 
 DESCRIPTION="Looks and smells like Sonarr but made for music. http://readarr.audio/"
 HOMEPAGE="https://github.com/readarr/Readarr"
