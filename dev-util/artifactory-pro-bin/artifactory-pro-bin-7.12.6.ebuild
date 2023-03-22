@@ -22,7 +22,7 @@ SRC_URI="https://releases.jfrog.io/artifactory/artifactory-pro/org/artifactory/p
 
 LICENSE="AGPL-3+"
 SLOT="0"
-KEYWORDS="**"
+KEYWORDS="~x86 ~amd64"
 IUSE="ssl"
 
 RDEPEND="virtual/jre"
