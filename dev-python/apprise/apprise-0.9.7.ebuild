@@ -23,7 +23,7 @@ RDEPEND="dev-python/requests[${PYTHON_USEDEP}]
 DEPEND="${REDEPEND}
 	dev-python/Babel[${PYTHON_USEDEP}]
 	dev-python/pip[${PYTHON_USEDEP}]
-	dev-python/setuptools_scm[${PYTHON_USEDEP}]
+	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	test? (
