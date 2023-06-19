@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
 		<email>ezzieyguywuf@gmail.com</email>
@@ -11,4 +11,8 @@
 
 		This program provides command-line access to the B2 service.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">Backblaze/B2_Command_Line_Tool</remote-id>
+		<remote-id type="pypi">b2</remote-id>
+	</upstream>
 </pkgmetadata>
