@@ -23,6 +23,7 @@ DEPEND="
 	${DEPEND}
 	!net-libs/dpdk:stable
 	dev-lang/nasm
+	dev-libs/jansson
 	dev-util/meson
 	dev-util/ninja
 "
@@ -33,7 +34,7 @@ function ctarget() {
 	echo $CTARGET
 }
 
-CONFIG_CHECK="~IOMMU_SUPPORT ~AMD_IOMMU ~VFIO ~VFIO_PCI ~UIO ~UIO_PDRV_GENIRQ ~UIO_DMEM_GENIRQ"
+CONFIG_CHECK="~IOMMU_SUPPORT ~AMD_IOMMU ~VFIO ~VFIO_PCI"
 if [ "$SLOT" != "0" ] ; then
 	S=${WORKDIR}/${PN}-${SLOT#0/}-${PV}
 fi
