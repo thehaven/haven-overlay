@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{5..10} )
+PYTHON_COMPAT=( python3_{10..11} )
 inherit distutils-r1
 
 DESCRIPTION="A python module dedicated to rendering RST (reStructuredText) documents to ansi-escaped strings suitable for display in a terminal."
