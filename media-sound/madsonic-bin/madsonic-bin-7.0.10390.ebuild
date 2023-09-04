@@ -7,11 +7,11 @@ EAPI=7
 inherit eutils user systemd
 
 MY_PN="${PN//-bin}"
-DATE="20190510" # http://beta.madsonic.org/pages/changelog.jsp
+DATE="20220120" # http://beta.madsonic.org/pages/changelog.jsp
 
 DESCRIPTION="Madsonic is a complete, personal media streaming solution"
-HOMEPAGE="http://www.madsonic.org/"
-SRC_URI="https://madsonic.org/download/${PV%.*}/${DATE}_${MY_PN}-${PV}-standalone.tar.gz -> madsonic-${PV}-standalone.tar.gz"
+HOMEPAGE="https://www.madsonic.org/"
+SRC_URI="https://madsonic.org/download/${PV%.*}/${DATE}_${MY_PN}-${PV}-standalone.tar.gz -> ${MY_PN}-${PV}-standalone.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
