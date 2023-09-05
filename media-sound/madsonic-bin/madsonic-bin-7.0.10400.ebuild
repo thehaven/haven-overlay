@@ -26,7 +26,7 @@ RDEPEND="virtual/jre
 	xmp? ( media-sound/xmp )"
 
 S="${WORKDIR}/"
-MADSONIC_HOME="/var/lib/${MY_PN}"
+MADSONIC_HOME="${EROOT}/var/lib/${MY_PN}"
 USER_GROUP="madsonic"
 
 pkg_setup() {
@@ -35,7 +35,7 @@ pkg_setup() {
 }
 
 src_install() {
-	local dir="/usr/libexec/${MY_PN}"
+	local dir="${EROOT}/usr/libexec/${MY_PN}"
 
 	dodoc "Getting Started.html" || die
 
@@ -65,8 +65,8 @@ src_install() {
 		dodir ${MADSONIC_HOME}/transcode
 		dosym /usr/bin/lame ${MADSONIC_HOME}/transcode/lame || die
 	fi
-    if use systemd; then
-        dodir /run/madsonic
+	if use systemd; then
+		dodir /run/madsonic
 		fowners ${USER_GROUP}:${USER_GROUP} /run/madsonic || die
 		# Compartible systemd mode
 		systemd_dounit "${FILESDIR}"/madsonic.service
@@ -75,9 +75,9 @@ src_install() {
 		#systemd_newunit "${FILESDIR}"/madsonic.service.true madsonic.service
 		#systemd_install_serviced "${FILESDIR}"/madsonic.service.conf
     fi
-    if use xmp; then
-        dodir ${MADSONIC_HOME}/transcode
-        dosym /usr/bin/xmp ${MADSONIC_HOME}/transcode/xmp || die
+	if use xmp; then
+		dodir ${MADSONIC_HOME}/transcode
+		dosym /usr/bin/xmp ${MADSONIC_HOME}/transcode/xmp || die
     fi
 }
 
