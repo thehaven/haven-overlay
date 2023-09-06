@@ -26,7 +26,7 @@ RDEPEND="virtual/jre
 	xmp? ( media-sound/xmp )"
 
 S="${WORKDIR}/"
-MADSONIC_HOME="${EROOT}/var/lib/${MY_PN}"
+MADSONIC_HOME="/var/lib/${MY_PN}"
 USER_GROUP="madsonic"
 
 pkg_setup() {
@@ -49,7 +49,7 @@ src_install() {
 	doins -r genre || die
 
 	keepdir ${MADSONIC_HOME}
-	fowners ${USER_GROUP}:${USER_GROUP} ${MADSONIC_HOME} || die
+	fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME} || die
 
 	newinitd "${FILESDIR}/madsonic.initd" madsonic || die
 	newconfd "${FILESDIR}/madsonic.confd" madsonic || die
@@ -67,7 +67,7 @@ src_install() {
 	fi
 	if use systemd; then
 		dodir /run/madsonic
-		fowners ${USER_GROUP}:${USER_GROUP} /run/madsonic || die
+		fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}/run/madsonic || die
 		# Compartible systemd mode
 		systemd_dounit "${FILESDIR}"/madsonic.service
 		systemd_dotmpfilesd "${FILESDIR}"/madsonic.conf
