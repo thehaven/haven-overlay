@@ -49,7 +49,8 @@ src_install() {
 	doins -r genre || die
 
 	keepdir ${MADSONIC_HOME}
-	fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME} || die
+	#fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME} || die
+	chown -Rf ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME}
 
 	newinitd "${FILESDIR}/madsonic.initd" madsonic || die
 	newconfd "${FILESDIR}/madsonic.confd" madsonic || die
