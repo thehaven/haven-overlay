@@ -35,7 +35,7 @@ pkg_setup() {
 }
 
 src_install() {
-	local dir="${EROOT}/usr/libexec/${MY_PN}"
+	local dir="${MADSONIC_HOME}"
 
 	dodoc "Getting Started.html" || die
 
@@ -50,7 +50,7 @@ src_install() {
 
 	keepdir ${MADSONIC_HOME}
 	#fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME} || die
-	chown -Rf ${USER_GROUP}:${USER_GROUP} ${EROOT}${MADSONIC_HOME}
+	chown -Rf ${USER_GROUP}:${USER_GROUP} ${MADSONIC_HOME}
 
 	newinitd "${FILESDIR}/madsonic.initd" madsonic || die
 	newconfd "${FILESDIR}/madsonic.confd" madsonic || die
@@ -68,7 +68,7 @@ src_install() {
 	fi
 	if use systemd; then
 		dodir /run/madsonic
-		fowners ${USER_GROUP}:${USER_GROUP} ${EROOT}/run/madsonic || die
+		fowners ${USER_GROUP}:${USER_GROUP} /run/madsonic || die
 		# Compartible systemd mode
 		systemd_dounit "${FILESDIR}"/madsonic.service
 		systemd_dotmpfilesd "${FILESDIR}"/madsonic.conf
