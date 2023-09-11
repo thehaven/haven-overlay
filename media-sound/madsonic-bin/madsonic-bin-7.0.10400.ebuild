@@ -35,7 +35,7 @@ pkg_setup() {
 }
 
 src_install() {
-	local dir="${MADSONIC_HOME}"
+	local dir="/usr/libexec/madsonic"
 
 	dodoc "Getting Started.html" || die
 
