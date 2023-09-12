@@ -38,8 +38,8 @@ src_install() {
 	keepdir /var/log/${MY_PN}
 	keepdir ${AIRSONIC_HOME}
 
-	fowners ${MY_PN}:${MY_PN} ${AIRSONIC_HOME}
-	fowners ${MY_PN}:${MY_PN} /var/log/${MY_PN}
+	chown -Rf ${MY_PN}:${MY_PN} ${AIRSONIC_HOME}
+	chown -Rf ${MY_PN}:${MY_PN} /var/log/${MY_PN}
 
 	newinitd "${FILESDIR}/${MY_PN}.initd" ${MY_PN}
 	newconfd "${FILESDIR}/${MY_PN}.confd" ${MY_PN}
