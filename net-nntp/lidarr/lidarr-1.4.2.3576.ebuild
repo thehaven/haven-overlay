@@ -4,9 +4,9 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
-BRANCH="master"
+BRANCH="develop"
 SRC_URI="https://github.com/Lidarr/Lidarr/releases/download/v${PV}/Lidarr.${BRANCH}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 
 DESCRIPTION="Looks and smells like Sonarr but made for music. http://lidarr.audio/"

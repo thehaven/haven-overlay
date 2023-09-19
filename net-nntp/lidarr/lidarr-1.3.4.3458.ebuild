@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 BRANCH="develop"
 SRC_URI="https://github.com/Lidarr/Lidarr/releases/download/v${PV}/Lidarr.${BRANCH}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
