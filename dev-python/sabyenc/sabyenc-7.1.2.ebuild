@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..12} )
 
 inherit distutils-r1
 
@@ -21,7 +21,6 @@ BDEPEND="test? (
 
 DOCS=( README.md doc/yenc-draft.1.3.txt )
 
-PATCHES=(
-)
+S="${WORKDIR}/sabctools-${PV}"
 
 distutils_enable_tests pytest
