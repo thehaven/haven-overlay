@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -21,6 +21,8 @@ if [[ "${PV}" == "9999" ]] ; then
 else
 	SRC_URI="
 		https://github.com/NVIDIA/${PN}/archive/v${PV/_rc/-rc.}.tar.gz -> ${P}.tar.gz
+		https://github.com/vowstar/gentoo-go-deps/releases/download/${P}/${P}-deps.tar.xz
+		https://github.com/vowstar/gentoo-go-deps/releases/download/${P}/${P}-vendor.tar.xz
 	"
 	S="${WORKDIR}/${PN}-${PV/_rc/-rc.}"
 	KEYWORDS="~amd64"
@@ -39,7 +41,7 @@ DEPEND="${RDEPEND}"
 
 BDEPEND="
 	app-arch/unzip
-	sys-devel/make
+	dev-build/make
 "
 
 src_compile() {
@@ -47,9 +49,10 @@ src_compile() {
 }
 
 src_install() {
-	dobin "${PN}"
-	into "/usr/bin"
-	dosym "${PN}" "/usr/bin/nvidia-container-runtime-hook"
+	# Fixed by https://github.com/vizv
+	dobin "nvidia-container-runtime"
+	dobin "nvidia-container-runtime-hook"
+	dobin "nvidia-ctk"
 	insinto "/etc/nvidia-container-runtime"
 	doins "${FILESDIR}/config.toml"
 }
