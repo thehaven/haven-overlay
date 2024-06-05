@@ -3,7 +3,7 @@
 
 EAPI=7
 
-DISTUTILS_USE_PEP517="setuptools"
+DISTUTILS_USE_PEP517="pdm-backend"
 PYTHON_COMPAT=( python3_10 python3_11 python3_12)
 inherit distutils-r1
 
@@ -16,7 +16,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-1.17.2-disable-requirement-installation.patch"
 )
 
 RDEPEND="

@@ -1,19 +1,18 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
-inherit distutils-r1
+PYTHON_COMPAT=( python3_{10..12} )
+DISTUTILS_USE_PEP517=setuptools
+inherit distutils-r1 pypi
 
-DESCRIPTION="A python module dedicated to rendering RST (reStructuredText) documents to ansi-escaped strings suitable for display in a terminal."
-HOMEPAGE="https://github.com/Snaipe/python-rst2ansi"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+DESCRIPTION="Render reStructuredText documents to the terminal"
+HOMEPAGE="
+	https://pypi.org/project/rst2ansi/
+	https://github.com/Snaipe/python-rst2ansi
+"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-DEPEND=""
-RDEPEND="${DEPEND}"
-BDEPEND=""
