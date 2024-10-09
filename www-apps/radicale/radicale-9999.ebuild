@@ -46,7 +46,7 @@ BDEPEND="
 	)
 "
 
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest
 
 S="${WORKDIR}/${MY_P}"
 
