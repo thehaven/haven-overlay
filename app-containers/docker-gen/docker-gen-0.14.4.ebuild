@@ -3,32 +3,45 @@
 
 EAPI=8
 
-inherit go-module git-r3
+inherit go-module
 
 DESCRIPTION="Docker container metadata generator for templated files"
 HOMEPAGE="https://github.com/nginx-proxy/docker-gen"
-EGIT_REPO_URI="https://github.com/nginx-proxy/${PN}.git"
+
+# Verified source URL
+SRC_URI="https://github.com/nginx-proxy/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+
+# Required for Go module downloads
+RESTRICT="network-sandbox"
 
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64"
+
+# Using existing USE flags from Gentoo repository
 IUSE="debug test"
 
-# Required for Go module downloads and git operations
-RESTRICT="network-sandbox !test? ( test )"
-
+# Runtime dependencies
 RDEPEND="
 	acct-group/docker
 	app-containers/docker
 "
+
+# Build dependencies
 DEPEND="${RDEPEND}"
+
+# Build tool dependencies
 BDEPEND="
 	>=dev-lang/go-1.20
 	test? ( dev-go/testify )
 "
 
+# Test restrictions
+RESTRICT+=" !test? ( test )"
+
 src_unpack() {
-	git-r3_src_unpack
-	go-module_live_vendor
+	default
+	go-module_src_unpack
 }
 
 src_prepare() {
@@ -54,11 +67,14 @@ src_test() {
 
 src_install() {
 	dobin bin/${PN}
+
+	# Documentation
 	dodoc README.md
 	if [[ -d docs ]]; then
 		dodoc -r docs/* || die
 	fi
 
+	# Ensure correct permissions
 	fowners root:docker /usr/bin/${PN}
 	fperms 0750 /usr/bin/${PN}
 }

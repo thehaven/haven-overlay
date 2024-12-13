@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>maintainer@gentoo.org</email>
+		<name>Maintainer Name</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">nginx-proxy/docker-gen</remote-id>
+		<bugs-to>https://github.com/nginx-proxy/docker-gen/issues</bugs-to>
+		<changelog>https://github.com/nginx-proxy/docker-gen/releases</changelog>
+	</upstream>
+	<use>
+		<flag name="debug">Enable debug build tags and symbols</flag>
+	</use>
+	<longdescription>
+		docker-gen is a file generator that renders templates using Docker container metadata.
+		It can be used to generate various configuration files for applications like Nginx, HAProxy,
+		or any other software that needs to be configured based on Docker container state.
+	</longdescription>
+</pkgmetadata>
