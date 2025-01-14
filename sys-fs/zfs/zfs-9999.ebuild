@@ -1,11 +1,11 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 DISTUTILS_OPTIONAL=1
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit autotools bash-completion-r1 dist-kernel-utils distutils-r1 flag-o-matic linux-info pam systemd udev usr-ldscript
 
@@ -16,7 +16,7 @@ if [[ ${PV} == "9999" ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/openzfs/zfs.git"
 else
-	VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/openzfs.asc
+	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/openzfs.asc
 	inherit verify-sig
 
 	MY_P="${P/_rc/-rc}"
@@ -25,7 +25,7 @@ else
 	S="${WORKDIR}/${MY_P}"
 
 	if [[ ${PV} != *_rc* ]]; then
-		KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~sparc"
+		KEYWORDS="~amd64 ~arm64 ~loong ~ppc64 ~riscv ~sparc"
 	fi
 fi
 
@@ -33,8 +33,8 @@ LICENSE="BSD-2 CDDL MIT"
 # just libzfs soname major for now.
 # possible candidates: libuutil, libzpool, libnvpair. Those do not provide stable abi, but are considered.
 # see libsoversion_check() below as well
-SLOT="0/5"
-IUSE="custom-cflags debug dist-kernel kernel-builtin minimal nls pam python +rootfs selinux test-suite"
+SLOT="0/6"
+IUSE="custom-cflags debug dist-kernel kernel-builtin minimal nls pam python +rootfs selinux test-suite unwind"
 
 DEPEND="
 	dev-libs/openssl:=
@@ -47,6 +47,7 @@ DEPEND="
 	python? (
 		$(python_gen_cond_dep 'dev-python/cffi[${PYTHON_USEDEP}]' 'python*')
 	)
+	unwind? ( sys-libs/libunwind:= )
 "
 
 BDEPEND="
@@ -75,7 +76,7 @@ RDEPEND="
 	sys-fs/udev-init-scripts
 	dist-kernel? ( virtual/dist-kernel:= )
 	rootfs? (
-		app-arch/cpio
+		app-alternatives/cpio
 		app-misc/pax-utils
 	)
 	selinux? ( sec-policy/selinux-zfs )
@@ -83,7 +84,7 @@ RDEPEND="
 		app-shells/ksh
 		sys-apps/kmod[tools]
 		sys-apps/util-linux
-		sys-devel/bc
+		app-alternatives/bc
 		sys-block/parted
 		sys-fs/lsscsi
 		sys-fs/mdadm
@@ -105,7 +106,6 @@ RESTRICT="test"
 
 PATCHES=(
 	"${FILESDIR}"/2.1.5-dracut-zfs-missing.patch
-	#"${FILESDIR}"/2.2.0_rc5-bash-completion-path.patch
 )
 
 pkg_pretend() {
@@ -221,6 +221,7 @@ src_configure() {
 		$(use_enable nls)
 		$(use_enable pam)
 		$(use_enable python pyzfs)
+		$(use_with unwind libunwind)
 		--disable-static
 		$(usex minimal --without-python --with-python="${EPYTHON}")
 	)
