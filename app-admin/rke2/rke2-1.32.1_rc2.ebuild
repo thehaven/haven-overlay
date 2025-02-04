@@ -35,21 +35,28 @@ src_unpack() {
 }
 
 src_install() {
-	cp -a ${S}/bin/rke2 "${EROOT}/usr/bin/" || die
-	cp -ar ${S}/share/rke2 "${EROOT}/usr/share/" || die
-	cp -a ${S}/lib/systemd/system/* "${EROOT}/usr/lib/systemd/system/" || die
+	# Install the rke2 binary into /usr/bin
+	dobin "${S}/bin/rke2" || die
+
+	# Install the share files into /usr/share/rke2.
+	insinto /usr/share/rke2 || die
+	doins -r "${S}/share/rke2" || die
+
+	# Install systemd unit files into /usr/lib/systemd/system
+	insinto /usr/lib/systemd/system || die
+	doins "${S}/lib/systemd/system/"* || die
 }
 
 pkg_postinst() {
 	if use server; then
-	    elog "To enable rke2-server do:"
-	    elog "  systemctl enable rke2-server"
-		elog "  systemctl start rke2-server"
-	fi
+        elog "To enable rke2-server do:"
+        elog "  systemctl enable rke2-server"
+        elog "  systemctl start rke2-server"
+    fi
 
 	if use agent; then
-	    elog "To enable rke2-agent do:"
-		elog "  systemctl enable rke2-agent"
-		elog "  systemctl start rke2-agent"
-	fi
+        elog "To enable rke2-agent do:"
+        elog "  systemctl enable rke2-agent"
+        elog "  systemctl start rke2-agent"
+    fi
 }
