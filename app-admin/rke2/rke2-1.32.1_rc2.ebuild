@@ -14,7 +14,7 @@ SRC_URI="https://github.com/rancher/rke2/releases/download/v${MY_PV}${SUFFIX}/rk
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="**"
 IUSE="server agent"
 REQUIRED_USE="|| ( server agent )"
 
