@@ -1,0 +1,25 @@
+--- a/lib/systemd/system/rke2-server.service
++++ b/lib/systemd/system/rke2-server.service
+@@ -12,7 +12,7 @@ WantedBy=multi-user.target
+ Type=notify
+ EnvironmentFile=-/etc/default/%N
+ EnvironmentFile=-/etc/sysconfig/%N
+-EnvironmentFile=-/usr/local/lib/systemd/system/%N.env
++EnvironmentFile=-/usr/lib/systemd/system/%N.env
+ KillMode=process
+ Delegate=yes
+ LimitNOFILE=1048576
+@@ -22,8 +22,8 @@ TasksMax=infinity
+ TimeoutStartSec=0
+ Restart=always
+ RestartSec=5s
+-ExecStartPre=/bin/sh -xc '! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service'
+-ExecStartPre=-/sbin/modprobe br_netfilter
+-ExecStartPre=-/sbin/modprobe overlay
+-ExecStart=/usr/local/bin/rke2 server
+-ExecStopPost=-/bin/sh -c "systemd-cgls /system.slice/%n | grep -Eo '[0-9]+ (containerd|kubelet)' | awk '{print $1}' | xargs -r kill"
++ExecStartPre=/usr/bin/sh -xc '! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service'
++ExecStartPre=-/usr/sbin/modprobe br_netfilter
++ExecStartPre=-/usr/sbin/modprobe overlay
++ExecStart=/usr/bin/rke2 server
++ExecStopPost=-/usr/bin/sh -c "systemd-cgls /system.slice/%n | grep -Eo '[0-9]+ (containerd|kubelet)' | awk '{print $1}' | xargs -r kill"
