@@ -33,7 +33,7 @@ RDEPEND="
 	sys-libs/ncurses:=[unicode(+)?]
 	video_cards_amdgpu? ( x11-libs/libdrm[video_cards_amdgpu] )
 	video_cards_freedreno? ( x11-libs/libdrm[video_cards_freedreno] )
-	video_cards_intel?  ( virtual/udev )
+	video_cards_intel?  ( x11-libs/libdrm virtual/udev )
 	video_cards_nvidia? ( x11-drivers/nvidia-drivers )
 	video_cards_panfrost? ( x11-libs/libdrm )
 	video_cards_panthor? ( x11-libs/libdrm )
