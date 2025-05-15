@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=(python3_{9..10})
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..13} )
 
 inherit python-single-r1 git-r3
 
