@@ -1,10 +1,10 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{8..12} )
-
+PYTHON_COMPAT=( python3_{10..14} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Module providing raw yEnc encoding/decoding for SABnzbd"
@@ -20,5 +20,7 @@ BDEPEND="test? (
 	)"
 
 DOCS=( README.md doc/yenc-draft.1.3.txt )
+
+S="${WORKDIR}/sabctools-${PV}"
 
 distutils_enable_tests pytest
