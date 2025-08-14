@@ -1,10 +1,10 @@
 # Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-DISTUTILS_USE_PEP517="setuptools"
-PYTHON_COMPAT=( python3_10 python3_11)
+DISTUTILS_USE_PEP517="pdm-backend"
+PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1
 
 DESCRIPTION="The client library for BackBlaze's B2 product"
@@ -16,16 +16,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-1.17.2-disable-requirement-installation.patch"
 )
 
 RDEPEND="
 	$(python_gen_cond_dep '
-		>=dev-python/arrow-1.0.2[${PYTHON_USEDEP}]
-		>=dev-python/logfury-1.0.1[${PYTHON_USEDEP}]
-		>=dev-python/requests-2.9.1[${PYTHON_USEDEP}]
-		>=dev-python/tqdm-4.5.0[${PYTHON_USEDEP}]
-	')
+        >=dev-python/logfury-1.0.1[${PYTHON_USEDEP}]
+        <dev-python/logfury-2.0.0[${PYTHON_USEDEP}]
+        >=dev-python/requests-2.9.1[${PYTHON_USEDEP}]
+        <dev-python/requests-3.0.0[${PYTHON_USEDEP}]
+        >=dev-python/annotated_types-0.5.0[${PYTHON_USEDEP}]
+        >=dev-python/typing-extensions-4.7.1[${PYTHON_USEDEP}]
+    ')
 "
 
 distutils_enable_tests pytest
@@ -34,6 +35,11 @@ BDEPEND+=" test? (
 	$(python_gen_cond_dep '
 		>=dev-python/pytest-mock-3.6.1[${PYTHON_USEDEP}]
 		>=dev-python/pytest-lazy-fixture-0.6.3[${PYTHON_USEDEP}]
+		>=dev-python/pytest-timeout-2.1.0[${PYTHON_USEDEP}]
+		>=dev-python/tqdm-4.5.0[${PYTHON_USEDEP}]
+		>=dev-python/pyfakefs-4.5.0[${PYTHON_USEDEP}]
+		dev-python/pytest[${PYTHON_USEDEP}]
+		>=dev-python/pydantic-1.10.0[${PYTHON_USEDEP}]
 	')
 )"
 
