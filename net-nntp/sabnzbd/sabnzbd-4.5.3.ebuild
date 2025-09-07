@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="8"
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="sqlite"
 
 inherit optfeature python-single-r1 systemd
@@ -12,7 +12,7 @@ MY_PV="${PV/_alpha/Alpha}"
 MY_PV="${MY_PV/_beta/Beta}"
 MY_PV="${MY_PV/_rc/RC}"
 
-MY_P="${PN/sab/SAB}-${MY_PV}"
+MY_P="SABnzbd-${MY_PV}"
 
 DESCRIPTION="Binary newsgrabber with web-interface"
 HOMEPAGE="https://sabnzbd.org/"
@@ -24,10 +24,8 @@ LICENSE="GPL-2 BSD LGPL-2 MIT BSD-1"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="test"
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
 RESTRICT="!test? ( test )"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
 	acct-user/sabnzbd
@@ -39,22 +37,20 @@ DEPEND="
 		dev-python/cherrypy[${PYTHON_USEDEP}]
 		dev-python/configobj[${PYTHON_USEDEP}]
 		dev-python/cryptography[${PYTHON_USEDEP}]
-		>=dev-python/feedparser-6.0.10[${PYTHON_USEDEP}]
+		>=dev-python/feedparser-6.0.11[${PYTHON_USEDEP}]
 		>=dev-python/guessit-3.7.1[${PYTHON_USEDEP}]
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
-		~dev-python/sabyenc-7.0.2[${PYTHON_USEDEP}]
+		~dev-python/sabctools-8.2.5[${PYTHON_USEDEP}]
 	')
-		test? ( $(python_gen_cond_dep '
-				dev-python/tavalidate[${PYTHON_USEDEP}]
-				>=dev-python/tavern-2[${PYTHON_USEDEP}]
-			')
-		)
 "
 RDEPEND="
 	${DEPEND}
-	>=app-arch/par2cmdline-0.8
+	|| (
+		>=app-arch/par2cmdline-0.8
+		>=app-arch/par2cmdline-turbo-1.1.0
+	)
 	net-misc/wget
 "
 BDEPEND="
@@ -62,13 +58,14 @@ BDEPEND="
 		$(python_gen_cond_dep '
 			dev-python/flaky[${PYTHON_USEDEP}]
 			>=dev-python/lxml-4.5.0[${PYTHON_USEDEP}]
-			dev-python/pkginfo[${PYTHON_USEDEP}]
 			dev-python/pyfakefs[${PYTHON_USEDEP}]
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			dev-python/selenium[${PYTHON_USEDEP}]
+			dev-python/tavalidate[${PYTHON_USEDEP}]
+			>=dev-python/tavern-2[${PYTHON_USEDEP}]
 			dev-python/werkzeug[${PYTHON_USEDEP}]
 			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
@@ -93,6 +90,8 @@ src_test() {
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
 		'tests/test_newswrapper.py::TestNewsWrapper'
+		'tests/test_happyeyeballs.py::TestHappyEyeballs'
+		'tests/test_internetspeed.py::TestInternetSpeed'
 		# Doesn't work, complains mocker missing even when pytest-mock installed
 		'tests/test_dirscanner.py::TestDirScanner'
 		# Just plain fails
@@ -122,11 +121,8 @@ src_test() {
 }
 
 src_install() {
-	local d
-	for d in email icons interfaces locale po sabnzbd scripts tools; do
-		insinto /usr/share/${PN}/${d}
-		doins -r ${d}/*
-	done
+	insinto /usr/share/${PN}
+	doins -r email icons interfaces locale po sabnzbd scripts tools
 
 	exeinto /usr/share/${PN}
 	doexe SABnzbd.py
