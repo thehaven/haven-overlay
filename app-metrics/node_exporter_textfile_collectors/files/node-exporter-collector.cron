@@ -1,0 +1,23 @@
+# Run all collector scripts safely every 5 minutes.
+# Script output is handled atomically and errors are logged.
+
+SCRIPT_DIR="/usr/libexec/node-exporter-textfile-collector-scripts"
+COLLECTOR_DIR="/var/lib/node_exporter/textfile_collector"
+LOG_FILE="/var/log/node-exporter-collector.log"
+
+*/5 * * * * root mkdir -p "$COLLECTOR_DIR"; \
+for script in "$SCRIPT_DIR"/*; do \
+  if [ -x "$script" ]; then \
+    OUTFILE="$COLLECTOR_DIR/$(basename "$script").prom.$$"; \
+    FINALFILE="$COLLECTOR_DIR/$(basename "$script").prom"; \
+    "$script" > "$OUTFILE" 2>> "$LOG_FILE"; \
+    if [ $? -eq 0 ] && [ -s "$OUTFILE" ]; then \
+      mv "$OUTFILE" "$FINALFILE"; \
+    else \
+      echo "$(date '+%F %T') Failed to run $script or output empty" >> "$LOG_FILE"; \
+      rm -f "$OUTFILE"; \
+    fi; \
+  else \
+    echo "$(date '+%F %T') $script is not executable" >> "$LOG_FILE"; \
+  fi; \
+done
