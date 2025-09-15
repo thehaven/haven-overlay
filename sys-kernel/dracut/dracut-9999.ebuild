@@ -29,6 +29,7 @@ PROPERTIES="test? ( test_privileged test_network )"
 RDEPEND="
 	app-alternatives/cpio
 	>=app-shells/bash-4.0:0
+	dev-ruby/asciidoctor
 	sys-apps/coreutils[xattr(-)]
 	>=sys-apps/kmod-23[tools]
 	|| (
