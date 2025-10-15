@@ -197,7 +197,7 @@ src_prepare() {
 	rm -f man/my_print_defaults.1 man/perror.1 man/zlib_decompress.1 || die
 
 	# Patch converts the string_view to a std::string
-	eapply -p0 "${FILESDIR}/percona-server-8.4-stringview.patch"
+	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
 
 	cmake_src_prepare
 }

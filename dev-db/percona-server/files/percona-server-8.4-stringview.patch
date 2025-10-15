@@ -1,20 +1,22 @@
---- plugin/x/protocol/plugin/message_field_chain.cc.orig	2025-10-15 19:18:16.802323135 +0100
-+++ plugin/x/protocol/plugin/message_field_chain.cc	2025-10-15 19:19:58.206055544 +0100
-@@ -58,7 +58,7 @@
+diff --git a/plugin/x/protocol/plugin/encoder_file_output.h b/plugin/x/protocol/plugin/encoder_file_output.h
+index 0c42382e..ef9da93d 100644
+--- a/plugin/x/protocol/plugin/encoder_file_output.h
++++ b/plugin/x/protocol/plugin/encoder_file_output.h
+@@ -97,7 +97,7 @@ class Encoder_file_output : public File_output {
+       bool is_reserved = false;
+       const auto field = message->field(i);
+       const auto field_tag = std::to_string(field->number());
+-      const auto field_name = get_cpp_field_name(field->name(), &is_reserved);
++      const auto field_name = get_cpp_field_name(std::string(field->name()), &is_reserved);
  
-   // Check against cycles in Message dependencies graph
-   const bool was_node_visited =
--      message && 0 != m_types_done.count(message->full_name());
-+      message && 0 != m_types_done.count(std::string(message->full_name()));
+       if (is_reserved) {
+         write_to_context(context,
+@@ -129,7 +129,7 @@ class Encoder_file_output : public File_output {
  
-   if (nullptr == message || was_node_visited || 0 == message->field_count()) {
-     m_output_file->append_chain(m_context, chain);
-@@ -74,7 +74,7 @@
+       // Check if we there is a message containing Server message ID
+       if (0 == m_used_message_ids.count(enum_value->number())) {
+-        std::string value = "  " + enum_value->name() + " = " +
++        std::string value = "  " + std::string(enum_value->name()) + " = " +
+                             std::to_string(enum_value->number());
  
- void Message_field_chain::end_validate_field(const FieldDescriptor *field,
-                                              const Descriptor *message) {
--  m_types_done.erase(message->full_name());
-+	m_types_done.erase(std::string(message->full_name()));
-   const auto position = m_chain.find_last_of(".");
- 
-   if (std::string::npos != position) m_chain.resize(position);
+         values.push_back(value);
