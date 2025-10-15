@@ -196,6 +196,9 @@ src_prepare() {
 	# Remove manpages for tools not installed (adjust if upstream layout changed)
 	rm -f man/my_print_defaults.1 man/perror.1 man/zlib_decompress.1 || die
 
+	# Patch converts the string_view to a std::string
+	eapply -p0 "${FILESDIR}/percona-server-8.4-stringview.patch"
+
 	cmake_src_prepare
 }
 
@@ -204,7 +207,9 @@ src_configure() {
 	filter-flags "-O" "-O[01]"
 	append-cxxflags -felide-constructors
 	# Upstream is C++17+ capable, but maintain C++14 if needed; adjust if 8.4 needs 17
-	append-cxxflags -std=c++17
+	#append-cxxflags -std=c++17
+	# std::bit_floor is part of the C++20 standard (<bit> header).
+	append-cxxflags -std=c++20
 	append-flags -fno-strict-aliasing
 
 	local mycmakeargs=(

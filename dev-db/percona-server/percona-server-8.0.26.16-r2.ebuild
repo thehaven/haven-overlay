@@ -214,7 +214,8 @@ src_configure() {
 	append-cxxflags -felide-constructors
 
 	# code is not C++17 ready, bug #786402
-	append-cxxflags -std=c++14
+	# append-cxxflags -std=c++14
+	append-cxxflags -std=c++17
 
 	# bug #283926, with GCC4.4, this is required to get correct behavior.
 	append-flags -fno-strict-aliasing
@@ -223,6 +224,7 @@ src_configure() {
 
 	# debug hack wrt #497532
 	local mycmakeargs=(
+		-DCMAKE_CXX_STANDARD=17
 		-DCMAKE_C_FLAGS_RELWITHDEBINFO="$(usex debug '' '-DNDEBUG')"
 		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="$(usex debug '' '-DNDEBUG')"
 		-DMYSQL_DATADIR="${EPREFIX}/var/lib/mysql"
