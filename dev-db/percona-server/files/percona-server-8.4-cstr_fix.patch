@@ -1,0 +1,44 @@
+diff --git a/plugin/x/src/ngs/protocol_encoder.cc b/plugin/x/src/ngs/protocol_encoder.cc
+index adb82cd..c71da9f 100644
+--- a/plugin/x/src/ngs/protocol_encoder.cc
++++ b/plugin/x/src/ngs/protocol_encoder.cc
+@@ -206,7 +206,7 @@ bool Protocol_encoder::send_protobuf_message(const uint8_t type,
+ 
+   if (!message.IsInitialized()) {
+     log_warning(ER_XPLUGIN_UNINITIALIZED_MESSAGE,
+-                message.InitializationErrorString().c_str());
++                std::string(message.InitializationErrorString()).c_str());
+   }
+ 
+   std::string out_serialized;
+@@ -251,13 +251,13 @@ void Protocol_encoder::log_protobuf(const unsigned id,
+     text_message.resize(index_of_last_enter);
+ 
+     log_debug("%u: %s, Type: %s, Payload:\n%s", id, direction_name,
+-              message->GetTypeName().c_str(), text_message.c_str());
++              std::string(message->GetTypeName()).c_str(), text_message.c_str());
+   } else {
+     log_debug("%u: %s, Type: ??, Payload: (none)", id, direction_name);
+   }
+ #else
+   log_debug("%u: %s, Type: %s", id, direction_name,
+-            message->GetTypeName().c_str());
++            std::string(message->GetTypeName()).c_str());
+ #endif
+ }
+ 
+diff --git a/plugin/x/src/prepare_param_handler.cc b/plugin/x/src/prepare_param_handler.cc
+index f3194c3..91da20b 100644
+--- a/plugin/x/src/prepare_param_handler.cc
++++ b/plugin/x/src/prepare_param_handler.cc
+@@ -147,8 +147,8 @@ ngs::Error_code Prepare_param_handler::prepare_parameters(
+                         "' and of type '%s' is not supported for binding"
+                         " to prepared statement",
+                         ph.m_id,
+-                        arg.has_scalar() ? arg.scalar().GetTypeName().c_str()
+-                                         : arg.GetTypeName().c_str());
++                        arg.has_scalar() ? std::string(arg.scalar().GetTypeName()).c_str()
++                                         : std::string(arg.GetTypeName()).c_str());
+     }
+   }
+   return ngs::Success();

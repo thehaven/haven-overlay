@@ -1,0 +1,74 @@
+diff --git a/plugin/x/client/stream/connection_input_stream.h b/plugin/x/client/stream/connection_input_stream.h
+index f2b8dac..6c92ec2 100644
+--- a/plugin/x/client/stream/connection_input_stream.h
++++ b/plugin/x/client/stream/connection_input_stream.h
+@@ -40,7 +40,7 @@ namespace xcl {
+ class Connection_input_stream
+     : public google::protobuf::io::ZeroCopyInputStream {
+  public:
+-  using pb_int64 = google::protobuf::int64;
++  using pb_int64 = int64_t;
+ 
+  public:
+   explicit Connection_input_stream(XConnection *connection)
+diff --git a/plugin/x/client/stream/connection_output_stream.h b/plugin/x/client/stream/connection_output_stream.h
+index 5898ea6..0a1a2bf 100644
+--- a/plugin/x/client/stream/connection_output_stream.h
++++ b/plugin/x/client/stream/connection_output_stream.h
+@@ -40,7 +40,7 @@ class Connection_output_stream
+     : public google::protobuf::io::ZeroCopyOutputStream {
+  public:
+   using ZeroCopyOutputStream = google::protobuf::io::ZeroCopyOutputStream;
+-  using pb_int64 = google::protobuf::int64;
++  using pb_int64 = int64_t;
+ 
+  public:
+   explicit Connection_output_stream(XConnection *connection)
+diff --git a/plugin/x/protocol/stream/decompression_input_stream.h b/plugin/x/protocol/stream/decompression_input_stream.h
+index f16cfc9..788d239 100644
+--- a/plugin/x/protocol/stream/decompression_input_stream.h
++++ b/plugin/x/protocol/stream/decompression_input_stream.h
+@@ -93,7 +93,7 @@ class Decompression_input_stream
+     return Skip(count - left);
+   }
+ 
+-  google::protobuf::int64 ByteCount() const override {
++  int64_t ByteCount() const override {
+     return m_all + m_output_buffer_offset;
+   }
+ 
+diff --git a/plugin/x/src/admin_cmd_arguments.cc b/plugin/x/src/admin_cmd_arguments.cc
+index 601d2ca..ee1c7ad 100644
+--- a/plugin/x/src/admin_cmd_arguments.cc
++++ b/plugin/x/src/admin_cmd_arguments.cc
+@@ -251,7 +251,7 @@ Admin_command_arguments_object &Admin_command_arguments_object::string_list(
+ Admin_command_arguments_object &Admin_command_arguments_object::sint_arg(
+     const Argument_name_list &name, int64_t *ret_value,
+     const Appearance_type appearance) {
+-  Argument_type_handler<google::protobuf::int64> handler(ret_value);
++  Argument_type_handler<int64_t> handler(ret_value);
+   get_scalar_arg(name, appearance, &handler);
+   return *this;
+ }
+@@ -259,7 +259,7 @@ Admin_command_arguments_object &Admin_command_arguments_object::sint_arg(
+ Admin_command_arguments_object &Admin_command_arguments_object::uint_arg(
+     const Argument_name_list &name, uint64_t *ret_value,
+     const Appearance_type appearance) {
+-  Argument_type_handler<google::protobuf::uint64> handler(ret_value);
++  Argument_type_handler<uint64_t> handler(ret_value);
+   get_scalar_arg(name, appearance, &handler);
+   return *this;
+ }
+diff --git a/plugin/x/src/io/vio_input_stream.h b/plugin/x/src/io/vio_input_stream.h
+index 8269d38..4165ab5 100644
+--- a/plugin/x/src/io/vio_input_stream.h
++++ b/plugin/x/src/io/vio_input_stream.h
+@@ -36,7 +36,7 @@ namespace xpl {
+ 
+ class Vio_input_stream : public google::protobuf::io::ZeroCopyInputStream {
+  public:
+-  using gint64 = google::protobuf::int64;
++  using gint64 = int64_t;
+ 
+  public:
+   explicit Vio_input_stream(const std::shared_ptr<iface::Vio> &connection);

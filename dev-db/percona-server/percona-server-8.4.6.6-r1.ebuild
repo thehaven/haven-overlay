@@ -198,6 +198,14 @@ src_prepare() {
 
 	# Patch converts the string_view to a std::string
 	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
+	# Patch fix int64 to int64_t protobuf for newer library:
+	eapply "${FILESDIR}/percona-server-8.4-protobuf-int64.patch"
+	# string_view doesn't have a .c_str() method - wrap chain in std::string()
+	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
+	# stringconcat patch:
+	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
+	# stringview patch:
+	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
 
 	cmake_src_prepare
 }
