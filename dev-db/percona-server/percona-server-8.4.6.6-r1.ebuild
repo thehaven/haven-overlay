@@ -177,6 +177,17 @@ src_prepare() {
 	# Apply local patches only if needed for 8.4 (remove if unnecessary)
 	# eapply "${FILESDIR}"/${PN}-8.4-gcc-14.patch
 	# eapply "${FILESDIR}"/${PN}-8.4-sql-link-jemalloc-tcmalloc.patch
+	# Patch converts the string_view to a std::string
+	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
+	# Patch fix int64 to int64_t protobuf for newer library:
+	eapply "${FILESDIR}/percona-server-8.4-protobuf-int64.patch"
+	# string_view doesn't have a .c_str() method - wrap chain in std::string()
+	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
+	# stringconcat patch:
+	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
+	# stringview patch:
+	#eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
+
 
 	# Avoid rpm sandboxing if still present
 	sed -i -e 's/MY_RPM rpm/MY_RPM rpmNOTEXISTENT/' CMakeLists.txt || die
@@ -195,17 +206,6 @@ src_prepare() {
 
 	# Remove manpages for tools not installed (adjust if upstream layout changed)
 	rm -f man/my_print_defaults.1 man/perror.1 man/zlib_decompress.1 || die
-
-	# Patch converts the string_view to a std::string
-	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
-	# Patch fix int64 to int64_t protobuf for newer library:
-	eapply "${FILESDIR}/percona-server-8.4-protobuf-int64.patch"
-	# string_view doesn't have a .c_str() method - wrap chain in std::string()
-	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
-	# stringconcat patch:
-	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
-	# stringview patch:
-	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
 
 	cmake_src_prepare
 }
