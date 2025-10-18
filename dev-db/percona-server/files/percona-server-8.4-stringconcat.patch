@@ -197,3 +197,60 @@ index 73f8175..bff8d59 100644
  
      case FieldDescriptor::CPPTYPE_STRING:
        return reflection->GetRepeatedString(message, fd, index);
+diff --git a/plugin/x/tests/driver/processor/commands/command.cc b/plugin/x/tests/driver/processor/commands/command.cc
+index dac0b2b..2e1404d 100644
+--- a/plugin/x/tests/driver/processor/commands/command.cc
++++ b/plugin/x/tests/driver/processor/commands/command.cc
+@@ -248,7 +248,7 @@ bool Command::is_command_registred(const std::string &command_line,
+ 
+   if (out_is_single_line_command) *out_is_single_line_command = has_prefix;
+ 
+-  if (has_prefix) command_name_start += std::string(CMD_PREFIX.length());
++  if (has_prefix) command_name_start += CMD_PREFIX;
+ 
+   const auto command_name_end = std::find_if(
+       command_line.begin(), command_line.end(), [](const char element) -> bool {
+@@ -275,7 +275,7 @@ Command::Result Command::process(std::istream &input,
+ 
+   const char *arguments = command_line.c_str() + out_command_name.length();
+ 
+-  if (out_has_prefix) arguments += std::string(CMD_PREFIX.length());
++  if (out_has_prefix) arguments += CMD_PREFIX;
+   if (' ' == *arguments) arguments++;
+ 
+   context->print_verbose("Execute ", command_line, "\n");
+diff --git a/plugin/x/tests/driver/processor/commands/command.cc b/plugin/x/tests/driver/processor/commands/command.cc
+index 2e1404d4..90efcbfd 100644
+--- a/plugin/x/tests/driver/processor/commands/command.cc
++++ b/plugin/x/tests/driver/processor/commands/command.cc
+@@ -248,7 +248,7 @@ bool Command::is_command_registred(const std::string &command_line,
+ 
+   if (out_is_single_line_command) *out_is_single_line_command = has_prefix;
+ 
+-  if (has_prefix) command_name_start += CMD_PREFIX;
++  if (has_prefix) command_name_start += CMD_PREFIX.length();
+ 
+   const auto command_name_end = std::find_if(
+       command_line.begin(), command_line.end(), [](const char element) -> bool {
+@@ -275,7 +275,7 @@ Command::Result Command::process(std::istream &input,
+ 
+   const char *arguments = command_line.c_str() + out_command_name.length();
+ 
+-  if (out_has_prefix) arguments += CMD_PREFIX;
++  if (out_has_prefix) arguments += CMD_PREFIX.length();
+   if (' ' == *arguments) arguments++;
+ 
+   context->print_verbose("Execute ", command_line, "\n");
+diff --git a/plugin/x/tests/driver/processor/send_message_block_processor.cc b/plugin/x/tests/driver/processor/send_message_block_processor.cc
+index f94e550..b0e472c 100644
+--- a/plugin/x/tests/driver/processor/send_message_block_processor.cc
++++ b/plugin/x/tests/driver/processor/send_message_block_processor.cc
+@@ -160,7 +160,7 @@ std::string Send_message_block_processor::message_serialize(
+ #endif
+ 
+   res[4] = client_msgs_by_name
+-               [client_msgs_by_full_name[message.GetDescriptor()->full_name()]]
++               [client_msgs_by_full_name[std::string(message.GetDescriptor()->full_name())]]
+                    .second;
+   res.append(out);
+ 

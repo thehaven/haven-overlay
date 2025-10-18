@@ -185,9 +185,6 @@ src_prepare() {
 	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
 	# stringconcat patch:
 	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
-	# stringview patch:
-	#eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
-
 
 	# Avoid rpm sandboxing if still present
 	sed -i -e 's/MY_RPM rpm/MY_RPM rpmNOTEXISTENT/' CMakeLists.txt || die
@@ -203,9 +200,6 @@ src_prepare() {
 	if [[ -d support-files/SELinux ]] ; then
 	: > support-files/SELinux/CMakeLists.txt || die
 	fi
-
-	# Remove manpages for tools not installed (adjust if upstream layout changed)
-	rm -f man/my_print_defaults.1 man/perror.1 man/zlib_decompress.1 || die
 
 	cmake_src_prepare
 }
@@ -343,9 +337,9 @@ src_install() {
 	mysql_init_vars
 
 	# Convenience symlinks for mysqlcheck multi-call
-	dosym -r mysqlcheck /usr/bin/mysqlanalyze
-	dosym -r mysqlcheck /usr/bin/mysqlrepair
-	dosym -r mysqlcheck /usr/bin/mysqloptimize
+	dosym mysqlcheck /usr/bin/mysqlanalyze
+	dosym mysqlcheck /usr/bin/mysqlrepair
+	dosym mysqlcheck /usr/bin/mysqloptimize
 
 	# Remove test suite unless USE=test
 	if ! use test ; then
@@ -354,7 +348,6 @@ src_install() {
 
 	# Example configuration
 	insinto "${MY_SYSCONFDIR#${EPREFIX}}"
-	doins support-files/mysqlaccess.conf 2>/dev/null || true
 
 	# Example my.cnf snippets (provide these under files/)
 	insinto "${MY_SYSCONFDIR#${EPREFIX}}/mysql.d"
