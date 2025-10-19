@@ -11,15 +11,11 @@ inherit check-reqs cmake flag-o-matic linux-info multiprocessing prefix \
 DESCRIPTION="Percona Server for MySQL: enhanced, drop-in replacement for MySQL"
 HOMEPAGE="https://www.percona.com/software/mysql-database/percona-server https://github.com/percona/percona-server"
 
-# Percona 8.4.6-6 source tarball
-# Upstream packages use dashed build suffix; keep PV as 8.4.6.6 and translate.
 MY_UP_PV="8.4.6-6"
 MY_PN="Percona-Server"
 MY_P="${PN}-${MY_UP_PV}"
 MY_MAJOR_PV="8.4"
 
-# Boost: upstream requires an external Boost source tree at configure time
-# Use a recent release that is compatible with GCC14 and C++17 used upstream.
 MY_BOOST_VERSION="1.85.0"
 
 SRC_URI="
@@ -31,7 +27,7 @@ S="${WORKDIR}/percona-server-${MY_UP_PV}"
 LICENSE="GPL-2"
 SLOT="8.4"
 KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
-IUSE="cjk cracklib debug jemalloc latin1 ldap numa pam +perl profiling rocksdb router selinux +server tcmalloc test"
+IUSE="cjk cracklib debug jemalloc latin1 ldap numa pam +perl profiling rocksdb router selinux +server tcmalloc test +systemd"
 
 RESTRICT="!test? ( test )"
 
@@ -45,7 +41,6 @@ REQUIRED_USE="
 	tcmalloc? ( server )
 "
 
-# Common libraries shared between build and runtime
 COMMON_DEPEND="
 	>=app-arch/lz4-0_p131:=
 	app-arch/zstd:=
@@ -74,7 +69,6 @@ COMMON_DEPEND="
 	)
 "
 
-# Build-time deps only
 DEPEND="
 	${COMMON_DEPEND}
 	sys-devel/bison
@@ -87,13 +81,11 @@ DEPEND="
 	)
 "
 
-# Tools and generators required during src_* phases (EAPI8)
 BDEPEND="
 	${DEPEND}
 	>=dev-build/cmake-3.16
 "
 
-# Runtime dependencies
 RDEPEND="
 	${COMMON_DEPEND}
 	!dev-db/mariadb
@@ -104,21 +96,19 @@ RDEPEND="
 	!dev-db/percona-server:5.7
 	selinux? ( sec-policy/selinux-mysql )
 	!prefix? (
-	acct-group/mysql
-	acct-user/mysql
-	dev-db/mysql-init-scripts
+		acct-group/mysql
+		acct-user/mysql
+		dev-db/mysql-init-scripts
 	)
-	virtual/tmpfiles
+	!systemd? ( virtual/tmpfiles )
 "
 
-# For other packages to bring in client DBD
 PDEPEND="
 	perl? ( >=dev-perl/DBD-mysql-2.9004 )
 "
 
 DOCS=( README.md )
 
-# Helper: initialize standard paths
 mysql_init_vars() {
 	: ${MY_SHAREDSTATEDIR:="${EPREFIX}/usr/share/mysql"}
 	: ${MY_SYSCONFDIR:="${EPREFIX}/etc/mysql"}
@@ -169,24 +159,14 @@ pkg_setup() {
 
 src_unpack() {
 	default
-	# Upstream tarball extracts to percona-server-${MY_UP_PV}
-	# Provide Boost tarball path for cmake
 }
 
 src_prepare() {
-	# Apply local patches only if needed for 8.4 (remove if unnecessary)
-	# eapply "${FILESDIR}"/${PN}-8.4-gcc-14.patch
-	# eapply "${FILESDIR}"/${PN}-8.4-sql-link-jemalloc-tcmalloc.patch
-	# Patch converts the string_view to a std::string
 	eapply "${FILESDIR}/percona-server-8.4-stringview.patch"
-	# Patch fix int64 to int64_t protobuf for newer library:
 	eapply "${FILESDIR}/percona-server-8.4-protobuf-int64.patch"
-	# string_view doesn't have a .c_str() method - wrap chain in std::string()
 	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
-	# stringconcat patch:
 	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
 
-	# Avoid rpm sandboxing if still present
 	sed -i -e 's/MY_RPM rpm/MY_RPM rpmNOTEXISTENT/' CMakeLists.txt || die
 
 	if use jemalloc ; then
@@ -196,7 +176,6 @@ src_prepare() {
 	echo "TARGET_LINK_LIBRARIES(mysqld tcmalloc)" >> sql/CMakeLists.txt || die
 	fi
 
-	# Clean out incompatible SELinux rules if present in tree
 	if [[ -d support-files/SELinux ]] ; then
 	: > support-files/SELinux/CMakeLists.txt || die
 	fi
@@ -205,12 +184,8 @@ src_prepare() {
 }
 
 src_configure() {
-	# Flags
 	filter-flags "-O" "-O[01]"
 	append-cxxflags -felide-constructors
-	# Upstream is C++17+ capable, but maintain C++14 if needed; adjust if 8.4 needs 17
-	#append-cxxflags -std=c++17
-	# std::bit_floor is part of the C++20 standard (<bit> header).
 	append-cxxflags -std=c++20
 	append-flags -fno-strict-aliasing
 
@@ -262,7 +237,6 @@ src_configure() {
 	mycmakeargs+=( -DINSTALL_MYSQLTESTDIR='' )
 	fi
 
-	# Charset defaults
 	if [[ -n "${MYSQL_DEFAULT_CHARSET}" && -n "${MYSQL_DEFAULT_COLLATION}" ]]; then
 	ewarn "Custom charset ${MYSQL_DEFAULT_CHARSET} / ${MYSQL_DEFAULT_COLLATION}; unsupported for bug reports."
 	mycmakeargs+=(
@@ -297,7 +271,6 @@ src_configure() {
 
 	use profiling && mycmakeargs+=( -DENABLED_PROFILING=ON )
 
-	# Storage engines
 	mycmakeargs+=(
 		-DWITH_EXAMPLE_STORAGE_ENGINE=0
 		-DWITH_ARCHIVE_STORAGE_ENGINE=1
@@ -326,8 +299,6 @@ src_test() {
 	einfo "Skipping server tests (USE=-server)."
 	return 0
 	fi
-	# Keep upstream heavy test matrix disabled by default.
-	# Consider enabling targeted tests later with FEATURE=test and proper env.
 	cmake_src_test
 }
 
@@ -336,62 +307,49 @@ src_install() {
 
 	mysql_init_vars
 
-	# Convenience symlinks for mysqlcheck multi-call
 	dosym mysqlcheck /usr/bin/mysqlanalyze
 	dosym mysqlcheck /usr/bin/mysqlrepair
 	dosym mysqlcheck /usr/bin/mysqloptimize
 
-	# Remove test suite unless USE=test
 	if ! use test ; then
 	rm -rf "${ED}/${MY_SHAREDSTATEDIR#${EPREFIX}}/mysql-test" || die
 	fi
 
-	# Example configuration
 	insinto "${MY_SYSCONFDIR#${EPREFIX}}"
 
-	# Example my.cnf snippets (provide these under files/)
 	insinto "${MY_SYSCONFDIR#${EPREFIX}}/mysql.d"
 	newins "${FILESDIR}/my.cnf-8.4.distro-client" 50-distro-client.cnf
 	local mycnf_src="my.cnf-8.4.distro-server"
 	local tmp="${T}/50-distro-server.cnf"
 	sed -e "s!@DATADIR@!${MY_DATADIR}!g" "${FILESDIR}/${mycnf_src}" > "${tmp}" || die
-	use prefix && sed -i -r -e '/^user[[:space:]]*=[[:space:]]*mysql$/d' "${tmp}" || die
 	use latin1 && sed -i -e "/character-set/s|utf8mb4|latin1|g" "${tmp}" || die
 	eprefixify "${tmp}"
 	newins "${tmp}" 50-distro-server.cnf
 
-	# Optional: remove mytop if no perl
 	[[ -e "${ED}/usr/bin/mytop" ]] && ! use perl && rm -f "${ED}/usr/bin/mytop"
 
-	# Systemd unit: install if present upstream or from files/
-	# If upstream installs, this is redundant; otherwise provide maintained unit
 	if use server ; then
 	if [[ -f "${S}/support-files/mysql.server" ]]; then
-		# OpenRC script may be provided by mysql-init-scripts; avoid conflicts
 		:
 	fi
 	if [[ -f "${S}/support-files/systemd/mysqld.service.in" || -f "${FILESDIR}/mysqld.service" ]]; then
-		# Prefer our curated unit
 		systemd_dounit "${FILESDIR}/mysqld.service"
 	fi
 	fi
 
-	# tmpfiles.d for runtime dirs (install ours)
-	# Provide ${FILESDIR}/mysql.conf with entries for /run/mysqld and /var/log/mysql
-	dotmpfiles "${FILESDIR}"/mysql.conf
+	# Only install tmpfiles.d for non-systemd systems
+	use systemd || dotmpfiles "${FILESDIR}/mysql.conf"
 
-	# Remove legacy re-entrant client symlinks if any
 	find "${ED}" -name 'libmysqlclient_r.*' -type l -delete || die
 }
 
 pkg_postinst() {
 	mysql_init_vars
 
-	# Create log dir securely if not present (tmpfiles handles this but create now too)
 	[[ -d "${MY_LOGDIR}" ]] || install -d -m0750 -o mysql -g mysql "${MY_LOGDIR}"
 
-	# Process tmpfiles now to create /run and /var/log dirs on non-systemd too
-	tmpfiles_process mysql.conf
+	# Only process tmpfiles if not systemd
+	use systemd || tmpfiles_process mysql.conf
 
 	ewarn
 	ewarn "Configuration is now split under ${MY_SYSCONFDIR}/mysql.d/*.cnf."
@@ -405,12 +363,9 @@ pkg_postinst() {
 	fi
 }
 
-# pkg_config remains large; keep aligned with upstream behavior if retained.
-# Consider delegating initialization to mysql-init-scripts tooling.
 pkg_config() {
-	# Initialize data directory and set root password, similar to previous ebuild.
-	# For brevity and safety, recommend using dev-db/mysql-init-scripts tooling.
 	ewarn "Use mysql_install_db or mysqld --initialize via mysql-init-scripts for initialization."
 	ewarn "Manual initialization via pkg_config is not provided in this revision."
 	die "Initialization is handled by mysql-init-scripts; see emerge --config messages."
 }
+
