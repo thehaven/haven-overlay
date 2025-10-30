@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+<email>haven@thehavennet.org.uk</email>
+<name>Simon Alman</name>
+</maintainer>
+  <upstream>
+    <remote-id type="github">factoryai/factory-cli</remote-id>
+    <doc>https://factory.ai/docs</doc>
+  </upstream>
+</pkgmetadata>
