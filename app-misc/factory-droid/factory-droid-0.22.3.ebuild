@@ -52,6 +52,29 @@ src_install() {
 	newbin "$binary" "droid"
 }
 
+pkg_pretend() {
+	local missing_flags=""
+	local required_flags="avx2 bmi1 bmi2 fma movbe"
+
+	for flag in ${required_flags}; do
+		if ! grep -qw ${flag} /proc/cpuinfo; then
+			missing_flags="${missing_flags} ${flag}"
+		fi
+	done
+
+	if [[ -n "${missing_flags}" ]]; then
+		eerror "Factory Droid requires x86-64-v3 CPU support (Intel Haswell 2013+ or AMD Excavator 2015+)"
+		eerror "Your CPU is missing required instruction sets:${missing_flags}"
+		eerror ""
+		eerror "Required flags: ${required_flags}"
+		eerror "Your CPU supports: x86-64-v2 (Sandy Bridge/Ivy Bridge era)"
+		eerror ""
+		eerror "Please contact Factory.ai to request an x86-64-v2 or x86-64-v1 compatible build"
+		die "Incompatible CPU: missing x86-64-v3 support"
+	fi
+}
+
+
 pkg_postinst() {
 	einfo "Factory Droid CLI installed as 'droid'. Run 'droid' to get started."
 }
