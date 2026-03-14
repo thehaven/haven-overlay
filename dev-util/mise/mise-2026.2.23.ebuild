@@ -991,7 +991,7 @@ CRATES="
 	zstd@0.13.3
 "
 
-inherit cargo
+inherit cargo rust
 
 DESCRIPTION="The front-end to your dev env"
 HOMEPAGE="https://mise.jdx.dev"
@@ -1008,6 +1008,14 @@ LICENSE+="
 "
 SLOT="0"
 KEYWORDS="~amd64"
+
+RDEPEND=">=dev-lang/rust-1.88:="
+DEPEND="${RDEPEND}"
+
+pkg_setup() {
+	rust_pkg_setup
+	rustc_version_at_least 1.88 || die "Rust 1.88 or later is required"
+}
 
 src_install() {
 	cargo_src_install
