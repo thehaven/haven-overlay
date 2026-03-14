@@ -991,6 +991,7 @@ CRATES="
 	zstd@0.13.3
 "
 
+RUST_MIN_VER="1.88.0"
 inherit cargo rust
 
 DESCRIPTION="The front-end to your dev env"
@@ -1010,7 +1011,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	>=dev-lang/rust-1.88:=
 	dev-libs/openssl:0=
 	app-arch/bzip2
 	app-arch/zstd:0=
@@ -1023,7 +1023,6 @@ BDEPEND="
 
 pkg_setup() {
 	rust_pkg_setup
-	rustc_version_at_least 1.88 || die "Rust 1.88 or later is required"
 }
 
 src_install() {
