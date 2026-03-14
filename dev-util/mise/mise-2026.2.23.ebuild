@@ -1009,8 +1009,17 @@ LICENSE+="
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=">=dev-lang/rust-1.88:="
+RDEPEND="
+	>=dev-lang/rust-1.88:=
+	dev-libs/openssl:0=
+	app-arch/bzip2
+	app-arch/zstd:0=
+"
 DEPEND="${RDEPEND}"
+BDEPEND="
+	virtual/pkgconfig
+	dev-build/cmake
+"
 
 pkg_setup() {
 	rust_pkg_setup
