@@ -992,7 +992,7 @@ CRATES="
 "
 
 RUST_MIN_VER="1.88.0"
-inherit cargo rust
+inherit cargo
 
 DESCRIPTION="The front-end to your dev env"
 HOMEPAGE="https://mise.jdx.dev"
@@ -1019,6 +1019,7 @@ DEPEND="${RDEPEND}"
 BDEPEND="
 	virtual/pkgconfig
 	dev-build/cmake
+	>=dev-lang/rust-1.88.0
 "
 
 pkg_setup() {
