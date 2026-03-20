@@ -1,0 +1,387 @@
+diff --git a/heimdall/__init__.py b/heimdall/__init__.py
+index 918bbd3..ab06c9f 100644
+--- a/heimdall/__init__.py
++++ b/heimdall/__init__.py
+@@ -34,7 +34,7 @@ import urllib.request
+ import signal
+ import socket
+ import select
+-from concurrent.futures import ThreadPoolExecutor
++from concurrent.futures import ThreadPoolExecutor, as_completed
+ import platform
+ import queue
+ try:
+@@ -43,6 +43,7 @@ except ImportError:
+     yaml = None
+ try:
+     import requests as _requests_lib
++    import shlex
+ except ImportError:
+     _requests_lib = None
+ import webbrowser
+@@ -988,8 +989,8 @@ def save_config():
+ # --------------------------------------------------
+ # 🛡️  Daemon Mode & IPC
+ # --------------------------------------------------
+-IPC_SOCKET_PATH = "/tmp/heimdall_tui.ipc"
+-PID_FILE_PATH = "/tmp/heimdall.pid"
++IPC_SOCKET_PATH = os.path.expanduser("~/.config/heimdall/heimdall_tui.ipc")
++PID_FILE_PATH = os.path.expanduser("~/.config/heimdall/heimdall.pid")
+ 
+ def is_daemon_running():
+     """Check if Heimdall Daemon is active by reading the PID file."""
+@@ -2519,6 +2520,58 @@ def invalidate_port_cache(port):
+ # --------------------------------------------------
+ # Splash Screen with Preloading
+ # --------------------------------------------------
++def _worker_preload_port(row, cache, screen_width):
++    port = row[0]
++    prog_name = row[3] if len(row) > 3 else "-"
++    pid = row[4] if len(row) > 4 else "-"
++    
++    try:
++        lines = get_witr_output(port)
++        _witr_cache[str(port)] = (lines, time.time())
++        user = extract_user_from_witr(lines)
++        if user == "-":
++            user = get_process_user(pid)
++        process = extract_process_from_witr(lines)
++        detail_width = screen_width - 4
++        wrapped_icon_lines = prepare_witr_content(lines, detail_width, prog=prog_name, port=port, pid=pid)
++        cache[port] = {
++            "user": user,
++            "process": process,
++            "lines": lines,
++            "wrapped_icon_lines": wrapped_icon_lines,
++            "prewrapped_width": detail_width
++        }
++    except Exception:
++        detail_width = screen_width - 4
++        fallback_lines = prepare_witr_content(["No data"], detail_width, prog=prog_name, port=port, pid=pid)
++        cache[port] = {"user": "-", "process": "-", "lines": ["No data"], "wrapped_icon_lines": fallback_lines}
++
++    try:
++        conn = get_connections_info(port)
++        _conn_cache[str(port)] = (conn, time.time())
++    except Exception:
++        _conn_cache[str(port)] = ({"active_connections": 0, "top_ip": "-", "top_ip_count": 0, "all_ips": Counter()}, time.time())
++
++    try:
++        if pid and pid.isdigit():
++            _proc_usage_cache[pid] = (get_process_usage(pid), time.time())
++            _open_files_cache[pid] = (get_open_files(pid), time.time())
++            _proc_chain_cache[pid] = get_process_parent_chain_cached(pid)
++            _fd_cache[pid] = get_fd_pressure(pid)
++            _runtime_cache[pid] = detect_runtime_type(pid)
++    except Exception:
++        pass
++
++    risk_lvl = get_risk_level(prog_name, port)
++    _risk_level_cache[str(port)] = risk_lvl
++
++    cached_user = cache.get(port, {}).get("user", "-")
++    findings = perform_security_heuristics(pid, port, prog_name, cached_user)
++    _security_audit_cache[str(port)] = findings
++    
++    check_active_tui_protection(pid, port, prog_name, cached_user, findings)
++    cache[port]["preloaded"] = True
++
+ def splash_screen(stdscr, rows, cache):
+     if curses.has_colors():
+         try:
+@@ -2565,100 +2618,32 @@ def splash_screen(stdscr, rows, cache):
+     # Make bar width a bit more secure and controlled
+     bar_w = max(40, bw - 20)   # min 40 characters guaranteed, no overflow
+ 
+-    for i, row in enumerate(rows, 1):
+-        port = row[0]
+-
+-        win.erase()
+-        win.box()
+-
+-        # HEIMDALL text (purple)
+-        for idx, line in enumerate(heimdall_art):
+-            line_x = max(0, (bw - len(line)) // 2)
+-            win.addstr(2 + idx, line_x, line[:bw-4],
+-                       curses.color_pair(1) | curses.A_BOLD)
+-
+-        # Slogan (cyan)
+-        slogan_x = max(0, (bw - len(slogan)) // 2)
+-        win.addstr(slogan_y + 2, slogan_x, slogan,
+-                   curses.color_pair(2) | curses.A_ITALIC)
+-
+-        # Bottom part: Collecting data + port
+-        win.addstr(progress_y, 4, "Collecting system intelligence...", curses.color_pair(3))
+-        win.addstr(progress_y + 1, 4, f"Scanning port: {port}", curses.color_pair(4))
+-
+-        # Progress bar logic
+-        pct = int((i / total) * 100)
+-        pct_str = f" {pct}%"
+-        draw_bar_w = bar_w - len(pct_str)
+-        filled = int(draw_bar_w * i / total)
+-        bar = "█" * filled + "░" * (draw_bar_w - filled)
+-        
+-        bar_x = (bw - bar_w) // 2
+-        win.addstr(progress_y + 3, bar_x, f"[{bar}]{pct_str}", curses.color_pair(CP_ACCENT) | curses.A_BOLD)
+-
+-        # 🎨 Keep background visible on every update
+-        try: stdscr.noutrefresh()
+-        except: pass
+-        
+-        win.noutrefresh()
+-        curses.doupdate()
+-
+-        # --- Preload data per port ---
+-        prog_name = row[3] if len(row) > 3 else "-"
+-        pid = row[4] if len(row) > 4 else "-"
+-        
+-        try:
+-            lines = get_witr_output(port)
+-            _witr_cache[str(port)] = (lines, time.time())
+-            user = extract_user_from_witr(lines)
+-            # Fallback: if witr didn't provide user, resolve from PID
+-            if user == "-":
+-                user = get_process_user(pid)
+-            process = extract_process_from_witr(lines)
+-            detail_width = w - 4
+-            wrapped_icon_lines = prepare_witr_content(lines, detail_width, prog=prog_name, port=port, pid=pid)
+-            cache[port] = {
+-                "user": user,
+-                "process": process,
+-                "lines": lines,
+-                "wrapped_icon_lines": wrapped_icon_lines,
+-                "prewrapped_width": detail_width
+-            }
+-        except Exception:
+-            detail_width = w - 4
+-            fallback_lines = prepare_witr_content(["No data"], detail_width, prog=prog_name, port=port, pid=pid)
+-            cache[port] = {"user": "-", "process": "-", "lines": ["No data"], "wrapped_icon_lines": fallback_lines}
+-
+-        try:
+-            conn = get_connections_info(port)
+-            _conn_cache[str(port)] = (conn, time.time())
+-        except Exception:
+-            _conn_cache[str(port)] = ({"active_connections": 0, "top_ip": "-", "top_ip_count": 0, "all_ips": Counter()}, time.time())
+-
+-        try:
+-            if pid and pid.isdigit():
+-                _proc_usage_cache[pid] = (get_process_usage(pid), time.time())
+-                _open_files_cache[pid] = (get_open_files(pid), time.time())
+-                _proc_chain_cache[pid] = get_process_parent_chain(pid)
+-                _fd_cache[pid] = get_fd_pressure(pid)
+-                _runtime_cache[pid] = detect_runtime_type(pid)
+-        except Exception:
+-            pass
+-
+-        # Compute risk level from services.json
+-        risk_lvl = get_risk_level(prog_name, port)
+-        _risk_level_cache[str(port)] = risk_lvl
+-
+-        # Security audit check (uses cached user from above)
+-        cached_user = cache.get(port, {}).get("user", "-")
+-        pid_val = row[4] if len(row) > 4 else "-"
+-        findings = perform_security_heuristics(pid_val, port, prog_name, cached_user)
+-        _security_audit_cache[str(port)] = findings
+-        
+-        # ACTIVE TUI PROTECTION Check (Mimic Daemon when needed)
+-        check_active_tui_protection(pid_val, port, prog_name, cached_user, findings)
+-
+-        cache[port]["preloaded"] = True
++    with ThreadPoolExecutor(max_workers=10) as executor:
++        futures = {executor.submit(_worker_preload_port, row, cache, w): row for row in rows}
++        for i, future in enumerate(as_completed(futures), 1):
++            row = futures[future]
++            port = row[0]
++            
++            win.erase()
++            win.box()
++            for idx, line in enumerate(heimdall_art):
++                line_x = max(0, (bw - len(line)) // 2)
++                win.addstr(2 + idx, line_x, line[:bw-4], curses.color_pair(1) | curses.A_BOLD)
++            slogan_x = max(0, (bw - len(slogan)) // 2)
++            win.addstr(slogan_y + 2, slogan_x, slogan, curses.color_pair(2) | curses.A_ITALIC)
++            win.addstr(progress_y, 4, "Collecting system intelligence...", curses.color_pair(3))
++            win.addstr(progress_y + 1, 4, f"Scanning port: {port}", curses.color_pair(4))
++            pct = int((i / total) * 100)
++            pct_str = f" {pct}%"
++            draw_bar_w = bar_w - len(pct_str)
++            filled = int(draw_bar_w * i / total)
++            bar = "█" * filled + "░" * (draw_bar_w - filled)
++            bar_x = (bw - bar_w) // 2
++            win.addstr(progress_y + 3, bar_x, f"[{bar}]{pct_str}", curses.color_pair(CP_ACCENT) | curses.A_BOLD)
++            try: stdscr.noutrefresh()
++            except: pass
++            win.noutrefresh()
++            curses.doupdate()
+ 
+     # Final screen
+     win.erase()
+@@ -3652,8 +3637,10 @@ def adjust_oom_score(pid, prog, score, stdscr):
+     try:
+         debug_log(f"OOM: Changing PID {pid} ({prog}) OOM Score Adj to {score}")
+         # Use shell with sudo to write to /proc
+-        cmd = f"echo {score} | sudo tee /proc/{pid}/oom_score_adj"
+-        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
++        # Validate input strictly
++        if not str(pid).isdigit() or not str(score).replace("-", "").isdigit():
++            raise ValueError("Invalid PID or Score")
++        res = subprocess.run(["sudo", "sh", "-c", f"echo {score} > /proc/{pid}/oom_score_adj"], capture_output=True, text=True)
+         if res.returncode == 0:
+             show_message(stdscr, f"OOM Score of {prog} set to {score}.")
+             debug_log("OOM: Success")
+@@ -3760,7 +3747,7 @@ def perform_security_heuristics(pid, port, prog, username, is_outbound=False):
+             context["exe"] = p.exe()
+             context["cmdline"] = p.cmdline()
+             context["cwd"] = p.cwd()
+-            context["tree"] = get_process_parent_chain(pid)
++            context["tree"] = get_process_parent_chain_cached(pid)
+             
+             conns = p.connections(kind='inet')
+             for c in conns:
+@@ -3798,34 +3785,35 @@ def perform_security_heuristics(pid, port, prog, username, is_outbound=False):
+     
+     return findings
+ 
++def _worker_compute_risk(row, cache):
++    port = row[0]
++    prog = row[3] if len(row) > 3 else "-"
++    pid = row[4] if len(row) > 4 else "-"
++    
++    info, _ = resolve_service_knowledge(prog, port, pid=pid)
++    level = info.get("risk", "Unknown")
++    _risk_level_cache[str(port)] = level
++    
++    username = "-"
++    if cache and port in cache:
++        username = cache[port].get("user", "-")
++    else:
++        username = get_process_user(pid) if pid and pid.isdigit() else "-"
++    
++    findings = perform_security_heuristics(pid, port, prog, username)
++    _security_audit_cache[str(port)] = findings
++    
++    check_active_tui_protection(pid, port, prog, username, findings)
++
+ def compute_risk_for_all_ports(rows, cache=None):
+     """Compute and cache risk levels + security audit for all ports/processes."""
+     global _risk_level_cache, _security_audit_cache
+     _risk_level_cache.clear()
+     _security_audit_cache.clear()
+-    for row in rows:
+-        port = row[0]
+-        prog = row[3] if len(row) > 3 else "-"
+-        pid = row[4] if len(row) > 4 else "-"
+-        
+-        # Use full resolver to get accurate risk (handles package-bridge lookups)
+-        info, _ = resolve_service_knowledge(prog, port, pid=pid)
+-        level = info.get("risk", "Unknown")
+-        _risk_level_cache[str(port)] = level
+-        
+-        # Security audit: use behavioral heuristics (Heimdall Sentinel)
+-        username = "-"
+-        if cache and port in cache:
+-            username = cache[port].get("user", "-")
+-        else:
+-            username = get_process_user(pid) if pid and pid.isdigit() else "-"
+-        
+-        # Store full findings list
+-        findings = perform_security_heuristics(pid, port, prog, username)
+-        _security_audit_cache[str(port)] = findings
+-        
+-        # ACTIVE TUI PROTECTION Check
+-        check_active_tui_protection(pid, port, prog, username, findings)
++    
++    with ThreadPoolExecutor(max_workers=10) as executor:
++        for row in rows:
++            executor.submit(_worker_compute_risk, row, cache)
+ 
+ def get_runtime_classification(pid, prog):
+     if not pid or not pid.isdigit(): return "Unknown"
+@@ -8047,6 +8035,22 @@ def draw_user_subpane(win, user_data, is_active=False):
+ # --------------------------------------------------
+ # Main Loop
+ # --------------------------------------------------
++
++def _safe_grep_tail(file_path, flt, limit):
++    """Native Python implementation of grep -i | tail -n limit"""
++    try:
++        matches = []
++        flt_lower = flt.lower()
++        # Read from end efficiently if file is huge? 
++        # For simplicity and given Log Explorer limits, we read lines.
++        with open(file_path, 'r', errors='ignore') as f:
++            for line in f:
++                if flt_lower in line.lower():
++                    matches.append(line.strip())
++        return matches[-limit:]
++    except:
++        return []
++
+ def get_filter_status_str(filters):
+     active = []
+     if filters.get("port"): active.append(f"Port:{filters['port']}")
+@@ -8586,8 +8590,11 @@ def draw_log_explorer_modal(stdscr):
+                     elif t_idx == 3:
+                         try:
+                             cmd_str = f"journalctl -p err -b -n {limit} --no-pager"
+-                            if flt: cmd_str = f"journalctl -p err -b -n {limit} -g '{flt}' --no-pager"
+-                            res["data"]["lines"] = subprocess.check_output(cmd_str, shell=True, text=True, errors='ignore').splitlines()
++                            if flt: cmd_str = ["journalctl", "-p", "err", "-b", "-n", str(limit), "-g", flt, "--no-pager"]
++                            if isinstance(cmd_str, list):
++                                res["data"]["lines"] = subprocess.check_output(cmd_str, text=True, errors='ignore').splitlines()
++                            else:
++                                res["data"]["lines"] = subprocess.check_output(cmd_str, shell=True, text=True, errors='ignore').splitlines()
+                             res["data"]["usage"] = subprocess.check_output(["journalctl", "--disk-usage"], text=True, errors='ignore').strip()
+                             res["data"]["boots"] = subprocess.check_output(["journalctl", "--list-boots"], text=True, errors='ignore').splitlines()[-5:]
+                         except: pass
+@@ -9063,11 +9070,13 @@ def draw_traffic_tail_window(stdscr, conn_info):
+     
+     log_path = os.path.expanduser(f"~/heimdall_tail_{conn_info['pid']}_{int(time.time())}.log")
+     # Write directly to file to use OS-level buffering
+-    cmd = f"sudo tcpdump -U -nn -A -i any host {conn_info['remote_ip']} and port {conn_info['remote_port']} > {log_path} 2>/dev/null"
++    # Use list-based Popen for safety
++    cmd = ["sudo", "tcpdump", "-U", "-nn", "-A", "-i", "any", "host", conn_info['remote_ip'], "and", "port", str(conn_info['remote_port'])]
+     
+     try:
+         # Start tcpdump in background writing to file
+-        proc = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
++        with open(log_path, "w") as f_out:
++            proc = subprocess.Popen(cmd, stdout=f_out, stderr=subprocess.DEVNULL, preexec_fn=os.setsid)
+         # Ensure file exists
+         open(log_path, 'a').close()
+     except Exception as e:
+@@ -9179,7 +9188,14 @@ def draw_http_summary_modal(stdscr, conn_info):
+     proc = None
+     if not is_encrypted:
+         try:
+-            proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, preexec_fn=os.setsid)
++            # Convert cmd to list if it is a string (tcpdump case)
++            if isinstance(cmd, str) and "tcpdump" in cmd:
++                # ip_filter logic needs refactoring to avoid shell or use shlex
++                import shlex
++                cmd_list = shlex.split(cmd)
++                proc = subprocess.Popen(cmd_list, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, preexec_fn=os.setsid)
++            else:
++                proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, preexec_fn=os.setsid)
+             t = threading.Thread(target=reader_thread, args=(proc, data_queue, stop_event), daemon=True)
+             t.start()
+         except Exception as e:
+@@ -9546,6 +9562,8 @@ def check_heimdall_update(stdscr):
+                 res = confirm_dialog(stdscr, f"New Heimdall v{latest_version} available! Your version is v{current_version}. Update now?")
+                 if res:
+                     base_url = "https://github.com/sunels/heimdall/releases/latest/download"
++                    show_modal_message(stdscr, "Update disabled in overlay version. Use emerge.", duration=3.0)
++                    return
+                     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+                         show_modal_message(stdscr, "Downloading standalone binary...", duration=1.5)
+                         subprocess.Popen(f"sudo sh -c 'curl -L -s -o /tmp/heimdall_standalone {base_url}/heimdall_standalone && chmod +x /tmp/heimdall_standalone && mv /tmp/heimdall_standalone {sys.executable}'", shell=True)
+@@ -10325,8 +10343,7 @@ def main(stdscr, args=None):
+                 stdscr.refresh()
+                 time.sleep(0.5)
+             except: pass
+-            rows = parse_ss_cached()
+-            splash_screen(stdscr, rows, cache)
++            stdscr.touchwin(); curses.doupdate(); continue
+         elif k in (ord('t'), ord('T')):
+             # Selection variables for the tail logic
+             curr_pid = pid

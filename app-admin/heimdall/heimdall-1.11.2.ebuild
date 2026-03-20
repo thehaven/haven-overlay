@@ -26,7 +26,16 @@ BDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
 
+PATCHES=(
+	"${FILESDIR}/patches/consolidated-improvements.patch"
+)
+
 distutils_enable_tests pytest
+
+src_prepare() {
+	einfo "Applying Haven't-standard security, performance, and UX fixes..."
+	default
+}
 
 src_install() {
 	distutils-r1_src_install

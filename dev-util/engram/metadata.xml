@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Engram is a persistent memory system for AI coding agents.
+		A Go binary with SQLite and FTS5 full-text search, exposed via
+		CLI, HTTP API, MCP server, and an interactive TUI. Works with
+		any agent that supports MCP — Claude Code, OpenCode, Gemini CLI,
+		Codex, VS Code (Copilot), Cursor, Windsurf, or anything else.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Gentleman-Programming/engram</remote-id>
+	</upstream>
+</pkgmetadata>
