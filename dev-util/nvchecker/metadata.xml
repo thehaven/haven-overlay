@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="htmlparser">Enable HTML page version extraction via <pkg>dev-python/lxml</pkg></flag>
+		<flag name="jq">Enable jq expression filtering for JSON API responses</flag>
+		<flag name="pypi">Enable PyPI version comparison via <pkg>dev-python/packaging</pkg></flag>
+		<flag name="rpmrepo">Enable RPM repository version checking</flag>
+		<flag name="vercmp">Enable Arch Linux version comparison via <pkg>dev-python/pyalpm</pkg></flag>
+	</use>
+	<upstream>
+		<remote-id type="pypi">nvchecker</remote-id>
+		<remote-id type="github">lilydjwg/nvchecker</remote-id>
+	</upstream>
+</pkgmetadata>
