@@ -25,7 +25,6 @@ RDEPEND="
 "
 BDEPEND="
 	${PYTHON_DEPS}
-	dev-python/pip[${PYTHON_SINGLE_USEDEP}]
 "
 
 src_compile() {
@@ -38,7 +37,7 @@ src_install() {
 	cp -r "${S}/"* "${ED}${appdir}/" || die
 
 	# Create a virtualenv
-	python -m venv "${ED}${appdir}/venv" || die "Failed to create venv"
+	"${PYTHON}" -m venv "${ED}${appdir}/venv" || die "Failed to create venv"
 
 	# Install dependencies into the venv
 	# PIP_CACHE_DIR is set to a temp dir to avoid polluting user/root cache
