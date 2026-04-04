@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit user golang-build golang-vcs-snapshot
+EAPI=8
+inherit golang-build golang-vcs-snapshot
 
 EGO_PN="k8s.io/kubernetes/..."
 ARCHIVE_URI="https://github.com/kubernetes/kubernetes/archive/v${PV}.tar.gz -> kubernetes-${PV}.tar.gz"

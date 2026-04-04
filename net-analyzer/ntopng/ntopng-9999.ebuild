@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=8
 
 DESCRIPTION="Network traffic analyzer with web interface"
 HOMEPAGE="http://www.ntop.org/"
 
-inherit autotools versionator
+inherit autotools
 
 if [[ ${PV} == "9999" ]]
 	then

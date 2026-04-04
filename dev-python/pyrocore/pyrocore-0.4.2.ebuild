@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
-PYTHON_COMPAT=( python{2_7,3_2,3_3} )
+EAPI=8
+PYTHON_COMPAT=( python3_{12..14} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="PyroCore - Python Torrent Tools Core Package"

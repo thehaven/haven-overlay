@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=7
-PYTHON_COMPAT=( python3_{5..10} pypy )
+EAPI=8
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="magzdb.org Downloader."

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header $
 
-EAPI="4"
+EAPI=8
 RESTRICT="mirror"
 
 DESCRIPTION="Scripts to support compressed swap devices or ramdisks with zram"

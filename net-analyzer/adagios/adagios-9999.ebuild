@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=8
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{12..14} )
 
-inherit distutils-r1 eutils git-r3
+DISTUTILS_USE_PEP517=setuptools
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Web based Nagios configuration interface"
 HOMEPAGE="http://adagios.org/"

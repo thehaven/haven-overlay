@@ -1,13 +1,12 @@
 # Copyright 1999-2019 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 VCS="git"
 LUA_COMPAT="lua52 lua53"
 GITHUB_A="WeirdConstructor"
 
-inherit lua
 
 DESCRIPTION="Session library for OpenResty implementing Secure Cookie Protocol"
 HOMEPAGE="https://github.com/bungle/lua-resty-session"

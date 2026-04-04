@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=8
 
-inherit eutils toolchain-funcs linux-info
+inherit toolchain-funcs linux-info
 
 MY_P="${PN}-${PV/_/~}"
 PATCHV="1"
@@ -29,7 +29,7 @@ CONFIG_CHECK="NETFILTER NETFILTER_XTABLES NETFILTER_XT_TARGET_NFQUEUE IP_NF_IPTA
 src_prepare() {
 	EPATCH_SOURCE="${WORKDIR}/patches"
 	EPATCH_SUFFIX="patch"
-	epatch
+	eapply
 }
 
 src_compile() {

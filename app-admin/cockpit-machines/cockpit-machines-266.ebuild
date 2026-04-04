@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=(python3_{9..10})
+PYTHON_COMPAT=(python3_{12..14})
 
 inherit python-single-r1
 

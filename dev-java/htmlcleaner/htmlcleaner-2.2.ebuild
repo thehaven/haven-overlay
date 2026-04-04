@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=8
 
 MY_PN="HtmlCleaner"
 JAVA_PKG_IUSE="doc source"
 
-inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="HTML parser written in Java that can be used as a tool, library or Ant task"
 HOMEPAGE="http://htmlcleaner.sourceforge.net/"

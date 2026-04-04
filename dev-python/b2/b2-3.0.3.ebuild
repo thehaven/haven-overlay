@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{5..10} )
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="The command-line tool that gives easy access to all of the capabilities of B2 Cloud Storage"

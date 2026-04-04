@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/www-client/phantomjs/phantomjs-1.9.0.ebuild,v 1.6 2013/09/25 18:26:55 radhermit Exp $
 
-EAPI=5
+EAPI=8
 
 inherit toolchain-funcs pax-utils multiprocessing
 

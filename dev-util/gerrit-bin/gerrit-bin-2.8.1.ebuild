@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-inherit java-pkg-2 user
 
 DESCRIPTION="Gerrit Code Review"
 HOMEPAGE="https://code.google.com/p/gerrit/"

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=8
 
-inherit eutils java-utils-2
+inherit java-utils-2
 
 DESCRIPTION="Software framework for data intensive distributed applications"
 HOMEPAGE="http://hadoop.apache.org/"

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-inherit eutils git-2
+inherit git-r3
 
 DESCRIPTION="Small army of nagios-plugins either made or maintained by opinkerfi"
 HOMEPAGE="https://github.com/opinkerfi/nagios-plugins"

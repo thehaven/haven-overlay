@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/puppet/puppet-2.7.13.ebuild,v 1.7 2012/04/28 19:00:10 armin76 Exp $
 
-EAPI="4"
+EAPI=8
 # ruby19: dev-ruby/ruby-ldap has no ruby19
 #USE_RUBY="ruby18 ruby19 ree18"
 USE_RUBY="ruby18"
@@ -14,9 +14,8 @@ RUBY_FAKEGEM_EXTRADOC="CHANGELOG* README*"
 # bug #406053
 inherit elisp-common
 EMACS_SITELISP="${SITELISP}"
-inherit xemacs-elisp-common
 XEMACS_SITELISP="${SITELISP}"
-inherit eutils ruby-fakegem
+inherit ruby-fakegem
 
 DESCRIPTION="A system automation and configuration management software"
 HOMEPAGE="http://puppetlabs.com/"

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=8
 
 DESCRIPTION="Nagios meta build for pulling in all the nagios dependancies in one
 shot, heavily influenced by OMD"

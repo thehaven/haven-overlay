@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=8
 
-PYTHON_COMPAT=( python2_7 pypy )
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 subversion
 
 DESCRIPTION="A utility to automatically download enclosures and other objects

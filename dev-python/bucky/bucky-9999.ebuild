@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
-PYTHON_COMPAT=( python2_7 )
+EAPI=8
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 git-r3
 
 DESCRIPTION="a small server for collecting and translating metrics for Graphite"

@@ -1,8 +1,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=4
+EAPI=8
+inherit desktop
 
-inherit eutils user
 
 DESCRIPTION="a new Android development environment based on IntelliJ IDEA"
 HOMEPAGE="https://developer.android.com/sdk/installing/studio.html"

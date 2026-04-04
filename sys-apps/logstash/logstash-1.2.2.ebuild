@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-misc/mtail/mtail-1.1.1.ebuild,v 1.6 2005/01/01 15:15:35 eradicator Exp $
 
-EAPI=5
+EAPI=8
 
-inherit eutils systemd
+inherit systemd
 
 DESCRIPTION="a tool for managing events and logs."
 HOMEPAGE="http://logstash.net/"

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=8
 
 DESCRIPTION="PHPLint is a validator and documentator for PHP 4 and PHP 5
 programs."

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-inherit git-2
+inherit git-r3
 
 DESCRIPTION="Enterprise scalable realtime graphing"
 HOMEPAGE="https://github.com/vimeo/graph-explorer"

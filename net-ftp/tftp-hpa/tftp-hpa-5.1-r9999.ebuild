@@ -1,9 +1,8 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="4"
+EAPI=8
 
-inherit eutils
 
 DESCRIPTION="port of the OpenBSD TFTP server"
 HOMEPAGE="http://www.kernel.org/pub/software/network/tftp/"
@@ -26,7 +25,7 @@ DEPEND="${RDEPEND}
 
 src_configure() {
 	# Pinkbyte: additional patch for Windows clients
-	epatch "${FILESDIR}"/${P}-filecase.patch
+	eapply "${FILESDIR}"/${P}-filecase.patch
 	#
 	econf \
 		$(use_with ipv6) \

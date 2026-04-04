@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=8
+inherit desktop
 
 # needed by make_desktop_entry
-inherit eutils
 
 MY_PN="Sublime%20Text%202%20Build"
 MY_P="${MY_PN}%20${PV}"

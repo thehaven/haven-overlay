@@ -1,6 +1,5 @@
-EAPI=2
+EAPI=8
 
-inherit eutils versionator
 
 MY_PN=${PN}-server
 MY_P=${MY_PN}-${PVR/_/}

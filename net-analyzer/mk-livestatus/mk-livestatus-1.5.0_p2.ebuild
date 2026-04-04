@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-analyzer/mk-livestatus/mk-livestatus-1.2.0_p2.ebuild,v 1.2 2012/12/22 18:24:19 ago Exp $
 
-EAPI=6
+EAPI=8
 
 GENTOO_DEPEND_ON_PERL=no
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{12..14} )
 
 MY_PV="${PV/_p/p}"
 MY_P="${PN}-${MY_PV}"
 
-inherit perl-module python-r1 eutils
+inherit perl-module python-r1
 
 DESCRIPTION="Nagios/Icinga event broker module that allows quick/direct access to your status data"
 HOMEPAGE="http://mathias-kettner.de/checkmk_livestatus.html"

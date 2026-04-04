@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{12..14} )
 PYTHON_REQUIRED_USE="sqlite"
 
 EGIT_REPO_URI="https://github.com/rembo10/headphones.git"
 
-inherit eutils user git-2 systemd
+inherit git-r3 systemd
 
 DESCRIPTION="Automatic music downloader for SABnzbd"
 HOMEPAGE="https://github.com/rembo10/headphones#readme"

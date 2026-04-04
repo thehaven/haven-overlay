@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=8
 
-inherit eutils git-2 linux-mod
+inherit git-r3 linux-mod
 
 EGIT_REPO_URI="git://github.com/facebook/flashcache.git"
 KEYWORDS="~amd64 ~x86"
@@ -23,7 +23,7 @@ DEPEND="${RDEPEND}"
 src_unpack() {
    git-2_src_unpack
    cd "${S}"
-#   epatch ${FILESDIR}/flashcache-2.6.36-rw_barrier.patch  
+#   eapply ${FILESDIR}/flashcache-2.6.36-rw_barrier.patch  
 }
 
 src_compile() {

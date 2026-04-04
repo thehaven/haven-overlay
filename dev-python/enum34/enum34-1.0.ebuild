@@ -1,10 +1,11 @@
 # Copyright 2013-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=8
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3} )
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Python 3.4 Enum backported to older versions"

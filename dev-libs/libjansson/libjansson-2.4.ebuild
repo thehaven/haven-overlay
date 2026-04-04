@@ -1,4 +1,4 @@
-EAPI="5"
+EAPI=8
 
 DESCRIPTION="Jansson is a C library for encoding, decoding and manipulating JSON data."
 HOMEPAGE="http://www.digip.org/jansson"

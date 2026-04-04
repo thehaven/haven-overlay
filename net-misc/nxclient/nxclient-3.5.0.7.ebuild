@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-misc/nxclient/nxclient-3.5.0.6.ebuild,v 1.1 2011/05/22 14:02:18 voyageur Exp $
 
-EAPI=2
-inherit eutils versionator
+EAPI=8
+inherit desktop
 
 MAJOR_PV="$(get_version_component_range 1-3)"
 FULL_PV="${MAJOR_PV}-$(get_version_component_range 4)"

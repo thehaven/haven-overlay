@@ -1,11 +1,12 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
-PYTHON_COMPAT=( python3_{4,5,6} )
+PYTHON_COMPAT=( python3_{12..14} )
 
-inherit distutils-r1 eutils user systemd
+DISTUTILS_USE_PEP517=setuptools
+inherit distutils-r1 systemd
 
 DESCRIPTION="Scan, index, and archive all of your paper documents"
 HOMEPAGE="https://github.com/danielquinn/paperless"

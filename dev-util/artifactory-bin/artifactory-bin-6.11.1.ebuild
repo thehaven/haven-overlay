@@ -8,9 +8,8 @@
 # Upstream now releases source and instructions (yay!), but most of artifactory's
 # dependencies are not in portage yet.
 
-EAPI=6
+EAPI=8
 
-inherit user
 
 MY_P="${P/-bin}"
 MY_PN="${PN/-bin}"

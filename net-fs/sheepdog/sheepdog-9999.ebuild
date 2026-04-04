@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=8
 
-inherit bash-completion-r1 git-r3
+inherit git-r3
 
 EGIT_REPO_URI="git://sheepdog.git.sf.net/gitroot/sheepdog/sheepdog"
 EGIT_BRANCH="master"

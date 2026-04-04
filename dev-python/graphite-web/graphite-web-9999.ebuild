@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python3_{12..14} )
 
-inherit distutils-r1 git-2
+DISTUTILS_USE_PEP517=setuptools
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Enterprise scalable realtime graphing"
 HOMEPAGE="http://graphite.wikidot.com/"

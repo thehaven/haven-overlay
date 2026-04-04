@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI=8
 
-inherit eutils flag-o-matic
+inherit flag-o-matic
 
 DESCRIPTION="Library to deal with DWARF Debugging Information Format"
 HOMEPAGE="https://github.com/Distrotech/libdwarf"

@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyechonest/pyechonest-7.2.1.ebuild,v 1.5 2014/06/28 03:57:39 idella4 Exp $
 
-EAPI=5
+EAPI=8
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Python interface to The Echo Nest APIs"

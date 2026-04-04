@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
-inherit autotools eutils git-2
+inherit autotools git-r3
 
 DESCRIPTION="This Nagios plugin checks how long the system has been running."
 HOMEPAGE="https://github.com/madrisan/nagios-plugins-uptime"

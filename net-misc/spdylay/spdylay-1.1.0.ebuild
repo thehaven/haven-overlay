@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=8
 
-inherit git-2
+inherit git-r3
 
 DESCRIPTION="The experimental SPDY protocol version 2 and 3 implementation in C"
 HOMEPAGE="http://spdylay.sourceforge.net/"

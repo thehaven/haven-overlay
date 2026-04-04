@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyacoustid/pyacoustid-1.0.0-r1.ebuild,v 1.1 2014/04/02 05:26:04 idella4 Exp $
 
-EAPI="7"
-PYTHON_COMPAT=( python3_{3..10} pypy )
+EAPI=8
+PYTHON_COMPAT=( python3_{12..14} )
 
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Python module for Chromaprint acoustic fingerprinting and the Acoustid API"

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-ftp/vsftpd/vsftpd-3.0.0.ebuild,v 1.2 2012/05/13 10:57:37 swift Exp $
 
-EAPI="4"
+EAPI=8
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Very Secure FTP Daemon written with speed, size and security in mind"
 HOMEPAGE="http://vsftpd.beasts.org/"
@@ -27,13 +27,13 @@ RDEPEND="${DEPEND}
 src_prepare() {
 
 	# kerberos patch. bug #335980
-	epatch "${FILESDIR}/${PN}-2.3.2-kerberos.patch"
+	eapply "${FILESDIR}/${PN}-2.3.2-kerberos.patch"
 
 	# Patch the source, config and the manpage to use /etc/vsftpd/
-	epatch "${FILESDIR}/${PN}-2.3.5-gentoo.patch"
+	eapply "${FILESDIR}/${PN}-2.3.5-gentoo.patch"
 
 	# Fix building without the libcap
-	epatch "${FILESDIR}/${PN}-2.1.0-caps.patch"
+	eapply "${FILESDIR}/${PN}-2.1.0-caps.patch"
 
 	# Configure vsftpd build defaults
 	use tcpd && echo "#define VSF_BUILD_TCPWRAPPERS" >> builddefs.h
@@ -43,14 +43,14 @@ src_prepare() {
 	# Ensure that we don't link against libcap unless asked
 	if ! use caps ; then
 		sed -i '/^#define VSF_SYSDEP_HAVE_LIBCAP$/ d' sysdeputil.c || die
-		epatch "${FILESDIR}"/${PN}-2.2.0-dont-link-caps.patch
+		eapply "${FILESDIR}"/${PN}-2.2.0-dont-link-caps.patch
 	fi
 
 	# Let portage control stripping
 	sed -i '/^LINK[[:space:]]*=[[:space:]]*/ s/-Wl,-s//' Makefile || die
 
 	#Bug #335977
-	epatch "${FILESDIR}"/${P}-Makefile.patch
+	eapply "${FILESDIR}"/${P}-Makefile.patch
 }
 
 src_compile() {

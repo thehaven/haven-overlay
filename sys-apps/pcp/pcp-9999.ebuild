@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-PYTHON_COMPAT=(python{2_7,3_3})
-inherit user eutils python-any-r1
+EAPI=8
+PYTHON_COMPAT=(python3_{12..14})
+inherit python-any-r1
 
 DESCRIPTION="Performance Co-Pilot, system performance and analysis framework"
 HOMEPAGE="http://pcp.io"
@@ -49,7 +49,7 @@ pkg_setup(){
 }
 
 src_prepare() {
-	epatch_user
+	eapply_user
 }
 src_configure() {
 	# Setting xmlto as default documentation generator

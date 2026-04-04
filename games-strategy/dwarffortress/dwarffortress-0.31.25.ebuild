@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=8
 
-inherit games
 
 DESCRIPTION="Dwar fortress is an ascii-drawn strategy game where you control the lives of a group of dwarves."
 HOMEPAGE="http://www.bay12games.com/dwarves/"

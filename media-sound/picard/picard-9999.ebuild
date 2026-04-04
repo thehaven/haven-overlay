@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-sound/picard/picard-0.16.ebuild,v 1.1 2011/10/24 03:59:39 radhermit Exp $
 
-EAPI="6"
+EAPI=8
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{12..14} )
 
-inherit eutils distutils-r1 git-r3
+DISTUTILS_USE_PEP517=setuptools
+inherit distutils-r1 git-r3
 
 DESCRIPTION="An improved rewrite/port of the Picard Tagger using Qt"
 HOMEPAGE="http://musicbrainz.org/doc/PicardQt"

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-block/lsiutil/lsiutil-1.62-r1.ebuild,v 1.1 2013/06/10 12:18:31 dev-zero Exp $
 
-EAPI="5"
+EAPI=8
 
 DESCRIPTION="LSI Logic Fusion MPT Command Line Interface management tool"
 HOMEPAGE="http://www.lsi.com/"

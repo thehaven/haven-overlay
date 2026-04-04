@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit autotools linux-info linux-mod python-r1 systemd tmpfiles
 

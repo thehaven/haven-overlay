@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=8
+inherit desktop
 
 REV="2042"
 MY_P="${PN}-src-${PV}-${REV}"
 JAVA_PKG_IUSE="source"
 
-inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="POP/IMAP/SMTP/Caldav/Carddav/LDAP Exchange Gateway"
 HOMEPAGE="http://davmail.sourceforge.net/"

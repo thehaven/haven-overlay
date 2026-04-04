@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=8
 
 DESCRIPTION="I/O performance monitoring utility"
 HOMEPAGE="http://www.linuxinsight.com/iostat_utility.html"

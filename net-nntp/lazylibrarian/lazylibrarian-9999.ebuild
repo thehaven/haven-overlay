@@ -4,7 +4,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6..10} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 EGIT_REPO_URI="https://gitlab.com/LazyLibrarian/LazyLibrarian.git"
 
