@@ -5,7 +5,7 @@
 EAPI=8
 
 if [[ $PV = *9999* ]]; then
-	scm_eclass=git-2
+	scm_eclass=git-r3
 	EGIT_REPO_URI="
 		git://github.com/ceph/ceph-deploy.git
 		https://github.com/ceph/ceph-deploy.git"

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils java-pkg-2
+EAPI=8
 
 MY_PV=${PV//./_}
 MY_P=smartsvn-generic-${MY_PV}

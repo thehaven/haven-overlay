@@ -1,4 +1,4 @@
-inherit eutils
+EAPI=8
 
 DESCRIPTION="Maven Repository Manager"
 HOMEPAGE="http://nexus.sonatype.org/"

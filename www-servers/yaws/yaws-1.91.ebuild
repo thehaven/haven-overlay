@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/www-servers/yaws/yaws-1.58.ebuild,v 1.1 2006/04/14 06:10:54 mkennedy Exp $
 
-inherit eutils
+EAPI=8
 
 DESCRIPTION="Yaws is a high performance HTTP 1.1 web server."
 HOMEPAGE="http://yaws.hyber.org/"

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-analyzer/nagios/nagios-3.3.1.ebuild,v 1.6 2012/09/06 01:47:06 blueness Exp $
 
-inherit multilib
+EAPI=8
 
 DESCRIPTION="The Nagios metapackage - merge this to pull install all of the nagios packages"
 HOMEPAGE="http://www.nagios.org"

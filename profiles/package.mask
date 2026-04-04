@@ -1,1 +1,33 @@
+# Existing mask
 dev-lua/luamongo
+
+# Dead upstream: source tarballs no longer available (2026-04-04)
+app-admin/graylog2
+app-admin/nxlog-ce
+app-admin/python-updater
+app-backup/insync
+app-editors/sublime-text
+dev-android/android-studio
+dev-java/httpcomponents-client-bin
+dev-java/nexus-oss-bin
+dev-java/stax2-api
+dev-php/phplint
+dev-vcs/smartsvn
+media-video/lightworks
+net-analyzer/splunk
+net-analyzer/splunkforwarder
+net-ftp/tftp-hpa
+net-im/wync
+net-misc/moblock
+net-misc/nxclient
+net-www/pyroscope
+sys-apps/iostat
+sys-apps/logstash
+sys-block/lsiutil
+sys-block/zram-init
+sys-cluster/drbd
+sys-cluster/kube-aggregator
+sys-cluster/kube-discovery
+sys-cluster/kubefed
+www-client/phantomjs
+www-servers/yaws

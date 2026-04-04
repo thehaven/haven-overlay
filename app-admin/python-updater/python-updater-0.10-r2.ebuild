@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/python-updater/python-updater-0.10-r2.ebuild,v 1.2 2012/04/26 14:54:37 aballier Exp $
 
-inherit eutils
+EAPI=8
 
 if [[ "${PV}" == "9999" ]]; then
 	inherit subversion
