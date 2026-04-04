@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="build-test mcp qa test"
+IUSE="build-test doc mcp qa test"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -31,6 +31,11 @@ RDEPEND="
 	mcp? ( dev-python/mcp[${PYTHON_USEDEP}] )
 "
 BDEPEND="
+	doc? (
+		dev-python/sphinx[${PYTHON_USEDEP}]
+		dev-python/sphinx-click[${PYTHON_USEDEP}]
+		dev-python/sphinx-rtd-theme[${PYTHON_USEDEP}]
+	)
 	test? (
 		dev-python/pytest[${PYTHON_USEDEP}]
 	)
@@ -38,9 +43,27 @@ BDEPEND="
 
 distutils_enable_tests pytest
 
+python_compile_all() {
+	if use doc; then
+		sphinx-build -b html docs docs/_build/html || die "sphinx HTML build failed"
+		sphinx-build -b man docs docs/_build/man || die "sphinx man build failed"
+	fi
+}
+
 src_install() {
 	distutils-r1_src_install
 
 	insinto /usr/share/${PN}
 	doins -r templates
+
+	# Always install the hand-written man page
+	doman docs/man/ebuild-updater.1
+
+	if use doc; then
+		# Install Sphinx-generated HTML docs
+		dodoc -r docs/_build/html
+
+		# Install Sphinx-generated man page alongside the hand-written one
+		newman docs/_build/man/ebuild-updater.1 ebuild-updater-api.1
+	fi
 }
