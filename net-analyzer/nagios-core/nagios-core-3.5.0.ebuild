@@ -4,7 +4,7 @@
 
 EAPI=8
 
-inherit multilib toolchain-funcs
+inherit depend.apache multilib toolchain-funcs
 
 MY_P=${PN/-core}-${PV}
 DESCRIPTION="Nagios Core - Check daemon, CGIs, docs"

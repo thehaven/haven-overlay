@@ -39,5 +39,6 @@ src_compile() {
 }
 
 src_install() {
-# Put the compiled psol files somewhere that nginx can be pointed at to compile mod_pagespeed
+	# Put the compiled psol files somewhere that nginx can be pointed at to compile mod_pagespeed
+	:
 }

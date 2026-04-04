@@ -5,8 +5,8 @@
 EAPI=8
 inherit desktop
 
-MAJOR_PV="$(get_version_component_range 1-3)"
-FULL_PV="${MAJOR_PV}-$(get_version_component_range 4)"
+MAJOR_PV="$(ver_cut 1-3)"
+FULL_PV="${MAJOR_PV}-$(ver_cut 4)"
 DESCRIPTION="X11/VNC/NXServer client (remote desktops over low-bandwidth links)"
 HOMEPAGE="http://www.nomachine.com/"
 SRC_URI="amd64? ( http://64.34.161.181/download/${MAJOR_PV}/Linux/nxclient-${FULL_PV}.x86_64.tar.gz )
