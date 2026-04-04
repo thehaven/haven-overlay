@@ -7,7 +7,7 @@ inherit flag-o-matic
 
 DESCRIPTION="FreeBSD port of the Open Source iSCSI target with professional features"
 HOMEPAGE="http://sourceforge.net/projects/openistgt"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

@@ -16,7 +16,7 @@ if [[ ${PV} == "9999" ]]
 		ESVN_REPO_URI="https://svn.ntop.org/svn/ntop/trunk/ntopng/"
 		ESVN_BOOTSTRAP=""
 	else
-		SRC_URI="mirror://sourceforge/ntop/${PN}/${P}.tar.gz"
+		SRC_URI="https://downloads.sourceforge.net/ntop/${PN}/${P}.tar.gz"
 fi
 
 LICENSE="GPL-3"

@@ -11,7 +11,7 @@ inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="The command-line tool that gives easy access to all of the capabilities of B2 Cloud Storage"
 HOMEPAGE="https://github.com/Backblaze/B2_Command_Line_Tool"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

@@ -7,7 +7,7 @@ EAPI=8
 DESCRIPTION="NXLOG is a universal log collector and forwarder supporting
 different platforms "
 HOMEPAGE="http://nxlog-ce.sourceforge.net/"
-SRC_URI="mirror://sourceforge/nxlog-ce/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/nxlog-ce/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"

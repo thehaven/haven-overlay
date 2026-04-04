@@ -10,7 +10,7 @@ JAVA_PKG_IUSE="doc source"
 
 DESCRIPTION="HTML parser written in Java that can be used as a tool, library or Ant task"
 HOMEPAGE="http://htmlcleaner.sourceforge.net/"
-SRC_URI="mirror://sourceforge/htmlcleaner/files/${P}-all.zip"
+SRC_URI="https://downloads.sourceforge.net/htmlcleaner/files/${P}-all.zip"
 
 LICENSE="BSD"
 SLOT="0"

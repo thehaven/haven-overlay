@@ -9,7 +9,7 @@ inherit depend.apache multilib toolchain-funcs
 MY_P=${PN/-core}-${PV}
 DESCRIPTION="Nagios Core - Check daemon, CGIs, docs"
 HOMEPAGE="http://www.nagios.org/"
-SRC_URI="mirror://sourceforge/nagios/${MY_P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/nagios/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"

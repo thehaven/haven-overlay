@@ -6,7 +6,7 @@ EAPI=8
 
 DESCRIPTION="Offline Filesystem to enable the use of an Network file system without a network connection or after a connection loss."
 HOMEPAGE="http://sourceforge.net/projects/offlinefs/"
-SRC_URI="mirror://sourceforge/offlinefs/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/offlinefs/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-3"

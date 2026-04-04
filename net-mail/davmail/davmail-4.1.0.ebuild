@@ -12,7 +12,7 @@ JAVA_PKG_IUSE="source"
 
 DESCRIPTION="POP/IMAP/SMTP/Caldav/Carddav/LDAP Exchange Gateway"
 HOMEPAGE="http://davmail.sourceforge.net/"
-SRC_URI="mirror://sourceforge/davmail/${MY_P}.tgz"
+SRC_URI="https://downloads.sourceforge.net/davmail/${MY_P}.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"

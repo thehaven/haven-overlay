@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Python 3.4 Enum backported to older versions"
 HOMEPAGE="https://pypi.python.org/pypi/enum34 https://bitbucket.org/stoneleaf/enum34"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

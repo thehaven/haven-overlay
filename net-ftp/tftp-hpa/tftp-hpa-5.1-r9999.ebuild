@@ -6,7 +6,7 @@ EAPI=8
 
 DESCRIPTION="port of the OpenBSD TFTP server"
 HOMEPAGE="http://www.kernel.org/pub/software/network/tftp/"
-SRC_URI="mirror://kernel/software/network/tftp/${PN}/${P}.tar.xz"
+SRC_URI="https://www.kernel.org/pub/software/network/tftp/${PN}/${P}.tar.xz"
 
 LICENSE="BSD"
 SLOT="0"

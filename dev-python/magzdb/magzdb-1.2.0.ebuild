@@ -10,7 +10,7 @@ inherit distutils-r1 pypi
 
 DESCRIPTION="magzdb.org Downloader."
 HOMEPAGE="https://github.com/skyme5/magzdb"
-#SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+#SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="A library for transparently accessing objects in a remote Python interpreter"
 HOMEPAGE="https://pypi.python.org/pypi/pushy/"
-SRC_URI="mirror://pypi/p/${PN}/${P}.zip"
+SRC_URI="https://files.pythonhosted.org/packages/source/p/${PN}/${P}.zip"
 
 LICENSE="MIT"
 SLOT="0"

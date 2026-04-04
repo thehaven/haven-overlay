@@ -11,7 +11,7 @@ inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="pyScss, a Scss compiler for Python"
 HOMEPAGE="https://github.com/Kronuz/pyScss"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

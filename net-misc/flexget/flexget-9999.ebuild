@@ -11,7 +11,7 @@ inherit distutils-r1
 
 if [[ ${PV} != 9999 ]]; then
 	MY_P="FlexGet-${PV}"
-	SRC_URI="mirror://pypi/F/FlexGet/${MY_P}.tar.gz"
+	SRC_URI="https://files.pythonhosted.org/packages/source/F/FlexGet/${MY_P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
 else
 	inherit git-r3

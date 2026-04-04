@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Push Notifications that work with just about every platform!"
 HOMEPAGE="https://pypi.org/project/apprise/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
