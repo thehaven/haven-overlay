@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription lang="en">
+		Orchestration layer for Gentoo overlay ebuild lifecycle management.
+		Automates version discovery (via nvchecker), ebuild bumping, QA
+		validation (via pkgcheck), Docker-based build testing (via ebuildtester),
+		USE-flag matrix generation, and post-install validation. Designed for
+		overlay maintainers who want a single CLI to manage daily version bumps
+		with full pipeline automation.
+	</longdescription>
+	<use>
+		<flag name="build-test">Enable Docker-based build testing via <pkg>app-portage/ebuildtester</pkg></flag>
+		<flag name="mcp">Enable MCP (Model Context Protocol) server interface for AI agent integration</flag>
+		<flag name="qa">Enable QA tooling: <pkg>dev-util/nvchecker</pkg>, <pkg>dev-util/pkgcheck</pkg>, <pkg>dev-util/pkgdev</pkg></flag>
+	</use>
+	<upstream>
+		<remote-id type="gitlab">gentoo/ebuild-updater</remote-id>
+	</upstream>
+</pkgmetadata>
