@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="unlocked">Create a wrapper script that injects undocumented internal variables (e.g. USER_TYPE='ant') for enhanced functionality and optimized terminal performance.</flag>
+	</use>
+	<upstream>
+		<remote-id type="npm">@anthropic-ai/claude-code</remote-id>
+	</upstream>
+</pkgmetadata>
