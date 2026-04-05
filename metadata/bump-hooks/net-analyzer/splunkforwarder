@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Resolve MY_BUILD hash for net-analyzer/splunkforwarder.
+# Called by ebuild-updater during version bumps.
+# Usage: <script> <new_version> <old_version>
+set -euo pipefail
+
+VERSION="${1:?missing new_version}"
+
+URL=$(curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html \
+  | grep -oP "(?<=data-link=\")[^\"]*${VERSION}[^\"]*linux-amd64\.tgz(?=\")")
+
+if [[ -z "$URL" ]]; then
+    echo "WARN: no download URL found for splunkforwarder ${VERSION}" >&2
+    exit 1
+fi
+
+BUILD=$(echo "$URL" | grep -oP "${VERSION}-\K[a-f0-9]+")
+
+if [[ -z "$BUILD" ]]; then
+    echo "WARN: could not extract MY_BUILD from: $URL" >&2
+    exit 1
+fi
+
+echo "MY_BUILD=${BUILD}"
