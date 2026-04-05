@@ -1,0 +1,14 @@
+# Discover hook for net-analyzer/splunkforwarder
+# Splunk's download page serves data-link attributes in static HTML
+# containing versioned tarball URLs. This extracts the latest version.
+#
+# SECURITY NOTE: source = "cmd" executes shell inside nvchecker.
+# This hook lives in the overlay repo and is trusted input.
+# Auditors should review cmd hooks with the same scrutiny as
+# bump-hook scripts.
+#
+# FRAGILITY NOTE: If Splunk moves to a JS-rendered page, this
+# will silently return empty. Monitor for silent failures.
+_schema = 1
+source = "cmd"
+cmd = "curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html | grep -oP 'splunkforwarder-\\K[0-9]+\\.[0-9]+\\.[0-9]+' | sort -Vu | tail -1"

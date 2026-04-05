@@ -1,0 +1,11 @@
+# Discover hook for media-tv/plex-media-server
+# Plex publishes a structured JSON API with current release info.
+# The version string includes a git hash suffix (e.g. 1.43.0.10492-121068a07);
+# from_pattern strips the hash so nvchecker returns a clean Portage version.
+# The bump-hook (when created) will resolve the hash at bump time.
+_schema = 1
+source = "jq"
+url = "https://plex.tv/api/downloads/5.json"
+filter = ".computer.Linux.version"
+from_pattern = "(-[0-9a-f]+)$"
+to_pattern = ""
