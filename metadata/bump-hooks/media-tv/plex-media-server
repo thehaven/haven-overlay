@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Resolve MY_PV (version-hash) for media-tv/plex-media-server.
+# Called by ebuild-updater during version bumps.
+# Usage: <script> <new_version> <old_version>
+#
+# Plex publishes a JSON API at plex.tv/api/downloads/5.json with
+# the full version string including git hash, e.g. 1.43.0.10492-121068a07.
+set -euo pipefail
+
+VERSION="${1:?missing new_version}"
+
+FULL=$(curl -sSlL https://plex.tv/api/downloads/5.json \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['computer']['Linux']['version'])")
+
+if [[ -z "$FULL" ]]; then
+    echo "WARN: could not fetch Plex version from API" >&2
+    exit 1
+fi
+
+if [[ "$FULL" != "${VERSION}-"* ]]; then
+    echo "WARN: API returned ${FULL}, expected ${VERSION}-*" >&2
+    exit 1
+fi
+
+echo "MY_PV=${FULL}"
