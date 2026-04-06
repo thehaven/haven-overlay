@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">qdrant/qdrant</remote-id>
+	</upstream>
+	<longdescription>
+		Qdrant is a high-performance, open-source vector similarity search
+		engine and database. It provides a production-ready service with a
+		convenient API for storing, searching, and managing vectors with
+		additional payloads. Useful for RAG pipelines, semantic search,
+		recommendation systems, and AI agent memory.
+	</longdescription>
+</pkgmetadata>

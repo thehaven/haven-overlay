@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Qdrant Vector Search Engine"
+command="/usr/bin/qdrant"
+command_args="--config-path /etc/qdrant/config.yaml"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+directory="/var/lib/qdrant"
+
+depend() {
+	need net
+	after net
+}

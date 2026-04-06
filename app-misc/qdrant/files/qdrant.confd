@@ -1,0 +1,5 @@
+# /etc/conf.d/qdrant
+# Configuration for Qdrant Vector Search Engine
+
+# Additional options to pass to qdrant
+#QDRANT_OPTS=""
