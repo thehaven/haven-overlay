@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Tabby AI Coding Assistant"
+command="/usr/bin/tabby"
+command_args="serve --device ${TABBY_DEVICE:-cpu} ${TABBY_OPTS}"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+directory="/var/lib/tabby"
+
+export TABBY_ROOT="/var/lib/tabby"
+
+depend() {
+	need net
+	after net
+}

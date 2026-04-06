@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">TabbyML/tabby</remote-id>
+	</upstream>
+	<use>
+		<flag name="cuda">Enable NVIDIA CUDA GPU acceleration</flag>
+		<flag name="vulkan">Enable Vulkan GPU acceleration</flag>
+	</use>
+	<longdescription>
+		Tabby is a self-hosted AI coding assistant that provides code
+		completion and chat capabilities. It supports multiple models
+		(StarCoder, CodeLlama, DeepSeek-Coder, etc.) and can run on
+		CPU, CUDA, or Vulkan backends. Provides IDE integrations for
+		VSCode, IntelliJ, and Vim/Neovim.
+	</longdescription>
+</pkgmetadata>
