@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="acoustid"></flag>
+		<flag name="cdda"></flag>
+		<flag name="coverart"></flag>
+		<flag name="ffmpeg"></flag>
+		<flag name="nls"></flag>
+	</use>
+</pkgmetadata>

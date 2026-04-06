@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="X"></flag>
+		<flag name="debug"></flag>
+		<flag name="lto"></flag>
+		<flag name="wayland"></flag>
+	</use>
+	<upstream>
+		<remote-id type="github">Slackadays/Clipboard</remote-id>
+	</upstream>
+</pkgmetadata>
