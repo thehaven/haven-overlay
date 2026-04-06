@@ -1,0 +1,4 @@
+# /etc/conf.d/k3s-server
+
+# Additional k3s options
+#K3S_OPTS=""

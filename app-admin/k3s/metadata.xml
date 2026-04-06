@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="server">Install server (control plane) service files</flag>
+		<flag name="agent">Install agent (worker node) service files</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">k3s-io/k3s</remote-id>
+	</upstream>
+</pkgmetadata>

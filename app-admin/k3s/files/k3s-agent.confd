@@ -1,0 +1,10 @@
+# /etc/conf.d/k3s-agent
+
+# K3S_URL - URL of the k3s server
+#K3S_URL="https://server:6443"
+
+# K3S_TOKEN - Node token from server
+#K3S_TOKEN=""
+
+# Additional k3s options
+#K3S_OPTS=""
