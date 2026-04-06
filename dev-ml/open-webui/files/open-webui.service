@@ -1,0 +1,22 @@
+[Unit]
+Description=Open WebUI - ChatGPT-style interface for Ollama
+Documentation=https://docs.openwebui.com
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/open-webui/bin/open-webui serve
+Environment=DATA_DIR=/var/lib/open-webui
+Environment=OLLAMA_BASE_URL=http://localhost:11434
+WorkingDirectory=/var/lib/open-webui
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=yes
+ProtectHome=yes
+ReadWritePaths=/var/lib/open-webui
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
