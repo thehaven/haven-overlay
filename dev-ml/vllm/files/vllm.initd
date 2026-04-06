@@ -1,0 +1,24 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="vLLM Inference Engine"
+command="/opt/vllm/bin/vllm"
+command_args="serve ${VLLM_MODEL}"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+directory="/var/lib/vllm"
+
+export HF_HOME="/var/lib/vllm/huggingface"
+
+depend() {
+	need net
+	after net
+}
+
+start_pre() {
+	if [ -z "${VLLM_MODEL}" ]; then
+		eerror "VLLM_MODEL must be set in /etc/conf.d/vllm"
+		return 1
+	fi
+}

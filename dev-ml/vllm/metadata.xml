@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">vllm-project/vllm</remote-id>
+	</upstream>
+	<use>
+		<flag name="cuda">Enable NVIDIA CUDA GPU support (CUDA 13.0)</flag>
+	</use>
+	<longdescription>
+		vLLM is a high-throughput and memory-efficient inference and
+		serving engine for LLMs. Features PagedAttention for efficient
+		KV cache management, continuous batching, and an OpenAI-compatible
+		API server. Supports 100+ model architectures including LLaMA,
+		Mistral, Qwen, DeepSeek, and more. Ideal for production LLM
+		serving in container deployments.
+	</longdescription>
+</pkgmetadata>
