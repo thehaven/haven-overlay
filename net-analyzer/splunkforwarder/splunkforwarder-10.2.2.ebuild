@@ -6,9 +6,9 @@ EAPI=8
 DESCRIPTION="Splunk Universal Forwarder - lightweight remote data collector"
 HOMEPAGE="https://www.splunk.com"
 
-# MY_BUILD is a per-release SHA hash — resolved automatically by bump-hook.
-# Fallback annotation (used if metadata/bump-hooks/net-analyzer/splunkforwarder is absent):
-# @resolve MY_BUILD: curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html | grep -oP "(?<=data-link=\")[^\"]*${VERSION}[^\"]*linux-amd64\.tgz(?=\")" | grep -oP "${VERSION}-\K[a-f0-9]+"
+# MY_BUILD is a per-release SHA hash — must be updated on every version bump.
+# Retrieve via: curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html \
+#   | grep -oP '(?<=data-link=")[^"]*linux-amd64\.tgz(?=")'
 MY_BUILD="80b90d638de6"
 
 BASE_URI="https://download.splunk.com/products/universalforwarder/releases/${PV}/linux"
