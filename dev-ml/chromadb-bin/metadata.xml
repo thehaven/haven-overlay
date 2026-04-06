@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">chroma-core/chroma</remote-id>
+	</upstream>
+	<longdescription>
+		Chroma is an AI-native open-source vector database focused on
+		developer productivity. Store, search, and retrieve embeddings
+		with a simple API. Includes built-in embedding functions and
+		supports multiple distance metrics. Useful for RAG pipelines,
+		semantic search, and AI application development.
+	</longdescription>
+</pkgmetadata>
