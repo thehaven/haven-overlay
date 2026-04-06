@@ -1,8 +1,8 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-inherit eutils autotools multilib-minimal
+EAPI=8
+inherit autotools multilib-minimal
 
 DESCRIPTION="VIPS Image Processing Library"
 SRC_URI="https://github.com/lib${PN}/lib${PN}/archive/v${PV//_rc/-rc}.tar.gz -> lib${P}.tar.gz"

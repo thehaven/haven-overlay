@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 RELEASE='develop'
 SRC_URI="https://github.com/Radarr/Radarr/releases/download/v${PV}/Radarr.${RELEASE}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"

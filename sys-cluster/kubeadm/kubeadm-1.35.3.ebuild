@@ -1,8 +1,8 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-inherit bash-completion-r1 go-module
+EAPI=8
+inherit go-module
 
 DESCRIPTION="CLI to Easily bootstrap a secure Kubernetes cluster"
 HOMEPAGE="https://kubernetes.io"

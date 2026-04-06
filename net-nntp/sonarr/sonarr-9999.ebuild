@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 SRC_URI="http://update.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
 

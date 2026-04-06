@@ -1,14 +1,13 @@
 # Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 LUA_COMPAT="luajit2"
 VCS="git"
 GITHUB_A="openresty"
 GITHUB_PN="lua-${PN}"
 
-inherit lua
 
 DESCRIPTION="New LuaJIT FFI based API for lua-nginx-module"
 HOMEPAGE="https://github.com/openresty/lua-resty-core"

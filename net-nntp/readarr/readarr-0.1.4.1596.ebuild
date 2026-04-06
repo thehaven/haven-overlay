@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 SRC_URI="https://github.com/Readarr/Readarr/releases/download/v${PV}/Readarr.develop.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 

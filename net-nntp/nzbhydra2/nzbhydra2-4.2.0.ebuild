@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 SRC_URI="https://github.com/theotherp/${PN}/releases/download/v${PV}/${PN}-${PV}-linux.zip -> ${P}.zip"
 

@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 MY_PN="${PN//-bin}"
 DATE="20220120" # http://beta.madsonic.org/pages/changelog.jsp

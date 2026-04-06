@@ -1,13 +1,12 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DESCRIPTION="A generic, extendable build orchestrator."
 HOMEPAGE="https://github.com/edannenberg/kubler.git"
 LICENSE="GPL-2"
 
-inherit bash-completion-r1
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3

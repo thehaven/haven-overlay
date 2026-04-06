@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 BRANCH='main'
 SRC_URI="http://download.sonarr.tv/v3/${BRANCH}/${PV}/Sonarr.${BRANCH}.${PV}.linux.tar.gz -> ${P}.tar.gz"
 

@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils user systemd
+inherit user systemd
 
 SRC_URI="https://github.com/Jackett/Jackett/releases/download/v${PV}/Jackett.Binaries.Mono.tar.gz -> ${P}.tar.gz"
 
