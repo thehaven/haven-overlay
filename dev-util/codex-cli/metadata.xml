@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">openai/codex</remote-id>
+	</upstream>
+	<longdescription>
+		OpenAI Codex CLI is a lightweight agentic coding agent that runs
+		in your terminal. It can understand your codebase context, suggest
+		edits across multiple files, and execute commands -- all with your
+		approval. Powered by OpenAI models (GPT-4o, o3-mini, o4-mini).
+	</longdescription>
+</pkgmetadata>
