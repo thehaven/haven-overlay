@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
 		<email>luigi.mantellini@gmail.com</email>
@@ -8,5 +8,8 @@
 	<upstream>
 		<changelog>https://github.com/Tautulli/Tautulli/blob/master/CHANGELOG.md</changelog>
 		<doc>https://github.com/Tautulli/Tautulli#readme</doc>
+	</upstream>
+	<upstream>
+		<remote-id type="github">Tautulli/Tautulli</remote-id>
 	</upstream>
 </pkgmetadata>

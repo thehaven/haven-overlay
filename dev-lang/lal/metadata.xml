@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE 
-pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
     <email>gentoo-overlay@mva.name</email>
@@ -11,4 +11,7 @@ pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
   </maintainer>
   <longdescription>Long description of the
   package</longdescription>
+	<upstream>
+		<remote-id type="github">bungle/lua-resty-session</remote-id>
+	</upstream>
 </pkgmetadata>

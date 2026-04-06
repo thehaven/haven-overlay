@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
 		<email>maintainer-needed@gentoo.org</email>
@@ -24,5 +24,8 @@
 					  tempo, time signature along with detailed track info
 					  including timbre, pitch, rhythm and loudness information.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">echonest/pyechonest</remote-id>
+	</upstream>
 </pkgmetadata>
 
