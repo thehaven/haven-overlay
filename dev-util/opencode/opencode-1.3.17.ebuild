@@ -5,48 +5,19 @@ EAPI=8
 
 DESCRIPTION="The open source AI coding agent"
 HOMEPAGE="https://opencode.ai https://github.com/anomalyco/opencode"
-
-BUN_V="1.3.11"
-BUN_BASE="https://github.com/oven-sh/bun/releases/download/bun-v${BUN_V}"
-SRC_URI="
-	https://github.com/anomalyco/opencode/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	amd64? (
-		cpu_flags_x86_avx2? ( ${BUN_BASE}/bun-linux-x64.zip -> bun-${BUN_V}-amd64.zip )
-		!cpu_flags_x86_avx2? ( ${BUN_BASE}/bun-linux-x64-baseline.zip -> bun-${BUN_V}-amd64-baseline.zip )
-	)
-	arm64? ( ${BUN_BASE}/bun-linux-aarch64.zip -> bun-${BUN_V}-arm64.zip )
-"
+SRC_URI="https://github.com/anomalyco/opencode/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="cpu_flags_x86_avx2"
 
 # bun install needs network for node_modules;
 # build.ts fetches models.dev/api.json at compile time
 RESTRICT="network-sandbox test strip"
 
-BDEPEND="app-arch/unzip"
+BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
 QA_PREBUILT="usr/bin/opencode"
-
-src_unpack() {
-	default
-
-	# Place bun binary on PATH for the build
-	local bun_dir
-	if use amd64; then
-		if use cpu_flags_x86_avx2; then
-			bun_dir="${WORKDIR}/bun-linux-x64"
-		else
-			bun_dir="${WORKDIR}/bun-linux-x64-baseline"
-		fi
-	elif use arm64; then
-		bun_dir="${WORKDIR}/bun-linux-aarch64"
-	fi
-	chmod +x "${bun_dir}/bun" || die
-	export PATH="${bun_dir}:${PATH}"
-}
 
 src_compile() {
 	cd "${WORKDIR}/${P}" || die
