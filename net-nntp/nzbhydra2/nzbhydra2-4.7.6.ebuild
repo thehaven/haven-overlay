@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 SRC_URI="https://github.com/theotherp/${PN}/releases/download/v${PV}/${PN}-${PV}-linux.zip -> ${P}.zip"
 
@@ -15,16 +15,13 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="systemd"
-DEPEND=""
+DEPEND="	acct-user/nzbhydra2
+"
 RDEPEND="virtual/jre
 		systemd? ( sys-apps/systemd )"
 
 S="${WORKDIR}/"
 
-pkg_setup() {
-	enewgroup "${PN}"
-	enewuser "${PN}" -1 -1 /opt/${PN} "${PN}"
-}
 
 src_install() {
 

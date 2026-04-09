@@ -19,7 +19,8 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="+ssp +pie +threads +infiniband +discovery systemd X qt4 python +papi +perfevent +manager webapi doc"
 
-DEPEND="systemd? ( sys-apps/systemd )
+DEPEND="	acct-user/pcp
+systemd? ( sys-apps/systemd )
 X? ( x11-libs/libXt )
 qt4? ( dev-qt/qtcore:4 )
 python? ( ${PYTHON_DEPS} )
@@ -32,7 +33,6 @@ RDEPEND="${DEPEND}"
 
 pkg_setup(){
 	if [ -z "$(egetent group pcp 2>/dev/null)" ]; then
-		enewgroup pcp
 		einfo
 		einfo "The group 'pcp' has been created. Any users you add to this"
 		einfo "group have access to files created by the daemons."
@@ -40,7 +40,6 @@ pkg_setup(){
 	fi
 
 	if [ -z "$(egetent passwd pcp 2>/dev/null)" ]; then
-		enewuser pcp -1	-1 /var/lib/pcp pcp
 		einfo
 		einfo "The user 'pcp' has been created."
 		einfo

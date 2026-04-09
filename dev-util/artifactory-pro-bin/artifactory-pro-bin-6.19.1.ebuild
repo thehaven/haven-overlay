@@ -8,9 +8,9 @@
 # Upstream now releases source and instructions (yay!), but most of artifactory's
 # dependencies are not in portage yet.
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 MY_P="${P/-bin}"
 MY_PN="${PN/-bin}"
@@ -25,17 +25,14 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="ssl"
 
-RDEPEND=">=virtual/jre-1.8"
+RDEPEND="	acct-user/artifactory-pro-bin
+>=virtual/jre-1.8"
 DEPEND=">=virtual/jdk-1.8
 		app-arch/unzip
 		app-shells/bash"
 
 S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
-pkg_setup() {
-	enewgroup artifactory
-	enewuser artifactory -1 /bin/sh -1 artifactory
-}
 
 limitsdfile=40-${MY_PN}.conf
 

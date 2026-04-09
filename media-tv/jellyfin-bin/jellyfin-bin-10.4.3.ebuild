@@ -1,9 +1,9 @@
 # Copyright 2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit systemd user
+inherit systemd 
 
 DESCRIPTION="The Free Software Media System"
 HOMEPAGE="https://github.com/jellyfin/jellyfin"
@@ -14,7 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="!media-tv/jellyfin"
+DEPEND="	acct-user/jellyfin-bin
+!media-tv/jellyfin"
 RDEPEND="${DEPEND}
 		media-video/ffmpeg[fontconfig,gmp,libass,libdrm,truetype,fribidi,vorbis,vdpau,vaapi,x264,x265,webp,bluray,zvbi,mp3,opus,theora]
 		sys-process/at
@@ -30,8 +31,6 @@ S=${WORKDIR}/${MY_PN}_${PV}
 
 pkg_setup() {
 	einfo "creating user for ${MY_PN}"
-	enewgroup ${MY_PN}
-	enewuser ${MY_PN} -1 /bin/bash /var/lib/${MY_PN} "${MY_PN}"
 }
 
 src_install() {

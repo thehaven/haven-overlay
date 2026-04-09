@@ -1,17 +1,16 @@
-EAPI=7
+EAPI=8
 
 DESCRIPTION="DevOps Pipeline Automation & Optimization"
 HOMEPAGE="https://jfrog.com/pipelines/"
 # https://releases.jfrog.io/artifactory/pipelines/installer/pipelines-1.19.3.tar.gz
 SRC_URI="https://releases.jfrog.io/artifactory/pipelines/installer/pipelines-${PV}.tar.gz -> pipelines-${PV}.tar.gz"
 
-inherit user
-
-LICENSE=""
+inherit LICENSE=""
 SLOT="0"
 KEYWORDS="**"
 
-DEPEND="dev-lang/python
+DEPEND="	acct-user/jfrog-pipelines
+dev-lang/python
 		app-misc/jq
 		app-misc/yq
 		net-misc/curl
@@ -28,8 +27,6 @@ JFROG_HOME="/opt/jfrog"
 PIPELINES_HOME="${JFROG_HOME}/pipelines"
 
 pkg_setup() {
-	enewgroup pipelines
-	enewuser pipelines -1 /bin/sh ${PIPELINES_HOME} pipelines
 	gpasswd -a pipelines docker
 }
 

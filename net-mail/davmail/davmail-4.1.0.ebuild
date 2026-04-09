@@ -22,7 +22,8 @@ IUSE=""
 # The tests can't be run in isolation?
 RESTRICT="test"
 
-CDEPEND="dev-java/commons-codec:0
+CDEPEND="	acct-user/davmail
+dev-java/commons-codec:0
 	dev-java/commons-httpclient:3
 	>=dev-java/htmlcleaner-2.2:0
 	dev-java/jcifs:1.1
@@ -51,9 +52,6 @@ JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_BUILD_TARGET="compile"
 EANT_GENTOO_CLASSPATH="commons-codec,commons-httpclient-3,htmlcleaner,jcifs-1.1,log4j,swt-3.6,stax2-api,javamail,servlet-api-2.5"
 
-pkg_setup() {
-	enewuser davmail
-}
 
 src_prepare() {
 	# Delete bundled JARs but keep jackrabbit-webdav.jar.

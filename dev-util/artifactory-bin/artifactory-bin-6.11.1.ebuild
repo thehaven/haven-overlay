@@ -24,16 +24,13 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="ssl"
 
-RDEPEND=">=virtual/jre-1.8"
+RDEPEND="	acct-user/artifactory-bin
+>=virtual/jre-1.8"
 DEPEND=">=virtual/jdk-1.8
 		app-arch/unzip"
 
 S="${WORKDIR}/${MY_PN}-oss-${MY_PV}"
 
-pkg_setup() {
-	enewgroup artifactory
-	enewuser artifactory -1 /bin/sh -1 artifactory
-}
 
 limitsdfile=40-${MY_PN}.conf
 

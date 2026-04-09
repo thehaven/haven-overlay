@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="	acct-user/android-studio
+"
 RDEPEND="${DEPEND}
 virtual/jdk"
 
@@ -26,9 +27,6 @@ QA_PREBUILT="*"
 
 S="${WORKDIR}/${PN}"
 
-pkg_setup() {
-	enewgroup android
-}
 
 src_install() {
 	local dest=/opt/${PN}

@@ -13,14 +13,11 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="media-fonts/dejavu"
+DEPEND="	acct-user/gerrit-bin
+media-fonts/dejavu"
 RDEPEND="${DEPEND}
 		>=virtual/jdk-1.6"
 
-pkg_setup() {
-	enewgroup gerrit
-	enewuser gerrit -1 /bin/bash /var/lib/gerrit gerrit
-}
 
 src_unpack() {
 	mkdir "${S}" || die

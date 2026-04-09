@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{12..14} )
 
 EGIT_REPO_URI="https://gitlab.com/LazyLibrarian/LazyLibrarian.git"
 
-inherit user git-r3 python-r1
+inherit git-r3 python-r1
 
 DESCRIPTION="LazyLibrarian is an automated book downloader for SABnzbd."
 HOMEPAGE="http://github.com/DobyTang/LazyLibrarian"
@@ -18,7 +18,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="${PYTHON_DEPS}
+DEPEND="	acct-user/lazylibrarian
+${PYTHON_DEPS}
 		dev-python/apprise[${PYTHON_USEDEP}]
 		dev-python/cherrypy[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
@@ -34,10 +35,6 @@ DEPEND="${PYTHON_DEPS}
 		sys-libs/zlib"
 RDEPEND="${DEPEND}"
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 -1 ${PN}
-}
 
 src_install() {
 	dodoc README.md

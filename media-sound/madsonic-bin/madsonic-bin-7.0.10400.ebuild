@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 MY_PN="${PN//-bin}"
 DATE="20220120" # http://beta.madsonic.org/pages/changelog.jsp
@@ -18,7 +18,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+ffmpeg +lame systemd xmp"
 
-DEPEND=""
+DEPEND="	acct-user/madsonic-bin
+"
 RDEPEND="virtual/jre
 	lame? ( media-sound/lame )
 	ffmpeg? ( media-video/ffmpeg )
@@ -29,10 +30,6 @@ S="${WORKDIR}/"
 MADSONIC_HOME="/var/lib/${MY_PN}"
 USER_GROUP="madsonic"
 
-pkg_setup() {
-	enewgroup "${USER_GROUP}"
-	enewuser "${USER_GROUP}" -1 -1 ${MADSONIC_HOME} "${USER_GROUP}"
-}
 
 src_install() {
 	local dir="/usr/libexec/madsonic"

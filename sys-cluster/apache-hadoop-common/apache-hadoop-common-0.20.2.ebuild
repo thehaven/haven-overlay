@@ -16,7 +16,8 @@ KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror binchecks"
 IUSE=""
 
-DEPEND=""
+DEPEND="	acct-user/apache-hadoop-common
+"
 RDEPEND=">=virtual/jre-1.6
 	net-misc/openssh
 	net-misc/rsync"
@@ -25,10 +26,6 @@ S=${WORKDIR}/hadoop-${PV}
 INSTALL_DIR=/opt/hadoop
 export CONFIG_PROTECT="${CONFIG_PROTECT} ${INSTALL_DIR}/conf"
 
-pkg_setup(){
-	enewgroup hadoop
-	enewuser hadoop -1 /bin/sh /var/lib/hadoop hadoop
-}
 
 src_install() {
 	# The hadoop-env.sh file needs JAVA_HOME set explicitly

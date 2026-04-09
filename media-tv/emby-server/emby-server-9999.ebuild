@@ -16,7 +16,8 @@ LICENSE="GPL-2"
 IUSE=""
 RESTRICT="mirror test"
 
-RDEPEND=">=dev-lang/mono-3.2.7
+RDEPEND="	acct-user/emby-server
+>=dev-lang/mono-3.2.7
 	>=media-video/ffmpeg-2[vpx]
 	>=media-libs/libmediainfo-0.7
 	media-gfx/imagemagick[jpeg,jpeg2k,webp,png]
@@ -65,8 +66,6 @@ src_install() {
 
 pkg_setup() {
 	einfo "creating user for Emby"
-	enewgroup emby
-	enewuser emby -1 /bin/bash ${INSTALL_DIR} "emby" --system
 }
 
 pkg_prerm() {

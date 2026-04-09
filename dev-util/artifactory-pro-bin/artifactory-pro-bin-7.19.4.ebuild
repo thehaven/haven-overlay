@@ -8,9 +8,9 @@
 # Upstream now releases source and instructions (yay!), but most of artifactory's
 # dependencies are not in portage yet.
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 MY_P="${P/-bin}"
 MY_PN="${PN/-bin}"
@@ -25,7 +25,8 @@ SLOT="0"
 KEYWORDS="**"
 IUSE="ssl"
 
-RDEPEND="virtual/jre"
+RDEPEND="	acct-user/artifactory-pro-bin
+virtual/jre"
 DEPEND="virtual/jdk
 		dev-java/openjdk-bin
 		app-arch/unzip
@@ -37,10 +38,6 @@ JFROG_HOME="/opt/jfrog"
 ARTIFACTORY_HOME="${JFROG_HOME}/artifactory"
 TOMCAT_HOME="${ARTIFACTORY_HOME}/tomcat"
 
-pkg_setup() {
-	enewgroup artifactory
-	enewuser artifactory -1 /bin/sh -1 artifactory
-}
 
 limitsdfile=40-${MY_PN}.conf
 

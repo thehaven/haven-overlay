@@ -11,7 +11,8 @@ IUSE=""
 
 S="${WORKDIR}"
 
-RDEPEND=">=virtual/jdk-1.6"
+RDEPEND="	acct-user/nexus-oss-bin
+>=virtual/jdk-1.6"
 
 INSTALL_DIR="/opt/nexus"
 
@@ -19,9 +20,7 @@ WEBAPP_DIR="${INSTALL_DIR}/nexus-oss-webapp"
 
 pkg_setup() {
     #enewgroup <name> [gid]
-    enewgroup nexus
     #enewuser <user> [uid] [shell] [homedir] [groups] [params]
-    enewuser nexus -1 /bin/bash /opt/nexus "nexus"
 }
 
 src_unpack() {

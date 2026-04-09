@@ -17,13 +17,13 @@ HOMEPAGE="https://github.com/rembo10/headphones#readme"
 LICENSE="GPL-2" # only
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+DEPEND="acct-user/headphones"
+RDEPEND="${DEPEND}"
 IUSE="systemd"
 
 pkg_setup() {
 	# Create headphones group
-	enewgroup ${PN}
 	# Create headphones user, put in headphones group
-	enewuser ${PN} -1 -1 -1 ${PN}
 }
 
 src_install() {

@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 SRC_URI="https://github.com/Readarr/Readarr/releases/download/v${PV}/Readarr.develop.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 
@@ -15,6 +15,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
+	acct-user/readarr
 	>=dev-lang/mono-3.12.1
 	dev-util/lttng-ust
 	media-libs/chromaprint[tools]
@@ -24,10 +25,6 @@ RDEPEND="
 MY_PN="Readarr"
 S=${WORKDIR}/${MY_PN}
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/readarr ${PN}
-}
 
 src_unpack() {
 	unpack ${A}

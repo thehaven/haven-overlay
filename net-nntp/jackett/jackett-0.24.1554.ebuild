@@ -15,15 +15,12 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
+	acct-user/jackett
 	>=dev-lang/mono-5.8
 	net-misc/curl
 	"
 S=${WORKDIR}/${MY_PN}
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/jackett ${PN}
-}
 
 src_unpack() {
 	unpack ${A}

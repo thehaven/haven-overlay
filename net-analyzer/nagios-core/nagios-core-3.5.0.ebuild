@@ -15,7 +15,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 ~arm ~hppa ppc ppc64 sparc x86"
 IUSE="debug lighttpd perl +web vim-syntax"
-DEPEND="virtual/mailx
+DEPEND="	acct-user/nagios-core
+virtual/mailx
 	web? (
 		>=media-libs/gd-1.8.3-r5[jpeg,png]
 		lighttpd? ( www-servers/lighttpd dev-lang/php[cgi] )
@@ -32,9 +33,6 @@ S="${WORKDIR}/${PN/-core}"
 
 pkg_setup() {
 	depend.apache_pkg_setup
-
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /var/nagios/home nagios
 }
 
 src_prepare() {

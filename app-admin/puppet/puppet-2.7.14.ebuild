@@ -43,7 +43,8 @@ ruby_add_rdepend "
 #	)
 #	stomp? ( dev-ruby/stomp )
 
-DEPEND="${DEPEND}
+DEPEND="	acct-user/puppet
+${DEPEND}
 	emacs? ( virtual/emacs )
 	xemacs? ( app-editors/xemacs )"
 RDEPEND="${RDEPEND}
@@ -55,10 +56,6 @@ RDEPEND="${RDEPEND}
 
 SITEFILE="50${PN}-mode-gentoo.el"
 
-pkg_setup() {
-	enewgroup puppet
-	enewuser puppet -1 -1 /var/lib/puppet puppet
-}
 
 all_ruby_compile() {
 	all_fakegem_compile

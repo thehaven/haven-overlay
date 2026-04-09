@@ -18,7 +18,8 @@ RESTRICT="mirror test"
 # Remove _beta from source directory name:
 S=${WORKDIR}/${P/_beta/}
 
-RDEPEND=">=dev-lang/mono-4.6.0
+RDEPEND="	acct-user/emby-server
+>=dev-lang/mono-4.6.0
 	>=media-video/ffmpeg-2[vpx]
 	media-gfx/imagemagick[jpeg,jpeg2k,webp,png]
 	!media-tv/mediabrowser-server
@@ -36,8 +37,6 @@ INIT_SCRIPT="${ROOT}/etc/init.d/emby-server"
 
 pkg_setup() {
 	einfo "creating user for Emby"
-	enewgroup emby
-	enewuser emby -1 /bin/bash ${INSTALL_DIR} "emby"
 }
 
 # gentoo expects a specific subfolder in the working directory for the extracted source, so simply extracting won't work here

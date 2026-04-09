@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 RELEASE='develop'
 SRC_URI="https://github.com/Radarr/Radarr/releases/download/v${PV}/Radarr.${RELEASE}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
@@ -16,6 +16,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RDEPEND="
+	acct-user/radarr
 	media-video/mediainfo
 	dev-db/sqlite"
 MY_PN="Radarr"
@@ -26,10 +27,6 @@ src_unpack() {
 	mv ${MY_PN} ${PN}
 }
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/radarr ${PN}
-}
 
 src_install() {
 	newconfd "${FILESDIR}/${PN}-v4.conf" ${PN}

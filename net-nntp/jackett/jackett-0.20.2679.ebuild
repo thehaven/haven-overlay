@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 SRC_URI="https://github.com/Jackett/Jackett/releases/download/v${PV}/Jackett.Binaries.Mono.tar.gz -> ${P}.tar.gz"
 
@@ -15,15 +15,12 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
+	acct-user/jackett
 	>=dev-lang/mono-5.8
 	net-misc/curl
 	"
 S=${WORKDIR}/${MY_PN}
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/jackett ${PN}
-}
 
 src_unpack() {
 	unpack ${A}

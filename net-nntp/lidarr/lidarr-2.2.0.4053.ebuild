@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
-inherit user systemd
+inherit systemd
 
 BRANCH="develop"
 SRC_URI="https://github.com/Lidarr/Lidarr/releases/download/v${PV}/Lidarr.${BRANCH}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
@@ -16,6 +16,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RDEPEND="
+	acct-user/lidarr
 	>=dev-lang/mono-3.12.1
 	media-libs/chromaprint[tools]
 	net-misc/curl
@@ -23,10 +24,6 @@ RDEPEND="
 MY_PN='Lidarr'
 S=${WORKDIR}/${PN}
 
-pkg_setup() {
-	enewgroup ${PN}
-	enewuser ${PN} -1 -1 /var/lib/lidarr ${PN}
-}
 
 src_unpack() {
 	unpack ${A}
