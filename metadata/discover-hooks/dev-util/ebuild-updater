@@ -1,0 +1,5 @@
+source = "gitlab"
+gitlab = "gentoo/ebuild-updater"
+host = "gitlab-ee.thehavennet.org.uk"
+use_max_tag = true
+prefix = "v"

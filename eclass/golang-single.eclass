@@ -8,6 +8,7 @@
 # @AUTHOR:
 # Mauro Toffanin <toffanin.mauro@gmail.com>
 # @BLURB: An eclass for GoLang packages not installed inside GOPATH/GOBIN.
+# @SUPPORTED_EAPIS: 7 8
 # @DESCRIPTION:
 # This eclass allows to install arbitrary packages written in GoLang which
 # don't support being installed inside the Go environment.

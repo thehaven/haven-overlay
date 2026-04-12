@@ -8,11 +8,12 @@
 # @AUTHOR:
 # Mauro Toffanin <toffanin.mauro@gmail.com>
 # @BLURB: Eclass for fetching and unpacking HEAD shapshot of go repositories
+# @SUPPORTED_EAPIS: 7 8
 # @DESCRIPTION:
 # This eclass is written to ease the maintenance of live ebuilds
 # of software written in the Go programming language.
 
-inherit golang-common
+inherit golang-common estack
 
 EXPORT_FUNCTIONS src_prepare src_unpack src_configure src_compile src_install src_test
 
