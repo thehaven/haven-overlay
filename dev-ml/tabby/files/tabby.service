@@ -1,0 +1,22 @@
+[Unit]
+Description=Tabby AI Coding Assistant
+Documentation=https://tabby.tabbyml.com
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tabby serve --device cpu
+Environment=TABBY_ROOT=/var/lib/tabby
+WorkingDirectory=/var/lib/tabby
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/tabby
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+# /etc/conf.d/litellm
+# Configuration for LiteLLM proxy
+
+# Port for the proxy server
+LITELLM_PORT="4000"

@@ -1,0 +1,8 @@
+# /etc/conf.d/tabby
+# Configuration for Tabby AI Coding Assistant
+
+# Device to use: cpu, cuda, vulkan
+TABBY_DEVICE="cpu"
+
+# Additional options (e.g. --model StarCoder-1B --port 8080)
+TABBY_OPTS=""

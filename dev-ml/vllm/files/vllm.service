@@ -1,0 +1,21 @@
+[Unit]
+Description=vLLM Inference Engine
+Documentation=https://docs.vllm.ai
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/vllm/bin/vllm serve %i
+Environment=HF_HOME=/var/lib/vllm/huggingface
+WorkingDirectory=/var/lib/vllm
+Restart=on-failure
+RestartSec=10
+
+NoNewPrivileges=yes
+ProtectHome=yes
+ReadWritePaths=/var/lib/vllm
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

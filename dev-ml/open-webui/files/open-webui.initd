@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Open WebUI - ChatGPT-style interface for Ollama"
+command="/opt/open-webui/bin/open-webui"
+command_args="serve"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+directory="/var/lib/open-webui"
+
+export DATA_DIR="/var/lib/open-webui"
+export OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://localhost:11434}"
+
+depend() {
+	need net
+	after net
+}

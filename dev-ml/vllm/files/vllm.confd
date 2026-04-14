@@ -1,0 +1,5 @@
+# /etc/conf.d/vllm
+# Configuration for vLLM inference engine
+
+# Model to serve (required)
+# VLLM_MODEL="meta-llama/Llama-3-8B-Instruct"

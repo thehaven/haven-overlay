@@ -1,0 +1,5 @@
+# /etc/conf.d/open-webui
+# Configuration for Open WebUI
+
+# Ollama API endpoint
+OLLAMA_BASE_URL="http://localhost:11434"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">open-webui/open-webui</remote-id>
+	</upstream>
+	<longdescription>
+		Open WebUI is a self-hosted ChatGPT-style web interface for
+		Ollama and OpenAI-compatible APIs. Features include multi-model
+		support, RAG integration, web search, image generation, voice
+		input, multi-user support, and a plugin system. Ideal as a
+		container image for local AI chat deployments.
+	</longdescription>
+</pkgmetadata>

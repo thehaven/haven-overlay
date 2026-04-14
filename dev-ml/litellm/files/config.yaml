@@ -1,0 +1,11 @@
+# LiteLLM Proxy Configuration
+# See: https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  - model_name: ollama-llama3
+    litellm_params:
+      model: ollama/llama3
+      api_base: http://localhost:11434
+
+general_settings:
+  master_key: ""  # Set a master key for authentication

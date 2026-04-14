@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">Aider-AI/aider</remote-id>
+	</upstream>
+	<longdescription>
+		Aider is an AI pair programming tool that lets you edit code in
+		your local git repository using LLMs. It works with most popular
+		models including Claude, GPT-4, and local models via Ollama. Aider
+		automatically commits changes, supports multi-file edits, and
+		understands your codebase through repository maps. Ranked #1 on
+		SWE Bench for AI coding tools.
+	</longdescription>
+</pkgmetadata>

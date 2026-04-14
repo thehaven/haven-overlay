@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">BerriAI/litellm</remote-id>
+	</upstream>
+	<use>
+		<flag name="proxy">Install proxy server dependencies (uvicorn, fastapi)</flag>
+	</use>
+	<longdescription>
+		LiteLLM provides a unified API interface for 100+ LLM providers
+		including OpenAI, Anthropic, Ollama, vLLM, and more. Acts as an
+		API gateway/proxy that translates calls between different LLM APIs.
+		Features include load balancing, rate limiting, cost tracking,
+		caching, and a management dashboard. Ideal for routing requests
+		across multiple local and cloud models.
+	</longdescription>
+</pkgmetadata>

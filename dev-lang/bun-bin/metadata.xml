@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xiangzhedev@gmail.com</email>
+		<name>xz-dev</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">oven-sh/bun</remote-id>
+	</upstream>
+	<longdescription>
+		Bun is a fast all-in-one JavaScript runtime and toolkit. It
+		bundles a JavaScript/TypeScript transpiler, npm-compatible
+		package manager, bundler, and Node.js-compatible runtime into
+		a single executable. Built with Zig and JavaScriptCore, it
+		focuses on performance and developer experience. This package
+		installs pre-built binaries from upstream releases.
+	</longdescription>
+</pkgmetadata>

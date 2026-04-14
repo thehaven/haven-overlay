@@ -1,0 +1,5 @@
+source = "github"
+github = "anomalyco/opencode"
+use_max_tag = true
+prefix = "v"
+exclude_regex = ".*-(alpha|beta|rc|dev|preview|nightly|canary|snapshot).*|.*\\+.*|.*\\.dev\\d*"
