@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~arm64"
 RESTRICT="network-sandbox test strip"
 
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+RDEPEND="!dev-util/opencode-bin"
 
 QA_PREBUILT="usr/bin/opencode"
 
