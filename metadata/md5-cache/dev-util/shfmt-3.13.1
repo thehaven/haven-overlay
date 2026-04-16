@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=A shell formatter supporting POSIX shell, bash, and mksh
+EAPI=8
+HOMEPAGE=https://github.com/mvdan/sh
+KEYWORDS=~amd64 ~arm64
+LICENSE=BSD
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/mvdan/sh/releases/download/v3.13.1/shfmt_v3.13.1_linux_amd64 -> shfmt-3.13.1-linux-amd64 ) arm64? ( https://github.com/mvdan/sh/releases/download/v3.13.1/shfmt_v3.13.1_linux_arm64 -> shfmt-3.13.1-linux-arm64 )
+_md5_=ff118a235846f70d4474ebfc1bcfd7a8

@@ -1,0 +1,14 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=compile install
+DEPEND=bash-completion? ( >=app-shells/bash-completion-2.0 ) fish-completion? ( app-shells/fish ) zsh-completion? ( app-shells/zsh )
+DESCRIPTION=A modern runtime for JavaScript and TypeScript
+EAPI=8
+HOMEPAGE=https://deno.com
+INHERIT=shell-completion
+IUSE=bash-completion fish-completion zsh-completion
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=amd64? ( https://github.com/denoland/deno/releases/download/v2.7.12/deno-x86_64-unknown-linux-gnu.zip -> deno-bin-2.7.12-amd64.zip ) arm64? ( https://github.com/denoland/deno/releases/download/v2.7.12/deno-aarch64-unknown-linux-gnu.zip -> deno-bin-2.7.12-arm64.zip )
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	bash-completion-r1	767861f3744f589ee5291c1698b1c082	shell-completion	0b655d0d825e157a5e99c463bddaac16
+_md5_=c3cb4bcf35f552637b036ede666967d8

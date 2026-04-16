@@ -8,4 +8,25 @@
 	<upstream>
 		<remote-id type="github">anomalyco/opencode</remote-id>
 	</upstream>
+	<longdescription>
+		OpenCode is an open-source AI coding agent that runs in your
+		terminal. It connects to multiple LLM providers (Anthropic,
+		OpenAI, Google, etc.) and provides a TUI for interactive AI-
+		assisted development with file editing, shell commands, and
+		MCP tool support. Pre-built binary release.
+	</longdescription>
+	<use>
+		<flag name="clang">Install clang for C/C++/Objective-C formatting (clang-format) and the clangd LSP server</flag>
+		<flag name="deno">Install Deno runtime for TypeScript/JavaScript LSP and formatter support</flag>
+		<flag name="elixir">Install Elixir for mix format support</flag>
+		<flag name="gleam">Install Gleam language toolchain for gleam format and gleam lsp</flag>
+		<flag name="go">Install Go toolchain and gopls for Go formatting (gofmt) and LSP support</flag>
+		<flag name="nodejs">Install Node.js for npm-based MCP servers and project-local formatters/LSP servers</flag>
+		<flag name="ruff">Install ruff for Python formatting and linting</flag>
+		<flag name="rust">Install Rust toolchain (rustfmt) and rust-analyzer for Rust language support</flag>
+		<flag name="shfmt">Install shfmt for shell script formatting</flag>
+		<flag name="terraform">Install Terraform/OpenTofu and terraform-ls for HCL formatting and LSP support</flag>
+		<flag name="uv">Install uv for Python package management and uvx-based MCP server execution</flag>
+		<flag name="zig">Install Zig toolchain for zig fmt and zig LSP support</flag>
+	</use>
 </pkgmetadata>

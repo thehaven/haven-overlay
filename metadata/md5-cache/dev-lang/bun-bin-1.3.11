@@ -1,0 +1,12 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst
+DESCRIPTION=Fast all-in-one JavaScript runtime, bundler, transpiler, and package manager
+EAPI=8
+HOMEPAGE=https://bun.sh https://github.com/oven-sh/bun
+IUSE=cpu_flags_x86_avx2
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT LGPL-2
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( cpu_flags_x86_avx2? ( elibc_glibc? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-x64.zip -> bun-bin-1.3.11-amd64.zip ) elibc_musl? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-x64-musl.zip -> bun-bin-1.3.11-amd64-musl.zip ) ) !cpu_flags_x86_avx2? ( elibc_glibc? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-x64-baseline.zip -> bun-bin-1.3.11-amd64-baseline.zip ) elibc_musl? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-x64-musl-baseline.zip -> bun-bin-1.3.11-amd64-musl-baseline.zip ) ) ) arm64? ( elibc_glibc? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-aarch64.zip -> bun-bin-1.3.11-arm64.zip ) elibc_musl? ( https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-aarch64-musl.zip -> bun-bin-1.3.11-arm64-musl.zip ) )
+_md5_=398605d897f98b570e6685ac319bcb6b

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		rust-analyzer is the reference Rust LSP server. opencode auto-detects
+		it for .rs files, providing diagnostics, go-to-definition, hover
+		documentation, and code completion. Requires a Rust toolchain
+		(dev-lang/rust or dev-lang/rust-bin) at runtime.
+
+		Upstream uses date-based release tags (YYYY-MM-DD); the Portage
+		version is the same date without separators (YYYYMMDD).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">rust-lang/rust-analyzer</remote-id>
+	</upstream>
+</pkgmetadata>

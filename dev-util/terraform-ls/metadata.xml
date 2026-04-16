@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		terraform-ls is the official HashiCorp Language Server for Terraform
+		(.tf, .tfvars). opencode auto-detects it and uses it to provide
+		diagnostics, hover, go-to-definition, and completion for Terraform
+		files. Works with both HashiCorp Terraform and the OpenTofu fork.
+
+		Note: terraform-ls provides only LSP functionality. The terraform
+		formatter (terraform fmt) requires a separate app-admin/terraform
+		or app-admin/opentofu binary.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">hashicorp/terraform-ls</remote-id>
+	</upstream>
+</pkgmetadata>

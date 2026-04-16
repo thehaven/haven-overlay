@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		shfmt formats shell programs (POSIX shell, bash, mksh). It is
+		auto-detected by opencode and used to format .sh and .bash files
+		on every write when the binary is present in PATH.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">mvdan/sh</remote-id>
+	</upstream>
+</pkgmetadata>

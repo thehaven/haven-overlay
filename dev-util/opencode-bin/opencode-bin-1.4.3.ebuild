@@ -33,12 +33,27 @@ fi
 S="${WORKDIR}"
 LICENSE="MIT"
 SLOT="0"
-IUSE="cpu_flags_x86_avx2"
+IUSE="cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig"
 RESTRICT="mirror strip"
 
-RDEPEND="!dev-util/opencode"
-
 [[ ${PV} == 9999 ]] && BDEPEND+=" net-misc/curl"
+
+RDEPEND="
+	dev-vcs/git
+	clang?     ( llvm-core/clang )
+	deno?      ( dev-lang/deno-bin )
+	elixir?    ( dev-lang/elixir )
+	gleam?     ( dev-lang/gleam )
+	go?        ( dev-lang/go dev-go/gopls )
+	nodejs?    ( net-libs/nodejs )
+	ruff?      ( dev-util/ruff )
+	rust?      ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin )
+	shfmt?     ( dev-util/shfmt )
+	terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls )
+	uv?        ( dev-python/uv )
+	zig?       ( dev-lang/zig )
+	!dev-util/opencode
+"
 
 QA_PREBUILT="usr/bin/opencode"
 

@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=The open source AI coding agent
+EAPI=8
+HOMEPAGE=https://opencode.ai https://github.com/anomalyco/opencode
+IUSE=cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-vcs/git clang? ( llvm-core/clang ) deno? ( dev-lang/deno-bin ) elixir? ( dev-lang/elixir ) gleam? ( dev-lang/gleam ) go? ( dev-lang/go dev-go/gopls ) nodejs? ( net-libs/nodejs ) ruff? ( dev-util/ruff ) rust? ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin ) shfmt? ( dev-util/shfmt ) terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls ) uv? ( dev-python/uv ) zig? ( dev-lang/zig ) !dev-util/opencode
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( cpu_flags_x86_avx2? ( elibc_glibc? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-x64.tar.gz -> opencode-bin-1.4.3-amd64.tar.gz ) elibc_musl? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-x64-musl.tar.gz -> opencode-bin-1.4.3-amd64-musl.tar.gz ) ) !cpu_flags_x86_avx2? ( elibc_glibc? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-x64-baseline.tar.gz -> opencode-bin-1.4.3-amd64-baseline.tar.gz ) elibc_musl? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-x64-baseline-musl.tar.gz -> opencode-bin-1.4.3-amd64-baseline-musl.tar.gz ) ) ) arm64? ( elibc_glibc? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-arm64.tar.gz -> opencode-bin-1.4.3-arm64.tar.gz ) elibc_musl? ( https://github.com/anomalyco/opencode/releases/download/v1.4.3/opencode-linux-arm64-musl.tar.gz -> opencode-bin-1.4.3-arm64-musl.tar.gz ) )
+_md5_=093ee5ac4c59d7302bd53bd6faafd69e

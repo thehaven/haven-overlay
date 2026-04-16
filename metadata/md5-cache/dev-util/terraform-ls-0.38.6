@@ -1,0 +1,11 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst
+DESCRIPTION=Language Server for Terraform files, providing LSP support in opencode
+EAPI=8
+HOMEPAGE=https://github.com/hashicorp/terraform-ls
+KEYWORDS=~amd64 ~arm64
+LICENSE=MPL-2.0
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_linux_amd64.zip -> terraform-ls-0.38.6-linux-amd64.zip ) arm64? ( https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_linux_arm64.zip -> terraform-ls-0.38.6-linux-arm64.zip )
+_md5_=6e777ac2971e829c494fb2f88c81791b

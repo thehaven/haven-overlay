@@ -1,0 +1,11 @@
+BDEPEND=app-arch/gzip
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=A Rust compiler front-end for IDEs — LSP server for Rust
+EAPI=8
+HOMEPAGE=https://rust-analyzer.github.io https://github.com/rust-lang/rust-analyzer
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0 MIT
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( elibc_glibc? ( https://github.com/rust-lang/rust-analyzer/releases/download/2026-04-13/rust-analyzer-x86_64-unknown-linux-gnu.gz -> rust-analyzer-bin-20260413-amd64-glibc.gz ) elibc_musl? ( https://github.com/rust-lang/rust-analyzer/releases/download/2026-04-13/rust-analyzer-x86_64-unknown-linux-musl.gz -> rust-analyzer-bin-20260413-amd64-musl.gz ) ) arm64? ( https://github.com/rust-lang/rust-analyzer/releases/download/2026-04-13/rust-analyzer-aarch64-unknown-linux-gnu.gz -> rust-analyzer-bin-20260413-arm64.gz )
+_md5_=fdcdcb681807ebac11e11eb036b063f4
