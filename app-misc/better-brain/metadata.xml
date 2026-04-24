@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>salman@proofpoint.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Vault write-side tooling — schema enforcement, remediation, audit, and observability for the Proofpoint Obsidian vault.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">PFPT-Internal/salman-better-brain</remote-id>
+	</upstream>
+</pkgmetadata>
