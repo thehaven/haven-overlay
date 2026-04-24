@@ -9,6 +9,6 @@
 		Vault write-side tooling — schema enforcement, remediation, audit, and observability for the Proofpoint Obsidian vault.
 	</longdescription>
 	<upstream>
-		<remote-id type="github">PFPT-Internal/salman-better-brain</remote-id>
+		<remote-id type="gitlab">ai-ml/better-brain</remote-id>
 	</upstream>
 </pkgmetadata>
