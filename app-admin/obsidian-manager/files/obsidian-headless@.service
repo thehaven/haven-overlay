@@ -1,0 +1,15 @@
+[Unit]
+Description=Obsidian Headless Instance for vault %i
+After=network.target
+
+[Service]
+User=obsidian
+Group=obsidian
+Environment=DISPLAY=:%i
+Environment=HOME=/var/lib/obsidian/%i
+ExecStartPre=/usr/bin/Xvfb :%i -screen 0 1280x800x24
+ExecStart=/usr/bin/obsidian --ozone-platform=headless --no-sandbox
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

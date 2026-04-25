@@ -1,0 +1,27 @@
+#!/bin/bash
+# SRE-grade Obsidian Vault Provisioner (Native Gentoo)
+# Version: 1.0.0
+
+VAULT_NAME=$1
+BASE_DIR="/var/lib/obsidian"
+VAULT_DIR="${BASE_DIR}/${VAULT_NAME}"
+SEED_PATH="/storage/home/haven/.obsidian/Proofpoint"
+
+if [[ -z "$VAULT_NAME" ]]; then
+    echo "Usage: $0 <vault-name>"
+    exit 1
+fi
+
+echo "[INFO] Provisioning native vault: ${VAULT_NAME}..."
+
+mkdir -p "${VAULT_DIR}/.obsidian"
+chown -R obsidian:obsidian "${VAULT_DIR}"
+
+if [[ -d "${SEED_PATH}/.obsidian" ]]; then
+    echo "[INFO] Seeding configuration from ${SEED_PATH}..."
+    cp -r "${SEED_PATH}/.obsidian" "${VAULT_DIR}/"
+    chown -R obsidian:obsidian "${VAULT_DIR}/.obsidian"
+fi
+
+echo "[SUCCESS] Vault ${VAULT_NAME} ready at ${VAULT_DIR}"
+echo "[INFO] Start with: systemctl enable --now obsidian-headless@${VAULT_NAME}"

@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="SRE-grade MLX model lifecycle management for Apple Silicon"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/mlx-services"
-EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mlx-services.git"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mlx.git"
 
 if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"
