@@ -7,16 +7,15 @@ DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
-DESCRIPTION="libcurl ffi bindings for Python, with impersonation support"
-HOMEPAGE="https://github.com/yifeikong/curl_cffi"
+DESCRIPTION="Various BM25 algorithms for document ranking"
+HOMEPAGE="https://github.com/dorianbrown/rank_bm25"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	dev-python/cffi[${PYTHON_USEDEP}]
-	dev-python/certifi[${PYTHON_USEDEP}]
-	net-misc/curl
+	dev-python/numpy[${PYTHON_USEDEP}]
 "
-DEPEND="${RDEPEND}"
+
+distutils_enable_tests pytest
