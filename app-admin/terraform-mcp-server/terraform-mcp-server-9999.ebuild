@@ -11,7 +11,7 @@ EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp/terraform-mcp-se
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 RESTRICT="network-sandbox"

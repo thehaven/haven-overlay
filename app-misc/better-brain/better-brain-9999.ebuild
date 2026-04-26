@@ -16,7 +16,7 @@ if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"
 	KEYWORDS="~amd64 ~arm64"
 else
-	KEYWORDS=""
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="Proprietary"

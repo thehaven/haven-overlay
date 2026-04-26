@@ -12,7 +12,7 @@ HOMEPAGE="http://pcp.io"
 if [[ ${PV} == 9999* ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/performancecopilot/pcp.git"
-	KEYWORDS=""
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="LGPL-2.1+"

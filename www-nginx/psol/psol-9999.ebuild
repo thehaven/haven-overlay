@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/pagespeed/ngx_pagespeed"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="dev-util/depot_tools"

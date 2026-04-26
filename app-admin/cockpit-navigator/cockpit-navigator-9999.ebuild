@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/45Drives/cockpit-navigator"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 

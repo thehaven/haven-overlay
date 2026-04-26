@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/opinkerfi/adagios.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="net-analyzer/okconfig

@@ -13,7 +13,7 @@ EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp-forge"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 RDEPEND="

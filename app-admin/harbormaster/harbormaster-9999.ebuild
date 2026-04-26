@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://github.com/skorokithakis/harbormaster.git"
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]

@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/datacratic/check_graphite.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""

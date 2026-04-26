@@ -12,7 +12,7 @@ DESCRIPTION="A Cockpit plugin to easily manage samba and NFS file sharing."
 HOMEPAGE="https://github.com/45Drives/cockpit-file-sharing"
 
 EGIT_REPO_URI="https://github.com/45Drives/cockpit-file-sharing"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 LICENSE="GPL-3"
 SLOT="0"

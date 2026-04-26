@@ -8,7 +8,7 @@ inherit git-r3 vim-plugin
 DESCRIPTION="vim plugin: 010 Editor template interpreter"
 HOMEPAGE="https://github.com/d0c-s4vage/pfp-vim"
 LICENSE="MIT"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 EGIT_REPO_URI="https://github.com/d0c-s4vage/pfp-vim"

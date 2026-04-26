@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/opinkerfi/nagios-plugins.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="|| ( net-analyzer/nagios-core net-analyzer/nrpe )"

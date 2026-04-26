@@ -10,7 +10,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/ceph/ceph-deploy.git
 		https://github.com/ceph/ceph-deploy.git"
 	SRC_URI=""
-	KEYWORDS=""
+	KEYWORDS="~amd64"
 else
 	SRC_URI="http://ceph.com/download/${P}.tar.bz2"
 	KEYWORDS="~amd64 ~x86"

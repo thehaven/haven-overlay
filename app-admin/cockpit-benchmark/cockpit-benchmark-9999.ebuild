@@ -14,7 +14,7 @@ HOMEPAGE="https://github.com/45Drives/cockpit-benchmark"
 EGIT_REPO_URI="https://github.com/45Drives/cockpit-benchmark"
 
 LICENSE="GPL-3"
-KEYWORDS=""
+KEYWORDS="~amd64"
 SLOT="0"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"

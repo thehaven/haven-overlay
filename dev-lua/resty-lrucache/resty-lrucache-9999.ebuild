@@ -14,7 +14,7 @@ HOMEPAGE="https://github.com/openresty/lua-resty-lrucache"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="+lua_targets_luajit2"
 
 RDEPEND="

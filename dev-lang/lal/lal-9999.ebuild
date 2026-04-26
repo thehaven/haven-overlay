@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/bungle/lua-resty-session"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="doc"
 
 RDEPEND=""

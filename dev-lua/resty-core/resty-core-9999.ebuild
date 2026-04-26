@@ -14,7 +14,7 @@ HOMEPAGE="https://github.com/openresty/lua-resty-core"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 RDEPEND="

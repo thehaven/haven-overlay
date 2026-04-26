@@ -9,7 +9,7 @@ EGIT_REPO_URI="https://github.com/prometheus-community/node-exporter-textfile-co
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="cron"
 
 # Git fetch is handled by live ebuild helpers

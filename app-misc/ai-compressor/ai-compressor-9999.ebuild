@@ -12,7 +12,7 @@ DESCRIPTION="Context & Safety Proxy for LLM requests"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/ai-compressor"
 EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/ai-compressor.git"
 
-KEYWORDS=""
+KEYWORDS="~amd64"
 LICENSE="Proprietary"
 SLOT="0"
 

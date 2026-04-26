@@ -12,7 +12,7 @@ DESCRIPTION="Vault knowledge agent — search, RAG, and ingestion for Obsidian"
 HOMEPAGE="https://github.com/PFPT-Internal/salman-cortex"
 EGIT_REPO_URI="https://github.com/PFPT-Internal/salman-cortex.git"
 
-KEYWORDS=""
+KEYWORDS="~amd64"
 LICENSE="Proprietary"
 SLOT="0"
 
