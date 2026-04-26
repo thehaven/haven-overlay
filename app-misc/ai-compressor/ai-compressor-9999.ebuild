@@ -47,8 +47,12 @@ distutils_enable_tests pytest
 
 src_install() {
 	distutils-r1_src_install
+
+	systemd_dounit "${FILESDIR}/ai-compressor.service"
 	
-	systemd_dounit "${FILESDIR}/ai-compressor.service" # Wait, I need to put the file in files/ or similar
+	if [[ -f docs/ai-compressor.1 ]]; then
+		doman docs/ai-compressor.1
+	fi
 }
 
 pkg_config() {
