@@ -3,6 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>haven@example.com</email>
-		<name>Haven</name>
+		<name>Simon Alman</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">zoni/obsidian-export</remote-id>
+	</upstream>
 </pkgmetadata>
