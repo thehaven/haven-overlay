@@ -5,18 +5,20 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{10..12} )
-inherit distutils-r1 git-r3
+inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Dynamic MCP gateway: just-in-time tool mounting and policy-aware proxy"
 HOMEPAGE="https://github.com/haven/mcp-mesh"
 EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp-mesh"
+EGIT_COMMIT="v0.1.0"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 RDEPEND="
+	acct-user/mcp
 	dev-python/fastapi[${PYTHON_USEDEP}]
 	dev-python/uvicorn[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
@@ -26,4 +28,11 @@ RDEPEND="
 	dev-python/structlog[${PYTHON_USEDEP}]
 	dev-python/bcrypt[${PYTHON_USEDEP}]
 "
+
+python_install_all() {
+	distutils-r1_python_install_all
+	systemd_dounit "${FILESDIR}"/mcp-mesh.service
+	newconfd "${FILESDIR}"/mcp-mesh.confd mcp-mesh
+}
+
 distutils_enable_tests pytest

@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for Obsidian Git Sync vault %i
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+Unit=obsidian-sync@%i.service
+
+[Install]
+WantedBy=timers.target

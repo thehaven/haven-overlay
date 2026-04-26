@@ -1,0 +1,12 @@
+[Unit]
+Description=Obsidian Git Sync for vault %i
+After=network.target
+
+[Service]
+User=obsidian
+Group=obsidian
+Type=oneshot
+ExecStart=/usr/bin/obsidian-vault-sync %i
+
+[Install]
+WantedBy=multi-user.target

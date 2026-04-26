@@ -1,0 +1,33 @@
+#!/bin/bash
+# SRE-grade Obsidian Git Sync
+# Version: 1.0.0
+
+VAULT_NAME=$1
+BASE_DIR="/var/lib/obsidian"
+VAULT_DIR="${BASE_DIR}/${VAULT_NAME}"
+
+if [[ -z "$VAULT_NAME" ]]; then
+    echo "Usage: $0 <vault-name>"
+    exit 1
+fi
+
+if [[ ! -d "${VAULT_DIR}" ]]; then
+    echo "[ERROR] Vault not found: ${VAULT_DIR}"
+    exit 1
+fi
+
+cd "${VAULT_DIR}"
+
+if [[ ! -d ".git" ]]; then
+    echo "[INFO] Vault ${VAULT_NAME} is not a git repository. Skipping sync."
+    exit 0
+fi
+
+echo "[INFO] Syncing vault: ${VAULT_NAME}..."
+
+# Standard SRE Rebase Workflow
+git fetch origin
+git rebase origin/main
+git push origin main
+
+echo "[SUCCESS] Vault ${VAULT_NAME} synced."

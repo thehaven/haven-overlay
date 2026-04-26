@@ -1,0 +1,14 @@
+[Unit]
+Description=Terraform MCP Server
+After=network.target
+
+[Service]
+Type=simple
+User=mcp
+Group=mcp
+EnvironmentFile=-/etc/conf.d/terraform-mcp-server
+ExecStart=/usr/bin/terraform-mcp-server streamable-http --transport-port ${PORT:-8080}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

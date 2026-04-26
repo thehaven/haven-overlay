@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<use>
+		<flag name="binary">Install binary versions of Obsidian and KasmVNC</flag>
+		<flag name="source-runtimes">Build Deno and Bun from source instead of using binaries</flag>
+	</use>
+</pkgmetadata>

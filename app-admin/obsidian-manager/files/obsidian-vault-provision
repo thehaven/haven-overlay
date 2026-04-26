@@ -1,11 +1,15 @@
 #!/bin/bash
 # SRE-grade Obsidian Vault Provisioner (Native Gentoo)
-# Version: 1.0.0
+# Version: 1.6.0
+# Author: Gemini
 
 VAULT_NAME=$1
 BASE_DIR="/var/lib/obsidian"
 VAULT_DIR="${BASE_DIR}/${VAULT_NAME}"
 SEED_PATH="/storage/home/haven/.obsidian/Proofpoint"
+ENV_DIR="/etc/obsidian/vaults"
+PROJECT_ROOT="/storage/home/haven/projects/personal/ObsidianSetup"
+TEMPLATE_SRC="${PROJECT_ROOT}/templates"
 
 if [[ -z "$VAULT_NAME" ]]; then
     echo "Usage: $0 <vault-name>"
@@ -14,14 +18,83 @@ fi
 
 echo "[INFO] Provisioning native vault: ${VAULT_NAME}..."
 
-mkdir -p "${VAULT_DIR}/.obsidian"
-chown -R obsidian:obsidian "${VAULT_DIR}"
+# 1. Directory Structure
+mkdir -p "${VAULT_DIR}/.obsidian/plugins"
+mkdir -p "${ENV_DIR}"
 
+# 2. Seed Core Configuration
 if [[ -d "${SEED_PATH}/.obsidian" ]]; then
     echo "[INFO] Seeding configuration from ${SEED_PATH}..."
-    cp -r "${SEED_PATH}/.obsidian" "${VAULT_DIR}/"
-    chown -R obsidian:obsidian "${VAULT_DIR}/.obsidian"
+    cp -r "${SEED_PATH}/.obsidian/"* "${VAULT_DIR}/.obsidian/"
 fi
 
-echo "[SUCCESS] Vault ${VAULT_NAME} ready at ${VAULT_DIR}"
-echo "[INFO] Start with: systemctl enable --now obsidian-headless@${VAULT_NAME}"
+# 3. Seed SRE Templates
+if [[ -d "${TEMPLATE_SRC}" ]]; then
+    echo "[INFO] Seeding SRE templates..."
+    mkdir -p "${VAULT_DIR}/templates"
+    cp -r "${TEMPLATE_SRC}/"* "${VAULT_DIR}/templates/"
+fi
+
+# 4. Bulk Plugin Injection (using obsidian-plugin-update)
+if command -v obsidian-plugin-update &>/dev/null; then
+    echo "[INFO] Performing bulk plugin sync..."
+    obsidian-plugin-update "${VAULT_DIR}"
+else
+    echo "[WARN] obsidian-plugin-update not found. Falling back to basic seeding."
+fi
+
+# 5. Better-Brain Alignment
+if command -v better-brain &>/dev/null; then
+    echo "[INFO] Initializing Better-Brain project..."
+    better-brain --vault "${VAULT_DIR}" project add "${VAULT_NAME}"
+else
+    echo "[WARN] better-brain CLI not found. Skipping schema initialization."
+fi
+
+# 6. Secret Retrieval (pass integration)
+API_KEY="generate_from_ui"
+if command -v pass &>/dev/null; then
+    if pass ls "obsidian/${VAULT_NAME}/api_key" &>/dev/null; then
+        echo "[INFO] Found API key in 'pass' for ${VAULT_NAME}..."
+        API_KEY=$(pass show "obsidian/${VAULT_NAME}/api_key" | head -n 1)
+    elif pass ls "obsidian/api_key" &>/dev/null; then
+        echo "[INFO] Found global API key in 'pass'..."
+        API_KEY=$(pass show "obsidian/api_key" | head -n 1)
+    fi
+fi
+
+# 7. Environment File
+if [[ ! -f "${ENV_DIR}/${VAULT_NAME}.env" ]]; then
+    echo "[INFO] Creating environment file at ${ENV_DIR}/${VAULT_NAME}.env..."
+    cat <<ENV_EOF > "${ENV_DIR}/${VAULT_NAME}.env"
+OBSIDIAN_API_KEY=${API_KEY}
+OBSIDIAN_API_HOST=http://localhost:27124
+ENV_EOF
+fi
+
+# 8. KasmVNC Config
+if [[ ! -f "${ENV_DIR}/${VAULT_NAME}.vnc.yaml" ]]; then
+    echo "[INFO] Creating VNC config at ${ENV_DIR}/${VAULT_NAME}.vnc.yaml..."
+    PORT=$((8443 + RANDOM % 100))
+    cat <<VNC_EOF > "${ENV_DIR}/${VAULT_NAME}.vnc.yaml"
+vnc:
+  port: ${PORT}
+  listen_address: 0.0.0.0
+  ssl:
+    enabled: true
+    generate_certificate: true
+VNC_EOF
+fi
+
+# 9. Permissions
+chown -R obsidian:obsidian "${VAULT_DIR}"
+chown obsidian:obsidian "${ENV_DIR}/${VAULT_NAME}.env"
+chown obsidian:obsidian "${ENV_DIR}/${VAULT_NAME}.vnc.yaml"
+chmod 600 "${ENV_DIR}/${VAULT_NAME}.env"
+chmod 644 "${ENV_DIR}/${VAULT_NAME}.vnc.yaml"
+
+# 10. Systemd Registration
+echo "[INFO] Registering systemd services..."
+systemctl daemon-reload
+
+echo "[SUCCESS] Vault ${VAULT_NAME} scaffolded and bulk-synced."

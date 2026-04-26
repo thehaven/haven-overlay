@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+import json
+import os
+import sys
+import urllib.request
+import argparse
+
+REGISTRY_URL = "https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugins.json"
+
+def download_json(url):
+    with urllib.request.urlopen(url) as response:
+        return json.loads(response.read().decode())
+
+def download_file(url, dest):
+    try:
+        urllib.request.urlretrieve(url, dest)
+        return True
+    except Exception as e:
+        print(f"[ERROR] Failed to download {url}: {e}")
+        return False
+
+def main():
+    parser = argparse.ArgumentParser(description="Update Obsidian community plugins")
+    parser.add_argument("vault_path", help="Path to the Obsidian vault")
+    parser.add_argument("--plugin", help="Update specific plugin ID")
+    parser.add_argument("--force", action="store_true", help="Force update even if installed")
+    args = parser.parse_args()
+
+    vault_path = os.path.abspath(args.vault_path)
+    obsidian_dir = os.path.join(vault_path, ".obsidian")
+    plugins_dir = os.path.join(obsidian_dir, "plugins")
+    config_file = os.path.join(obsidian_dir, "community-plugins.json")
+
+    if not os.path.exists(config_file):
+        print(f"[ERROR] community-plugins.json not found in {obsidian_dir}")
+        sys.exit(1)
+
+    print("[INFO] Fetching plugin registry...")
+    registry = {p["id"]: p["repo"] for p in download_json(REGISTRY_URL)}
+
+    with open(config_file, "r") as f:
+        enabled_plugins = json.load(f)
+
+    if args.plugin:
+        if args.plugin not in enabled_plugins:
+            print(f"[WARN] Plugin {args.plugin} not enabled in vault. Adding to queue.")
+            enabled_plugins = [args.plugin]
+        else:
+            enabled_plugins = [args.plugin]
+
+    for plugin_id in enabled_plugins:
+        if plugin_id not in registry:
+            print(f"[WARN] Plugin {plugin_id} not found in official registry. Skipping.")
+            continue
+
+        repo = registry[plugin_id]
+        dest_dir = os.path.join(plugins_dir, plugin_id)
+        os.makedirs(dest_dir, exist_ok=True)
+
+        print(f"[INFO] Updating {plugin_id} ({repo})...")
+        base_url = f"https://github.com/{repo}/releases/latest/download"
+        
+        # Download core files
+        for filename in ["main.js", "manifest.json", "styles.css"]:
+            file_url = f"{base_url}/{filename}"
+            file_dest = os.path.join(dest_dir, filename)
+            # styles.css is optional
+            if filename == "styles.css":
+                try:
+                    urllib.request.urlretrieve(file_url, file_dest)
+                except:
+                    pass
+            else:
+                download_file(file_url, file_dest)
+
+    print("[SUCCESS] Plugin sync complete.")
+
+if __name__ == "__main__":
+    main()

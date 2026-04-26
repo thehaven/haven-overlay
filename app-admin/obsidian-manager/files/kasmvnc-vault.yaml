@@ -1,0 +1,16 @@
+# Vault-specific KasmVNC Configuration
+vnc:
+  port: 8443
+  listen_address: 0.0.0.0
+  ssl:
+    enabled: true
+    generate_certificate: true
+
+network:
+  websocket_port: 443
+
+logging:
+  level: info
+
+encoding:
+  type: webp

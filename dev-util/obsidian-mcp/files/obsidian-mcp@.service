@@ -1,0 +1,14 @@
+[Unit]
+Description=Obsidian MCP Sidecar for vault %i
+After=obsidian-headless@%i.service
+Requires=obsidian-headless@%i.service
+
+[Service]
+User=obsidian
+Group=obsidian
+EnvironmentFile=-/etc/obsidian/vaults/%i.env
+ExecStart=/usr/bin/obsidian-mcp
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

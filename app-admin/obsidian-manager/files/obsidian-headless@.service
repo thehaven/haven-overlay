@@ -1,14 +1,15 @@
 [Unit]
-Description=Obsidian Headless Instance for vault %i
+Description=Obsidian Headless Instance (KasmVNC) for vault %i
 After=network.target
 
 [Service]
 User=obsidian
 Group=obsidian
-Environment=DISPLAY=:%i
+WorkingDirectory=/var/lib/obsidian/%i
 Environment=HOME=/var/lib/obsidian/%i
-ExecStartPre=/usr/bin/Xvfb :%i -screen 0 1280x800x24
-ExecStart=/usr/bin/obsidian --ozone-platform=headless --no-sandbox
+# Use the vault-specific KasmVNC config
+ExecStart=/usr/bin/kasmvncserver --config /etc/obsidian/vaults/%i.vnc.yaml --select-de /usr/bin/obsidian --no-sandbox
+ExecStop=/usr/bin/kasmvncserver -kill
 Restart=always
 
 [Install]

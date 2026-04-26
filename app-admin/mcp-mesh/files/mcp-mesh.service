@@ -1,0 +1,14 @@
+[Unit]
+Description=Model Context Protocol Mesh Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=mcp
+Group=mcp
+EnvironmentFile=-/etc/conf.d/mcp-mesh
+ExecStart=/usr/bin/mcp-mesh serve --port ${PORT:-7780}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

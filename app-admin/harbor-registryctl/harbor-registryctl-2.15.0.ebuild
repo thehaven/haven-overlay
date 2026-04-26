@@ -17,10 +17,10 @@ RESTRICT="network-sandbox"
 
 BDEPEND=">=dev-lang/go-1.22"
 
-S="${WORKDIR}/harbor-${PV}"
+S="${WORKDIR}/harbor-${PV}/src"
 
 src_compile() {
-	ego build -ldflags "-s -w" -o harbor_registryctl ./src/registryctl
+	ego build -ldflags "-s -w -X github.com/goharbor/harbor/src/pkg/version.ReleaseVersion=v${PV}" -o harbor_registryctl ./registryctl
 }
 
 src_install() {
