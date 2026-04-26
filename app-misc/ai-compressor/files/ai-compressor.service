@@ -1,0 +1,17 @@
+[Unit]
+Description=AI Compressor - LLM Context & Safety Proxy
+After=network.target redis.service
+Wants=redis.service
+
+[Service]
+Type=simple
+User=ai-compressor
+Group=ai-compressor
+WorkingDirectory=/var/lib/ai-compressor
+EnvironmentFile=-/etc/ai-compressor/ai-compressor.env
+ExecStart=/usr/bin/uvicorn src.server:app --host ${HOST:-0.0.0.0} --port ${PORT:-8000}
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

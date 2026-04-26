@@ -1,0 +1,17 @@
+[Unit]
+Description=MLX Model Lifecycle Manager
+After=network.target
+ConditionPathExists=/dev/tty # Example check for Apple Silicon / specific hardware if possible, or just network.
+
+[Service]
+Type=simple
+User=mlx
+Group=mlx
+WorkingDirectory=/var/lib/mlx
+EnvironmentFile=-/etc/mlx/mlx.env
+ExecStart=/usr/bin/uvicorn mlx_mgr.server:app --host ${HOST:-0.0.0.0} --port ${PORT:-54907}
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
