@@ -15,6 +15,12 @@ KEYWORDS=""
 
 RESTRICT="network-sandbox"
 
+src_prepare() {
+	default
+	# Patch go version in go.mod to match system go
+	sed -i 's/^go .*/go 1.25.5/' go.mod || die
+}
+
 src_compile() {
 	ego build -ldflags "-s -w -X github.com/argoproj/argo-rollouts/pkg/version.version=${PV}" -o kubectl-argo-rollouts ./cmd/kubectl-argo-rollouts
 }
