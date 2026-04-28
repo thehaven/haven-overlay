@@ -1,0 +1,10 @@
+# Discover hook for app-admin/mcp-mesh
+# mcp-mesh is a private project hosted on the internal GitLab instance.
+# The ebuild uses git-r3 with a local file:// URI so discover init cannot
+# infer the upstream source automatically.  This hook points nvchecker at
+# the canonical origin remote so version tags are detected correctly.
+source = "gitlab"
+gitlab = "ai-ml/mcp-mesh"
+host = "gitlab-ee.thehavennet.org.uk"
+use_max_tag = true
+prefix = "v"
