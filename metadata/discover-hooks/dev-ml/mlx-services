@@ -1,0 +1,10 @@
+# Discover hook for dev-ml/mlx-services
+# NOTE: HOMEPAGE points to ai-ml/mlx-services but EGIT_REPO_URI uses ai-ml/mlx
+# (the project was renamed upstream without updating HOMEPAGE).  The hook must
+# target the EGIT repository path — ai-ml/mlx — since that is where version
+# tags are published.
+source = "gitlab"
+gitlab = "ai-ml/mlx"
+host = "gitlab-ee.thehavennet.org.uk"
+use_max_tag = true
+prefix = "v"

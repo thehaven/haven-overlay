@@ -1,0 +1,8 @@
+# Discover hook for app-misc/ai-compressor
+# Hosted on the internal GitLab instance; EGIT_REPO_URI uses an HTTPS URI so
+# discover init cannot derive this automatically (no public SRC_URI pattern).
+source = "gitlab"
+gitlab = "ai-ml/ai-compressor"
+host = "gitlab-ee.thehavennet.org.uk"
+use_max_tag = true
+prefix = "v"
