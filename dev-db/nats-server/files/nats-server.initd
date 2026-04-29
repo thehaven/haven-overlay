@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+# Copyright 1999-2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="NATS Server"
+description="High-Performance server for NATS"
+
+command=/usr/bin/nats-server
+command_args="${NATS_OPTS} -c ${NATS_CONFIG}"
+command_user="nats:nats"
+command_background=true
+pidfile=/run/nats/nats-server.pid
+
+depend() {
+	need net
+	use dns logger
+}
+
+start_pre() {
+	checkpath -d -m 0755 -o nats:nats /run/nats
+}

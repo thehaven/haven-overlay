@@ -1,0 +1,4 @@
+# Config file for /etc/init.d/nats-server
+
+NATS_CONFIG="/etc/nats/nats-server.conf"
+NATS_OPTS=""

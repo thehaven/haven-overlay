@@ -1,0 +1,16 @@
+[Unit]
+Description=High-Performance server for NATS
+Documentation=https://docs.nats.io/
+After=network.target
+
+[Service]
+User=nats
+Group=nats
+ExecStart=/usr/bin/nats-server -c /etc/nats/nats-server.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+LimitNOFILE=65536
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
