@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		FreeIPA is an integrated Identity and Authentication solution for Linux/UNIX networked environments.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">freeipa/freeipa</remote-id>
+	</upstream>
+</pkgmetadata>

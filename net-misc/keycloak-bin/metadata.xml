@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Keycloak is an Open Source Identity and Access Management solution for modern Applications and Services.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">keycloak/keycloak</remote-id>
+	</upstream>
+</pkgmetadata>
