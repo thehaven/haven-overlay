@@ -24,28 +24,29 @@ DEPEND="
 		>=net-dns/bind-9.16[dlz]
 		net-dns/bind-dyndb-ldap
 		>=app-crypt/mit-krb5-1.20[pkinit]
-		app-crypt/certmonger
 		app-crypt/pki-core
 		net-nds/slapi-nis
 		net-fs/samba
 		sys-auth/sssd[samba]
 		www-apache/mod_lookup_identity
 		www-apache/mod_auth_gssapi
-		dev-python/kdcproxy[${PYTHON_SINGLE_USEDEP}]
-		dev-python/python-yubico[${PYTHON_SINGLE_USEDEP}]
-		dev-python/qrcode[${PYTHON_SINGLE_USEDEP}]
+		$(python_gen_cond_dep '
+			dev-python/kdcproxy[${PYTHON_USEDEP}]
+		')
 	)
 	client? (
 		sys-auth/sssd
-		app-crypt/certmonger
 		>=app-crypt/mit-krb5-1.20
 	)
-	dev-python/cryptography[${PYTHON_SINGLE_USEDEP}]
-	dev-python/python-ldap[${PYTHON_SINGLE_USEDEP}]
-	dev-python/dbus-python[${PYTHON_SINGLE_USEDEP}]
-	dev-python/gssapi[${PYTHON_SINGLE_USEDEP}]
-	dev-python/netaddr[${PYTHON_SINGLE_USEDEP}]
-	dev-python/pyasn1[${PYTHON_SINGLE_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-python/cryptography[${PYTHON_USEDEP}]
+		dev-python/python-ldap[${PYTHON_USEDEP}]
+		dev-python/dbus-python[${PYTHON_USEDEP}]
+		dev-python/gssapi[${PYTHON_USEDEP}]
+		dev-python/netaddr[${PYTHON_USEDEP}]
+		dev-python/pyasn1[${PYTHON_USEDEP}]
+		dev-python/qrcode[${PYTHON_USEDEP}]
+	')
 "
 RDEPEND="${DEPEND}"
 BDEPEND="

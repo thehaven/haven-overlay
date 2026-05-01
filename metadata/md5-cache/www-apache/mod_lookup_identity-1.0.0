@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DEPEND=www-servers/apache sys-auth/sssd
+DESCRIPTION=Apache module to lookup user identity
+EAPI=8
+HOMEPAGE=https://github.com/adelton/mod_lookup_identity
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=www-servers/apache sys-auth/sssd
+SLOT=0
+SRC_URI=https://github.com/adelton/mod_lookup_identity/archive/refs/tags/v1.0.0.tar.gz -> mod_lookup_identity-1.0.0.tar.gz
+_md5_=906d201c77390bc08edcb4a4a7783c1f

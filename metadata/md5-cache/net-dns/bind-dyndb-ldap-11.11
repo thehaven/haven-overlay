@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DEPEND=net-dns/bind net-nds/openldap
+DESCRIPTION=LDAP back-end plug-in for BIND
+EAPI=8
+HOMEPAGE=https://github.com/freeipa/bind-dyndb-ldap
+KEYWORDS=~amd64
+LICENSE=GPL-2+
+RDEPEND=net-dns/bind net-nds/openldap
+SLOT=0
+SRC_URI=https://github.com/freeipa/bind-dyndb-ldap/archive/refs/tags/v11.11.tar.gz -> bind-dyndb-ldap-11.11.tar.gz
+_md5_=c6e5adfa9f8cdb5fa31c0aed1faaca4b

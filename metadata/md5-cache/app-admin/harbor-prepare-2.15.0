@@ -1,0 +1,14 @@
+DEFINED_PHASES=install setup
+DESCRIPTION=Prepare tool for Project Harbor configuration
+EAPI=8
+HOMEPAGE=https://github.com/goharbor/harbor
+INHERIT=python-single-r1
+IUSE=+python_single_target_python3_12 python_single_target_python3_11 python_single_target_python3_11 python_single_target_python3_12
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_11? ( dev-python/pipenv[python_single_target_python3_11(-)] dev-python/pyyaml[python_single_target_python3_11(-)] dev-python/jinja2[python_single_target_python3_11(-)] ) python_single_target_python3_12? ( dev-python/pipenv[python_single_target_python3_12(-)] dev-python/pyyaml[python_single_target_python3_12(-)] dev-python/jinja2[python_single_target_python3_12(-)] )
+REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_12 )
+SLOT=0
+SRC_URI=https://github.com/goharbor/harbor/archive/v2.15.0.tar.gz -> harbor-prepare-2.15.0.tar.gz
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57
+_md5_=2e4de76dccc8177ddcee381913a0b58f
