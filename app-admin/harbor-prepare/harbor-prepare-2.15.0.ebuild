@@ -19,9 +19,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
 	$(python_gen_cond_dep '
-		dev-python/pipenv[${PYTHON_SINGLE_USEDEP}]
-		dev-python/pyyaml[${PYTHON_SINGLE_USEDEP}]
-		dev-python/jinja2[${PYTHON_SINGLE_USEDEP}]
+		dev-python/pipenv[${PYTHON_USEDEP}]
+		dev-python/pyyaml[${PYTHON_USEDEP}]
+		dev-python/jinja2[${PYTHON_USEDEP}]
 	')"
 
 S="${WORKDIR}/harbor-${PV}/make/photon/prepare"

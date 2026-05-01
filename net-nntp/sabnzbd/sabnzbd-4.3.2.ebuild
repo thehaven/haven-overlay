@@ -32,17 +32,17 @@ DEPEND="
 	acct-group/sabnzbd
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
-		dev-python/chardet[${PYTHON_SINGLE_USEDEP}]
-		dev-python/cheetah3[${PYTHON_SINGLE_USEDEP}]
-		dev-python/cherrypy[${PYTHON_SINGLE_USEDEP}]
-		dev-python/configobj[${PYTHON_SINGLE_USEDEP}]
-		dev-python/cryptography[${PYTHON_SINGLE_USEDEP}]
-		>=dev-python/feedparser-6.0.11[${PYTHON_SINGLE_USEDEP}]
-		>=dev-python/guessit-3.7.1[${PYTHON_SINGLE_USEDEP}]
-		dev-python/notify2[${PYTHON_SINGLE_USEDEP}]
-		dev-python/portend[${PYTHON_SINGLE_USEDEP}]
-		dev-python/puremagic[${PYTHON_SINGLE_USEDEP}]
-		~dev-python/sabctools-8.2.0[${PYTHON_SINGLE_USEDEP}]
+		dev-python/chardet[${PYTHON_USEDEP}]
+		dev-python/cheetah3[${PYTHON_USEDEP}]
+		dev-python/cherrypy[${PYTHON_USEDEP}]
+		dev-python/configobj[${PYTHON_USEDEP}]
+		dev-python/cryptography[${PYTHON_USEDEP}]
+		>=dev-python/feedparser-6.0.11[${PYTHON_USEDEP}]
+		>=dev-python/guessit-3.7.1[${PYTHON_USEDEP}]
+		dev-python/notify2[${PYTHON_USEDEP}]
+		dev-python/portend[${PYTHON_USEDEP}]
+		dev-python/puremagic[${PYTHON_USEDEP}]
+		~dev-python/sabctools-8.2.0[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -56,18 +56,18 @@ RDEPEND="
 BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
-			dev-python/flaky[${PYTHON_SINGLE_USEDEP}]
-			>=dev-python/lxml-4.5.0[${PYTHON_SINGLE_USEDEP}]
-			dev-python/pyfakefs[${PYTHON_SINGLE_USEDEP}]
-			dev-python/pytest-httpbin[${PYTHON_SINGLE_USEDEP}]
-			dev-python/pytest-httpserver[${PYTHON_SINGLE_USEDEP}]
-			dev-python/pytest[${PYTHON_SINGLE_USEDEP}]
-			dev-python/requests[${PYTHON_SINGLE_USEDEP}]
-			dev-python/selenium[${PYTHON_SINGLE_USEDEP}]
-			dev-python/tavalidate[${PYTHON_SINGLE_USEDEP}]
-			>=dev-python/tavern-2[${PYTHON_SINGLE_USEDEP}]
-			dev-python/werkzeug[${PYTHON_SINGLE_USEDEP}]
-			dev-python/xmltodict[${PYTHON_SINGLE_USEDEP}]
+			dev-python/flaky[${PYTHON_USEDEP}]
+			>=dev-python/lxml-4.5.0[${PYTHON_USEDEP}]
+			dev-python/pyfakefs[${PYTHON_USEDEP}]
+			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
+			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
+			dev-python/pytest[${PYTHON_USEDEP}]
+			dev-python/requests[${PYTHON_USEDEP}]
+			dev-python/selenium[${PYTHON_USEDEP}]
+			dev-python/tavalidate[${PYTHON_USEDEP}]
+			>=dev-python/tavern-2[${PYTHON_USEDEP}]
+			dev-python/werkzeug[${PYTHON_USEDEP}]
+			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
 		app-arch/p7zip
 		app-arch/unrar
