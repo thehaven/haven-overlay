@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="Apache module to lookup user identity"
 HOMEPAGE="https://github.com/adelton/mod_lookup_identity"
-SRC_URI="https://github.com/adelton/mod_lookup_identity/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/adelton/mod_lookup_identity/archive/${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"

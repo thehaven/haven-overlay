@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="NIS Server and Schema Compatibility plug-ins for Directory Server"
 HOMEPAGE="https://github.com/freeipa/slapi-nis"
-SRC_URI="https://github.com/freeipa/slapi-nis/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://releases.pagure.org/slapi-nis/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"

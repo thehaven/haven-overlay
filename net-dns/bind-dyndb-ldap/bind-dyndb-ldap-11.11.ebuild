@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="LDAP back-end plug-in for BIND"
 HOMEPAGE="https://github.com/freeipa/bind-dyndb-ldap"
-SRC_URI="https://github.com/freeipa/bind-dyndb-ldap/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://releases.pagure.org/bind-dyndb-ldap/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
