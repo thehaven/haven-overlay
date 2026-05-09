@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Librarian — repository catalogue tool.
+		Produces regeneratable ~/projects/.index.json — the card-catalogue layer
+		that knows about all code directories before diving into any one.
+	</longdescription>
+</pkgmetadata>
