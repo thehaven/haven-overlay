@@ -1,0 +1,9 @@
+DEFINED_PHASES=-
+DESCRIPTION=Meta-package for recommended OpenCode plugins
+EAPI=8
+HOMEPAGE=https://github.com/anomalyco/opencode
+KEYWORDS=~amd64
+LICENSE=metapackage
+RDEPEND=~dev-util/opencode-plugin-secret-redactor-0.5.1 ~dev-util/opencode-plugin-dcp-3.1.11 ~dev-util/opencode-plugin-conductor-1.32.0
+SLOT=0
+_md5_=e6e2b4d3bb0d5d430db9a05c23ce7f9f

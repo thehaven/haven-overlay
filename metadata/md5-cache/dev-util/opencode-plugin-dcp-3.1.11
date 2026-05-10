@@ -1,0 +1,12 @@
+BDEPEND=net-libs/nodejs[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=OpenCode plugin for dynamic context pruning
+EAPI=8
+HOMEPAGE=https://github.com/Tarquinen/opencode-dynamic-context-pruning
+KEYWORDS=~amd64
+LICENSE=AGPL-3
+RDEPEND=net-libs/nodejs
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@tarquinen/opencode-dcp/-/opencode-dcp-3.1.11.tgz -> opencode-plugin-dcp-3.1.11.tgz
+_md5_=5162381fb3ec3a515111d189d52db2d2

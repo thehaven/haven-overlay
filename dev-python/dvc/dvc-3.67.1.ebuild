@@ -13,6 +13,7 @@ HOMEPAGE="https://dvc.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="+dag"
 
 RDEPEND="
 	dev-python/attrs
@@ -43,7 +44,7 @@ RDEPEND="
 	dev-python/pathspec
 	dev-python/platformdirs
 	dev-python/psutil
-	dev-python/pydot
+	dag? ( dev-python/pydot )
 	dev-python/pygtrie
 	dev-python/pyparsing
 	dev-python/requests

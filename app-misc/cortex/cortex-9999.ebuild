@@ -27,6 +27,10 @@ RDEPEND="
 	dev-python/tiktoken[${PYTHON_USEDEP}]
 	dev-python/httpx[${PYTHON_USEDEP}]
 	dev-python/mcp[${PYTHON_USEDEP}]
+	dev-python/structlog[${PYTHON_USEDEP}]
+	dev-python/sqlite-vec[${PYTHON_USEDEP}]
+	dev-python/watchfiles[${PYTHON_USEDEP}]
+	dev-python/psutil[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest

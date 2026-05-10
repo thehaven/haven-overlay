@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		httpx-sse provides a client for consuming Server-Sent Event (SSE)
+		streams with the HTTPX HTTP client library.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">florimondmanca/httpx-sse</remote-id>
+		<remote-id type="pypi">httpx-sse</remote-id>
+	</upstream>
+</pkgmetadata>
