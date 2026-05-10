@@ -16,4 +16,4 @@ dependencies = [
 jc-mcp = "jc_mcp:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["."]
+only-include = ["jc_mcp.py"]
