@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jc-mcp"
+version = "1.0.0"
+description = "MCP server wrapping jc for structured CLI output parsing"
+requires-python = ">=3.12"
+dependencies = [
+    "jc>=1.25.0",
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+jc-mcp = "jc_mcp:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]

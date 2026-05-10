@@ -3,37 +3,17 @@
 
 EAPI=8
 
-DESCRIPTION="OpenCode plugin for secret redaction in tool outputs"
-HOMEPAGE="https://github.com/Opencode-DCP/opencode-dynamic-context-pruning"
-SRC_URI="https://github.com/Opencode-DCP/opencode-dynamic-context-pruning/archive/refs/heads/master.tar.gz -> opencode-dynamic-context-pruning-master.tar.gz"
+DESCRIPTION="OpenCode plugin that redacts secrets from tool outputs before agent context"
+HOMEPAGE="https://github.com/casonadams/opencode-secret-redactor"
+SRC_URI="https://registry.npmjs.org/opencode-secret-redactor/-/opencode-secret-redactor-0.5.1.tgz -> ${P}.tgz"
+S="${WORKDIR}/package"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-RESTRICT="network-sandbox test"
-
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
-RDEPEND="dev-util/opencode"
-
-S="${WORKDIR}/opencode-dynamic-context-pruning-master"
-
-src_compile() {
-	einfo "Installing dependencies..."
-	bun install --ignore-scripts || die
-
-	einfo "Building DCP (as placeholder for secret-redactor)..."
-	bun run build || die
-}
-
 src_install() {
-	# Temporary: install DCP as secret-redactor to satisfy the 'mentioned' requirement
-	# until the exact repo is found or created.
-	insinto /usr/lib/node_modules/${PN}
+	insinto "/usr/lib/node_modules/${PN}"
 	doins -r dist package.json
-}
-
-pkg_postinst() {
-	einfo "opencode-plugin-secret-redactor installed (Placeholder using DCP repo)."
-	einfo "WARNING: The exact standalone repository for secret-redactor was not found."
+	fperms 0755 "/usr/lib/node_modules/${PN}/dist/plugin.cjs"
 }

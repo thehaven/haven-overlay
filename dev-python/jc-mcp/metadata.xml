@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP (Model Context Protocol) server that wraps the jc JSON
+		converter library, enabling AI agents to parse CLI tool
+		output (kubectl, aws, ps, netstat, etc.) into structured
+		JSON without hallucinating column positions in tabular output.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">kellyjonbrazil/jc</remote-id>
+	</upstream>
+</pkgmetadata>
