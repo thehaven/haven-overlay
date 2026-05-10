@@ -5,16 +5,17 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=uv-build
 PYTHON_COMPAT=( python3_{12..13} )
-
 inherit distutils-r1
 
 DESCRIPTION="Project scaffold and governance engine"
-HOMEPAGE="https://thehavennet.org.uk"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine"
 SRC_URI="scaffold-engine-${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+
+RESTRICT="fetch"
 
 RDEPEND="
 	dev-python/copier[${PYTHON_USEDEP}]
@@ -23,8 +24,6 @@ RDEPEND="
 BDEPEND="dev-python/uv-build[${PYTHON_USEDEP}]"
 
 distutils_enable_tests pytest
-
-RESTRICT="fetch"
 
 S="${WORKDIR}/${PN}"
 
