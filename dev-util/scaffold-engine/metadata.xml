@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Project scaffold and governance engine providing
+		profile-driven project generation with Makefile-first
+		contracts, pre-commit hooks, and verification gates.
+	</longdescription>
+	<upstream>
+		<remote-id type="gitlab">ai-ml/scaffold-engine</remote-id>
+	</upstream>
+</pkgmetadata>

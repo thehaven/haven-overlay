@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for MediaWiki providing search, page retrieval,
+		editing, and file operations via the Model Context Protocol.
+	</longdescription>
+	<use>
+		<flag name="cli">Build the wiki CLI companion tool</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">olgasafonova/mediawiki-mcp-server</remote-id>
+	</upstream>
+</pkgmetadata>

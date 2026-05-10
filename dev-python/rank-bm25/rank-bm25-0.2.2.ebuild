@@ -19,3 +19,17 @@ RDEPEND="
 "
 
 distutils_enable_tests pytest
+
+src_prepare() {
+	distutils-r1_src_prepare
+
+	cat > version.py <<-PYEOF
+	import re
+
+	version_re = re.compile('^Version: (.+)$', re.M)
+
+	def get_version():
+	    with open("PKG-INFO") as f:
+	        return version_re.search(f.read()).group(1)
+	PYEOF
+}
