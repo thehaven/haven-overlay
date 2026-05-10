@@ -5,7 +5,14 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Haven</name>
 	</maintainer>
+	<longdescription>
+		OpenCode plugin that monitors token usage during a session
+		and automatically prunes less-relevant context (old file
+		reads, superseded tool outputs, resolved intermediate steps)
+		before the context window fills. Extends effective session
+		length 3-5x.
+	</longdescription>
 	<upstream>
-		<remote-id type="github">ericc-ch/opencode-plugins</remote-id>
+		<remote-id type="github">Tarquinen/opencode-dynamic-context-pruning</remote-id>
 	</upstream>
 </pkgmetadata>

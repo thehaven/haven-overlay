@@ -5,7 +5,14 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Haven</name>
 	</maintainer>
+	<longdescription>
+		OpenCode plugin that orchestrates multi-agent task dispatch
+		from within a single session. Provides structured @agent
+		dispatch protocol, task state tracking, and result aggregation.
+		Enables parallel execution of independent tasks for ~40%
+		workflow time reduction.
+	</longdescription>
 	<upstream>
-		<remote-id type="github">derekbar90/opencode-conductor</remote-id>
+		<remote-id type="github">NocturnLabs/opencode-conductor</remote-id>
 	</upstream>
 </pkgmetadata>

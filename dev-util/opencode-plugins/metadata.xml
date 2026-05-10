@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Meta-package that pulls in all recommended OpenCode plugins:
+		secret-redactor (tool output secret scanning),
+		DCP (dynamic context pruning),
+		and conductor (multi-agent task orchestration).
+	</longdescription>
+</pkgmetadata>

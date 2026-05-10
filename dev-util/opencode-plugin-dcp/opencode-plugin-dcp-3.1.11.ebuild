@@ -3,12 +3,12 @@
 
 EAPI=8
 
-DESCRIPTION="OpenCode plugin for multi-agent task orchestration"
-HOMEPAGE="https://github.com/NocturnLabs/opencode-conductor"
-SRC_URI="https://registry.npmjs.org/opencode-conductor-plugin/-/opencode-conductor-plugin-${PV}.tgz -> ${P}.tgz"
+DESCRIPTION="OpenCode plugin for dynamic context pruning"
+HOMEPAGE="https://github.com/Tarquinen/opencode-dynamic-context-pruning"
+SRC_URI="https://registry.npmjs.org/@tarquinen/opencode-dcp/-/opencode-dcp-${PV}.tgz -> ${P}.tgz"
 S="${WORKDIR}/package"
 
-LICENSE="MIT"
+LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
