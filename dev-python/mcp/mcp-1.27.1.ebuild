@@ -16,7 +16,10 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/pydantic[${PYTHON_USEDEP}]
+	>=dev-python/pydantic-settings-2.0[${PYTHON_USEDEP}]
 	dev-python/anyio[${PYTHON_USEDEP}]
 	dev-python/httpx[${PYTHON_USEDEP}]
+	dev-python/httpx-sse[${PYTHON_USEDEP}]
+	dev-python/sse-starlette[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
 "
