@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for Kubernetes operations
+	</longdescription>
+	<upstream>
+		<remote-id type="github">flux159/mcp-server-kubernetes</remote-id>
+	</upstream>
+</pkgmetadata>

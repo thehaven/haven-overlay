@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for GitHub — MCP server providing AI tools
+		access to GitHub functionality.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">modelcontextprotocol/servers</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for markdown linting — MCP server providing AI tools
+		access to markdown linting functionality.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">dougis-org/markdown-lint-mcp</remote-id>
+	</upstream>
+</pkgmetadata>

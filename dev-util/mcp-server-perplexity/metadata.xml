@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for Perplexity AI — MCP server providing AI tools
+		access to Perplexity AI functionality.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">perplexityai/modelcontextprotocol</remote-id>
+	</upstream>
+</pkgmetadata>

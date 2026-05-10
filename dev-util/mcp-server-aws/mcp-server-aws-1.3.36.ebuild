@@ -1,0 +1,27 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+PYPI_PN="awslabs-aws-api-mcp-server"
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..13} )
+inherit distutils-r1 pypi
+
+DESCRIPTION="MCP server for AWS API operations"
+HOMEPAGE="https://github.com/awslabs/aws-api-mcp-server"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64"
+
+RDEPEND="
+	dev-python/boto3[${PYTHON_USEDEP}]
+	dev-python/botocore[${PYTHON_USEDEP}]
+	dev-python/fastmcp[${PYTHON_USEDEP}]
+	dev-python/loguru[${PYTHON_USEDEP}]
+	dev-python/lxml[${PYTHON_USEDEP}]
+	dev-python/mcp[${PYTHON_USEDEP}]
+	dev-python/pydantic[${PYTHON_USEDEP}]
+	dev-python/requests[${PYTHON_USEDEP}]
+"

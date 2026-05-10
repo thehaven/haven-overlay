@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP server for Context7 documentation search — MCP server providing AI tools
+		access to Context7 documentation search functionality.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">upstash/context7</remote-id>
+	</upstream>
+</pkgmetadata>
