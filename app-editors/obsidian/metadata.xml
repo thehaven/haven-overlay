@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="appindicator"></flag>
+		<flag name="pax-kernel"></flag>
+		<flag name="wayland"></flag>
+	</use>
+	<upstream>
+		<remote-id type="github">obsidianmd/obsidian-releases</remote-id>
+	</upstream>
+</pkgmetadata>
