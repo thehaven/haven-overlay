@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Google Antigravity IDE OAuth auth plugin for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/NoeFabris/opencode-antigravity-auth
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/NoeFabris/opencode-antigravity-auth/archive/refs/tags/v1.6.0.tar.gz -> opencode-antigravity-auth-1.6.0.tar.gz
+_md5_=3211efe467e6b3b1ed195ad7ca01cbed

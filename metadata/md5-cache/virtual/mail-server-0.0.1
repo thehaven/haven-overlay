@@ -1,0 +1,8 @@
+DEFINED_PHASES=compile install postinst preinst prepare setup unpack
+DESCRIPTION=Virtual ebuild for a mail server based on Dovecot/Exim with SpamAssassin
+EAPI=8
+IUSE=+exim +dovecot +spamassassin
+KEYWORDS=~amd64 ~x86
+RDEPEND=exim? ( mail-mta/exim[dovecot-sasl,dmarc,dnsdb,dsn,exiscan-acl,maildir,mysql,sasl,spf,-radius] ) dovecot? ( net-mail/dovecot[bzip2,ipv6,kerberos,lucene,managesieve,mysql,pam,sieve,ssl,tcpd,zlib] ) spamassassin? ( mail-filter/spamassassin[berkdb,mysql,ipv6,ssl] )
+SLOT=0
+_md5_=43dbba2c0201f7bfec69bbad19401d20

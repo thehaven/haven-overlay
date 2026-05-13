@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DEPEND=www-servers/nginx:*[nginx_modules_http_lua]
+DESCRIPTION=A simple LRU cache for OpenResty and the ngx_lua module (based on LuaJIT FFI)
+EAPI=8
+HOMEPAGE=https://github.com/openresty/lua-resty-lrucache
+IUSE=+lua_targets_luajit2
+KEYWORDS=~amd64
+LICENSE=BSD
+RDEPEND=www-servers/nginx:*[nginx_modules_http_lua]
+SLOT=0
+_md5_=ace4615def2eb7f753b5761c56aff953

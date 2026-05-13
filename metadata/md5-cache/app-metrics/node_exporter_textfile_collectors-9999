@@ -1,0 +1,15 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=app-metrics/node_exporter
+DESCRIPTION=Prometheus node-exporter community textfile collector scripts
+EAPI=8
+HOMEPAGE=https://github.com/prometheus-community/node-exporter-textfile-collector-scripts
+INHERIT=git-r3
+IUSE=cron
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+PROPERTIES=live
+RDEPEND=app-metrics/node_exporter
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=2f1b9c4319f30d47ea785d3c409b3647

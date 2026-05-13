@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Claude Code - an agentic coding tool by Anthropic (Haven Unlocked Edition)
+EAPI=8
+HOMEPAGE=https://www.anthropic.com/claude-code
+IUSE=+unlocked
+KEYWORDS=~amd64 ~arm64
+LICENSE=all-rights-reserved
+RDEPEND=>=net-libs/nodejs-18 sys-apps/ripgrep
+RESTRICT=bindist strip
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.92.tgz
+_md5_=288db3eab52af5f215377e85da90a2de

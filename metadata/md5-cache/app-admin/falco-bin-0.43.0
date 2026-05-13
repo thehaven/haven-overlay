@@ -1,0 +1,9 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=Cloud-native runtime security
+EAPI=8
+HOMEPAGE=https://falco.org
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=amd64? ( https://download.falco.org/packages/bin/x86_64/falco-0.43.0-x86_64.tar.gz ) arm64? ( https://download.falco.org/packages/bin/aarch64/falco-0.43.0-aarch64.tar.gz )
+_md5_=20e41b60561445c32cafe37c2b2da7af

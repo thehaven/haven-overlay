@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install
+DESCRIPTION=Official PagerDuty MCP server
+EAPI=8
+HOMEPAGE=https://github.com/PagerDuty/pagerduty-mcp-server
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/PagerDuty/pagerduty-mcp-server/archive/refs/heads/main.tar.gz -> mcp-pagerduty-main.tar.gz
+_md5_=147c9eaecee56e2768812235f1c46ea6

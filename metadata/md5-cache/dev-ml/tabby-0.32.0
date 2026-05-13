@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Self-hosted AI coding assistant with code completion and chat
+EAPI=8
+HOMEPAGE=https://tabby.tabbyml.com https://github.com/TabbyML/tabby
+IUSE=cuda vulkan
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=cuda? ( dev-util/nvidia-cuda-toolkit ) vulkan? ( media-libs/vulkan-loader )
+REQUIRED_USE=?? ( cuda vulkan )
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=!cuda? ( !vulkan? ( amd64? ( https://github.com/TabbyML/tabby/releases/download/v0.32.0/tabby_x86_64-manylinux_2_28.tar.gz -> tabby-0.32.0-cpu-amd64.tar.gz ) ) vulkan? ( amd64? ( https://github.com/TabbyML/tabby/releases/download/v0.32.0/tabby_x86_64-manylinux_2_28-vulkan.tar.gz -> tabby-0.32.0-vulkan-amd64.tar.gz ) ) ) cuda? ( amd64? ( https://github.com/TabbyML/tabby/releases/download/v0.32.0/tabby_x86_64-manylinux_2_28-cuda123.tar.gz -> tabby-0.32.0-cuda-amd64.tar.gz ) )
+_md5_=4a017cd15706687e4c6e07f222c9dc84

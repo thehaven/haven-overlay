@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DEPEND=virtual/lua[luajit] www-servers/nginx:*[nginx_modules_http_lua] dev-lua/resty-lrucache
+DESCRIPTION=New LuaJIT FFI based API for lua-nginx-module
+EAPI=8
+HOMEPAGE=https://github.com/openresty/lua-resty-core
+KEYWORDS=~amd64
+LICENSE=BSD
+RDEPEND=virtual/lua[luajit] www-servers/nginx:*[nginx_modules_http_lua] dev-lua/resty-lrucache
+SLOT=0
+_md5_=b70f93a4eb598bf6591e11f7da2952f4

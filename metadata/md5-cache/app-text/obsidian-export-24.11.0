@@ -1,0 +1,14 @@
+BDEPEND=|| ( >=dev-lang/rust-bin-1.74.1:* >=dev-lang/rust-1.74.1:* )
+DEFINED_PHASES=compile configure install setup test unpack
+DESCRIPTION=Rust CLI to export Obsidian vaults to standard CommonMark
+EAPI=8
+HOMEPAGE=https://github.com/zoni/obsidian-export
+INHERIT=cargo
+IUSE=debug
+KEYWORDS=~amd64
+LICENSE=MIT
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/zoni/obsidian-export/archive/v24.11.0.tar.gz -> obsidian-export-24.11.0.tar.gz
+_eclasses_=cargo	aeba1d272f6c2e000912e11d8cf626eb	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	rust	20da14430886f3de143eb101684fcf62	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=acbec9054594f76be994c3ec9aece2cc

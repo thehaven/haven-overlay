@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=OpenCode plugin for git worktree lifecycle management
+EAPI=8
+HOMEPAGE=https://github.com/kdcokenny/opencode-worktree
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode dev-vcs/git
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/kdcokenny/opencode-worktree/archive/refs/heads/main.tar.gz -> opencode-worktree-main.tar.gz
+_md5_=c0de603e9abd3c97fe61d1c8ba4d6a7e

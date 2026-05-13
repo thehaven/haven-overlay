@@ -1,9 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=install prepare unpack
-DEPEND=dev-vcs/git
 DESCRIPTION=Enterprise scalable realtime graphing
-EAPI=5
+EAPI=8
 HOMEPAGE=https://github.com/vimeo/graph-explorer
+INHERIT=git-r3
+KEYWORDS=~amd64
+PROPERTIES=live
 RDEPEND=dev-python/graphite-web dev-python/rawes
 SLOT=0
-_eclasses_=git-2	e92e09651292b1bef5656592364550f7
-_md5_=3859db92cceae213e66bda8941111fb9
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=6ee79f1e15edb286898e2a6246f6711d

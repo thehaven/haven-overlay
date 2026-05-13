@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=MCP server for Karakeep bookmark manager
+EAPI=8
+HOMEPAGE=https://github.com/karakeep-app/karakeep
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@karakeep/mcp/-/mcp-0.31.0.tgz
+_md5_=2cd6346c6020a423aa7d7e9c591f9b4b

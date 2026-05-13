@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install unpack
+DESCRIPTION=Sonarr is a PVR for Usenet and BitTorrent users.
+EAPI=8
+HOMEPAGE=http://www.sonarr.tv
+INHERIT=systemd
+IUSE=updater
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=acct-user/sonarr >=dev-lang/mono-4.6.1 media-video/mediainfo dev-db/sqlite
+SLOT=0
+SRC_URI=http://download.sonarr.tv/v3/main/3.0.6.1342/Sonarr.main.3.0.6.1342.linux.tar.gz -> sonarr-3.0.6.1342.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=f0afe7578a6686a3054a1da50f154a82

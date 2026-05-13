@@ -1,0 +1,15 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install postinst postrm unpack
+DEPEND=acct-user/lazylibrarian python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) dev-python/apprise[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/cherrypy[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pillow[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pip[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pyopenssl[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/python-levenshtein[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/unidecode[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/urllib3[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] app-arch/unrar app-misc/jq app-text/ghostscript-gpl media-libs/libjpeg-turbo sys-libs/zlib
+DESCRIPTION=LazyLibrarian is an automated book downloader for SABnzbd.
+EAPI=8
+HOMEPAGE=http://github.com/DobyTang/LazyLibrarian
+INHERIT=git-r3 python-r1
+IUSE=python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=acct-user/lazylibrarian python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) dev-python/apprise[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/cherrypy[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pillow[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pip[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pyopenssl[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/python-levenshtein[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/unidecode[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/urllib3[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] app-arch/unrar app-misc/jq app-text/ghostscript-gpl media-libs/libjpeg-turbo sys-libs/zlib
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=e8753b60deb5737605a7839d1a7856f7

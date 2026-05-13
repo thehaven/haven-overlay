@@ -1,0 +1,8 @@
+DEFINED_PHASES=install preinst pretend
+DESCRIPTION=Overseerr group
+EAPI=8
+INHERIT=acct-group
+KEYWORDS=~amd64 ~arm ~arm64 ~x86
+SLOT=0
+_eclasses_=acct-group	75df1c6be0fa643823bd4283c4abd422	user-info	563da40a1a20ea1e55bbf4d149fc190d
+_md5_=8667be1e866f1e1f567676022c3fbb82

@@ -1,9 +1,15 @@
-DEFINED_PHASES=compile install postinst postrm prepare setup unpack
-DEPEND=net-analyzer/okconfig net-analyzer/pynag net-analyzer/pnp4nagios net-analyzer/mk-livestatus dev-lang/python dev-vcs/git
+BDEPEND=python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-python/setuptools-78.1.0[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst prepare test unpack
+DEPEND=net-analyzer/okconfig net-analyzer/pynag net-analyzer/pnp4nagios net-analyzer/mk-livestatus
 DESCRIPTION=Web based Nagios configuration interface
-EAPI=5
+EAPI=8
 HOMEPAGE=http://adagios.org/
-RDEPEND=net-analyzer/okconfig net-analyzer/pynag net-analyzer/pnp4nagios net-analyzer/mk-livestatus dev-lang/python
+INHERIT=distutils-r1 git-r3
+IUSE=python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
+KEYWORDS=~amd64
+PROPERTIES=live
+RDEPEND=net-analyzer/okconfig net-analyzer/pynag net-analyzer/pnp4nagios net-analyzer/mk-livestatus python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 )
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 )
 SLOT=0
-_eclasses_=distutils	34e0f373c466bb0e97ba194735f1acf2	eutils	63afaaed8aa819fdcb814c7cd39495a2	git-2	e92e09651292b1bef5656592364550f7	multilib	892e597faee02a5b94eb02ab512e7622	python	7aff825f110c83fa8c77f14ba3c71c47	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
-_md5_=6553c4f03b6e75f51a343775f77cd47c
+_eclasses_=distutils-r1	776bbaa25e9fa0dc9ac6f039ca37f701	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	git-r3	875eb471682d3e1f18da124be97dcc81	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=d54e4415ce77f880deb0243af4a757e9

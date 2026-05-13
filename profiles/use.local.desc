@@ -3,3 +3,42 @@ x11-misc/mugshot:accountsservice - User image management without ~/.face
 x11-misc/mugshot:pidgin - Update buddy icon
 x11-misc/mugshot:webcam - Add webcam support
 xfce4-base/xfce4-session:light-locker - Add light-locker support to XFCE
+dev-util/mcp-meta:ai-compressor - Pull in ai-compressor MCP
+dev-util/mcp-meta:alertmanager - Pull in alertmanager MCP
+dev-util/mcp-meta:analyzer - Pull in analyzer MCP
+dev-util/mcp-meta:atlassian - Pull in atlassian MCP (virtual)
+dev-util/mcp-meta:aws - Pull in aws MCP
+dev-util/mcp-meta:brave-search - Pull in brave-search MCP
+dev-util/mcp-meta:context7 - Pull in context7 MCP
+dev-util/mcp-meta:desktop-commander - Pull in desktop-commander MCP
+dev-util/mcp-meta:docfork - Pull in docfork MCP
+dev-util/mcp-meta:docker - Pull in docker MCP
+dev-util/mcp-meta:fetch - Pull in fetch MCP
+dev-util/mcp-meta:git - Pull in git MCP
+dev-util/mcp-meta:github - Pull in github MCP
+dev-util/mcp-meta:gitlab - Pull in gitlab MCP
+dev-util/mcp-meta:gitmcp - Pull in gitmcp MCP
+dev-util/mcp-meta:grafana - Pull in grafana MCP
+dev-util/mcp-meta:jc - Pull in jc MCP
+dev-util/mcp-meta:karakeep - Pull in karakeep MCP
+dev-util/mcp-meta:kubernetes - Pull in kubernetes MCP
+dev-util/mcp-meta:markdownlint - Pull in markdownlint MCP
+dev-util/mcp-meta:mediawiki - Pull in mediawiki MCP
+dev-util/mcp-meta:mem0 - Pull in mem0 MCP
+dev-util/mcp-meta:memory - Pull in memory MCP
+dev-util/mcp-meta:network-tools - Pull in network-tools MCP
+dev-util/mcp-meta:obsidian - Pull in obsidian MCP
+dev-util/mcp-meta:opentofu - Pull in opentofu MCP
+dev-util/mcp-meta:pagerduty - Pull in pagerduty MCP
+dev-util/mcp-meta:pass - Pull in pass MCP
+dev-util/mcp-meta:perplexity - Pull in perplexity MCP
+dev-util/mcp-meta:playwright - Pull in playwright MCP
+dev-util/mcp-meta:powerpoint - Pull in powerpoint MCP
+dev-util/mcp-meta:pytest - Pull in pytest MCP
+dev-util/mcp-meta:ripgrep - Pull in ripgrep MCP
+dev-util/mcp-meta:sentry - Pull in sentry MCP
+dev-util/mcp-meta:sequential-thinking - Pull in sequential-thinking MCP
+dev-util/mcp-meta:task-manager - Pull in task-manager MCP
+dev-util/mcp-meta:tree-sitter - Pull in tree-sitter MCP
+dev-util/mcp-meta:wcgw - Pull in wcgw MCP
+dev-util/mcp-meta:wikipedia - Pull in wikipedia MCP

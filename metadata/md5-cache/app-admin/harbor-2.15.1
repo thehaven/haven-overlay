@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DESCRIPTION=Meta-package for Project Harbor
+EAPI=8
+HOMEPAGE=https://github.com/goharbor/harbor
+IUSE=+core +portal +jobservice +registryctl +prepare +redis +postgres +nginx +trivy
+KEYWORDS=~amd64
+LICENSE=metapackage
+RDEPEND=core? ( ~app-admin/harbor-core-2.15.1 ) portal? ( ~www-apps/harbor-portal-2.15.1 ) jobservice? ( ~app-admin/harbor-jobservice-2.15.1 ) registryctl? ( ~app-admin/harbor-registryctl-2.15.1 ) prepare? ( ~app-admin/harbor-prepare-2.15.1 ) redis? ( dev-db/redis ) postgres? ( dev-db/postgresql ) nginx? ( www-servers/nginx ) trivy? ( app-admin/trivy )
+SLOT=0
+_md5_=71bc514fcf4e34fec010c515a47186e8

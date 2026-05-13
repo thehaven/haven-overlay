@@ -1,0 +1,15 @@
+BDEPEND=>=dev-lang/go-1.10
+DEFINED_PHASES=compile install unpack
+DEPEND=dev-go/glide >=dev-lang/go-1.7
+DESCRIPTION=Calico Networking for CNI
+EAPI=8
+HOMEPAGE=https://github.com/projectcalico/cni-plugin
+INHERIT=golang-vcs-snapshot
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=app-containers/cni-plugins
+RESTRICT=network-sandbox collision-detect protect-owned
+SLOT=0
+SRC_URI=https://github.com/projectcalico/cni-plugin/archive/v3.20.0.tar.gz -> calico-cni-plugin-3.20.0.tar.gz
+_eclasses_=flag-o-matic	a7afe42e95fb46ce9691605acfb24672	go-env	0e2babf96e7d0b045fc07ad199eb2399	golang-base	f5818880437bb8c02d66b5ece5bed3b9	golang-vcs-snapshot	69646363405f4d99ebc131319cc3e145	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=7d4967ce915acab0c881be5fc01b1d72

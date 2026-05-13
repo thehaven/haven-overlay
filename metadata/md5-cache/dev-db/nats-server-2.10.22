@@ -1,0 +1,14 @@
+BDEPEND=>=dev-lang/go-1.22 >=dev-lang/go-1.20:= app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=compile install unpack
+DEPEND=acct-user/nats acct-group/nats
+DESCRIPTION=High-Performance server for NATS
+EAPI=8
+HOMEPAGE=https://nats.io/
+INHERIT=go-module-offline systemd tmpfiles
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0
+RDEPEND=acct-user/nats acct-group/nats virtual/tmpfiles
+SLOT=0
+SRC_URI=https://github.com/nats-io/nats-server/archive/v2.10.22.tar.gz -> nats-server-2.10.22.tar.gz https://dev.gentoo.org/~haven/nats-server/nats-server-2.10.22-vendor.tar.xz
+_eclasses_=flag-o-matic	a7afe42e95fb46ce9691605acfb24672	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	d96f2a2fd6d8fbad6d94516bf238f885	go-module-offline	512540b9a811397acb34d595e41999a0	multiprocessing	1e32df7deee68372153dca65f4a7c21f	systemd	a964c0cbe818b5729da1dbfcee5be861	tmpfiles	9a9814db5a3fbd4f1e921c05297e7735	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=836bdfe80bebe18b411d3ccc082415fa

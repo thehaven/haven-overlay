@@ -1,0 +1,9 @@
+DEFINED_PHASES=-
+DESCRIPTION=Session library for OpenResty implementing Secure Cookie Protocol
+EAPI=8
+HOMEPAGE=https://github.com/bungle/lua-resty-session
+IUSE=doc
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+_md5_=bdaf075bb397bda81d0fba9eed567f93

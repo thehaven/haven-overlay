@@ -1,0 +1,8 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=Lync for Linux
+EAPI=8
+HOMEPAGE=http://fisil.com/linuxlync.html
+KEYWORDS=~amd64
+SLOT=0
+SRC_URI=http://fisil.com/linux/wync_debian64_v2.0.233.deb
+_md5_=5be2030c798d3dfb58bafd0945586dc6

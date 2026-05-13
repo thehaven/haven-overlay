@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install postinst
+DEPEND=dev-java/openjdk-bin dev-java/openjdk-bin app-arch/unzip app-shells/bash app-misc/elasticsearch dev-db/postgresql:12 app-admin/logrotate sys-process/lsof
+DESCRIPTION=DevOps Management at Scale
+EAPI=8
+HOMEPAGE=https://jfrog.com/mission-control/
+INHERIT=systemd
+KEYWORDS=~amd64
+RDEPEND=acct-user/jfrog-mc dev-java/openjdk-bin
+RESTRICT=bindist mirror
+SLOT=0
+SRC_URI=https://releases.jfrog.io/artifactory/jfrog-mc/linux/4.7.11/jfrog-mc-4.7.11-linux.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=f2dabfbec138ffb34bae04668aa27f69

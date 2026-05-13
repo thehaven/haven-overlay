@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DESCRIPTION=Meta-package for the full Elite Obsidian SRE ecosystem
+EAPI=8
+HOMEPAGE=https://github.com/haven/ObsidianSetup
+IUSE=+binary +source-runtimes
+KEYWORDS=~amd64
+LICENSE=metapackage
+RDEPEND=binary? ( app-editors/obsidian-bin net-misc/kasmvnc-bin ) !binary? ( app-editors/obsidian net-misc/kasmvnc ) dev-util/obsidian-mcp app-admin/obsidian-manager app-text/obsidian-export source-runtimes? ( dev-lang/deno dev-lang/bun ) !source-runtimes? ( dev-lang/deno-bin dev-lang/bun-bin )
+SLOT=0
+_md5_=da9af7d8c00ea41c5ab00c712edf75e6

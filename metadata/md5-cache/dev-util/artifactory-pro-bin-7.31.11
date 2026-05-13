@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install postinst preinst prepare
+DEPEND=virtual/jdk dev-java/openjdk-bin app-arch/unzip app-shells/bash
+DESCRIPTION=The world's most advanced repository manager for maven
+EAPI=8
+HOMEPAGE=http://www.jfrog.org/products.php
+INHERIT=systemd
+IUSE=ssl
+KEYWORDS=**
+LICENSE=AGPL-3+
+RDEPEND=acct-user/artifactory-pro-bin virtual/jre
+SLOT=0
+SRC_URI=https://releases.jfrog.io/artifactory/artifactory-pro/org/artifactory/pro/jfrog-artifactory-pro/7.31.11/jfrog-artifactory-pro-7.31.11-linux.tar.gz -> artifactory-pro-7.31.11.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=2432787aa2e154859e87963d5857c875

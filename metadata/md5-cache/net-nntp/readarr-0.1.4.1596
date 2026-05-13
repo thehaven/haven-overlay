@@ -1,0 +1,13 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install unpack
+DESCRIPTION=Looks and smells like Sonarr but made for music. http://readarr.audio/
+EAPI=8
+HOMEPAGE=https://github.com/readarr/Readarr
+INHERIT=systemd
+KEYWORDS=~x86 ~amd64
+LICENSE=GPL-3
+RDEPEND=acct-user/readarr >=dev-lang/mono-3.12.1 dev-util/lttng-ust media-libs/chromaprint[tools] net-misc/curl www-client/elinks
+SLOT=0
+SRC_URI=https://github.com/Readarr/Readarr/releases/download/v0.1.4.1596/Readarr.develop.0.1.4.1596.linux-core-x64.tar.gz -> readarr-0.1.4.1596.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=89e3c0cdbaa474794d50b0780d9c957f

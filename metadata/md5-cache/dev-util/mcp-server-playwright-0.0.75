@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=MCP server for Playwright browser automation
+EAPI=8
+HOMEPAGE=https://github.com/microsoft/playwright-mcp
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=>=net-libs/nodejs-20
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@playwright/mcp/-/mcp-0.0.75.tgz
+_md5_=358f214e1b2c9af0b96f67c870f1d630

@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=A Comprehensive and Versatile Security Scanner
+EAPI=8
+HOMEPAGE=https://github.com/aquasecurity/trivy
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=amd64? ( https://github.com/aquasecurity/trivy/releases/download/v0.70.0/trivy_0.70.0_Linux-64bit.tar.gz ) arm64? ( https://github.com/aquasecurity/trivy/releases/download/v0.70.0/trivy_0.70.0_Linux-ARM64.tar.gz )
+_md5_=9df998c7f8c72a189eef33ebcb085f87

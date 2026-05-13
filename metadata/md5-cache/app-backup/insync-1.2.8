@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst unpack
+DEPEND=dev-python/pygobject dev-libs/libffi
+DESCRIPTION=Advanced cross-platform Google Drive client
+EAPI=8
+HOMEPAGE=https://www.insynchq.com/
+IUSE=nautilus dolphin thunar
+KEYWORDS=-* ~x86 ~amd64
+RDEPEND=dev-python/pygobject dev-libs/libffi nautilus? ( dev-python/nautilus-python ) dolphin? ( kde-base/dolphin ) thunar? ( dev-python/thunarx-python )
+SLOT=0
+SRC_URI=x86? ( http://s.insynchq.com/builds/insync_1.2.8.35136-wheezy_i386.deb ) amd64? ( http://s.insynchq.com/builds/insync_1.2.8.35136-wheezy_amd64.deb ) nautilus? ( http://s.insynchq.com/builds/insync-nautilus_1.2.8.35136-wheezy_all.deb ) dolphin? ( http://s.insynchq.com/builds/insync-dolphin_1.2.8.35136-wheezy_all.deb ) thunar? ( http://s.insynchq.com/builds/insync-thunar_1.2.8.35136-wheezy_all.deb )
+_md5_=da6c6ae86ed6d56048edc1c58043b2e4

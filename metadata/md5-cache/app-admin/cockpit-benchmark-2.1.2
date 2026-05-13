@@ -1,0 +1,14 @@
+DEFINED_PHASES=setup
+DESCRIPTION=A Storage Benchmark Utility for Cockpit.
+EAPI=8
+HOMEPAGE=https://github.com/45Drives/cockpit-benchmark
+INHERIT=python-single-r1
+IUSE=python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13
+KEYWORDS=~amd64
+LICENSE=GPL-3
+RDEPEND=app-admin/cockpit sys-block/fio python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 )
+REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 )
+SLOT=0
+SRC_URI=https://github.com/45Drives/cockpit-benchmark/archive/refs/tags/v2.1.2.tar.gz -> cockpit-benchmark-2.1.2.tar.gz
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=dd3aebe1d34f1df3dd10690f477c9bc2

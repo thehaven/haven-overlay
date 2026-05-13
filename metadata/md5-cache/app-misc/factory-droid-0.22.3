@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst prepare pretend unpack
+DESCRIPTION=Factory.io Droid CLI Tool
+EAPI=8
+HOMEPAGE=https://factory.ai/
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=sys-apps/ripgrep
+SLOT=0
+SRC_URI=amd64? ( https://downloads.factory.ai/factory-cli/releases/0.22.3/linux/x64/droid -> droid-0.22.3-amd64.bin https://downloads.factory.ai/factory-cli/releases/0.22.3/linux/x64/droid.sha256 -> droid-0.22.3-amd64.sha256 ) arm64? ( https://downloads.factory.ai/factory-cli/releases/0.22.3/linux/arm64/droid -> droid-0.22.3-arm64.bin https://downloads.factory.ai/factory-cli/releases/0.22.3/linux/arm64/droid.sha256 -> droid-0.22.3-arm64.sha256 )
+_md5_=0ac48d8318beae0e375376734c251358

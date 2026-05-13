@@ -1,0 +1,9 @@
+DEFINED_PHASES=install postinst preinst prerm pretend
+DESCRIPTION=user for overseerr
+EAPI=8
+INHERIT=acct-user
+KEYWORDS=~amd64 ~arm ~arm64 ~x86
+RDEPEND=acct-group/overseerr
+SLOT=0
+_eclasses_=acct-user	ca29416d617e4fd224258d5cf916bf33	user-info	563da40a1a20ea1e55bbf4d149fc190d
+_md5_=6d924375a0e4cf34a6c1666f3c025512

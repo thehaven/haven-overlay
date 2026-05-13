@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=Rancher Kubernetes Engine 2
+EAPI=8
+HOMEPAGE=https://docs.rke2.io/
+INHERIT=systemd
+IUSE=server agent
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=>=app-containers/containerd-1.6.0 >=app-containers/runc-1.1.0 >=sys-fs/fuse-overlayfs-1.7 >=app-containers/crun-1.0
+REQUIRED_USE=|| ( server agent )
+SLOT=0
+SRC_URI=https://github.com/rancher/rke2/releases/download/v1.30.1%2Brke2r1/rke2.linux-amd64.tar.gz -> rke2-v1.30.1.linux-amd64.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=5076d0d2898635961025410dcc2fdbb0

@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=MCP server for HTTP fetching
+EAPI=8
+HOMEPAGE=https://github.com/tokenizin-agency/mcp-npx-fetch
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@tokenizin/mcp-npx-fetch/-/mcp-npx-fetch-1.0.0.tgz
+_md5_=be83c2b73a23300a528b75302aae2e06

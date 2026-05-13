@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=OpenCode plugin for rate-limiting destructive tool calls
+EAPI=8
+HOMEPAGE=https://github.com/inkdust2021/opencode-vibeguard
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/inkdust2021/opencode-vibeguard/archive/refs/heads/master.tar.gz -> opencode-vibeguard-main.tar.gz
+_md5_=2f8cd7556674654b1b0ddb1cfdd404b9

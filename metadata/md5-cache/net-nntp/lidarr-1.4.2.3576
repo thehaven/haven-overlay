@@ -1,0 +1,13 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install unpack
+DESCRIPTION=Looks and smells like Sonarr but made for music. http://lidarr.audio/
+EAPI=8
+HOMEPAGE=https://github.com/lidarr/Lidarr
+INHERIT=systemd
+KEYWORDS=~x86 ~amd64
+LICENSE=GPL-3
+RDEPEND=acct-user/lidarr >=dev-lang/mono-3.12.1 media-libs/chromaprint[tools] net-misc/curl
+SLOT=0
+SRC_URI=https://github.com/Lidarr/Lidarr/releases/download/v1.4.2.3576/Lidarr.develop.1.4.2.3576.linux-core-x64.tar.gz -> lidarr-1.4.2.3576.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=d975ea818b461ee9c9a8b9afa4a17801

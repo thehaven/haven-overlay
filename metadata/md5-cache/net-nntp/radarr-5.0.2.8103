@@ -1,0 +1,13 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install unpack
+DESCRIPTION=A fork of Sonarr to work with movies à la Couchpotato..
+EAPI=8
+HOMEPAGE=http://www.radarr.video
+INHERIT=systemd
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=acct-user/radarr media-video/mediainfo dev-db/sqlite
+SLOT=0
+SRC_URI=https://github.com/Radarr/Radarr/releases/download/v5.0.2.8103/Radarr.develop.5.0.2.8103.linux-core-x64.tar.gz -> radarr-5.0.2.8103.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=bd951eebd28e91f5f0050b606374099c

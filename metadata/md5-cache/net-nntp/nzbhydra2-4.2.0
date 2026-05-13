@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DEPEND=acct-user/nzbhydra2
+DESCRIPTION=Usenet meta search
+EAPI=8
+HOMEPAGE=https://github.com/theotherp/nzbhydra2
+INHERIT=systemd
+IUSE=systemd
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=virtual/jre systemd? ( sys-apps/systemd )
+SLOT=0
+SRC_URI=https://github.com/theotherp/nzbhydra2/releases/download/v4.2.0/nzbhydra2-4.2.0-linux.zip -> nzbhydra2-4.2.0.zip
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=3fff50d4ce1c8674f0f8a19db4e97ce6

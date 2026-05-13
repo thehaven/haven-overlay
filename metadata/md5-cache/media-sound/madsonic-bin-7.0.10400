@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DEPEND=acct-user/madsonic-bin
+DESCRIPTION=Madsonic is a complete, personal media streaming solution
+EAPI=8
+HOMEPAGE=https://www.madsonic.org/
+INHERIT=systemd
+IUSE=+ffmpeg +lame systemd xmp
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=virtual/jre lame? ( media-sound/lame ) ffmpeg? ( media-video/ffmpeg ) systemd? ( sys-apps/systemd ) xmp? ( media-sound/xmp )
+SLOT=0
+SRC_URI=https://madsonic.org/download/7.0/20220120_madsonic-7.0.10400-standalone.tar.gz -> madsonic-7.0.10400-standalone.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=747c2ad5a95221a32e9629e47bfc904c

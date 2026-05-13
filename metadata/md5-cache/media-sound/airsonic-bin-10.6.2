@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DESCRIPTION=Airsonic is a personal media server, opensource fork of Subsonic
+EAPI=8
+HOMEPAGE=https://airsonic.github.io/
+INHERIT=systemd
+IUSE=+ffmpeg +lame systemd
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=acct-user/airsonic acct-group/airsonic virtual/jre lame? ( media-sound/lame ) ffmpeg? ( media-video/ffmpeg ) systemd? ( sys-apps/systemd )
+SLOT=0
+SRC_URI=https://github.com/airsonic/airsonic/releases/download/v10.6.2/airsonic.war
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=1ca0cf771303efc9bb8a2ac44f95b1bc

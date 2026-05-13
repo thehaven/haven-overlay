@@ -1,9 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=install postinst unpack
-DEPEND=|| ( net-analyzer/nagios-core net-analyzer/nrpe ) dev-vcs/git
+DEPEND=|| ( net-analyzer/nagios-core net-analyzer/nrpe )
 DESCRIPTION=Small army of nagios-plugins either made or maintained by opinkerfi
-EAPI=5
+EAPI=8
 HOMEPAGE=https://github.com/opinkerfi/nagios-plugins
+INHERIT=git-r3
+KEYWORDS=~amd64
+PROPERTIES=live
 RDEPEND=|| ( net-analyzer/nagios-core net-analyzer/nrpe )
 SLOT=0
-_eclasses_=eutils	63afaaed8aa819fdcb814c7cd39495a2	git-2	e92e09651292b1bef5656592364550f7	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
-_md5_=7e7f3aabdf9f72adc68265f289d45dd6
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=8e5741babd89c02da2ea5a268d8f0789

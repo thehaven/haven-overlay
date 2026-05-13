@@ -1,0 +1,10 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-libs/openssl net-misc/freerdp sys-libs/glibc sys-libs/zlib x11-libs/libX11 x11-libs/libXfixes x11-libs/libXdmcp x11-libs/libXau
+DESCRIPTION=Lync for Linux
+EAPI=8
+HOMEPAGE=http://fisil.com/linuxlync.html
+KEYWORDS=~amd64
+RDEPEND=dev-libs/openssl net-misc/freerdp sys-libs/glibc sys-libs/zlib x11-libs/libX11 x11-libs/libXfixes x11-libs/libXdmcp x11-libs/libXau
+SLOT=0
+SRC_URI=http://fisil.com/linux/wync_ubuntu64_v2.0.328.deb
+_md5_=6923838091e6a312241aa0e5e9cae90c

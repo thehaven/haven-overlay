@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Terminal based UI to manage Kubernetes clusters
+EAPI=8
+HOMEPAGE=https://k9scli.io/ https://github.com/derailed/k9s
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_Linux_amd64.tar.gz -> k9s-0.50.18-linux-amd64.tar.gz
+_md5_=533b7ed68205a565c084722af49f0cc5

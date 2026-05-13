@@ -1,0 +1,16 @@
+BDEPEND=>=dev-lang/go-1.22 >=dev-lang/go-1.20:= app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=compile install postinst unpack
+DEPEND=acct-user/mattermost acct-group/mattermost
+DESCRIPTION=Open source Slack-alternative in Golang and React
+EAPI=8
+HOMEPAGE=https://mattermost.com/
+INHERIT=go-module-offline systemd tmpfiles
+IUSE=postgres mysql redis calls
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0 MIT AGPL-3
+RDEPEND=acct-user/mattermost acct-group/mattermost virtual/tmpfiles
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/mattermost/mattermost/archive/v11.6.1.tar.gz -> mattermost-server-11.6.1.tar.gz https://releases.mattermost.com/11.6.1/mattermost-11.6.1-linux-amd64.tar.gz https://dev.gentoo.org/~haven/mattermost-server/mattermost-server-11.6.1-vendor.tar.xz
+_eclasses_=flag-o-matic	a7afe42e95fb46ce9691605acfb24672	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	d96f2a2fd6d8fbad6d94516bf238f885	go-module-offline	512540b9a811397acb34d595e41999a0	multiprocessing	1e32df7deee68372153dca65f4a7c21f	systemd	a964c0cbe818b5729da1dbfcee5be861	tmpfiles	9a9814db5a3fbd4f1e921c05297e7735	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=fecf777c44723da59a1cbad5a2d9e8a7

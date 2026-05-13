@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/python-dotenv[${PYTHON_USEDEP}]
 	dev-python/rich[${PYTHON_USEDEP}]
-	dev-python/tokenizers[${PYTHON_USEDEP}]
+	sci-ml/tokenizers[${PYTHON_USEDEP}]
 	dev-python/typer[${PYTHON_USEDEP}]
 	dev-python/uvicorn[${PYTHON_USEDEP}]
 "

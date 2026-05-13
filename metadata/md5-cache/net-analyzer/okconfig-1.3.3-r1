@@ -1,0 +1,15 @@
+BDEPEND=python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-python/setuptools-78.1.0[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst prepare test unpack
+DEPEND=dev-python/paramiko net-analyzer/nagios >net-analyzer/pynag-0.4.6
+DESCRIPTION=Ready made monitoring packs for Nagios
+EAPI=8
+HOMEPAGE=http://okconfig.org/
+INHERIT=distutils-r1 git-r3
+IUSE=+adagios python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
+KEYWORDS=-* ~x86 ~amd64
+PROPERTIES=live
+RDEPEND=dev-python/paramiko net-analyzer/nagios >net-analyzer/pynag-0.4.6 net-analyzer/fping[suid] net-analyzer/traceroute net-analyzer/nagios-plugins-opinkerfi python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 )
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 )
+SLOT=0
+_eclasses_=distutils-r1	776bbaa25e9fa0dc9ac6f039ca37f701	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	git-r3	875eb471682d3e1f18da124be97dcc81	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=dbdf4a5f569d6f6a768dd24523e2df80

@@ -1,0 +1,14 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl] app-alternatives/ninja >=dev-build/cmake-3.28.5
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=dev-libs/openssl sys-libs/zlib
+DESCRIPTION=bbcp is a point-to-point network file copy application written by Andy Hanushevsky at SLAC as a tool for the BaBar collaboration. It is capable of transferring files at approaching line speeds in the WAN.
+EAPI=8
+HOMEPAGE=https://www.slac.stanford.edu/~abh/bbcp/
+INHERIT=git-r3 cmake
+KEYWORDS=~x86 ~amd64
+LICENSE=LGPL-3
+PROPERTIES=live
+RDEPEND=dev-libs/openssl sys-libs/zlib
+SLOT=0
+_eclasses_=cmake	5691a3da96eac88f135cf3596b8c2c3c	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	git-r3	875eb471682d3e1f18da124be97dcc81	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
+_md5_=42338436a1477849ce24804c3a0820cc

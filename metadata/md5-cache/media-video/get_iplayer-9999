@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DESCRIPTION=BBC Iplayer downloading application
+EAPI=8
+HOMEPAGE=http://linuxcentre.net/get_iplayer/
+INHERIT=git-r3
+KEYWORDS=**
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=|| ( media-video/mplayer media-video/mpv ) virtual/ffmpeg media-sound/lame media-video/flvstreamer dev-perl/libwww-perl dev-perl/LWP-Protocol-https dev-perl/Mojolicious dev-perl/XML-LibXML dev-perl/XML-Simple media-video/atomicparsley
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=9fe6485dbd9557d9b53bcac462fc1b00

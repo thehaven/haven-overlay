@@ -1,0 +1,11 @@
+DEFINED_PHASES=postinst
+DEPEND=sys-cluster/corosync || ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice ) dev-util/pkgconfig
+DESCRIPTION=Distributed Storage System for KVM.
+EAPI=8
+HOMEPAGE=http://www.osrg.net/sheepdog/
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=sys-cluster/corosync || ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice )
+SLOT=0
+SRC_URI=https://github.com/sheepdog/sheepdog/tarball/v1.0.2_rc0
+_md5_=0cb0245defbd0e5705cfa35b75d19995

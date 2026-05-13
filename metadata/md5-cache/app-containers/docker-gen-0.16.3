@@ -1,0 +1,16 @@
+BDEPEND=>=dev-lang/go-1.20 test? ( dev-go/testify ) >=dev-lang/go-1.20:= app-arch/unzip
+DEFINED_PHASES=compile install postinst prepare test unpack
+DEPEND=acct-group/docker app-containers/docker
+DESCRIPTION=Docker container metadata generator for templated files
+EAPI=8
+HOMEPAGE=https://github.com/nginx-proxy/docker-gen
+INHERIT=go-module
+IUSE=debug test
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=acct-group/docker app-containers/docker
+RESTRICT=network-sandbox !test? ( test )
+SLOT=0
+SRC_URI=https://github.com/nginx-proxy/docker-gen/archive/refs/tags/0.16.3.tar.gz -> docker-gen-0.16.3.tar.gz
+_eclasses_=flag-o-matic	a7afe42e95fb46ce9691605acfb24672	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	d96f2a2fd6d8fbad6d94516bf238f885	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=791c04269ad88aa9a4596b873f669348

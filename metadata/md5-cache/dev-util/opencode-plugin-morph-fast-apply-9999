@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=OpenCode plugin for fast diff-based file edits using Morph API
+EAPI=8
+HOMEPAGE=https://github.com/JRedeker/opencode-morph-fast-apply
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/JRedeker/opencode-morph-fast-apply/archive/refs/heads/trunk.tar.gz -> opencode-plugin-morph-fast-apply-9999.tar.gz
+_md5_=919c2e6fc37d192d6c3cbb964bf3f656

@@ -1,0 +1,12 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DESCRIPTION=Native MCP sidecar for Obsidian
+EAPI=8
+HOMEPAGE=https://github.com/haven/obsidian-mcp
+INHERIT=systemd
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-18
+SLOT=0
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=58f69c3b97155640f6f31e5354333f27

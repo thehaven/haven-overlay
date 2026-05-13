@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@proofpoint.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Slim agent harness for OpenCode providing a TUI interface
+		and CLI tool for managing AI agent configurations.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">alvinunreal/oh-my-opencode-slim</remote-id>
+	</upstream>
+</pkgmetadata>

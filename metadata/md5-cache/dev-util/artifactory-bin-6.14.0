@@ -1,0 +1,12 @@
+DEFINED_PHASES=install prepare
+DEPEND=>=virtual/jdk-1.8 app-arch/unzip
+DESCRIPTION=The world's most advanced repository manager for maven
+EAPI=8
+HOMEPAGE=http://www.jfrog.org/products.php
+IUSE=ssl
+KEYWORDS=~x86 ~amd64
+LICENSE=AGPL-3+
+RDEPEND=acct-user/artifactory-bin >=virtual/jre-1.8
+SLOT=0
+SRC_URI=https://bintray.com/artifact/download/jfrog/artifactory/jfrog-artifactory-oss-6.14.0.zip -> artifactory-6.14.0.zip
+_md5_=3513c180d511900c4aee071337d87494

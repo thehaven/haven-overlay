@@ -1,0 +1,14 @@
+BDEPEND=acct-user/overseerr acct-group/overseerr media-libs/vips net-libs/nodejs sys-apps/yarn dev-db/sqlite:3 || ( dev-lang/python:3.14 dev-lang/python:3.13 dev-lang/python:3.12 ) app-arch/unzip >=sys-apps/yarn-1.22.4 net-libs/nodejs virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install postinst setup unpack
+DEPEND=acct-user/overseerr acct-group/overseerr media-libs/vips net-libs/nodejs sys-apps/yarn dev-db/sqlite:3
+DESCRIPTION=a software application for managing requests for your media library
+EAPI=8
+HOMEPAGE=https://github.com/sct/overseerr
+INHERIT=yarn systemd python-any-r1 git-r3
+LICENSE=MIT
+PROPERTIES=live
+RDEPEND=acct-user/overseerr acct-group/overseerr media-libs/vips net-libs/nodejs sys-apps/yarn dev-db/sqlite:3
+RESTRICT=mirror strip
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-any-r1	891415dfe39ad9b41b461f2b86354af0	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	yarn	787315e8c5bba4d69f67fe2aff430e3c
+_md5_=b26ad8e4b3cf51579c6142e44eb43088

@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install
+DESCRIPTION=Official Sentry MCP server
+EAPI=8
+HOMEPAGE=https://github.com/getsentry/mcp-server
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/getsentry/mcp-server/archive/refs/heads/main.tar.gz -> mcp-sentry-main.tar.gz
+_md5_=11c1138b083072b163487149f72a532c

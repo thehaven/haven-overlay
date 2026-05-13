@@ -1,13 +1,16 @@
+BDEPEND=python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-python/setuptools-78.1.0[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install postinst prepare test unpack
-DEPEND=uwsgi? ( www-servers/uwsgi ) python_targets_python2_6? ( dev-lang/python:2.6 ) python_targets_python2_7? ( dev-lang/python:2.7 ) dev-python/python-exec[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)] dev-vcs/git
+DEPEND=uwsgi? ( www-servers/uwsgi )
 DESCRIPTION=Enterprise scalable realtime graphing
-EAPI=5
+EAPI=8
 HOMEPAGE=http://graphite.wikidot.com/
-IUSE=uwsgi python_targets_python2_6 python_targets_python2_7
+INHERIT=distutils-r1 git-r3
+IUSE=uwsgi python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
 KEYWORDS=~amd64 ~x86
 LICENSE=Apache-2.0
-RDEPEND=uwsgi? ( www-servers/uwsgi ) dev-python/carbon[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)] dev-python/ceres dev-python/django[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)] dev-python/pycairo[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)] dev-python/pytz dev-python/twisted-core dev-python/whisper[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)] python_targets_python2_6? ( dev-lang/python:2.6 ) python_targets_python2_7? ( dev-lang/python:2.7 ) dev-python/python-exec[python_targets_python2_6(-)?,python_targets_python2_7(-)?,-python_single_target_python2_6(-),-python_single_target_python2_7(-)]
-REQUIRED_USE=|| ( python_targets_python2_6 python_targets_python2_7 )
+PROPERTIES=live
+RDEPEND=uwsgi? ( www-servers/uwsgi ) dev-python/carbon[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/ceres dev-python/django[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pycairo[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/pytz dev-python/twisted-core dev-python/whisper[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 )
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 )
 SLOT=0
-_eclasses_=distutils-r1	d260e4e05b2ca2981f6b6ab937e7ab9d	eutils	63afaaed8aa819fdcb814c7cd39495a2	git-2	e92e09651292b1bef5656592364550f7	multibuild	c2f33b0eedd7bcfd5bc226baa8da7837	multilib	892e597faee02a5b94eb02ab512e7622	multiprocessing	a2130e6fc4aa4c6a24b265ca0cbcc2b6	python-r1	c6b8362c67424d5095da2c9634cd25c9	python-utils-r1	3668f5e62c6e2526acef650e8e1e8fc4	toolchain-funcs	7ffd28a8c7eea27218865352bfd3ab2f	user	d0a4d0735a6c0183d707ca919bd72f28
-_md5_=65ca7474c57bc04e61e0c71a44317f9c
+_eclasses_=distutils-r1	776bbaa25e9fa0dc9ac6f039ca37f701	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	git-r3	875eb471682d3e1f18da124be97dcc81	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=d145c7412c444296e20423444974e04f

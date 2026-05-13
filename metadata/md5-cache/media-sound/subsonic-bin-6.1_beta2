@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DEPEND=acct-user/subsonic-bin
+DESCRIPTION=Subsonic is a complete, personal media streaming solution
+EAPI=8
+HOMEPAGE=http://www.subsonic.org/
+INHERIT=systemd
+IUSE=+ffmpeg +lame systemd xmp
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=virtual/jre lame? ( media-sound/lame ) ffmpeg? ( virtual/ffmpeg ) systemd? ( sys-apps/systemd ) xmp? ( media-sound/xmp )
+SLOT=0
+SRC_URI=https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.beta2-standalone.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=8156ef50ae95e42b844002b55d575340
