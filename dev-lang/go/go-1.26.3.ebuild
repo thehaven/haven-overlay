@@ -31,6 +31,7 @@ LICENSE="BSD"
 SLOT="0/${PV}"
 IUSE="cpu_flags_x86_sse2"
 
+RDEPEND="app-eselect/eselect-go"
 BDEPEND="|| (
 		>=dev-lang/go-${GO_BOOTSTRAP_MIN}
 		>=dev-lang/go-bootstrap-${GO_BOOTSTRAP_MIN} )"
@@ -104,16 +105,17 @@ src_test() {
 }
 
 src_install() {
-	dodir /usr/lib/go
+	local dest=/usr/lib/go${PV}
+	dodir "${dest}"
 	# The use of cp is deliberate in order to retain permissions
-	cp -R . "${ED}"/usr/lib/go
+	cp -R . "${ED}${dest}" || die
 	einstalldocs
 
 	# testdata directories are not needed on the installed system
 	# The other files we remove are installed by einstalldocs
-	rm -r $(find "${ED}"/usr/lib/go -iname testdata -type d -print) || die
-	rm "${ED}"/usr/lib/go/{CONTRIBUTING.md,PATENTS,README.md} || die
-	rm "${ED}"/usr/lib/go/{SECURITY.md,codereview.cfg,LICENSE} || die
+	rm -r $(find "${ED}${dest}" -iname testdata -type d -print) || die
+	rm "${ED}${dest}"/{CONTRIBUTING.md,PATENTS,README.md} || die
+	rm "${ED}${dest}"/{SECURITY.md,codereview.cfg,LICENSE} || die
 
 	local bin_path
 	if go_cross_compile; then
@@ -124,6 +126,16 @@ src_install() {
 	local f x
 	for x in ${bin_path}/*; do
 		f=${x##*/}
-		dosym ../lib/go/${bin_path}/${f} /usr/bin/${f}
+		dosym "../lib/go${PV}/${bin_path}/${f}" /usr/bin/"${f}${PV}"
 	done
+}
+
+pkg_postinst() {
+	if [[ -z ${REPLACED_BY_VERSION} ]]; then
+		eselect go cleanup
+	fi
+}
+
+pkg_postrm() {
+	eselect go cleanup
 }
