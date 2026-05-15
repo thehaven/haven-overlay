@@ -15,7 +15,7 @@ KEYWORDS="~amd64"
 
 IUSE="cli"
 RESTRICT="network-sandbox"
-RDEPEND="app-text/poppler-utils"
+RDEPEND="app-text/poppler[utils]"
 
 src_compile() {
 	ego build -ldflags "-s -w" -o mediawiki-mcp-server .

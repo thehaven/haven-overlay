@@ -7,11 +7,11 @@ DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
-DESCRIPTION="Find dead Python code"
+DESCRIPTION="Finds unused code in Python programs"
 HOMEPAGE="https://github.com/jendrikseipp/vulture"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=""
+distutils_enable_tests pytest

@@ -4,7 +4,7 @@
 EAPI=8
 
 PYPI_PN="mcp-nettools"
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
@@ -19,6 +19,6 @@ RDEPEND="
 	>=dev-python/dnspython-2.6[${PYTHON_USEDEP}]
 	dev-python/mac-vendor-lookup[${PYTHON_USEDEP}]
 	>=dev-python/mcp-1.0[${PYTHON_USEDEP}]
-	dev-python/speedtest-cli[${PYTHON_USEDEP}]
+	net-analyzer/speedtest-cli[${PYTHON_USEDEP}]
 	dev-python/wakeonlan[${PYTHON_USEDEP}]
 "

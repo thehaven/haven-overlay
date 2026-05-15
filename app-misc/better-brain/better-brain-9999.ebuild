@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Vault write-side tooling for Proofpoint Obsidian vault"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/better-brain"
-EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/better-brain.git"
+HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/better-brain"
+EGIT_REPO_URI="file:///storage/home/haven/projects/services/better-brain"
 
 if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"

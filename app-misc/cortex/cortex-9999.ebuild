@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Vault knowledge agent — search, RAG, and ingestion for Obsidian"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
-EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex.git"
+HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
+EGIT_REPO_URI="file:///storage/home/haven/projects/services/cortex"
 
 KEYWORDS="~amd64"
 LICENSE="Proprietary"

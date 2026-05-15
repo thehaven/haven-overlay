@@ -1,11 +1,10 @@
-# Copyright 2026 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{12..13} )
-inherit distutils-r1
+inherit python-r1
 
 DESCRIPTION="A vector search extension for SQLite"
 HOMEPAGE="https://github.com/asg017/sqlite-vec"
@@ -21,11 +20,32 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-RDEPEND="dev-db/sqlite:3"
-BDEPEND="dev-python/gpep517[${PYTHON_USEDEP}]"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+RDEPEND="${PYTHON_DEPS}
+	dev-db/sqlite:3"
+BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}"
 
-python_install() {
-	unzip -o "${DISTDIR}/${PN}-${PV}-${ARCH}.whl" -d "${D}/$(python_get_sitedir)" || die
+src_unpack() {
+	# Do nothing, we unzip in src_install for each python target
+	:
+}
+
+src_install() {
+	python_foreach_impl my_python_install
+}
+
+my_python_install() {
+	local arch
+	if use amd64; then
+		arch="amd64"
+	elif use arm64; then
+		arch="arm64"
+	else
+		die "Unsupported architecture"
+	fi
+	
+	mkdir -p "${D}/$(python_get_sitedir)" || die
+	unzip -o "${DISTDIR}/${PN}-${PV}-${arch}.whl" -d "${D}/$(python_get_sitedir)" || die
 }

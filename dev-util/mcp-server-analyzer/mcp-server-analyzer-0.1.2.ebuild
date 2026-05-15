@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
@@ -14,4 +14,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=">=dev-python/fastmcp-0.3.0 >=dev-python/pydantic-2.0.0 dev-python/ruff dev-python/vulture dev-python/bandit"
+RDEPEND="
+	>=dev-python/fastmcp-0.3.0[${PYTHON_USEDEP}]
+	>=dev-python/pydantic-2.0.0[${PYTHON_USEDEP}]
+	dev-util/ruff
+	dev-python/vulture[${PYTHON_USEDEP}]
+	dev-python/bandit[${PYTHON_USEDEP}]
+"

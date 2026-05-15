@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_13 )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Repository catalogue tool"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/librarian"
+HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/librarian"
 EGIT_REPO_URI="file:///storage/home/haven/projects/services/librarian"
 
 LICENSE="MIT"

@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="FastMCP server for Mem0 memory layer"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp"
-EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp.git"
+HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp"
+EGIT_REPO_URI="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp.git"
 
 if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"

@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Project scaffold and governance engine"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine"
-EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine.git"
+HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine"
+EGIT_REPO_URI="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine.git"
 
 LICENSE="MIT"
 SLOT="0"
