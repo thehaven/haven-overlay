@@ -37,3 +37,27 @@ src_prepare() {
 	sed -i 's/from tools/from office_powerpoint_mcp_server.tools/' office_powerpoint_mcp_server/ppt_mcp_server.py || die
 	sed -i 's/from utils/from office_powerpoint_mcp_server.utils/' office_powerpoint_mcp_server/ppt_mcp_server.py || die
 }
+
+
+pkg_postinst() {
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/ppt_mcp_server\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/ppt_mcp_server\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  OpenCode (~/.config/opencode/opencode.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"type\": \"local\","
+	elog "      \"command\": [\"/usr/bin/ppt_mcp_server\"],"
+	elog "      \"enabled\": true"
+	elog "    }"
+}

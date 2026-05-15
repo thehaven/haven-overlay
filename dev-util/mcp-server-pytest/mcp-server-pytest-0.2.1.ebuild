@@ -19,3 +19,27 @@ RDEPEND="
 	>=dev-python/mcp-1.16.0[${PYTHON_USEDEP}]
 	>=dev-python/pytest-8.0.0[${PYTHON_USEDEP}]
 "
+
+
+pkg_postinst() {
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/mcp-pytest-runner\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/mcp-pytest-runner\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  OpenCode (~/.config/opencode/opencode.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"type\": \"local\","
+	elog "      \"command\": [\"/usr/bin/mcp-pytest-runner\"],"
+	elog "      \"enabled\": true"
+	elog "    }"
+}

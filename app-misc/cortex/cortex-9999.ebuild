@@ -59,3 +59,27 @@ pkg_config() {
 		chmod 0600 "${env_file}"
 	fi
 }
+
+
+pkg_postinst() {
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/cortex\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/cortex\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  OpenCode (~/.config/opencode/opencode.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"type\": \"local\","
+	elog "      \"command\": [\"/usr/bin/cortex\"],"
+	elog "      \"enabled\": true"
+	elog "    }"
+}

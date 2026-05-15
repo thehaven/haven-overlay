@@ -201,15 +201,6 @@ src_install() {
 	fperms 0640 /etc/mem0/mem0.env
 }
 
-pkg_postinst() {
-	elog "To complete the native installation of mem0-mcp, you must configure"
-	elog "the required databases (PostgreSQL, Neo4j, Qdrant)."
-	elog "Run the following command to begin interactive configuration:"
-	elog ""
-	elog "  emerge --config =${CATEGORY}/${PF}"
-	elog ""
-	elog "This will create the necessary users and generate passwords in /etc/mem0/mem0.env."
-}
 
 pkg_config() {
 	einfo "Starting mem0-mcp native configuration..."
@@ -264,4 +255,28 @@ pkg_config() {
 
 	einfo "Configuration complete. Review /etc/mem0/mem0.env and then:"
 	einfo "  systemctl start mem0-api.service"
+}
+
+
+pkg_postinst() {
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/mem0-mcp\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/mem0-mcp\","
+	elog "      \"args\": []"
+	elog "    }"
+	elog ""
+	elog "  OpenCode (~/.config/opencode/opencode.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"type\": \"local\","
+	elog "      \"command\": [\"/usr/bin/mem0-mcp\"],"
+	elog "      \"enabled\": true"
+	elog "    }"
 }

@@ -32,3 +32,27 @@ RDEPEND="
 		dev-python/uvicorn[${PYTHON_USEDEP}]
 	')
 "
+
+
+pkg_postinst() {
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/wcgw\","
+	elog "      \"args\": [\"--shell\", \"/bin/bash\"]"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/wcgw\","
+	elog "      \"args\": [\"--shell\", \"/bin/bash\"]"
+	elog "    }"
+	elog ""
+	elog "  OpenCode (~/.config/opencode/opencode.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"type\": \"local\","
+	elog "      \"command\": [\"/usr/bin/wcgw\", \"--shell\", \"/bin/bash\"],"
+	elog "      \"enabled\": true"
+	elog "    }"
+}
