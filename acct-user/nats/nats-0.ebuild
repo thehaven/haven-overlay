@@ -9,3 +9,5 @@ DESCRIPTION="User for nats"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( nats )
 ACCT_USER_HOME=/var/lib/nats
+
+acct-user_add_deps

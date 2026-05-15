@@ -4,3 +4,5 @@ DESCRIPTION="mlx user"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( mlx )
 ACCT_USER_HOME=/var/lib/mlx
+
+acct-user_add_deps

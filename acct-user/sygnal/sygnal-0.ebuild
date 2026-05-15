@@ -9,3 +9,5 @@ DESCRIPTION="User for sygnal"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( sygnal )
 ACCT_USER_HOME=/var/lib/sygnal
+
+acct-user_add_deps

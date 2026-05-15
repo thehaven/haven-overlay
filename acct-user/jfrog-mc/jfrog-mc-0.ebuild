@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( jfrog-mc )
 ACCT_USER_HOME="/var/lib/jfrog-mc"
+
+acct-user_add_deps

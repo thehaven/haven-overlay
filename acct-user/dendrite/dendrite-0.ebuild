@@ -9,3 +9,5 @@ DESCRIPTION="User for dendrite"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( dendrite )
 ACCT_USER_HOME=/var/lib/dendrite
+
+acct-user_add_deps

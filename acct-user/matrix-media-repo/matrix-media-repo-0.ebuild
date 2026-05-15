@@ -9,3 +9,5 @@ DESCRIPTION="User for matrix-media-repo"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( matrix-media-repo )
 ACCT_USER_HOME=/var/lib/matrix-media-repo
+
+acct-user_add_deps

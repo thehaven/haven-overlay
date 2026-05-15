@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( subsonic-bin )
 ACCT_USER_HOME="/var/lib/subsonic-bin"
+
+acct-user_add_deps

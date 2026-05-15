@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( nexus-oss-bin )
 ACCT_USER_HOME="/var/lib/nexus-oss-bin"
+
+acct-user_add_deps

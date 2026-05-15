@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( apache-hadoop-common )
 ACCT_USER_HOME="/var/lib/apache-hadoop-common"
+
+acct-user_add_deps

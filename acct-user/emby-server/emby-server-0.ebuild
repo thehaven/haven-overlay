@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( emby-server )
 ACCT_USER_HOME="/var/lib/emby-server"
+
+acct-user_add_deps

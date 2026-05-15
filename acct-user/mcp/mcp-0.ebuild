@@ -9,3 +9,5 @@ DESCRIPTION="User for MCP services"
 ACCT_USER_ID=360
 ACCT_USER_GROUPS=( mcp )
 ACCT_USER_HOME=/var/lib/mcp
+
+acct-user_add_deps

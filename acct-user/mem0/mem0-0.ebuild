@@ -9,3 +9,5 @@ DESCRIPTION="mem0 user"
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( mem0 )
 ACCT_USER_HOME=/var/lib/mem0
+
+acct-user_add_deps

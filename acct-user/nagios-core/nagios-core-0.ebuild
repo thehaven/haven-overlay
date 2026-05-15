@@ -7,3 +7,5 @@ inherit acct-user
 ACCT_USER_ID="-1"
 ACCT_USER_GROUPS=( nagios-core )
 ACCT_USER_HOME="/var/lib/nagios-core"
+
+acct-user_add_deps
