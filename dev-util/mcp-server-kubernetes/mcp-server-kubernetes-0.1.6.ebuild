@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
@@ -14,4 +14,12 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=">=dev-python/httpx-0.28.1 >=dev-python/mcp-1.4.1"
+RDEPEND=">=dev-python/httpx-0.28.1[${PYTHON_USEDEP}] >=dev-python/mcp-1.4.1[${PYTHON_USEDEP}]"
+
+src_prepare() {
+	distutils-r1_src_prepare
+	# Patch uv_build to hatchling.build if present
+	if [ -f pyproject.toml ]; then
+		sed -i 's/build-backend = "uv_build"/build-backend = "hatchling.build"/' pyproject.toml || die
+	fi
+}

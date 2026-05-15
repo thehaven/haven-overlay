@@ -3,8 +3,8 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_12 )
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_12 python3_13 )
 
 inherit distutils-r1
 
@@ -23,6 +23,14 @@ RDEPEND="
 "
 
 S="${WORKDIR}/pagerduty-mcp-server-main"
+
+src_prepare() {
+	distutils-r1_src_prepare
+	# Patch uv_build to hatchling.build if present
+	if [ -f pyproject.toml ]; then
+		sed -i 's/build-backend = "uv_build"/build-backend = "hatchling.build"/' pyproject.toml || die
+	fi
+}
 
 python_compile() {
 	distutils-r1_python_compile

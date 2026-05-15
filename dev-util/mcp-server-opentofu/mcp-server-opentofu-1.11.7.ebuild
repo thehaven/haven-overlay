@@ -30,6 +30,12 @@ src_unpack() {
 	cp "/storage/home/haven/.gemini/scripts/mcp-setup/cli_wrapper.py" "${S}/" || die
 }
 
+src_prepare() {
+	default
+	# Add shebang if missing to satisfy python_fix_shebang
+	sed -i '1i#!/usr/bin/env python' opentofu_mcp.py || die
+}
+
 src_install() {
 	insinto /usr/share/${PN}
 	doins opentofu_mcp.py cli_wrapper.py
@@ -37,9 +43,10 @@ src_install() {
 	python_fix_shebang "${ED}/usr/share/${PN}/opentofu_mcp.py"
 
 	# Create launcher
+	python_export PYTHON
 	cat <<- binEOF > "${T}/${PN}"
 		#!/bin/sh
-		exec python /usr/share/${PN}/opentofu_mcp.py "\$@"
+		exec ${PYTHON} /usr/share/${PN}/opentofu_mcp.py "\$@"
 	binEOF
 	dobin "${T}/${PN}"
 }

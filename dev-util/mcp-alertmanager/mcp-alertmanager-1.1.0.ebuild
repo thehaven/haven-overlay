@@ -1,10 +1,10 @@
-# Copyright 2026 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_12 )
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_12 python3_13 )
 
 inherit distutils-r1
 
@@ -29,3 +29,11 @@ BDEPEND="
 S="${WORKDIR}/alertmanager-mcp-server-${PV}"
 
 distutils_enable_tests pytest
+
+src_prepare() {
+	distutils-r1_src_prepare
+	# Patch uv_build to hatchling.build if present
+	if [ -f pyproject.toml ]; then
+		sed -i 's/build-backend = "uv_build"/build-backend = "hatchling.build"/' pyproject.toml || die
+	fi
+}

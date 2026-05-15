@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="FastMCP server for Mem0 memory layer"
 HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp"
-EGIT_REPO_URI="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/mem0-mcp.git"
+EGIT_REPO_URI="file:///storage/home/haven/projects/services/mem0-mcp"
 
 if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"
@@ -75,12 +75,23 @@ RDEPEND="
 
 distutils_enable_tests pytest
 
+src_prepare() {
+	distutils-r1_src_prepare
+	# Add shebang to satisfy python_fix_shebang
+	sed -i '1i#!/usr/bin/env python' scripts/key_manager.py || die
+}
+
 src_install() {
 	distutils-r1_src_install
 
 	# CLI and Documentation
+	python_setup
 	python_newscript scripts/key_manager.py mem0-key-manager
-	doman man/mem0-key-manager.1
+	
+	# Explicitly check if man page exists before installing
+	if [[ -f "man/mem0-key-manager.1" ]]; then
+		doman man/mem0-key-manager.1
+	fi
 
 	# Systemd Units
 	cat <<- 'UNIT' > mem0-api.service

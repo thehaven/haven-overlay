@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=poetry
 PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1 pypi
 
@@ -16,7 +16,8 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-python/grpcio-1.41.0[${PYTHON_USEDEP}]
-	>=dev-python/httpx-0.20.0[${PYTHON_USEDEP},http2]
+	>=dev-python/httpx-0.20.0[${PYTHON_USEDEP}]
+	dev-python/h2[${PYTHON_USEDEP}]
 	>=dev-python/portalocker-2.7.0[${PYTHON_USEDEP}]
 	>=dev-python/protobuf-3.20.0[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.10.8[${PYTHON_USEDEP}]
