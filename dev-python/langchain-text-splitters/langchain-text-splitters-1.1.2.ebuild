@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYPI_PN="langchain_text_splitters"
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{11..13} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="LangChain text splitting utilities"

@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{11..13} )
 
 inherit distutils-r1
 
@@ -24,7 +24,8 @@ RDEPEND="
 	dev-python/openai[${PYTHON_USEDEP}]
 	dev-python/python-dotenv[${PYTHON_USEDEP}]
 	dev-python/fire[${PYTHON_USEDEP}]
-	dev-python/httpx[${PYTHON_USEDEP},socks]
+	dev-python/httpx[${PYTHON_USEDEP}]
+	dev-python/socksio[${PYTHON_USEDEP}]
 	dev-python/rich[${PYTHON_USEDEP}]
 	dev-python/tenacity[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
@@ -34,7 +35,8 @@ RDEPEND="
 	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/prompt-toolkit[${PYTHON_USEDEP}]
 	dev-python/croniter[${PYTHON_USEDEP}]
-	dev-python/pyjwt[${PYTHON_USEDEP},crypto]
+	dev-python/pyjwt[${PYTHON_USEDEP}]
+	dev-python/cryptography[${PYTHON_USEDEP}]
 	dev-python/psutil[${PYTHON_USEDEP}]
 	media-video/ffmpeg
 	dev-vcs/git
