@@ -61,10 +61,9 @@ RDEPEND="
 	slack? (
 		dev-python/slack-bolt[${PYTHON_USEDEP}]
 		dev-python/slack-sdk[${PYTHON_USEDEP}]
-		dev-python/aiohttp[${PYTHON_USEDEP}]
 	)
 	matrix? (
-		dev-python/mautrix[${PYTHON_USEDEP},encryption]
+		dev-python/mautrix[${PYTHON_USEDEP}]
 		dev-python/markdown[${PYTHON_USEDEP}]
 		dev-python/aiosqlite[${PYTHON_USEDEP}]
 		dev-python/asyncpg[${PYTHON_USEDEP}]
