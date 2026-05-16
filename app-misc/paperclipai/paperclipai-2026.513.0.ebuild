@@ -15,7 +15,11 @@ KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 BDEPEND=">=net-libs/nodejs-20[npm]"
-RDEPEND=">=net-libs/nodejs-20"
+RDEPEND="
+	>=net-libs/nodejs-20
+	dev-db/postgresql
+	net-misc/openssh
+"
 
 src_compile() { :; }
 
