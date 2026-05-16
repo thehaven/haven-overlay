@@ -3,8 +3,8 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=poetry
+PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Convert documents to markdown with high speed and accuracy"
@@ -14,7 +14,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-# marker-pdf has many dependencies, for a basic ebuild we'll list the core ones
 RDEPEND="
 	dev-python/pydantic[${PYTHON_USEDEP}]
+"
+BDEPEND="
+	dev-python/poetry-core[${PYTHON_USEDEP}]
 "

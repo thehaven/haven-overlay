@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>kevin7441@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">alexcong/gemini-deepsearch-mcp</remote-id>
+	</upstream>
+</pkgmetadata>

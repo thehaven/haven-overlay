@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{13..13} )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit python-single-r1
 
 DESCRIPTION="Prepare tool for Project Harbor configuration"
