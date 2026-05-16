@@ -10,7 +10,7 @@ LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="ai-compressor alertmanager analyzer aws brave-search context7 cortex desktop-commander docfork docker fetch forge git github gitlab gitmcp grafana jc karakeep kubernetes markdownlint mediawiki mem0 memory mesh network-tools obsidian opentofu pagerduty pass perplexity playwright postgres powerpoint pytest ripgrep sentry sequential-thinking slack task-manager terraform tree-sitter +wcgw wikipedia"
+IUSE="ai-compressor alertmanager analyzer aws brave-search context7 cortex desktop-commander docfork docker fetch forge gemini-deepsearch git github gitlab gitmcp grafana jc karakeep kubernetes linkedin markdownlint mediawiki mem0 memory mesh network-tools obsidian opentofu pagerduty pass perplexity playwright postgres powerpoint pytest ripgrep sentry sequential-thinking slack task-manager terraform tree-sitter +wcgw wikipedia"
 
 RDEPEND="
 	ai-compressor? ( app-misc/ai-compressor )
@@ -25,6 +25,7 @@ RDEPEND="
 	docker? ( dev-util/mcp-server-docker )
 	fetch? ( dev-util/mcp-server-fetch )
 	forge? ( app-admin/mcp-forge )
+	gemini-deepsearch? ( dev-util/mcp-server-gemini-deepsearch )
 	git? ( dev-util/mcp-server-git )
 	github? ( dev-util/mcp-server-github )
 	gitlab? ( dev-util/mcp-server-gitlab )
@@ -33,6 +34,7 @@ RDEPEND="
 	jc? ( dev-python/jc-mcp )
 	karakeep? ( dev-util/mcp-server-karakeep )
 	kubernetes? ( dev-util/mcp-server-kubernetes )
+	linkedin? ( dev-util/mcp-server-linkedin )
 	markdownlint? ( dev-util/mcp-server-markdownlint )
 	mediawiki? ( dev-util/mediawiki-mcp-server )
 	mem0? ( app-misc/mem0-mcp )
