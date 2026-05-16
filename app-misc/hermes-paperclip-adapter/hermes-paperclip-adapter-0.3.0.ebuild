@@ -17,7 +17,7 @@ RESTRICT="network-sandbox"
 BDEPEND=">=net-libs/nodejs-20[npm]"
 RDEPEND="
 	>=net-libs/nodejs-20
-	app-misc/hermes-agent
+	app-misc/hermes
 "
 
 src_compile() { :; }
