@@ -15,6 +15,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+python_test() {
+	${EPYTHON} -c "import mcp; print('Import successful')" || die "Import test failed"
+}
+
 RDEPEND="
 	dev-python/anyio[${PYTHON_USEDEP}]
 	dev-python/httpx-sse[${PYTHON_USEDEP}]

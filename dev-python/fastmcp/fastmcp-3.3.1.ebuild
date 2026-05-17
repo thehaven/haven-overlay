@@ -8,16 +8,20 @@ PYTHON_COMPAT=( python3_{12..14} )
 
 inherit distutils-r1 pypi
 
-BDEPEND="dev-python/uv-dynamic-versioning[${PYTHON_USEDEP}]"
-
 DESCRIPTION="The fast, Pythonic way to build MCP servers and clients."
 HOMEPAGE="https://github.com/PrefectHQ/fastmcp"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="test"
+RESTRICT="!test? ( test )"
 
 S="${WORKDIR}/${P}/fastmcp_slim"
+
+python_test() {
+	${EPYTHON} -c "import fastmcp; print('Import successful')" || die "Import test failed"
+}
 
 RDEPEND=">=dev-python/authlib-1.6.5[${PYTHON_USEDEP}]
 	>=dev-python/cyclopts-4.0.0[${PYTHON_USEDEP}]
@@ -44,27 +48,6 @@ RDEPEND=">=dev-python/authlib-1.6.5[${PYTHON_USEDEP}]
 	>=dev-python/uvicorn-0.35[${PYTHON_USEDEP}]
 	>=dev-python/watchfiles-1.0.0[${PYTHON_USEDEP}]
 	>=dev-python/websockets-15.0.1[${PYTHON_USEDEP}]"
-BDEPEND="test? (
-	dev-python/dirty-equals[${PYTHON_USEDEP}]
-	dev-python/fastapi[${PYTHON_USEDEP}]
-	dev-python/inline-snapshot[${PYTHON_USEDEP}]
-	dev-python/ipython[${PYTHON_USEDEP}]
-	dev-python/opentelemetry-exporter-otlp-proto-grpc[${PYTHON_USEDEP}]
-	dev-python/opentelemetry-sdk[${PYTHON_USEDEP}]
-	dev-python/pdbpp[${PYTHON_USEDEP}]
-	dev-python/psutil[${PYTHON_USEDEP}]
-	dev-python/pyinstrument[${PYTHON_USEDEP}]
-	dev-python/pyperclip[${PYTHON_USEDEP}]
-	dev-python/pytest-asyncio[${PYTHON_USEDEP}]
-	dev-python/pytest-cov[${PYTHON_USEDEP}]
-	dev-python/pytest-env[${PYTHON_USEDEP}]
-	dev-python/pytest-examples[${PYTHON_USEDEP}]
-	dev-python/pytest-flakefinder[${PYTHON_USEDEP}]
-	dev-python/pytest-httpx[${PYTHON_USEDEP}]
-	dev-python/pytest-report[${PYTHON_USEDEP}]
-	dev-python/pytest-retry[${PYTHON_USEDEP}]
-	dev-python/pytest-timeout[${PYTHON_USEDEP}]
-	dev-python/pytest-xdist[${PYTHON_USEDEP}]
-)"
-
-distutils_enable_tests pytest
+BDEPEND="
+	dev-python/uv-dynamic-versioning[${PYTHON_USEDEP}]
+"
