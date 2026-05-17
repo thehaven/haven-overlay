@@ -10,8 +10,17 @@ LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE="+secret-redactor +dcp +conductor snip vibeguard worktree-workflow otel"
+
 RDEPEND="
-	~dev-util/opencode-plugin-secret-redactor-0.5.1
-	~dev-util/opencode-plugin-dcp-3.1.11
-	~dev-util/opencode-plugin-conductor-1.32.0
+	dev-util/opencode
+	secret-redactor? ( dev-util/opencode-plugin-secret-redactor )
+	dcp? ( dev-util/opencode-plugin-dcp )
+	conductor? ( dev-util/opencode-plugin-conductor )
+	snip? ( dev-util/opencode-snip )
+	vibeguard? ( dev-util/opencode-plugin-vibeguard )
+	worktree-workflow? ( dev-util/opencode-plugin-worktree-workflow )
+	otel? ( dev-util/opencode-plugin-otel )
 "
+
+src_install() { :; }

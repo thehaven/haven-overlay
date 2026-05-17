@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 # Mapping Extras from pyproject.toml
-IUSE="anthropic exa firecrawl parallel-web fal edge-tts modal daytona vercel hindsight messaging slack matrix cli voice pty honcho mcp homeassistant sms acp bedrock dingtalk feishu google youtube web"
+IUSE="+cli +mcp +web anthropic exa firecrawl parallel-web fal edge-tts modal daytona vercel hindsight messaging slack matrix voice pty honcho homeassistant sms acp bedrock dingtalk feishu google youtube"
 
 RDEPEND="
 	dev-python/openai[${PYTHON_USEDEP}]
@@ -101,7 +101,7 @@ RDEPEND="
 	youtube? ( dev-python/youtube-transcript-api[${PYTHON_USEDEP}] )
 	web? (
 		dev-python/fastapi[${PYTHON_USEDEP}]
-		dev-python/uvicorn[${PYTHON_USEDEP},standard]
+		dev-python/uvicorn[${PYTHON_USEDEP}]
 	)
 "
 
