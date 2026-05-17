@@ -107,6 +107,13 @@ RDEPEND="
 
 BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 
+src_prepare() {
+	default
+	# Fix import conflict with external cli package
+	sed -i 's/from cli import main as cli_main/# Use local main function to avoid namespace conflicts\n    cli_main = main/' \
+		hermes_cli/main.py || die "Failed to fix import conflict"
+}
+
 src_install() {
 	distutils-r1_src_install
 	
