@@ -55,8 +55,6 @@ RDEPEND="
 	dev-python/google-genai[${PYTHON_USEDEP}]
 	>=dev-python/google-ai-generativelanguage-0.6.18[${PYTHON_USEDEP}]
 "
-# NOTE: langgraph, langchain, langchain-google-genai, langgraph-sdk,
-# langgraph-cli, langgraph-api are not yet packaged.
 
 src_install() {
 	distutils-r1_src_install

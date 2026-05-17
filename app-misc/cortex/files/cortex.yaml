@@ -1,0 +1,8 @@
+# Cortex System Configuration
+# /etc/cortex/cortex.yaml
+
+# Global defaults
+embedder_backend: "ollama"
+ollama_url: "http://localhost:11434"
+reranker_backend: "local"
+rag_min_score: 0.02

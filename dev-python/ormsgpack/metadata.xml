@@ -5,5 +5,5 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
-	<upstream><remote-id type="pypi">pydantic-settings</remote-id></upstream>
+	<upstream><remote-id type="pypi">ormsgpack</remote-id></upstream>
 </pkgmetadata>

@@ -5,17 +5,19 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{11..14} )
-PYPI_PN="pydantic-settings"
+PYPI_PN="langchain-google-genai"
 inherit distutils-r1 pypi
 
-DESCRIPTION="pydantic-settings Python package"
-HOMEPAGE="https://github.com/pydantic/pydantic-settings"
+DESCRIPTION="langchain-google-genai Python package"
+HOMEPAGE="https://docs.langchain.com/oss/python/integrations/providers/google"
+
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
+	dev-python/filetype[${PYTHON_USEDEP}]
+	dev-python/google-genai[${PYTHON_USEDEP}]
+	dev-python/langchain-core[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
-	dev-python/python-dotenv[${PYTHON_USEDEP}]
-	dev-python/typing-inspection[${PYTHON_USEDEP}]
 "
