@@ -107,6 +107,19 @@ RDEPEND="
 
 BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 
+src_prepare() {
+	default
+	
+	# Fix cli import conflict - move cli.py into hermes_cli package
+	mv cli.py hermes_cli/cli.py || die
+	
+	# Update all imports of 'cli' to use relative package import
+	find hermes_cli -name "*.py" -exec sed -i 's/from cli import/from .cli import/g' {} + || die
+	
+	# Update pyproject.toml to remove cli from py-modules to prevent standalone installation
+	sed -i '/py-modules = [/,/]/ s/"cli", //' pyproject.toml || die
+}
+
 src_install() {
 	distutils-r1_src_install
 	
