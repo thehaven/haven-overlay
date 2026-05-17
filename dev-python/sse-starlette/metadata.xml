@@ -3,11 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>haven@thehavennet.org.uk</email>
-		<name>Haven</name>
+		<name>Simon Alman</name>
 	</maintainer>
-	<longdescription>SSE plugin for Starlette web framework.</longdescription>
 	<upstream>
-		<remote-id type="github">sysid/sse-starlette</remote-id>
 		<remote-id type="pypi">sse-starlette</remote-id>
 	</upstream>
 </pkgmetadata>
