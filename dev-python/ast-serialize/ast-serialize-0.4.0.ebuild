@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=maturin
 PYTHON_COMPAT=( python3_{11..14} )
 PYPI_PN="ast-serialize"
 inherit distutils-r1 pypi
