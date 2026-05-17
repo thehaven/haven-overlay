@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=MCP server for desktop automation
+EAPI=8
+HOMEPAGE=https://github.com/wonderwhy-er/DesktopCommanderMCP
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@wonderwhy-er/desktop-commander/-/desktop-commander-0.2.41.tgz
+_md5_=772772c466b76a3135ee16f237776d83

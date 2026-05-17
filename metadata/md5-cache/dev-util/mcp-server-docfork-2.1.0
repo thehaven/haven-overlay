@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=MCP server for documentation forking
+EAPI=8
+HOMEPAGE=https://github.com/docfork/docfork
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/docfork/-/docfork-2.1.0.tgz
+_md5_=9bd174adece1afd7eb9e9dd10b5e6c1a

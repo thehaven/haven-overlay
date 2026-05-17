@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Visual feedback layer for Paperclip agents
+EAPI=8
+HOMEPAGE=https://github.com/gcampton/Agent-Pixels
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 app-misc/paperclipai
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/gcampton/Agent-Pixels/archive/refs/heads/main.tar.gz -> agent-pixels-0.1.0.tar.gz
+_md5_=0c5537951ac3c499e20baf54461ef865

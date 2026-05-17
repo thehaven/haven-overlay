@@ -1,5 +1,5 @@
 BDEPEND=>=net-libs/nodejs-20[npm]
-DEFINED_PHASES=compile install
+DEFINED_PHASES=compile install postinst
 DESCRIPTION=MCP server for GitLab
 EAPI=8
 HOMEPAGE=https://github.com/zereight/gitlab-mcp
@@ -9,4 +9,4 @@ RDEPEND=>=net-libs/nodejs-20
 RESTRICT=network-sandbox
 SLOT=0
 SRC_URI=https://registry.npmjs.org/@zereight/mcp-gitlab/-/mcp-gitlab-2.0.30.tgz
-_md5_=af03e11cf14c561a6f759ef8de35c7ba
+_md5_=37d586da8eb033f3c741eed75444fe72

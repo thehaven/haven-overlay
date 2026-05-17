@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Meta-package for Hermes Agent plugins
+EAPI=8
+HOMEPAGE=https://github.com/NousResearch/hermes-agent
+IUSE=+dashboard +memory +spotify +web context-engine disk-cleanup google-meet achievements image-gen kanban model-providers observability platforms strike-freedom-cockpit otel paperclip
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=app-misc/hermes[cli,mcp,web?] dashboard? ( app-misc/hermes-plugin-dashboard ) memory? ( app-misc/hermes-plugin-memory ) spotify? ( app-misc/hermes-plugin-spotify ) web? ( app-misc/hermes-plugin-web ) context-engine? ( app-misc/hermes-plugins-context_engine ) disk-cleanup? ( app-misc/hermes-plugins-disk-cleanup ) google-meet? ( app-misc/hermes-plugins-google_meet ) achievements? ( app-misc/hermes-plugins-achievements ) image-gen? ( app-misc/hermes-plugins-image_gen ) kanban? ( app-misc/hermes-plugins-kanban ) model-providers? ( app-misc/hermes-plugins-model-providers ) observability? ( app-misc/hermes-plugins-observability ) platforms? ( app-misc/hermes-plugins-platforms ) strike-freedom-cockpit? ( app-misc/hermes-plugins-strike-freedom-cockpit ) otel? ( app-misc/hermes-otel ) paperclip? ( app-misc/hermes-paperclip-adapter )
+SLOT=0
+_md5_=1b9b285fcea3e16182dba7c6b893c229

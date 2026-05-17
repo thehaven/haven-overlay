@@ -1,0 +1,12 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=OpenCode package manager
+EAPI=8
+HOMEPAGE=https://github.com/kdcokenny/ocx
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/kdcokenny/ocx/archive/refs/tags/v2.0.11.tar.gz -> ocx-2.0.11.tar.gz
+_md5_=6f6701f28fd203ea383e878f7587ce05

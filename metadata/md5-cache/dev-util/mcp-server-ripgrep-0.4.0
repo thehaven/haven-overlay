@@ -1,5 +1,5 @@
 BDEPEND=>=net-libs/nodejs-20[npm]
-DEFINED_PHASES=compile install
+DEFINED_PHASES=compile install postinst
 DESCRIPTION=MCP server for ripgrep search
 EAPI=8
 HOMEPAGE=https://github.com/mcollina/mcp-ripgrep
@@ -9,4 +9,4 @@ RDEPEND=>=net-libs/nodejs-20
 RESTRICT=network-sandbox
 SLOT=0
 SRC_URI=https://registry.npmjs.org/mcp-ripgrep/-/mcp-ripgrep-0.4.0.tgz
-_md5_=fd293b7e68b8ad546cc24a0989b48a2d
+_md5_=83f17b770ad9a8969baaaa605386653c

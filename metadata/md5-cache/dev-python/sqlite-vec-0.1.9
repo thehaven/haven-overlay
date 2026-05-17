@@ -1,15 +1,15 @@
-BDEPEND=dev-python/gpep517[python_targets_python3_12(-)?,python_targets_python3_13(-)?] python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?] >=dev-python/setuptools-78.1.0[python_targets_python3_12(-)?,python_targets_python3_13(-)?]
-DEFINED_PHASES=compile configure install prepare test
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install unpack
 DESCRIPTION=A vector search extension for SQLite
 EAPI=8
 HOMEPAGE=https://github.com/asg017/sqlite-vec
-INHERIT=distutils-r1
-IUSE=python_targets_python3_12 python_targets_python3_13
+INHERIT=python-r1
+IUSE=python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
-RDEPEND=dev-db/sqlite:3 python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 )
-REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 )
+RDEPEND=python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) dev-db/sqlite:3
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 )
 SLOT=0
 SRC_URI=amd64? ( https://files.pythonhosted.org/packages/6f/ad/6afd073b0f817b3e03f9e37ad626ae341805891f23c74b5292818f49ac63/sqlite_vec-0.1.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux1_x86_64.whl -> sqlite-vec-0.1.9-amd64.whl ) arm64? ( https://files.pythonhosted.org/packages/00/d4/f2b936d3bdc38eadcbd2a87875815db36430fab0363182ba5d12cd8e0b51/sqlite_vec-0.1.9-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl -> sqlite-vec-0.1.9-arm64.whl )
-_eclasses_=distutils-r1	776bbaa25e9fa0dc9ac6f039ca37f701	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
-_md5_=e838e8168f6c42d247cd6ad13e00fb70
+_eclasses_=multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=fbce991867a24923f70c8ac5c53fc136

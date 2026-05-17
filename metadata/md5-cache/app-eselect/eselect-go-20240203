@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Manages multiple Go versions
+EAPI=8
+HOMEPAGE=https://github.com/bekcpear/eselect-go
+KEYWORDS=~amd64 ~arm ~arm64 ~loong ~mips ~ppc64 ~riscv ~s390 ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos ~x64-solaris
+LICENSE=GPL-2
+RDEPEND=>=app-admin/eselect-1.0.2
+SLOT=0
+SRC_URI=https://github.com/bekcpear/eselect-go/archive/refs/tags/20240203.tar.gz -> eselect-go-20240203.tar.gz
+_md5_=042e9017a2e06c0b4d4b17128426c19a

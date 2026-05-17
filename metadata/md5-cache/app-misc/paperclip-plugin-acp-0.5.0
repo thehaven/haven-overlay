@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=ACP runtime plugin for Paperclip
+EAPI=8
+HOMEPAGE=https://github.com/mvanhorn/paperclip-plugin-acp
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 app-misc/paperclipai
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/paperclip-plugin-acp/-/paperclip-plugin-acp-0.5.0.tgz
+_md5_=d56bde7f345e38664c124a6545c98d4d

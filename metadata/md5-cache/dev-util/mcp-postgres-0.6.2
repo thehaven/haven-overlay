@@ -1,12 +1,12 @@
-BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+BDEPEND=>=net-libs/nodejs-20[npm]
 DEFINED_PHASES=compile install postinst
-DESCRIPTION=Model Context Protocol server for Postgres
+DESCRIPTION=Model Context Protocol server for PostgreSQL
 EAPI=8
 HOMEPAGE=https://github.com/modelcontextprotocol/servers
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
-RDEPEND=dev-util/opencode dev-db/postgresql
-RESTRICT=network-sandbox test
+RDEPEND=>=net-libs/nodejs-20 dev-db/postgresql
+RESTRICT=network-sandbox
 SLOT=0
-SRC_URI=https://github.com/modelcontextprotocol/servers/archive/refs/heads/main.tar.gz -> mcp-servers-main.tar.gz
-_md5_=77b82d8c4ad308bc244b580db25ba6b1
+SRC_URI=https://registry.npmjs.org/@modelcontextprotocol/server-postgres/-/server-postgres-0.6.2.tgz
+_md5_=f8546f09afbd0b4e85527945c9a11284

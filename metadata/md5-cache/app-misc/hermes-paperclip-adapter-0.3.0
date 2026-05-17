@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=Paperclip adapter for Hermes Agent
+EAPI=8
+HOMEPAGE=https://github.com/NousResearch/hermes-paperclip-adapter
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 app-misc/hermes
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/hermes-paperclip-adapter/-/hermes-paperclip-adapter-0.3.0.tgz
+_md5_=0b9cff9fef0e25a93d66a81cbdd10a13
