@@ -8,12 +8,16 @@ PYTHON_COMPAT=( python3_{12..14} )
 
 inherit distutils-r1 pypi
 
+BDEPEND="dev-python/uv-dynamic-versioning[${PYTHON_USEDEP}]"
+
 DESCRIPTION="The fast, Pythonic way to build MCP servers and clients."
 HOMEPAGE="https://github.com/PrefectHQ/fastmcp"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
+
+S="${WORKDIR}/${P}/fastmcp_slim"
 
 RDEPEND=">=dev-python/authlib-1.6.5[${PYTHON_USEDEP}]
 	>=dev-python/cyclopts-4.0.0[${PYTHON_USEDEP}]

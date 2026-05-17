@@ -15,9 +15,17 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE="memory filetree keyring"
+
 RDEPEND="
 	>=dev-python/beartype-0.20.0[${PYTHON_USEDEP}]
 	>=dev-python/typing-extensions-4.15.0[${PYTHON_USEDEP}]
+	memory? ( dev-python/cachetools[${PYTHON_USEDEP}] )
+	filetree? (
+		dev-python/aiofile[${PYTHON_USEDEP}]
+		dev-python/anyio[${PYTHON_USEDEP}]
+	)
+	keyring? ( dev-python/keyring[${PYTHON_USEDEP}] )
 "
 
 distutils_enable_tests pytest
@@ -29,6 +37,6 @@ src_prepare() {
 	cat >> pyproject.toml <<-EOF
 		
 		[tool.hatch.build.targets.wheel]
-		packages = ["key_value"]
+		packages = ["src/key_value"]
 	EOF
 }

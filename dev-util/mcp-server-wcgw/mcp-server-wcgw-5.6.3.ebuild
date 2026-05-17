@@ -30,6 +30,9 @@ RDEPEND="
 		sci-ml/tokenizers[${PYTHON_SINGLE_USEDEP}]
 		dev-python/typer[${PYTHON_USEDEP}]
 		dev-python/uvicorn[${PYTHON_USEDEP}]
+		dev-python/syntax-checker[${PYTHON_USEDEP}]
+		dev-python/wcmatch[${PYTHON_USEDEP}]
+		dev-python/pygit2[${PYTHON_USEDEP}]
 	')
 "
 

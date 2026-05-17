@@ -20,6 +20,7 @@ RDEPEND="
 	dev-util/ruff
 	dev-python/vulture[${PYTHON_USEDEP}]
 	dev-python/bandit[${PYTHON_USEDEP}]
+	dev-python/griffe[${PYTHON_USEDEP}]
 "
 
 
