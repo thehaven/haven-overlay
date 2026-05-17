@@ -39,11 +39,13 @@ distutils_enable_tests pytest
 src_install() {
 	distutils-r1_src_install
 	dodoc README.md
-	
+}
+
+python_install() {
 	if use debug; then
 		# Install Anthropic wrapper script for observability
 		python_moduleinto "${PN}"
-		python_domodule files/wrapper.py
+		python_domodule "${FILESDIR}/wrapper.py"
 	fi
 }
 

@@ -13,7 +13,7 @@ S="${WORKDIR}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="+proxy"
+IUSE="+proxy debug"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -22,6 +22,7 @@ RESTRICT="network-sandbox test"
 
 RDEPEND="
 	${PYTHON_DEPS}
+	debug? ( dev-python/hermes-observability )
 "
 BDEPEND="
 	${PYTHON_DEPS}
@@ -76,6 +77,12 @@ src_install() {
 
 	keepdir /var/lib/litellm
 	keepdir /var/log/litellm
+	
+	if use debug; then
+		# Install LiteLLM wrapper script for observability
+		insinto "${instdir}/lib/python3.11/site-packages/litellm"
+		doins files/wrapper.py
+	fi
 }
 
 pkg_postinst() {
@@ -89,4 +96,13 @@ pkg_postinst() {
 	einfo ""
 	einfo "Default URL: http://localhost:4000"
 	einfo "Edit /etc/litellm/config.yaml to configure models."
+	
+	if use debug; then
+		einfo ""
+		einfo "LiteLLM debug mode enabled with LLM observability."
+		einfo "To enable raw response logging, set:"
+		einfo "  export HERMES_DEBUG_LLM=1"
+		einfo "This will log all LiteLLM API requests and responses."
+		einfo "Use with caution in production environments."
+	fi
 }
