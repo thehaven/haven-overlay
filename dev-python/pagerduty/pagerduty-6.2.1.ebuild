@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYPI_PN="pagerduty"
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Python client for PagerDuty API"

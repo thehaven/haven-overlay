@@ -5,7 +5,7 @@ EAPI=8
 
 PYPI_PN="mcp-pytest-runner"
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="MCP server for pytest test execution"

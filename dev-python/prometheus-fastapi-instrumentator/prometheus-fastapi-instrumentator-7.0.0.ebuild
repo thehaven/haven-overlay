@@ -1,6 +1,6 @@
 EAPI=8
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 pypi
 DESCRIPTION="Instrument your FastAPI with Prometheus metrics"
 HOMEPAGE="https://github.com/trallnag/prometheus-fastapi-instrumentator"

@@ -4,7 +4,7 @@
 EAPI=8
 MY_PV="${PV/_rc/.rc.}"
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 inherit python-single-r1
 
 DESCRIPTION="LLM API gateway - unified interface for 100+ LLM providers"
