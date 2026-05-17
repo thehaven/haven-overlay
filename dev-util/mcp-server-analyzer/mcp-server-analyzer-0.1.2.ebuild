@@ -14,6 +14,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+python_test() {
+	${EPYTHON} -c "from mcp_server_analyzer.server import main; print('Import successful')" || die "Import test failed"
+}
+
 RDEPEND="
 	>=dev-python/fastmcp-0.3.0[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-2.0.0[${PYTHON_USEDEP}]
@@ -21,6 +25,9 @@ RDEPEND="
 	dev-python/vulture[${PYTHON_USEDEP}]
 	dev-python/bandit[${PYTHON_USEDEP}]
 	dev-python/griffe[${PYTHON_USEDEP}]
+"
+BDEPEND="
+	dev-python/uv-dynamic-versioning[${PYTHON_USEDEP}]
 "
 
 

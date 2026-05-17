@@ -16,6 +16,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+python_test() {
+	${EPYTHON} -c "from wcgw.client.mcp_server import main; print('Import successful')" || die "Import test failed"
+}
+
 RDEPEND="
 	$(python_gen_cond_dep '
 		dev-python/anthropic[${PYTHON_USEDEP}]

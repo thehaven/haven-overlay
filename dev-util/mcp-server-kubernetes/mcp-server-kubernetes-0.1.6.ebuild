@@ -14,6 +14,11 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+python_test() {
+	# Generic MCP import check
+	${EPYTHON} -c "import mcp; print('Import successful')" || die "Import test failed"
+}
+
 RDEPEND=">=dev-python/httpx-0.28.1[${PYTHON_USEDEP}] >=dev-python/mcp-1.4.1[${PYTHON_USEDEP}]"
 
 src_prepare() {

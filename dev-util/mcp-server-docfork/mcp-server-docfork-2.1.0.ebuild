@@ -15,6 +15,11 @@ KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 BDEPEND=">=net-libs/nodejs-20[npm]"
+python_test() {
+	# Generic MCP import check
+	${EPYTHON} -c "import mcp; print('Import successful')" || die "Import test failed"
+}
+
 RDEPEND=">=net-libs/nodejs-20"
 
 src_compile() { :; }

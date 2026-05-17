@@ -16,6 +16,7 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/typing-extensions[${PYTHON_USEDEP}]
+	dev-python/importlib-metadata[${PYTHON_USEDEP}]
 "
 
 # No tests in sdist

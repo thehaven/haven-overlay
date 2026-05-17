@@ -15,6 +15,32 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
+python_test() {
+	# Auto-generated import check
+	local mod candidates
+	# Normalize PN by replacing - with _
+	local norm_pn="${PN//-/_}"
+	# Strip mcp-server- and mcp- prefixes
+	local suffix="${PN#mcp-server-}"
+	suffix="${suffix#mcp-}"
+	local norm_suffix="${suffix//-/_}"
+	
+	candidates=(
+		"${norm_pn}"
+		"mcp_server_${norm_suffix}"
+		"${norm_suffix}"
+	)
+	
+	for mod in "${candidates[@]}"; do
+		einfo "Checking import of ${mod}..."
+		if ${EPYTHON} -c "import ${mod}" 2>/dev/null; then
+			einfo "✅ Import successful: ${mod}"
+			return 0
+		fi
+	done
+	die "❌ Import test failed: none of the candidates (${candidates[*]}) could be imported"
+}
+
 RDEPEND="
 	dev-python/boto3[${PYTHON_USEDEP}]
 	dev-python/botocore[${PYTHON_USEDEP}]
