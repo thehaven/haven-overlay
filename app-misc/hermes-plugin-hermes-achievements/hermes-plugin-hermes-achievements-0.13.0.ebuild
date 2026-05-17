@@ -6,7 +6,7 @@ EAPI=8
 PYTHON_COMPAT=( python3_{11..14} )
 inherit python-r1
 
-DESCRIPTION="Hermes Agent Plugin: spotify"
+DESCRIPTION="Hermes Agent Plugin: hermes-achievements"
 HOMEPAGE="https://github.com/NousResearch/hermes-agent"
 SRC_URI="https://github.com/NousResearch/hermes-agent/archive/v2026.5.7.tar.gz -> hermes-agent-0.13.0.tar.gz"
 S="${WORKDIR}/hermes-agent-2026.5.7"
@@ -35,8 +35,8 @@ src_install() {
 	install_plugin() {
 		local sitedir
 		sitedir=$(python_get_sitedir)
-		insinto "${sitedir}/plugins/spotify"
-		doins -r "plugins/spotify/"*
+		insinto "${sitedir}/plugins/hermes-achievements"
+		doins -r "plugins/hermes-achievements/"*
 	}
 	python_foreach_impl install_plugin
 }
