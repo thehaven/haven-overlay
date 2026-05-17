@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Hermes Agent Disk Cleanup Plugin provides automated disk cleanup and storage
+		management capabilities for Hermes Agent. This plugin enables automatic
+		temporary file cleanup, cache management, storage usage monitoring, and
+		configurable cleanup policies to maintain optimal system performance.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+</pkgmetadata>

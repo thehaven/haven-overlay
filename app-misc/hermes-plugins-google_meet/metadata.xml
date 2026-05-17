@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Hermes Agent Google Meet Plugin provides integration with Google Meet for
+		meeting management, transcription, and AI assistant capabilities. This plugin
+		enables meeting scheduling, real-time transcription, meeting summaries,
+		action item extraction, and calendar integration for enhanced productivity.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Hermes Agent Context Engine Plugin provides advanced context management
+		and retrieval capabilities using vector embeddings. This plugin enables
+		semantic search, context persistence, and intelligent context management
+		for improved agent interactions and memory capabilities.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+</pkgmetadata>

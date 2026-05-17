@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Hermes Agent Kanban Plugin provides Kanban board functionality for task
+		management and project tracking within Hermes Agent. This plugin enables
+		interactive Kanban boards, task tracking and management, workflow automation,
+		and project progress visualization for enhanced productivity.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+</pkgmetadata>

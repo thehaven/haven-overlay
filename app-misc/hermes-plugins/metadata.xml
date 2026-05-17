@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Meta-package for Hermes Agent plugins that provides optional dependencies
+		for various plugin components. This package allows users to install specific
+		plugins using USE flags without managing individual dependencies manually.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+	<use>
+		<flag name="dashboard">Install Hermes Dashboard plugin</flag>
+		<flag name="memory">Install Hermes Memory plugin</flag>
+		<flag name="spotify">Install Hermes Spotify plugin</flag>
+		<flag name="web">Install Hermes Web plugin</flag>
+		<flag name="context-engine">Install Hermes Context Engine plugin</flag>
+		<flag name="disk-cleanup">Install Hermes Disk Cleanup plugin</flag>
+		<flag name="google-meet">Install Hermes Google Meet plugin</flag>
+		<flag name="achievements">Install Hermes Achievements plugin</flag>
+		<flag name="image-gen">Install Hermes Image Generation plugin</flag>
+		<flag name="kanban">Install Hermes Kanban plugin</flag>
+		<flag name="model-providers">Install Hermes Model Providers plugin</flag>
+		<flag name="observability">Install Hermes Observability plugin</flag>
+		<flag name="platforms">Install Hermes Platforms plugin</flag>
+		<flag name="strike-freedom-cockpit">Install Hermes Strike Freedom Cockpit plugin</flag>
+		<flag name="otel">Install Hermes OpenTelemetry plugin</flag>
+		<flag name="paperclip">Install Hermes Paperclip adapter plugin</flag>
+	</use>
+</pkgmetadata>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Hermes Agent Observability Plugin provides comprehensive observability
+		capabilities for Hermes Agent including metrics, traces, and logging. This plugin
+		enables OpenTelemetry integration, performance metrics collection, distributed
+		tracing, and structured logging for monitoring and debugging agent operations.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent</remote-id>
+	</upstream>
+</pkgmetadata>

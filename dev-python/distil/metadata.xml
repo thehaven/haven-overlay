@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Distil is a distillation and quantization toolkit for language models.
+		It provides comprehensive tools for model compression, quantization,
+		and optimization techniques to reduce model size while maintaining performance.
+		The toolkit supports various distillation methods and quantization approaches
+		for efficient deployment of language models.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">voidful/Distil</remote-id>
+		<remote-id type="pypi">distil</remote-id>
+	</upstream>
+</pkgmetadata>
