@@ -17,69 +17,46 @@ LICENSE="Proprietary"
 SLOT="0"
 
 RDEPEND="
-	acct-group/cortex
-	acct-user/cortex
-	dev-python/pydantic[${PYTHON_USEDEP}]
-	dev-python/pydantic-settings[${PYTHON_USEDEP}]
-	dev-python/typer[${PYTHON_USEDEP}]
-	dev-python/rich[${PYTHON_USEDEP}]
-	dev-python/pyyaml[${PYTHON_USEDEP}]
-	dev-python/tiktoken[${PYTHON_USEDEP}]
-	dev-python/httpx[${PYTHON_USEDEP}]
-	dev-python/mcp[${PYTHON_USEDEP}]
-	dev-python/structlog[${PYTHON_USEDEP}]
-	dev-python/sqlite-vec[${PYTHON_USEDEP}]
-	dev-python/watchfiles[${PYTHON_USEDEP}]
-	dev-python/psutil[${PYTHON_USEDEP}]
+        acct-group/cortex
+        acct-user/cortex
+        dev-python/pydantic[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/pydantic-settings[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/typer[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/rich[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/pyyaml[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/tiktoken[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/httpx[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/mcp[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/structlog[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/sqlite-vec[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/watchfiles[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/psutil[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
 "
 
 distutils_enable_tests pytest
 
 src_install() {
-	distutils-r1_src_install
-	
-	systemd_dounit "${FILESDIR}/cortex.service"
-	
-	if [[ -f docs/cortex.1 ]]; then
-		doman docs/cortex.1
-	fi
+        distutils-r1_src_install
+        insinto /etc/cortex
+        doins "${FILESDIR}/cortex.yaml"
+        systemd_dounit "${FILESDIR}/cortex.service"
+        if [[ -f docs/cortex.1 ]]; then
+                doman docs/cortex.1
+        fi
 }
-
-pkg_config() {
-	local env_file="${EROOT}/etc/cortex/cortex.env"
-	if [[ ! -f "${env_file}" ]]; then
-		einfo "Generating default configuration in ${env_file}"
-		mkdir -p "$(dirname "${env_file}")"
-		cat > "${env_file}" <<-EOF
-			CORTEX_VAULT_PATH=/path/to/your/obsidian/vault
-			CORTEX_DB_PATH=/var/lib/cortex/cortex.db
-			LOG_LEVEL=info
-		EOF
-		chown cortex:cortex "${env_file}"
-		chmod 0600 "${env_file}"
-	fi
-}
-
 
 pkg_postinst() {
-	elog "To add this MCP server to your AI clients:"
-	elog ""
-	elog "  Gemini CLI (~/.gemini/settings.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"command\": \"/usr/bin/cortex\","
-	elog "      \"args\": []"
-	elog "    }"
-	elog ""
-	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"command\": \"/usr/bin/cortex\","
-	elog "      \"args\": []"
-	elog "    }"
-	elog ""
-	elog "  OpenCode (~/.config/opencode/opencode.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"type\": \"local\","
-	elog "      \"command\": [\"/usr/bin/cortex\"],"
-	elog "      \"enabled\": true"
-	elog "    }"
+        elog "To add this MCP server to your AI clients:"
+        elog ""
+        elog "  Gemini CLI (~/.gemini/settings.json):"
+        elog "    \"${PN}\": {"
+        elog "      \"command\": \"/usr/bin/cortex\","
+        elog "      \"args\": [\"mcp\"]"
+        elog "    }"
+        elog ""
+        elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+        elog "    \"${PN}\": {"
+        elog "      \"command\": \"/usr/bin/cortex\","
+        elog "      \"args\": [\"mcp\"]"
+        elog "    }"
 }
