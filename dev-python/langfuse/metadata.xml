@@ -5,15 +5,7 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
-	<longdescription>
-		Langfuse is an open source LLM engineering platform that helps you trace,
-		evaluate, and manage your language model applications. It provides comprehensive
-		observability, evaluation frameworks, prompt management, and analytics for
-		LLM-powered applications. The platform integrates with OpenTelemetry for
-		standardized monitoring and offers both self-hosted and cloud deployment options.
-	</longdescription>
 	<upstream>
-		<remote-id type="github">langfuse/langfuse</remote-id>
 		<remote-id type="pypi">langfuse</remote-id>
 	</upstream>
 </pkgmetadata>

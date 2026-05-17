@@ -3,9 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>haven@thehavennet.org.uk</email>
-		<name>Haven</name>
+		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">pydantic/pydantic-settings</remote-id>
+		<remote-id type="pypi">pydantic-settings</remote-id>
 	</upstream>
 </pkgmetadata>

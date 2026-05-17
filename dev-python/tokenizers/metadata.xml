@@ -5,15 +5,7 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
-	<longdescription>
-		Tokenizers is an implementation of modern tokenizers, including
-		the Byte-Pair Encoding (BPE) algorithm, WordPiece, and Unigram.
-		It provides fast and efficient tokenization for NLP models with a
-		Rust backend for performance. The library is fully compatible with
-		the Hugging Face ecosystem and supports various pre-trained tokenizers.
-	</longdescription>
 	<upstream>
-		<remote-id type="github">huggingface/tokenizers</remote-id>
 		<remote-id type="pypi">tokenizers</remote-id>
 	</upstream>
 </pkgmetadata>
