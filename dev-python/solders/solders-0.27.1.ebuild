@@ -3,10 +3,11 @@
 
 EAPI=8
 
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=maturin
 PYTHON_COMPAT=( python3_{11..14} )
 PYPI_PN="solders"
-inherit distutils-r1 pypi
+inherit cargo distutils-r1 pypi
 
 DESCRIPTION="solders Python package"
 HOMEPAGE="https://pypi.org/project/solders/"
