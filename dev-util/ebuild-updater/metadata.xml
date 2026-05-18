@@ -15,6 +15,7 @@
 	</longdescription>
 	<use>
 		<flag name="build-test">Enable Docker-based build testing via <pkg>app-portage/ebuildtester</pkg></flag>
+		<flag name="notifications">Enable notification support via <pkg>dev-python/apprise</pkg></flag>
 		<flag name="mcp">Enable MCP (Model Context Protocol) server interface for AI agent integration</flag>
 		<flag name="qa">Enable QA tooling: <pkg>dev-util/nvchecker</pkg>, <pkg>dev-util/pkgcheck</pkg>, <pkg>dev-util/pkgdev</pkg></flag>
 	</use>
