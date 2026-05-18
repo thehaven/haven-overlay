@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="MCP server for Gemini DeepSearch — automated research agent"
-HOMEPAGE="https://github.com/alexcong/gemini-deepsearch-mcp"
-SRC_URI="https://github.com/alexcong/gemini-deepsearch-mcp/archive/${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/gemini-deepsearch-mcp"
+SRC_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/gemini-deepsearch-mcp/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -25,13 +25,13 @@ python_test() {
 	local suffix="${PN#mcp-server-}"
 	suffix="${suffix#mcp-}"
 	local norm_suffix="${suffix//-/_}"
-	
+
 	candidates=(
 		"${norm_pn}"
 		"mcp_server_${norm_suffix}"
 		"${norm_suffix}"
 	)
-	
+
 	for mod in "${candidates[@]}"; do
 		einfo "Checking import of ${mod}..."
 		if ${EPYTHON} -c "import ${mod}" 2>/dev/null; then
