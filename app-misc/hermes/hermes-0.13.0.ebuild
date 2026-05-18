@@ -118,11 +118,11 @@ src_prepare() {
 
 	# Update imports in all python files
 	find . -name "*.py" -exec sed -i \
-		-e 's/\bfrom cli import/from hermes_repl import/g' \
+		-e 's/\bfrom cli\b/from hermes_repl/g' \
 		-e 's/\bimport cli\b/import hermes_repl/g' \
-		-e 's/\bfrom utils import/from hermes_utils import/g' \
+		-e 's/\bfrom utils\b/from hermes_utils/g' \
 		-e 's/\bimport utils\b/import hermes_utils/g' \
-		-e 's/\bfrom tools import/from hermes_tools import/g' \
+		-e 's/\bfrom tools\b/from hermes_tools/g' \
 		-e 's/\bimport tools\b/import hermes_tools/g' \
 		{} + || die
 
