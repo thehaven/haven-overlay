@@ -116,7 +116,9 @@ src_prepare() {
 	mv utils.py hermes_utils.py || die
 	mv tools hermes_tools || die
 
-	# Update imports in all python files
+	# Update imports in all python files.
+	# We use \b boundary to match exact modules, and also match sub-module imports 
+	# e.g., "from tools.registry import" -> "from hermes_tools.registry import"
 	find . -name "*.py" -exec sed -i \
 		-e 's/\bfrom cli\b/from hermes_repl/g' \
 		-e 's/\bimport cli\b/import hermes_repl/g' \
@@ -128,10 +130,17 @@ src_prepare() {
 
 	# Patch pyproject.toml
 	sed -i \
-		-e 's/"cli"/"hermes_repl"/' \
-		-e 's/"utils"/"hermes_utils"/' \
-		-e 's/"tools"/"hermes_tools"/' \
+		-e 's/"cli"/"hermes_repl"/g' \
+		-e 's/"utils"/"hermes_utils"/g' \
+		-e 's/"tools"/"hermes_tools"/g' \
+		-e 's/"tools\./"hermes_tools\./g' \
 		pyproject.toml || die
+
+	# Suppress venv entry point check in doctor.py for Gentoo system-wide install
+	if [[ -f hermes_cli/doctor.py ]]; then
+		# Replace the "Command Installation" block condition with 'if False:'
+		sed -i 's/if sys.platform != "win32":/if False:/' hermes_cli/doctor.py || die
+	fi
 }
 
 src_install() {
