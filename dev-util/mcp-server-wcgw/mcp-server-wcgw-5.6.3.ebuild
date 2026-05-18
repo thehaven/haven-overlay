@@ -40,6 +40,14 @@ RDEPEND="
 	')
 "
 
+src_prepare() {
+	distutils-r1_src_prepare
+	# Option C: Resilience Patch (via sed)
+	# 1. Increase timeout from 5s to 10s
+	sed -i 's/timeout: float = 5/timeout: float = 10/' src/wcgw/client/bash_state/bash_state.py || die
+	# 2. Force deterministic PS1
+	sed -i '/"PAGER": "cat",/a \        "PS1": "◉ \\w──➤ ",' src/wcgw/client/bash_state/bash_state.py || die
+}
 
 pkg_postinst() {
 	elog "To add this MCP server to your AI clients:"
