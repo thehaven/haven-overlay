@@ -11,11 +11,12 @@ inherit distutils-r1 pypi
 DESCRIPTION="langgraph-api Python package"
 HOMEPAGE="https://pypi.org/project/langgraph-api/"
 
-LICENSE="MIT"
+LICENSE="Elastic-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
+	dev-python/anyio[${PYTHON_USEDEP}]
 	dev-python/cloudpickle[${PYTHON_USEDEP}]
 	dev-python/cryptography[${PYTHON_USEDEP}]
 	dev-python/grpcio-health-checking[${PYTHON_USEDEP}]
@@ -47,3 +48,20 @@ RDEPEND="
 	dev-python/watchfiles[${PYTHON_USEDEP}]
 	dev-python/zstandard[${PYTHON_USEDEP}]
 "
+
+src_prepare() {
+	distutils-r1_src_prepare
+
+	# Move stray files into the package directory
+	mv openapi.json logging.json langgraph_api/ || die
+
+	# Patch references to moved files
+	sed -i 's:parent.parent / "openapi.json":parent / "openapi.json":' \
+		langgraph_api/validation.py || die
+	sed -i 's:parent.parent / "logging.json":parent / "logging.json":' \
+		langgraph_api/queue_entrypoint.py || die
+
+	# Remove forced top-level inclusion from pyproject.toml
+	sed -i '/\[tool.hatch.build.targets.wheel.force-include\]/,/hatch_build.py/d' \
+		pyproject.toml || die
+}
