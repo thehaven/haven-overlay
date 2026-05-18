@@ -10,8 +10,8 @@ inherit distutils-r1
 
 DESCRIPTION="The self-improving AI agent"
 HOMEPAGE="https://github.com/NousResearch/hermes-agent"
-SRC_URI="https://github.com/NousResearch/hermes-agent/archive/v2026.5.7.tar.gz -> hermes-agent-2026.5.16.tar.gz"
-S="${WORKDIR}/hermes-agent-2026.5.7"
+SRC_URI="https://github.com/NousResearch/hermes-agent/archive/v${PV}.tar.gz -> hermes-agent-${PV}.tar.gz"
+S="${WORKDIR}/hermes-agent-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
@@ -106,6 +106,33 @@ RDEPEND="
 "
 
 BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+
+src_prepare() {
+	distutils-r1_src_prepare
+
+	# Rename modules to avoid namespace collisions (especially with better-brain)
+	# Upstream uses way too generic names for top-level site-packages
+	mv cli.py hermes_repl.py || die
+	mv utils.py hermes_utils.py || die
+	mv tools hermes_tools || die
+
+	# Update imports in all python files
+	find . -name "*.py" -exec sed -i \
+		-e 's/\bfrom cli import/from hermes_repl import/g' \
+		-e 's/\bimport cli\b/import hermes_repl/g' \
+		-e 's/\bfrom utils import/from hermes_utils import/g' \
+		-e 's/\bimport utils\b/import hermes_utils/g' \
+		-e 's/\bfrom tools import/from hermes_tools import/g' \
+		-e 's/\bimport tools\b/import hermes_tools/g' \
+		{} + || die
+
+	# Patch pyproject.toml
+	sed -i \
+		-e 's/"cli"/"hermes_repl"/' \
+		-e 's/"utils"/"hermes_utils"/' \
+		-e 's/"tools"/"hermes_tools"/' \
+		pyproject.toml || die
+}
 
 src_install() {
 	distutils-r1_src_install

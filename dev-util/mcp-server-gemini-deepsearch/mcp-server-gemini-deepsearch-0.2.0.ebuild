@@ -62,9 +62,7 @@ src_unpack() {
 }
 
 src_install() {
-        distutils-r1_src_install
-        python_scriptinto /usr/bin
-        python_doscript "${BUILD_DIR}"/scripts-*/gemini-deepsearch-mcp
+	distutils-r1_src_install
 }
 
 pkg_postinst() {

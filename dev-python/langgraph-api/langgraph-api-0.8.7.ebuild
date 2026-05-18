@@ -52,7 +52,8 @@ RDEPEND="
 src_prepare() {
 	distutils-r1_src_prepare
 
-	# Move stray files into the package directory
+	# Move stray files into the package directory to avoid QA warnings
+	# while keeping them accessible to the code.
 	mv openapi.json logging.json langgraph_api/ || die
 
 	# Patch references to moved files
@@ -62,6 +63,5 @@ src_prepare() {
 		langgraph_api/queue_entrypoint.py || die
 
 	# Remove forced top-level inclusion from pyproject.toml
-	sed -i '/\[tool.hatch.build.targets.wheel.force-include\]/,/hatch_build.py/d' \
-		pyproject.toml || die
+	sed -i "/\[tool.hatch.build.targets.wheel.force-include\]/,/hatch_build.py/d" pyproject.toml || die
 }
