@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 # Mapping Extras from pyproject.toml
-IUSE="+cli +mcp +web anthropic exa firecrawl parallel-web fal edge-tts modal daytona vercel hindsight messaging slack matrix voice pty honcho homeassistant sms acp bedrock dingtalk feishu google youtube"
+IUSE="+cli +mcp +web +pty anthropic exa firecrawl parallel-web fal edge-tts modal daytona vercel hindsight messaging slack matrix voice pty honcho homeassistant sms acp bedrock dingtalk feishu google youtube"
 
 RDEPEND="
 	dev-python/openai[${PYTHON_USEDEP}]
@@ -103,6 +103,7 @@ RDEPEND="
 	web? (
 		dev-python/fastapi[${PYTHON_USEDEP}]
 		dev-python/uvicorn[${PYTHON_USEDEP}]
+		net-libs/nodejs[npm]
 	)
 "
 
@@ -111,35 +112,35 @@ BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 src_prepare() {
 	distutils-r1_src_prepare
 
-	# Rename modules to avoid namespace collisions (especially with better-brain)
-	# Upstream uses way too generic names for top-level site-packages
-	mv cli.py hermes_repl.py || die
-	mv utils.py hermes_utils.py || die
-	mv tools hermes_tools || die
+	# 1. Rename all generic top-level modules and directories to be hermes_ prefixed
+	local modules=( "cli" "utils" "tools" "agent" "gateway" "tui_gateway" "cron" "plugins" "providers" "acp_adapter" "run_agent" "model_tools" "trajectory_compressor" "batch_runner" )
+	for mod in "${modules[@]}"; do
+		if [[ -f "${mod}.py" ]]; then
+			mv "${mod}.py" "hermes_${mod}.py" || die
+		elif [[ -d "${mod}" ]]; then
+			mv "${mod}" "hermes_${mod}" || die
+		fi
+	done
 
-	# Update imports in all python files.
-	# We use \b boundary to match exact modules, and also match sub-module imports 
-	# e.g., "from tools.registry import" -> "from hermes_tools.registry import"
-	find . -name "*.py" -exec sed -i \
-		-e 's/\bfrom cli\b/from hermes_repl/g' \
-		-e 's/\bimport cli\b/import hermes_repl/g' \
-		-e 's/\bfrom utils\b/from hermes_utils/g' \
-		-e 's/\bimport utils\b/import hermes_utils/g' \
-		-e 's/\bfrom tools\b/from hermes_tools/g' \
-		-e 's/\bimport tools\b/import hermes_tools/g' \
-		{} + || die
+	# We also need to fix the dynamic string in registry.py that was breaking tool discovery
+	sed -i 's/f"tools\./f"hermes_tools\./g' hermes_tools/registry.py || die
 
-	# Patch pyproject.toml
-	sed -i \
-		-e 's/"cli"/"hermes_repl"/g' \
-		-e 's/"utils"/"hermes_utils"/g' \
-		-e 's/"tools"/"hermes_tools"/g' \
-		-e 's/"tools\./"hermes_tools\./g' \
-		pyproject.toml || die
+	# 2. Update imports in all python files.
+	# We process file by file to ensure robust boundary matching
+	for mod in "${modules[@]}"; do
+		find . -name "*.py" -exec sed -i \
+			-e "s/\bfrom ${mod}\b/from hermes_${mod}/g" \
+			-e "s/\bimport ${mod}\b/import hermes_${mod}/g" \
+			{} + || die
+		
+		# Patch pyproject.toml package list
+		sed -i -e "s/\"${mod}\"/\"hermes_${mod}\"/g" \
+			-e "s/\"${mod}\./\"hermes_${mod}\./g" \
+			pyproject.toml || die
+	done
 
-	# Suppress venv entry point check in doctor.py for Gentoo system-wide install
+	# 3. Suppress venv entry point check in doctor.py for Gentoo system-wide install
 	if [[ -f hermes_cli/doctor.py ]]; then
-		# Replace the "Command Installation" block condition with 'if False:'
 		sed -i 's/if sys.platform != "win32":/if False:/' hermes_cli/doctor.py || die
 	fi
 }
