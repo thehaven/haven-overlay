@@ -40,6 +40,7 @@ RDEPEND="
 	dev-python/psutil[${PYTHON_USEDEP}]
 	media-video/ffmpeg
 	dev-vcs/git
+	app-misc/tirith-bin
 	
 	anthropic? ( dev-python/anthropic[${PYTHON_USEDEP}] )
 	exa? ( dev-python/exa-py[${PYTHON_USEDEP}] )
