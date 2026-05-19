@@ -23,3 +23,7 @@ src_install() {
 	dobin tirith
 	einstalldocs
 }
+
+src_test() {
+	./tirith --version || die "Binary check failed"
+}
