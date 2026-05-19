@@ -19,9 +19,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~arm64"
 IUSE=""
 
-RDEPEND="
-	!!dev-util/gemini-cli
-"
+RDEPEND=""
 
 S="${WORKDIR}"
 
@@ -29,19 +27,14 @@ QA_PREBUILT="usr/bin/agy"
 
 src_install() {
 	newbin antigravity agy
-	
-	# Provide gemini symlink for backward compatibility during transition
-	dosym agy /usr/bin/gemini
 }
 
 pkg_postinst() {
 	elog "Google Antigravity CLI (agy) has been installed."
-	elog "This package replaces gemini-cli as part of the unification effort."
 	elog ""
 	elog "To migrate your existing Gemini extensions to Antigravity plugins, run:"
 	elog "  agy plugin import gemini"
 	elog ""
-	elog "A 'gemini' symlink has been provided for backward compatibility."
 	elog "Please refer to the migration guide for more details:"
 	elog "https://antigravity.google/docs/gcli-migration"
 }

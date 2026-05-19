@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="MCP server for Git operations"
 HOMEPAGE="https://github.com/cyanheads/git-mcp-server"
-EGIT_REPO_URI="https://github.com/cyanheads/git-mcp-server.git"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/git-mcp-server.git"
 
 inherit git-r3
 
