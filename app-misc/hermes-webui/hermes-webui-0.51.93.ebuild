@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{11..14} )
-inherit distutils-r1
+inherit distutils-r1 systemd
 
 DESCRIPTION="Web UI for Hermes Agent"
 HOMEPAGE="https://github.com/nesquena/hermes-webui"
@@ -18,6 +18,8 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	app-misc/hermes[${PYTHON_USEDEP}]
+	acct-user/hermes-webui
+	acct-group/hermes-webui
 "
 
 BDEPEND="
@@ -74,4 +76,21 @@ src_prepare() {
 		"server.py" = "server.py"
 		"static" = "static"
 	EOF
+}
+
+src_install() {
+	distutils-r1_src_install
+
+	systemd_dounit "${FILESDIR}/hermes-webui.service"
+
+	insinto /etc/hermes
+	newins "${FILESDIR}/hermes-webui.conf" webui.conf
+	newins "${FILESDIR}/hermes-webui.conf" webui.conf.example
+}
+
+pkg_postinst() {
+	elog "Hermes Web UI has been installed."
+	elog "To configure the service, edit /etc/hermes/webui.conf"
+	elog "To start the service using systemd, run:"
+	elog "  systemctl enable --now hermes-webui"
 }
