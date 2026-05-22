@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Gitleaks is a SAST tool for detecting and preventing hardcoded secrets 
+		like passwords, api keys, and tokens in git repos.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">gitleaks/gitleaks</remote-id>
+	</upstream>
+</pkgmetadata>

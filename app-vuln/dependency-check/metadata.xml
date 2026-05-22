@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		OWASP Dependency-Check is a Software Composition Analysis (SCA) tool 
+		that identifies project dependencies and checks if there are any 
+		known, publicly disclosed, vulnerabilities.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">jeremylong/DependencyCheck</remote-id>
+	</upstream>
+</pkgmetadata>
