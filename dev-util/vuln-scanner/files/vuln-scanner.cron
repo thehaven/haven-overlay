@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# /etc/cron.{{FREQ}}/vuln-scanner
+# Unified security scan orchestrator execution.
+
+set -euo pipefail
+
+# Run the scan with frequency check
+/usr/bin/vuln-scanner scan --frequency {{FREQ}}
