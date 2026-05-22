@@ -1,0 +1,6 @@
+#!/bin/bash
+# Daily update of Grype vulnerability database
+GRYPE_DB_DIR="/var/lib/grype/db"
+mkdir -p "$GRYPE_DB_DIR"
+chown -R grype:grype "$GRYPE_DB_DIR"
+sudo -u grype /usr/bin/grype db update

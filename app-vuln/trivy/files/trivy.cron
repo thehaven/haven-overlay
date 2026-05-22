@@ -1,0 +1,6 @@
+#!/bin/bash
+# Daily update of Trivy vulnerability database
+TRIVY_CACHE_DIR="/var/lib/trivy/.cache/trivy"
+mkdir -p "$TRIVY_CACHE_DIR"
+chown -R trivy:trivy "$TRIVY_CACHE_DIR"
+sudo -u trivy /usr/bin/trivy db update --cache-dir "$TRIVY_CACHE_DIR"

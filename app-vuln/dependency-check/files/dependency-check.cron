@@ -1,0 +1,6 @@
+#!/bin/bash
+# Daily update of OWASP Dependency-Check database
+DC_DATA_DIR="/var/lib/dependency-check/data"
+mkdir -p "$DC_DATA_DIR"
+chown -R dependency-check:dependency-check "$DC_DATA_DIR"
+sudo -u dependency-check /usr/bin/dependency-check --data "$DC_DATA_DIR" --updateonly --noupdate=false
