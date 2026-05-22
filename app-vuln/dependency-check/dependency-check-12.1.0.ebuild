@@ -23,11 +23,22 @@ src_install() {
 	doins -r .
 
 	fperms +x /opt/${PN}/bin/dependency-check.sh
-	dosym ../../opt/${PN}/bin/dependency-check.sh /usr/bin/dependency-check
+
+	# Create a wrapper that uses a user-writable data directory by default
+	cat > "${T}/dependency-check" <<-EOF
+	#!/bin/bash
+	# OWASP Dependency-Check Gentoo Wrapper
+	DC_DATA_DIR="\${XDG_DATA_HOME:-\$HOME/.local/share}/dependency-check/data"
+	mkdir -p "\$DC_DATA_DIR"
+	exec /opt/dependency-check/bin/dependency-check.sh --data "\$DC_DATA_DIR" "\$@"
+	EOF
+
+	dobin "${T}/dependency-check"
 }
 
 pkg_postinst() {
-	elog "OWASP Dependency-Check has been installed to /opt/dependency-check"
-	elog "Before first run, it will need to download the vulnerability database."
-	elog "Run 'dependency-check --updateonly' to populate the database."
+	elog "OWASP Dependency-Check has been installed with a user-writable data directory wrapper."
+	elog "By default, data is stored in ~/.local/share/dependency-check/data"
+	elog "Before first run, you should update the database:"
+	elog "  dependency-check --updateonly"
 }
