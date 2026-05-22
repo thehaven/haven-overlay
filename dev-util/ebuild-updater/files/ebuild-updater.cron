@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# /etc/cron.daily/ebuild-updater
+# Automated ebuild-updater execution.
+# Reads configuration from /etc/ebuild-updater/config.toml
+
+set -euo pipefail
+
+# Check if configuration exists
+CONFIG="/etc/ebuild-updater/config.toml"
+if [[ ! -f "$CONFIG" ]]; then
+    echo "Error: $CONFIG not found. Skipping daily update." >&2
+    exit 0
+fi
+
+# Run the pipeline
+# --json-log emits structured data for potential aggregation
+# --commit, --push, --reinstall behaviors should be governed by config.toml
+/usr/bin/ebuild-updater --config "$CONFIG" pipeline --json-log
