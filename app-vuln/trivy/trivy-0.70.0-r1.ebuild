@@ -13,7 +13,7 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
-IUSE="cron"
+IUSE="+cron"
 
 RDEPEND="
 	acct-user/trivy
@@ -21,6 +21,8 @@ RDEPEND="
 "
 
 src_compile() {
+	export TMPDIR="${T}"
+	export GOEXPERIMENT=jsonv2
 	ego build -ldflags "-s -w -X github.com/aquasecurity/trivy/pkg/version.ver=${PV}" -o ${PN} ./cmd/trivy
 }
 
