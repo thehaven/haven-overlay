@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/pnpm-types
 	dev-nodejs/pnpm-util-lex-comparator
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

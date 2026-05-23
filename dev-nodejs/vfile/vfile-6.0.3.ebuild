@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/types-unist
 	dev-nodejs/vfile-message
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

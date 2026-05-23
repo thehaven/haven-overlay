@@ -42,4 +42,4 @@ RDEPEND="
 	dev-nodejs/yarnpkg-parsers
 	dev-nodejs/yarnpkg-shell
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

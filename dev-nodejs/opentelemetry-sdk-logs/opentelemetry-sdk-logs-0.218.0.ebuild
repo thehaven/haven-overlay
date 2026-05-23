@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-resources
 	dev-nodejs/opentelemetry-semantic-conventions
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

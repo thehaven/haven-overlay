@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/simple-git-args-pathspec
 	dev-nodejs/simple-git-argv-parser
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/is-stream
 	dev-nodejs/sec-ant-readable-stream
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

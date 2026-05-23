@@ -25,4 +25,4 @@ RDEPEND="
 	dev-nodejs/unist-util-visit
 	dev-nodejs/zwitch
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

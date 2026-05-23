@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/jsonc-morph
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

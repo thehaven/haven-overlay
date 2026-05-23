@@ -19,4 +19,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/typanion
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

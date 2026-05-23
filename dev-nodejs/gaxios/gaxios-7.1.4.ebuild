@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/https-proxy-agent
 	dev-nodejs/node-fetch
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

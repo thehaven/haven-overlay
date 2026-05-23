@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/call-bind-apply-helpers
 	dev-nodejs/get-intrinsic
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -24,4 +24,4 @@ RDEPEND="
 	dev-nodejs/yarnpkg-fslib
 	dev-nodejs/yarnpkg-parsers
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

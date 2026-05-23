@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/minizlib
 	dev-nodejs/yallist
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

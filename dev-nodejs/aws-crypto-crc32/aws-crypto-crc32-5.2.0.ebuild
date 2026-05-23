@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/aws-sdk-types
 	dev-nodejs/tslib
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

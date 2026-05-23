@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/ncp
 	dev-nodejs/rimraf
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

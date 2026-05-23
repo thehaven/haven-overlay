@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/thi-ng-api
 	dev-nodejs/thi-ng-errors
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

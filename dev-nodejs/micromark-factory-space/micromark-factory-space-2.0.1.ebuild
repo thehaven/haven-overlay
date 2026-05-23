@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-character
 	dev-nodejs/micromark-util-types
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

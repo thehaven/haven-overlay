@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/luxon
 	dev-nodejs/renovatebot-osv-offline-db
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/domutils
 	dev-nodejs/nth-check
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

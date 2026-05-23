@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/punycode-js
 	dev-nodejs/uc-micro
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/jsonfile
 	dev-nodejs/universalify
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

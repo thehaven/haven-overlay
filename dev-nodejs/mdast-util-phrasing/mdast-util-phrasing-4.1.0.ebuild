@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/types-mdast
 	dev-nodejs/unist-util-is
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

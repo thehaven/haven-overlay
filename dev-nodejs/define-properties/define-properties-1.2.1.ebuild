@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/has-property-descriptors
 	dev-nodejs/object-keys
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

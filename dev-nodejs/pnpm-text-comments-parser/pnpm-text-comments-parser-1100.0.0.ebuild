@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/strip-comments-strings
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

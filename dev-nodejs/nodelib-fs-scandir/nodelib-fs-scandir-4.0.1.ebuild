@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/nodelib-fs-stat
 	dev-nodejs/run-parallel
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

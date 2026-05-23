@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/thi-ng-zipper
 	dev-nodejs/types-moo
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

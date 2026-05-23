@@ -29,4 +29,4 @@ RDEPEND="
 	dev-nodejs/read-yaml-file
 	dev-nodejs/strip-bom
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

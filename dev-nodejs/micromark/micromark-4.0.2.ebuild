@@ -33,4 +33,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-types
 	dev-nodejs/types-debug
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

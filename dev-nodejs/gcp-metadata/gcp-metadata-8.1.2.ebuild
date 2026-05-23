@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/google-logging-utils
 	dev-nodejs/json-bigint
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

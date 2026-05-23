@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-core
 	dev-nodejs/opentelemetry-semantic-conventions
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

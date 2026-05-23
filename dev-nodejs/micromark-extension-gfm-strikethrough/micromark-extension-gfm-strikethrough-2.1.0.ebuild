@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-symbol
 	dev-nodejs/micromark-util-types
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

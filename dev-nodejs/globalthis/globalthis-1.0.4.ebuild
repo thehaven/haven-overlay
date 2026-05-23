@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/define-properties
 	dev-nodejs/gopd
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

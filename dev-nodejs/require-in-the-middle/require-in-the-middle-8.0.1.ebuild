@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/debug
 	dev-nodejs/module-details-from-path
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

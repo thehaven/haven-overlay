@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/quick-lru
 	dev-nodejs/resolve-alpn
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

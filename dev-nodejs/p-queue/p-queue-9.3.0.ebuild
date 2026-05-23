@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/eventemitter3
 	dev-nodejs/p-timeout
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

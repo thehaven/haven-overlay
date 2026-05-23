@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/side-channel-map
 	dev-nodejs/side-channel-weakmap
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

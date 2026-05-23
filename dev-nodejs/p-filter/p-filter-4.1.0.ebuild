@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/p-map
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

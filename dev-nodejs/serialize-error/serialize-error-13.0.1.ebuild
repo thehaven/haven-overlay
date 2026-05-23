@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/non-error
 	dev-nodejs/type-fest
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

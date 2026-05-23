@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/js-yaml
 	dev-nodejs/strip-bom
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/glob
 	dev-nodejs/package-json-from-dist
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

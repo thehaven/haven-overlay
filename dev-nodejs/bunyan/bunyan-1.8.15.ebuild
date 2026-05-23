@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/mv
 	dev-nodejs/safe-json-stringify
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

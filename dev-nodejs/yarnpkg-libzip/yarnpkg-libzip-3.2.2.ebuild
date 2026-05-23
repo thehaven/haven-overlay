@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/types-emscripten
 	dev-nodejs/yarnpkg-fslib
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/shebang-command
 	dev-nodejs/which
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

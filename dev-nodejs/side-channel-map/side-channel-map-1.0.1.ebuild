@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/get-intrinsic
 	dev-nodejs/object-inspect
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

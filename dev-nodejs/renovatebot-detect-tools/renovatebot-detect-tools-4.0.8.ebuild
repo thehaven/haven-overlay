@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/upath
 	dev-nodejs/zod
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

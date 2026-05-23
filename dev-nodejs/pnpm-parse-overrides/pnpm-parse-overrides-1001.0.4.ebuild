@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/pnpm-error
 	dev-nodejs/pnpm-parse-wanted-dependency
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

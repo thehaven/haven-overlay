@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/ecdsa-sig-formatter
 	dev-nodejs/safe-buffer
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

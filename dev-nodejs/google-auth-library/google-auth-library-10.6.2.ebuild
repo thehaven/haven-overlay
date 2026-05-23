@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/google-logging-utils
 	dev-nodejs/jws
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

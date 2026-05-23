@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/inherits
 	dev-nodejs/minimalistic-assert
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

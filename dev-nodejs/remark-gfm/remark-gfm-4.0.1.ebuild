@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/types-mdast
 	dev-nodejs/unified
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

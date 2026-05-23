@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/cjs-module-lexer
 	dev-nodejs/module-details-from-path
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

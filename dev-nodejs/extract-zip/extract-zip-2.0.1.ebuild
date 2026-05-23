@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/types-yauzl
 	dev-nodejs/yauzl
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

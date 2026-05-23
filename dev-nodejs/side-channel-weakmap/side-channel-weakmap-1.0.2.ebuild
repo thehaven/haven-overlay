@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/object-inspect
 	dev-nodejs/side-channel-map
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

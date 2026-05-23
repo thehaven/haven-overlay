@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/simple-git-args-pathspec
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

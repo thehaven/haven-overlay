@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/fetch-blob
 	dev-nodejs/formdata-polyfill
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

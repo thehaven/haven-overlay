@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/eslint-visitor-keys
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

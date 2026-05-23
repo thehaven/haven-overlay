@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/lru-cache
 	dev-nodejs/minipass
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

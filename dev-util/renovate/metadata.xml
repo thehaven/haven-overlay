@@ -5,7 +5,16 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
+	<longdescription>
+		Renovate is an essential automated dependency update tool. It runs as a bot and scans your repositories for outdated dependencies, automatically opening Pull Requests or Merge Requests to update them. Multi-platform and multi-language support.
+	</longdescription>
+	<use>
+		<flag name="aws">Enable dependencies for AWS CodeCommit support</flag>
+		<flag name="azure">Enable dependencies for Azure DevOps support</flag>
+		<flag name="google">Enable dependencies for Google Cloud / GCP support</flag>
+		<flag name="telemetry">Enable OpenTelemetry instrumentation</flag>
+	</use>
 	<upstream>
-		<remote-id type="npm">renovate</remote-id>
+		<remote-id type="github">renovatebot/renovate</remote-id>
 	</upstream>
 </pkgmetadata>

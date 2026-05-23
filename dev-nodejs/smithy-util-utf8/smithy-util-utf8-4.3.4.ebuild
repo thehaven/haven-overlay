@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/smithy-core
 	dev-nodejs/tslib
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

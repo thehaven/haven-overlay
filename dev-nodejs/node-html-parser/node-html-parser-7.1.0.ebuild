@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/css-select
 	dev-nodejs/he
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

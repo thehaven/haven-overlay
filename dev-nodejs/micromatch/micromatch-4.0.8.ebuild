@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/braces
 	dev-nodejs/picomatch
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

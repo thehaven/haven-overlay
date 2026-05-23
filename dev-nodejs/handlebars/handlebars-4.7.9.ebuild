@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/uglify-js
 	dev-nodejs/wordwrap
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

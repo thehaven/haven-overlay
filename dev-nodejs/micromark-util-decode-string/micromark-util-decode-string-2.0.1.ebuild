@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-decode-numeric-character-reference
 	dev-nodejs/micromark-util-symbol
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

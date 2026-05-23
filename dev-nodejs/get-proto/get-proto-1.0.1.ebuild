@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/dunder-proto
 	dev-nodejs/es-object-atoms
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

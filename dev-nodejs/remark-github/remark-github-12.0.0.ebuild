@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/unist-util-visit
 	dev-nodejs/vfile
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

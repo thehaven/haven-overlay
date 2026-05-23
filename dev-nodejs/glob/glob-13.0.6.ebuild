@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/minipass
 	dev-nodejs/path-scurry
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

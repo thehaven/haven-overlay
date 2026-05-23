@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/js-tokens
 	dev-nodejs/picocolors
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

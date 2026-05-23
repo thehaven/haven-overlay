@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-character
 	dev-nodejs/types-mdast
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

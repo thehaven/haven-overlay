@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/thi-ng-errors
 	dev-nodejs/thi-ng-random
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

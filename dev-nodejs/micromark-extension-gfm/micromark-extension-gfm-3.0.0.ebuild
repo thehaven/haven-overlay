@@ -24,4 +24,4 @@ RDEPEND="
 	dev-nodejs/micromark-util-combine-extensions
 	dev-nodejs/micromark-util-types
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

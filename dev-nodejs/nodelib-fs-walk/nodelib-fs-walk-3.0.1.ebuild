@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/fastq
 	dev-nodejs/nodelib-fs-scandir
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

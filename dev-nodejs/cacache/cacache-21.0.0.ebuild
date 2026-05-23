@@ -26,4 +26,4 @@ RDEPEND="
 	dev-nodejs/p-map
 	dev-nodejs/ssri
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

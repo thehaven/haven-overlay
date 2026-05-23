@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/is-ssh
 	dev-nodejs/parse-url
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

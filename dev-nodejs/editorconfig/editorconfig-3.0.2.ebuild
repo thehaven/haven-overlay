@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/one-ini-wasm
 	dev-nodejs/semver
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

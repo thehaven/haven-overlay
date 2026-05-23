@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/buffer-from
 	dev-nodejs/source-map
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -23,4 +23,4 @@ RDEPEND="
 	dev-nodejs/smithy-util-utf8
 	dev-nodejs/tslib
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

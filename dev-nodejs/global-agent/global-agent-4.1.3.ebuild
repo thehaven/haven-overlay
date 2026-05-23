@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/semver
 	dev-nodejs/serialize-error
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

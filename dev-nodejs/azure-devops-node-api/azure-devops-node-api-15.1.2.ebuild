@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/tunnel
 	dev-nodejs/typed-rest-client
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

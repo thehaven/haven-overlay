@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/object-inspect
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

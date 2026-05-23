@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/core-js-pure
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

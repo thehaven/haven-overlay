@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/locate-path
 	dev-nodejs/unicorn-magic
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

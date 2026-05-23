@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/js-yaml
 	dev-nodejs/tslib
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

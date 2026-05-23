@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/to-regex-range
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

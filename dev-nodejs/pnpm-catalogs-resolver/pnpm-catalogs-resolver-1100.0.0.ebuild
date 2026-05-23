@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/pnpm-catalogs-protocol-parser
 	dev-nodejs/pnpm-error
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

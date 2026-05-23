@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/pnpm-types
 	dev-nodejs/semver
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

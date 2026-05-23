@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/cluster-key-slot
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

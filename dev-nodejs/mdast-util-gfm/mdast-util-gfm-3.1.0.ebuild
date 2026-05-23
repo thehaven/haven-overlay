@@ -23,4 +23,4 @@ RDEPEND="
 	dev-nodejs/mdast-util-gfm-task-list-item
 	dev-nodejs/mdast-util-to-markdown
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

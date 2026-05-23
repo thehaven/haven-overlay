@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/index-to-position
 	dev-nodejs/type-fest
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

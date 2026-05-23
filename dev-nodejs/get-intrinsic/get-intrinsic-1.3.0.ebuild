@@ -26,4 +26,4 @@ RDEPEND="
 	dev-nodejs/hasown
 	dev-nodejs/math-intrinsics
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

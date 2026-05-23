@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/agent-base
 	dev-nodejs/debug
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

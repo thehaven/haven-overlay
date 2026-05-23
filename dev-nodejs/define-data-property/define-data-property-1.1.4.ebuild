@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/gopd
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

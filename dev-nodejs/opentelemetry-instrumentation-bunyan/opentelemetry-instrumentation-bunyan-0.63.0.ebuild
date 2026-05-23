@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-instrumentation
 	dev-nodejs/types-bunyan
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

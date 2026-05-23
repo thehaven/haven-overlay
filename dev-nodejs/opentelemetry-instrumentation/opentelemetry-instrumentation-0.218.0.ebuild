@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-api-logs
 	dev-nodejs/require-in-the-middle
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

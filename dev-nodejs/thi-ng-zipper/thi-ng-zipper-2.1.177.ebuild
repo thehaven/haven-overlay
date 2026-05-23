@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/thi-ng-checks
 	dev-nodejs/thi-ng-errors
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

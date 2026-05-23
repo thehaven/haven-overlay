@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/strnum
 	dev-nodejs/xml-naming
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

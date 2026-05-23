@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/write-file-atomic
 	dev-nodejs/write-yaml-file
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

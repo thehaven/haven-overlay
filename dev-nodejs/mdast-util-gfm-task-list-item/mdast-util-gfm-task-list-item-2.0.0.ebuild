@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/mdast-util-to-markdown
 	dev-nodejs/types-mdast
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

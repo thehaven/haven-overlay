@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/jwa
 	dev-nodejs/safe-buffer
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

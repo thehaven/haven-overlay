@@ -28,4 +28,4 @@ RDEPEND="
 	dev-nodejs/type-fest
 	dev-nodejs/uint8array-extras
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

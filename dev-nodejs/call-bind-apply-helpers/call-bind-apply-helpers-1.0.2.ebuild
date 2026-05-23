@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/function-bind
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -19,4 +19,4 @@ RDEPEND="
 	dev-nodejs/domhandler
 	dev-nodejs/entities
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

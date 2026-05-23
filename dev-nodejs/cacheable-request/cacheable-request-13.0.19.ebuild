@@ -23,4 +23,4 @@ RDEPEND="
 	dev-nodejs/responselike
 	dev-nodejs/types-http-cache-semantics
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

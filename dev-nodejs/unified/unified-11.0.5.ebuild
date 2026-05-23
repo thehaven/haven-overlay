@@ -23,4 +23,4 @@ RDEPEND="
 	dev-nodejs/types-unist
 	dev-nodejs/vfile
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

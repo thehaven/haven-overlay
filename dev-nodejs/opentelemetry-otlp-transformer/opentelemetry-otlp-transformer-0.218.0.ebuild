@@ -22,4 +22,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-sdk-metrics
 	dev-nodejs/opentelemetry-sdk-trace-base
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

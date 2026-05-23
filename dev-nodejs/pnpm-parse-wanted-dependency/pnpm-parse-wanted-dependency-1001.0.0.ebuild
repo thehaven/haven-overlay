@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/validate-npm-package-name
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

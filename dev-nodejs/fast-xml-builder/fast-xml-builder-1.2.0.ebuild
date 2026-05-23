@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/path-expression-matcher
 	dev-nodejs/xml-naming
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

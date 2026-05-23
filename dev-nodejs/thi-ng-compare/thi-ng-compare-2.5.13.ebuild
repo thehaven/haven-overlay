@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/thi-ng-api
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

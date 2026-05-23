@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/buffer-crc32
 	dev-nodejs/pend
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

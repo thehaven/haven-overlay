@@ -18,4 +18,4 @@ RDEPEND="
 	dev-nodejs/opentelemetry-core
 	dev-nodejs/opentelemetry-otlp-transformer
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

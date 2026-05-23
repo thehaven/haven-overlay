@@ -20,4 +20,4 @@ RDEPEND="
 	dev-nodejs/unist-util-is
 	dev-nodejs/unist-util-visit-parents
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

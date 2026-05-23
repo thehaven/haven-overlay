@@ -28,4 +28,4 @@ RDEPEND="
 	dev-nodejs/strip-final-newline
 	dev-nodejs/yoctocolors
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/nodelib-fs-stat
 	dev-nodejs/nodelib-fs-walk
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

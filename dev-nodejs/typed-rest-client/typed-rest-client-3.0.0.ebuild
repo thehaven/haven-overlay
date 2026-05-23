@@ -21,4 +21,4 @@ RDEPEND="
 	dev-nodejs/tunnel
 	dev-nodejs/underscore
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""

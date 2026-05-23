@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/brace-expansion
 "
-BDEPEND="${RDEPEND}"
+BDEPEND=""
