@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="matcher"
 
-inherit npm
 
 DESCRIPTION="Simple wildcard matching"
 HOMEPAGE="https://github.com/sindresorhus/matcher#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-types"
 
-inherit npm
 
 DESCRIPTION="micromark utility with a couple of typescript types"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

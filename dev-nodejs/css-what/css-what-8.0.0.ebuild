@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="css-what"
 
-inherit npm
 
 DESCRIPTION="a CSS selector parser"
 HOMEPAGE="https://github.com/fb55/css-what#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="https-proxy-agent"
 
-inherit npm
 
 DESCRIPTION="An HTTP(s) proxy \`http.Agent\` implementation for HTTPS"
 HOMEPAGE="https://github.com/TooTallNate/proxy-agents#readme"

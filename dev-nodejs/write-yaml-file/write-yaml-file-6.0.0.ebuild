@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="write-yaml-file"
 
-inherit npm
 
 DESCRIPTION="Stringify and write YAML to a file atomically"
 HOMEPAGE="https://github.com/zkochan/packages/tree/main/write-yaml-file#readme"

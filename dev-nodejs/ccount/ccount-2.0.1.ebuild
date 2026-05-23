@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ccount"
 
-inherit npm
 
 DESCRIPTION="Count how often a character (or substring) is used in a string"
 HOMEPAGE="https://github.com/wooorm/ccount#readme"

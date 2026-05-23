@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@renovatebot/pgp"
 
-inherit npm
 
 DESCRIPTION="PGP library for renovate"
 HOMEPAGE="https://github.com/renovatebot/pgp#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/core"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry Core provides constants and utilities shared by all OpenTelemetry SDK packages."
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-core"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/catalogs.resolver"
 
-inherit npm
 
 DESCRIPTION="Dereferences catalog protocol specifiers into usable specifiers."
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/catalogs/resolver#readme"

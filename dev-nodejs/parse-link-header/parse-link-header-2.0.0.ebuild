@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="parse-link-header"
 
-inherit npm
 
 DESCRIPTION="Parses a link header and returns paging information for each contained link."
 HOMEPAGE="https://github.com/thlorenz/parse-link-header"

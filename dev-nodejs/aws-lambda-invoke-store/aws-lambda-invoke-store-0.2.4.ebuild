@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws/lambda-invoke-store"
 
-inherit npm
 
 DESCRIPTION="Invoke scoped data storage for AWS Lambda Node.js Runtime Environment"
 HOMEPAGE="https://github.com/awslabs/aws-lambda-invoke-store"

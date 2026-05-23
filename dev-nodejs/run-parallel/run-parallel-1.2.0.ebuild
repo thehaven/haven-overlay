@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="run-parallel"
 
-inherit npm
 
 DESCRIPTION="Run an array of functions in parallel"
 HOMEPAGE="https://github.com/feross/run-parallel"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="pend"
 
-inherit npm
 
 DESCRIPTION="dead-simple optimistic async helper"
 HOMEPAGE="https://www.npmjs.com/package/pend"

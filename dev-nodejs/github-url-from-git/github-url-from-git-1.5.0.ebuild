@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="github-url-from-git"
 
-inherit npm
 
 DESCRIPTION="Parse a github git url and return the github repo url"
 HOMEPAGE="https://github.com/visionmedia/node-github-url-from-git#readme"

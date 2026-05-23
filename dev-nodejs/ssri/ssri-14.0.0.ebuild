@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ssri"
 
-inherit npm
 
 DESCRIPTION="Standard Subresource Integrity library -- parses, serializes, generates, and verifies integrity metadata according to the SRI spec."
 HOMEPAGE="https://github.com/npm/ssri#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ci-info"
 
-inherit npm
 
 DESCRIPTION="Get details about the current Continuous Integration environment"
 HOMEPAGE="https://github.com/watson/ci-info"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="decode-named-character-reference"
 
-inherit npm
 
 DESCRIPTION="Decode named character references"
 HOMEPAGE="https://github.com/wooorm/decode-named-character-reference#readme"

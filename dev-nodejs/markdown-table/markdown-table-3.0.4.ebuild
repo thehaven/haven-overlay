@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="markdown-table"
 
-inherit npm
 
 DESCRIPTION="Generate a markdown (GFM) table"
 HOMEPAGE="https://github.com/wooorm/markdown-table#readme"

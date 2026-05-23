@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="git-up"
 
-inherit npm
 
 DESCRIPTION="A low level git url parser."
 HOMEPAGE="https://github.com/IonicaBizau/git-up"

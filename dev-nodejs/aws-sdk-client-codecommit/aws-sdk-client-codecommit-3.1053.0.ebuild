@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/client-codecommit"
 
-inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript Codecommit Client for Node.js, Browser and React Native"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-codecommit"

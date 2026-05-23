@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/errors"
 
-inherit npm
 
 DESCRIPTION="Custom error types and error factory functions"
 HOMEPAGE="https://thi.ng/errors"

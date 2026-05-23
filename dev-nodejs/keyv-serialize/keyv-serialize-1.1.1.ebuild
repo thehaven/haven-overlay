@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@keyv/serialize"
 
-inherit npm
 
 DESCRIPTION="Serialization for Keyv"
 HOMEPAGE="https://github.com/jaredwray/keyv"

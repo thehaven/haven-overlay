@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="moment"
 
-inherit npm
 
 DESCRIPTION="Parse, validate, manipulate, and display dates"
 HOMEPAGE="https://momentjs.com"

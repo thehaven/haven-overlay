@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="chownr"
 
-inherit npm
 
 DESCRIPTION="like \`chown -R\`"
 HOMEPAGE="https://github.com/isaacs/chownr#readme"

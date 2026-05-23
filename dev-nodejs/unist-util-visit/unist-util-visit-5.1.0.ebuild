@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="unist-util-visit"
 
-inherit npm
 
 DESCRIPTION="unist utility to visit nodes"
 HOMEPAGE="https://github.com/syntax-tree/unist-util-visit#readme"

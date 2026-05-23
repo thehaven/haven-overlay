@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="import-in-the-middle"
 
-inherit npm
 
 DESCRIPTION="Intercept imports in Node.js"
 HOMEPAGE="https://github.com/nodejs/import-in-the-middle#readme"

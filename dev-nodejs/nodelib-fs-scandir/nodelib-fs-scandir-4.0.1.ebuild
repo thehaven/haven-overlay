@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@nodelib/fs.scandir"
 
-inherit npm
 
 DESCRIPTION="List files and directories inside the specified directory"
 HOMEPAGE="https://www.npmjs.com/package/@nodelib/fs.scandir"

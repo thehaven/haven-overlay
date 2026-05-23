@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="extract-zip"
 
-inherit npm
 
 DESCRIPTION="unzip a zip file into a directory using 100% javascript"
 HOMEPAGE="https://github.com/maxogden/extract-zip#readme"

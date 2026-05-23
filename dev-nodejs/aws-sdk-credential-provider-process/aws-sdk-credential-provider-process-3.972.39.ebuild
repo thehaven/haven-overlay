@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/credential-provider-process"
 
-inherit npm
 
 DESCRIPTION="AWS credential provider that sources credential_process from ~/.aws/credentials and ~/.aws/config"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-process"

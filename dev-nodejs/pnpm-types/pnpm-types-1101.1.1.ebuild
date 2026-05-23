@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/types"
 
-inherit npm
 
 DESCRIPTION="Basic types used by pnpm"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/core/types#readme"

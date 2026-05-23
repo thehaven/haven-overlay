@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="async-mutex"
 
-inherit npm
 
 DESCRIPTION="A mutex for guarding async workflows"
 HOMEPAGE="https://github.com/DirtyHairy/async-mutex#readme"

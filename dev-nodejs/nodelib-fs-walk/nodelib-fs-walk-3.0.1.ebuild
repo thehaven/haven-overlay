@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@nodelib/fs.walk"
 
-inherit npm
 
 DESCRIPTION="A library for efficiently walking a directory recursively"
 HOMEPAGE="https://www.npmjs.com/package/@nodelib/fs.walk"

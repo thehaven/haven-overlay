@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/catalogs.protocol-parser"
 
-inherit npm
 
 DESCRIPTION="Parse catalog protocol specifiers and return the catalog name."
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/catalogs/protocol-parser#readme"

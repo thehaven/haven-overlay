@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/treeify"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for treeify"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/treeify"

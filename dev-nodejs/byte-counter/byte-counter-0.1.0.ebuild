@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="byte-counter"
 
-inherit npm
 
 DESCRIPTION="Count bytes passing through a stream"
 HOMEPAGE="https://github.com/sindresorhus/byte-counter#readme"

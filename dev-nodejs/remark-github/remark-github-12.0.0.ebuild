@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="remark-github"
 
-inherit npm
 
 DESCRIPTION="remark plugin to autolink references like in GitHub issues, PRs, and comments"
 HOMEPAGE="https://github.com/remarkjs/remark-github#readme"

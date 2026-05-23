@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="xml-naming"
 
-inherit npm
 
 DESCRIPTION="Validates XML name productions — Name, NCName, QName, NMToken, NMTokens — for XML 1.0 and 1.1"
 HOMEPAGE="https://github.com/NaturalIntelligence/xml-naming#readme"

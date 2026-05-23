@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/sdk-logs"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry logs SDK"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/sdk-logs"

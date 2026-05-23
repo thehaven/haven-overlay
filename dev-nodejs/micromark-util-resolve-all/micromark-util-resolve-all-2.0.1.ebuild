@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-resolve-all"
 
-inherit npm
 
 DESCRIPTION="micromark utility to resolve subtokens"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

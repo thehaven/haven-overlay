@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="jsonc-morph"
 
-inherit npm
 
 DESCRIPTION="Programmatic code changes of JSONC."
 HOMEPAGE="https://github.com/dsherret/jsonc-morph#readme"

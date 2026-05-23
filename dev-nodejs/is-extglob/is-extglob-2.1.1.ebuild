@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="is-extglob"
 
-inherit npm
 
 DESCRIPTION="Returns true if a string has an extglob."
 HOMEPAGE="https://github.com/jonschlinkert/is-extglob"

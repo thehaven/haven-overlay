@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="globalthis"
 
-inherit npm
 
 DESCRIPTION="ECMAScript spec-compliant polyfill/shim for \`globalThis\`"
 HOMEPAGE="https://github.com/ljharb/System.global#readme"

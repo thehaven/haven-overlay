@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="es-errors"
 
-inherit npm
 
 DESCRIPTION="A simple cache for a few of the JS Error constructors."
 HOMEPAGE="https://github.com/ljharb/es-errors#readme"

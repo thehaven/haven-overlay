@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="treeify"
 
-inherit npm
 
 DESCRIPTION="converts a JS object into a nice and readable tree structure for the console"
 HOMEPAGE="https://github.com/notatestuser/treeify#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="p-filter"
 
-inherit npm
 
 DESCRIPTION="Filter promises concurrently"
 HOMEPAGE="https://github.com/sindresorhus/p-filter#readme"

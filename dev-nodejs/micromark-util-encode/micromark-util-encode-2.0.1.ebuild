@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-encode"
 
-inherit npm
 
 DESCRIPTION="micromark utility to encode dangerous html characters"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/read-project-manifest"
 
-inherit npm
 
 DESCRIPTION="Read a project manifest (called package.json in most cases)"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/pkg-manifest/read-project-manifest#readme"

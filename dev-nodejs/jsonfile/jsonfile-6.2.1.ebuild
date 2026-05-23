@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="jsonfile"
 
-inherit npm
 
 DESCRIPTION="Easily read/write JSON files."
 HOMEPAGE="https://github.com/jprichardson/node-jsonfile#readme"

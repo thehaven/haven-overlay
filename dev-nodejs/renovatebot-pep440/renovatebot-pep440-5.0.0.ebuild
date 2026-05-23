@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@renovatebot/pep440"
 
-inherit npm
 
 DESCRIPTION="PEP440 implementation in JavaScript"
 HOMEPAGE="https://github.com/renovatebot/pep440#readme"

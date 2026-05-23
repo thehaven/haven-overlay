@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="glob-parent"
 
-inherit npm
 
 DESCRIPTION="Extract the non-magic parent path from a glob string."
 HOMEPAGE="https://github.com/gulpjs/glob-parent#readme"

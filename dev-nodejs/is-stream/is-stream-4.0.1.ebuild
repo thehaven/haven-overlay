@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="is-stream"
 
-inherit npm
 
 DESCRIPTION="Check if something is a Node.js stream"
 HOMEPAGE="https://github.com/sindresorhus/is-stream#readme"

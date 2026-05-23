@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fast-glob"
 
-inherit npm
 
 DESCRIPTION="It's a very fast and efficient glob library for Node.js"
 HOMEPAGE="https://github.com/mrmlnc/fast-glob#readme"

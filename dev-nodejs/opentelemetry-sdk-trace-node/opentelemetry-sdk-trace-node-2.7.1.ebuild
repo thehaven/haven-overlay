@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/sdk-trace-node"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry Node SDK provides automatic telemetry (tracing, metrics, etc) for Node.js applications"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-sdk-trace-node"

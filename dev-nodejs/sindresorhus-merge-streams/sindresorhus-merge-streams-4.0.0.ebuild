@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@sindresorhus/merge-streams"
 
-inherit npm
 
 DESCRIPTION="Merge multiple streams into a unified stream"
 HOMEPAGE="https://github.com/sindresorhus/merge-streams#readme"

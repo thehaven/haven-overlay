@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/ms"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for ms"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ms"

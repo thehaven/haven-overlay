@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="get-stream"
 
-inherit npm
 
 DESCRIPTION="Get a stream as a string, Buffer, ArrayBuffer or array"
 HOMEPAGE="https://github.com/sindresorhus/get-stream#readme"

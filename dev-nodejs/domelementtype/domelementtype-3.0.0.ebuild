@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="domelementtype"
 
-inherit npm
 
 DESCRIPTION="all the types of nodes in htmlparser2's dom"
 HOMEPAGE="https://github.com/fb55/domelementtype#readme"

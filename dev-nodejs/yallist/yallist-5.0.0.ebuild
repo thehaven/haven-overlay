@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="yallist"
 
-inherit npm
 
 DESCRIPTION="Yet Another Linked List"
 HOMEPAGE="https://github.com/isaacs/yallist#readme"

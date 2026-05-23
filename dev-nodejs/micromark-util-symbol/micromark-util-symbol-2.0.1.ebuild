@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-symbol"
 
-inherit npm
 
 DESCRIPTION="micromark utility with symbols"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

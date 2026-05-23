@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/sdk-trace-base"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry Tracing"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-sdk-trace-base"

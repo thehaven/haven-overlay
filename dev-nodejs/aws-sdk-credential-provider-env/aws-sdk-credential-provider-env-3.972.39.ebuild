@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/credential-provider-env"
 
-inherit npm
 
 DESCRIPTION="AWS credential provider that sources credentials from known environment variables"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-env"

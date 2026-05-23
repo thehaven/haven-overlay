@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/unist"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for unist"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/unist"

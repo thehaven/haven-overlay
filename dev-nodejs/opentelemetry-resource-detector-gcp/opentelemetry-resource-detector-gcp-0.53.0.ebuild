@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/resource-detector-gcp"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry SDK resource detector for GCP"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/resource-detector-gcp#readme"

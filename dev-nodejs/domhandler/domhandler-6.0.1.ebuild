@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="domhandler"
 
-inherit npm
 
 DESCRIPTION="Handler for htmlparser2 that turns pages into a dom"
 HOMEPAGE="https://github.com/fb55/domhandler#readme"

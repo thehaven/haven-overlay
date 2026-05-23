@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="js-md4"
 
-inherit npm
 
 DESCRIPTION="A simple MD4 hash function for JavaScript supports UTF-8 encoding."
 HOMEPAGE="https://github.com/emn178/js-md4"

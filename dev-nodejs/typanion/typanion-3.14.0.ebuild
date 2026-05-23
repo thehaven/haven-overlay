@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="typanion"
 
-inherit npm
 
 DESCRIPTION="Simple runtime TypeScript validator library"
 HOMEPAGE="https://mael.dev/typanion/"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="json5"
 
-inherit npm
 
 DESCRIPTION="JSON for Humans"
 HOMEPAGE="http://json5.org/"

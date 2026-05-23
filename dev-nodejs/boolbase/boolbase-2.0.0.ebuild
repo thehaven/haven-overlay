@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="boolbase"
 
-inherit npm
 
 DESCRIPTION="two functions: One that returns true, one that returns false"
 HOMEPAGE="https://github.com/fb55/boolbase"

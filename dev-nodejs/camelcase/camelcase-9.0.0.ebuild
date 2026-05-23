@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="camelcase"
 
-inherit npm
 
 DESCRIPTION="Convert a dash/dot/underscore/space separated string to camelCase or PascalCase: \`foo-bar\` → \`fooBar\`"
 HOMEPAGE="https://github.com/sindresorhus/camelcase#readme"

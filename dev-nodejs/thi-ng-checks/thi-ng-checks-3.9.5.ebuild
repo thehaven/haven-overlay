@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/checks"
 
-inherit npm
 
 DESCRIPTION="Collection of 70+ type, feature & value checks"
 HOMEPAGE="https://thi.ng/checks"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/context-async-hooks"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry AsyncLocalStorage-based Context Manager"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-context-async-hooks"

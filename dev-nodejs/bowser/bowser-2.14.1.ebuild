@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="bowser"
 
-inherit npm
 
 DESCRIPTION="Lightweight browser detector"
 HOMEPAGE="https://github.com/bowser-js/bowser"

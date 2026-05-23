@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="safe-json-stringify"
 
-inherit npm
 
 DESCRIPTION="Prevent defined property getters from throwing errors"
 HOMEPAGE="https://github.com/debitoor/safe-json-stringify"

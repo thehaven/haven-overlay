@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-gfm-task-list-item"
 
-inherit npm
 
 DESCRIPTION="mdast extension to parse and serialize GFM task list items"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-gfm-task-list-item#readme"

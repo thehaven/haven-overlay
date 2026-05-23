@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/otlp-transformer"
 
-inherit npm
 
 DESCRIPTION="Transform OpenTelemetry SDK data into OTLP"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/otlp-transformer"

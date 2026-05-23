@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@smithy/core"
 
-inherit npm
 
 DESCRIPTION="[![NPM version](https://img.shields.io/npm/v/@smithy/core/latest.svg)](https://www.npmjs.com/package/@smithy/core) [![NPM downloads](https://img.shields.io/npm/dm/@smithy/core.svg)](https://www.npmjs.com/package/@smithy/core)"
 HOMEPAGE="https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core"

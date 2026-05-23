@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="acorn"
 
-inherit npm
 
 DESCRIPTION="ECMAScript parser"
 HOMEPAGE="https://github.com/acornjs/acorn"

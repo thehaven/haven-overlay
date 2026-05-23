@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/arrays"
 
-inherit npm
 
 DESCRIPTION="Array / Arraylike utilities"
 HOMEPAGE="https://thi.ng/arrays"

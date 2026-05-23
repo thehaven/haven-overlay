@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="dequal"
 
-inherit npm
 
 DESCRIPTION="A tiny (304B to 489B) utility for check for deep equality"
 HOMEPAGE="https://github.com/lukeed/dequal#readme"

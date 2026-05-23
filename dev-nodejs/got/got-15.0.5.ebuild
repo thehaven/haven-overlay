@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="got"
 
-inherit npm
 
 DESCRIPTION="Human-friendly and powerful HTTP request library for Node.js"
 HOMEPAGE="https://github.com/sindresorhus/got#readme"

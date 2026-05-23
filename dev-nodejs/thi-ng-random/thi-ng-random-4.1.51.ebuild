@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/random"
 
-inherit npm
 
 DESCRIPTION="Pseudo-random number generators w/ unified API, distributions, weighted choices, ID generation"
 HOMEPAGE="https://thi.ng/random"

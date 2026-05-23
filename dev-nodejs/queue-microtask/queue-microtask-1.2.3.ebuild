@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="queue-microtask"
 
-inherit npm
 
 DESCRIPTION="fast, tiny \`queueMicrotask\` shim for modern engines"
 HOMEPAGE="https://github.com/feross/queue-microtask"

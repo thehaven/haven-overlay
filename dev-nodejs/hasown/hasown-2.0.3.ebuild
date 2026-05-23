@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="hasown"
 
-inherit npm
 
 DESCRIPTION="A robust, ES3 compatible, \"has own property\" predicate."
 HOMEPAGE="https://github.com/inspect-js/hasOwn#readme"

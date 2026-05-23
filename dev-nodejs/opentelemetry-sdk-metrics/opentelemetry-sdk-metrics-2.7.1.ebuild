@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/sdk-metrics"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry metrics SDK"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/sdk-metrics"

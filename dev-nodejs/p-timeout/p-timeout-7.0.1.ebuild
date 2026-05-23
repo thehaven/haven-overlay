@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="p-timeout"
 
-inherit npm
 
 DESCRIPTION="Timeout a promise after a specified amount of time"
 HOMEPAGE="https://github.com/sindresorhus/p-timeout#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="buffer-equal-constant-time"
 
-inherit npm
 
 DESCRIPTION="Constant-time comparison of Buffers"
 HOMEPAGE="https://www.npmjs.com/package/buffer-equal-constant-time"

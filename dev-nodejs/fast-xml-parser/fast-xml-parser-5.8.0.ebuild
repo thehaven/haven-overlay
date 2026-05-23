@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fast-xml-parser"
 
-inherit npm
 
 DESCRIPTION="Validate XML, Parse XML, Build XML without C/C++ based libraries"
 HOMEPAGE="https://github.com/NaturalIntelligence/fast-xml-parser#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="p-map"
 
-inherit npm
 
 DESCRIPTION="Map over promises concurrently"
 HOMEPAGE="https://github.com/sindresorhus/p-map#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@redis/client"
 
-inherit npm
 
 DESCRIPTION="The source code and documentation for this package are in the main [node-redis](https://github.com/redis/node-redis) repo."
 HOMEPAGE="https://github.com/redis/node-redis/tree/master/packages/client"

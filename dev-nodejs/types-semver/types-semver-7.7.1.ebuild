@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/semver"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for semver"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/semver"

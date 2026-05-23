@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="buffer-from"
 
-inherit npm
 
 DESCRIPTION="A [ponyfill](https://ponyfill.com) for \`Buffer.from\`, uses native implementation if available."
 HOMEPAGE="https://github.com/LinusU/buffer-from#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="get-proto"
 
-inherit npm
 
 DESCRIPTION="Robustly get the [[Prototype]] of an object"
 HOMEPAGE="https://github.com/ljharb/get-proto#readme"

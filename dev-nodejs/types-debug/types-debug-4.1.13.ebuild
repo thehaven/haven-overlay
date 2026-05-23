@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/debug"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for debug"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/debug"

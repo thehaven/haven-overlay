@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="tagged-tag"
 
-inherit npm
 
 DESCRIPTION="Unique tag for use in the type-fest Tagged type"
 HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"

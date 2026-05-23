@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="tslib"
 
-inherit npm
 
 DESCRIPTION="Runtime library for TypeScript helper functions"
 HOMEPAGE="https://www.typescriptlang.org/"

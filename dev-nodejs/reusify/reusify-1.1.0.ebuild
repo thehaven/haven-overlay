@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="reusify"
 
-inherit npm
 
 DESCRIPTION="Reuse objects and functions with style"
 HOMEPAGE="https://github.com/mcollina/reusify#readme"

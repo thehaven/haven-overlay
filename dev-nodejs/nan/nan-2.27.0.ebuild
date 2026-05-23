@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="nan"
 
-inherit npm
 
 DESCRIPTION="Native Abstractions for Node.js: C++ header for Node 0.8 -> 26 compatibility"
 HOMEPAGE="https://github.com/nodejs/nan#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/otlp-exporter-base"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry OTLP Exporter base (for internal use only)"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/otlp-exporter-base"

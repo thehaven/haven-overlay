@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@renovatebot/ruby-semver"
 
-inherit npm
 
 DESCRIPTION="Ruby SemVer in TypeScript."
 HOMEPAGE="https://github.com/renovatebot/ruby-semver#readme"

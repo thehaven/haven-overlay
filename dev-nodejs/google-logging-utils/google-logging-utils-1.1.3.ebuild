@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="google-logging-utils"
 
-inherit npm
 
 DESCRIPTION="A debug logger package for other Google libraries"
 HOMEPAGE="https://github.com/googleapis/google-cloud-node-core/tree/main/dev-packages/logging-utils"

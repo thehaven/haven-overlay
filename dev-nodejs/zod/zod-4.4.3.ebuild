@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="zod"
 
-inherit npm
 
 DESCRIPTION="TypeScript-first schema declaration and validation library with static type inference"
 HOMEPAGE="https://zod.dev"

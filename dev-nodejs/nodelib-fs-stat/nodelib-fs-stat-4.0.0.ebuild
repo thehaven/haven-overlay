@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@nodelib/fs.stat"
 
-inherit npm
 
 DESCRIPTION="Get the status of a file with some features"
 HOMEPAGE="https://www.npmjs.com/package/@nodelib/fs.stat"

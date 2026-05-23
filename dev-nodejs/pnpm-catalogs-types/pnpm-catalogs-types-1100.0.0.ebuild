@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/catalogs.types"
 
-inherit npm
 
 DESCRIPTION="Types related to the pnpm catalogs feature."
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/catalogs/types#readme"

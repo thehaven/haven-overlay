@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/instrumentation-bunyan"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry instrumentation for \`bunyan\` logger"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/instrumentation-bunyan#readme"

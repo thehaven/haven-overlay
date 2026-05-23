@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="character-entities"
 
-inherit npm
 
 DESCRIPTION="Map of named character references"
 HOMEPAGE="https://github.com/wooorm/character-entities#readme"

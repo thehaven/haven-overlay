@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="parse-url"
 
-inherit npm
 
 DESCRIPTION="An advanced url parser supporting git urls too."
 HOMEPAGE="https://github.com/IonicaBizau/parse-url"

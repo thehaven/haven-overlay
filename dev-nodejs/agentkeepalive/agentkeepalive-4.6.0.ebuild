@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="agentkeepalive"
 
-inherit npm
 
 DESCRIPTION="Missing keepalive http.Agent"
 HOMEPAGE="https://github.com/node-modules/agentkeepalive#readme"

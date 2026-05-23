@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="safe-buffer"
 
-inherit npm
 
 DESCRIPTION="Safer Node.js Buffer API"
 HOMEPAGE="https://github.com/feross/safe-buffer"

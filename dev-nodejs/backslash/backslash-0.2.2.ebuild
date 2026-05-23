@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="backslash"
 
-inherit npm
 
 DESCRIPTION="parse string escapes (\\n, \\r, etc.)"
 HOMEPAGE="https://github.com/Qix-/node-backslash#readme"

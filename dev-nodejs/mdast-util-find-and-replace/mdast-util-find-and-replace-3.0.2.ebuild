@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-find-and-replace"
 
-inherit npm
 
 DESCRIPTION="mdast utility to find and replace text in a tree"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-find-and-replace#readme"

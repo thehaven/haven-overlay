@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/http-cache-semantics"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for http-cache-semantics"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/http-cache-semantics"

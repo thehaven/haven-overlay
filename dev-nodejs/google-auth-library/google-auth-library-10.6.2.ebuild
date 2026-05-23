@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="google-auth-library"
 
-inherit npm
 
 DESCRIPTION="Google APIs Authentication Client Library for Node.js"
 HOMEPAGE="https://github.com/googleapis/google-cloud-node-core/tree/main/packages/google-auth-library-nodejs"

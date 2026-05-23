@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@yarnpkg/core"
 
-inherit npm
 
 DESCRIPTION="Node.js module"
 HOMEPAGE="https://www.npmjs.com/package/@yarnpkg/core"

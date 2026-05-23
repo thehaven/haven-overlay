@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="execa"
 
-inherit npm
 
 DESCRIPTION="Process execution for humans"
 HOMEPAGE="https://github.com/sindresorhus/execa#readme"

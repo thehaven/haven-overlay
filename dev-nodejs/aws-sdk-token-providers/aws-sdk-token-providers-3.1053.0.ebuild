@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/token-providers"
 
-inherit npm
 
 DESCRIPTION="A collection of token providers"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers"

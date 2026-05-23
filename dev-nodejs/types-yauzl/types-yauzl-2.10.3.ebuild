@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/yauzl"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for yauzl"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/yauzl"

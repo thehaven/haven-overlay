@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="normalize-url"
 
-inherit npm
 
 DESCRIPTION="Normalize a URL"
 HOMEPAGE="https://github.com/sindresorhus/normalize-url#readme"

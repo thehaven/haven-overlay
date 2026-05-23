@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@babel/helper-validator-identifier"
 
-inherit npm
 
 DESCRIPTION="Validate identifier/keywords name"
 HOMEPAGE="https://www.npmjs.com/package/@babel/helper-validator-identifier"

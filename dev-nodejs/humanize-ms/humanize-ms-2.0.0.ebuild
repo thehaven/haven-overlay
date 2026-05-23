@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="humanize-ms"
 
-inherit npm
 
 DESCRIPTION="transform humanize time to ms"
 HOMEPAGE="https://github.com/node-modules/humanize-ms#readme"

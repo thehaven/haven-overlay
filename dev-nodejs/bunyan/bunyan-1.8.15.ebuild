@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="bunyan"
 
-inherit npm
 
 DESCRIPTION="a JSON logging library for node.js services"
 HOMEPAGE="https://github.com/trentm/node-bunyan#readme"

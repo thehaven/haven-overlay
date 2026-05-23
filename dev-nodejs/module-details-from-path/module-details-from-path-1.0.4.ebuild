@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="module-details-from-path"
 
-inherit npm
 
 DESCRIPTION="Resolve npm package details, like name and base path, given an absolute path to a file inside a package"
 HOMEPAGE="https://github.com/watson/module-details-from-path#readme"

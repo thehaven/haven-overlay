@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="strip-final-newline"
 
-inherit npm
 
 DESCRIPTION="Strip the final newline character from a string or Uint8Array"
 HOMEPAGE="https://github.com/sindresorhus/strip-final-newline#readme"

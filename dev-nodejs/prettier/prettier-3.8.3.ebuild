@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="prettier"
 
-inherit npm
 
 DESCRIPTION="Prettier is an opinionated code formatter"
 HOMEPAGE="https://prettier.io"

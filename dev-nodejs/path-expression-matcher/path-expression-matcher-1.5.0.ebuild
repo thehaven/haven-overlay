@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="path-expression-matcher"
 
-inherit npm
 
 DESCRIPTION="Efficient path tracking and pattern matching for XML/JSON parsers"
 HOMEPAGE="https://github.com/NaturalIntelligence/path-expression-matcher#readme"

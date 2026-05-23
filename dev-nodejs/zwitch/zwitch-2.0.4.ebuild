@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="zwitch"
 
-inherit npm
 
 DESCRIPTION="Handle values based on a property"
 HOMEPAGE="https://github.com/wooorm/zwitch#readme"

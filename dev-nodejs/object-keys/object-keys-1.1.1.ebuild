@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="object-keys"
 
-inherit npm
 
 DESCRIPTION="An Object.keys replacement, in case Object.keys is not available. From https://github.com/es-shims/es5-shim"
 HOMEPAGE="https://github.com/ljharb/object-keys#readme"

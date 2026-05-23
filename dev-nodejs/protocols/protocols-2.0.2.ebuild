@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="protocols"
 
-inherit npm
 
 DESCRIPTION="Get the protocols of an input url."
 HOMEPAGE="https://github.com/IonicaBizau/protocols"

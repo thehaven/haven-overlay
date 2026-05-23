@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="remark"
 
-inherit npm
 
 DESCRIPTION="markdown processor powered by plugins part of the unified collective"
 HOMEPAGE="https://remark.js.org"

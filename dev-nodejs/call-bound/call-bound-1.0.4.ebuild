@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="call-bound"
 
-inherit npm
 
 DESCRIPTION="Robust call-bound JavaScript intrinsics, using \`call-bind\` and \`get-intrinsic\`."
 HOMEPAGE="https://github.com/ljharb/call-bound#readme"

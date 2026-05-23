@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-gfm-footnote"
 
-inherit npm
 
 DESCRIPTION="mdast extension to parse and serialize GFM footnotes"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-gfm-footnote#readme"

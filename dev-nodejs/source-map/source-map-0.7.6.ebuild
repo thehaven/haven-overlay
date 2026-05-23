@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="source-map"
 
-inherit npm
 
 DESCRIPTION="Generates and consumes source maps"
 HOMEPAGE="https://github.com/mozilla/source-map"

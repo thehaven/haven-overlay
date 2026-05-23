@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="minipass-flush"
 
-inherit npm
 
 DESCRIPTION="A Minipass stream that calls a flush function before emitting 'end'"
 HOMEPAGE="https://github.com/isaacs/minipass-flush#readme"

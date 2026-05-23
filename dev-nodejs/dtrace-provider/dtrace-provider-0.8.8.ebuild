@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="dtrace-provider"
 
-inherit npm
 
 DESCRIPTION="Native DTrace providers for node.js applications"
 HOMEPAGE="https://github.com/chrisa/node-dtrace-provider#readme"

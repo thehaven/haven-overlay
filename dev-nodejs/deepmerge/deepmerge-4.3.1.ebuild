@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="deepmerge"
 
-inherit npm
 
 DESCRIPTION="A library for deep (recursive) merging of Javascript objects"
 HOMEPAGE="https://github.com/TehShrike/deepmerge"

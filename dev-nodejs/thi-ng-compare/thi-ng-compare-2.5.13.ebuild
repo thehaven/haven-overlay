@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/compare"
 
-inherit npm
 
 DESCRIPTION="Comparators with support for types implementing the @thi.ng/api/ICompare interface"
 HOMEPAGE="https://thi.ng/compare"

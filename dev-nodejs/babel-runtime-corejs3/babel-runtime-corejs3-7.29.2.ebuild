@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@babel/runtime-corejs3"
 
-inherit npm
 
 DESCRIPTION="babel's modular runtime helpers with core-js@3 polyfilling"
 HOMEPAGE="https://www.npmjs.com/package/@babel/runtime-corejs3"

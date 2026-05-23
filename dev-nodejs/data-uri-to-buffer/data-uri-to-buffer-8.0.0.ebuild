@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="data-uri-to-buffer"
 
-inherit npm
 
 DESCRIPTION="Create an ArrayBuffer instance from a Data URI string"
 HOMEPAGE="https://github.com/TooTallNate/proxy-agents#readme"

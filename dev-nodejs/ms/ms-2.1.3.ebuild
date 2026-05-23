@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ms"
 
-inherit npm
 
 DESCRIPTION="Tiny millisecond conversion utility"
 HOMEPAGE="https://github.com/vercel/ms#readme"

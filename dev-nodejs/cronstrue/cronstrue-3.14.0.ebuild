@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="cronstrue"
 
-inherit npm
 
 DESCRIPTION="Convert cron expressions into human readable descriptions"
 HOMEPAGE="https://github.com/bradymholt/cronstrue"

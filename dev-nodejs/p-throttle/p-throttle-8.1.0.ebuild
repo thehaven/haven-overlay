@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="p-throttle"
 
-inherit npm
 
 DESCRIPTION="Throttle promise-returning & async functions"
 HOMEPAGE="https://github.com/sindresorhus/p-throttle#readme"

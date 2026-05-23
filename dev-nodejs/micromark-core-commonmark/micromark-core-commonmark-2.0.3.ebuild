@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-core-commonmark"
 
-inherit npm
 
 DESCRIPTION="The CommonMark markdown constructs"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

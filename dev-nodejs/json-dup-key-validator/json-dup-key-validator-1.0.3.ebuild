@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="json-dup-key-validator"
 
-inherit npm
 
 DESCRIPTION="A json validator that has an option to check for duplicated keys"
 HOMEPAGE="https://github.com/jackyjieliu/json-dup-key-validator"

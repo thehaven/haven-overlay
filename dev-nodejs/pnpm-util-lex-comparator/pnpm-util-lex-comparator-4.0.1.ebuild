@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/util.lex-comparator"
 
-inherit npm
 
 DESCRIPTION="Node.js module"
 HOMEPAGE="https://bit.cloud/pnpm/util/lex-comparator"

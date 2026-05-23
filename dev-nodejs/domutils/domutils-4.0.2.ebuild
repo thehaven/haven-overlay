@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="domutils"
 
-inherit npm
 
 DESCRIPTION="Utilities for working with htmlparser2's dom"
 HOMEPAGE="https://github.com/fb55/domutils#readme"

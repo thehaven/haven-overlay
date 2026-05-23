@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-decode-string"
 
-inherit npm
 
 DESCRIPTION="micromark utility to decode markdown strings"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

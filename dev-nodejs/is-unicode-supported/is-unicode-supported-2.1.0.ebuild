@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="is-unicode-supported"
 
-inherit npm
 
 DESCRIPTION="Detect whether the terminal supports Unicode"
 HOMEPAGE="https://github.com/sindresorhus/is-unicode-supported#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="jsonc-weaver"
 
-inherit npm
 
 DESCRIPTION="Modify JSONC files programmatically while preserving comments and formatting."
 HOMEPAGE="https://github.com/felipecrs/jsonc-weaver#readme"

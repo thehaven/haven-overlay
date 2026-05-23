@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="cacheable-lookup"
 
-inherit npm
 
 DESCRIPTION="A cacheable dns.lookup(…) that respects TTL"
 HOMEPAGE="https://github.com/szmarczak/cacheable-lookup#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="is-windows"
 
-inherit npm
 
 DESCRIPTION="Returns true if the platform is windows. UMD module, works with node.js, commonjs, browser, AMD, electron, etc."
 HOMEPAGE="https://github.com/jonschlinkert/is-windows"

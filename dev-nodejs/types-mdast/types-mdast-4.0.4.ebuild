@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/mdast"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for mdast"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mdast"

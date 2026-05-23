@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="human-signals"
 
-inherit npm
 
 DESCRIPTION="Human-friendly process signals"
 HOMEPAGE="https://www.github.com/ehmicky/human-signals"

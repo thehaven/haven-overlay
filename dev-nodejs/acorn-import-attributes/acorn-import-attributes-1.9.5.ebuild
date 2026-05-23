@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="acorn-import-attributes"
 
-inherit npm
 
 DESCRIPTION="Support for import attributes in acorn"
 HOMEPAGE="https://www.npmjs.com/package/acorn-import-attributes"

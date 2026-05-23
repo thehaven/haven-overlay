@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="gaxios"
 
-inherit npm
 
 DESCRIPTION="A simple common HTTP client specifically for Google APIs and services."
 HOMEPAGE="https://github.com/googleapis/google-cloud-node-core/tree/main/packages/gaxios"

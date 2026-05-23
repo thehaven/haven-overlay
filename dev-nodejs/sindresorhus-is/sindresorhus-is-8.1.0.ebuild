@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@sindresorhus/is"
 
-inherit npm
 
 DESCRIPTION="Type check values"
 HOMEPAGE="https://github.com/sindresorhus/is#readme"

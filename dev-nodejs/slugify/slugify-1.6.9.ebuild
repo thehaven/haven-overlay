@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="slugify"
 
-inherit npm
 
 DESCRIPTION="Slugifies a String"
 HOMEPAGE="https://github.com/simov/slugify"

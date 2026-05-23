@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="yauzl"
 
-inherit npm
 
 DESCRIPTION="yet another unzip library for node"
 HOMEPAGE="https://github.com/thejoshwolfe/yauzl"

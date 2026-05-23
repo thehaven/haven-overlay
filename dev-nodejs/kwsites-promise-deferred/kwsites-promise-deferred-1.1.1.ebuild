@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@kwsites/promise-deferred"
 
-inherit npm
 
 DESCRIPTION="Minimalist creation of promise wrappers, exposing the ability to resolve or reject the inner promise"
 HOMEPAGE="https://github.com/kwsites/promise-deferred#readme"

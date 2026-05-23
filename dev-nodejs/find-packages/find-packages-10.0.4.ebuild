@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="find-packages"
 
-inherit npm
 
 DESCRIPTION="Find all packages inside a directory"
 HOMEPAGE="https://github.com/pnpm/pnpm/blob/main/fs/find-packages#readme"

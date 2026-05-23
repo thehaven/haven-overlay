@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="underscore"
 
-inherit npm
 
 DESCRIPTION="JavaScript's functional programming helper library."
 HOMEPAGE="https://underscorejs.org"

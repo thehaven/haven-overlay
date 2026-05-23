@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/emscripten"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for emscripten"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/emscripten"

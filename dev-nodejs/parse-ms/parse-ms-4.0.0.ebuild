@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="parse-ms"
 
-inherit npm
 
 DESCRIPTION="Parse milliseconds into an object"
 HOMEPAGE="https://github.com/sindresorhus/parse-ms#readme"

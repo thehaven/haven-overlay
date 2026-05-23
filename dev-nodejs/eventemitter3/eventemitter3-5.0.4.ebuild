@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="eventemitter3"
 
-inherit npm
 
 DESCRIPTION="EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface."
 HOMEPAGE="https://github.com/primus/eventemitter3#readme"

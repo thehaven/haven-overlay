@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="detect-indent"
 
-inherit npm
 
 DESCRIPTION="Detect the indentation of code"
 HOMEPAGE="https://github.com/sindresorhus/detect-indent#readme"

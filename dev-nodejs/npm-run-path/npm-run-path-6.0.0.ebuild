@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="npm-run-path"
 
-inherit npm
 
 DESCRIPTION="Get your PATH prepended with locally installed binaries"
 HOMEPAGE="https://github.com/sindresorhus/npm-run-path#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@baszalmstra/rattler"
 
-inherit npm
 
 DESCRIPTION="Javascript bindings to the rattler library"
 HOMEPAGE="https://github.com/conda/rattler/tree/main/js-rattler#readme"

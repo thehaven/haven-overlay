@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="core-js-pure"
 
-inherit npm
 
 DESCRIPTION="Standard library"
 HOMEPAGE="https://core-js.io"

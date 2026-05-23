@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="devlop"
 
-inherit npm
 
 DESCRIPTION="Do things in development and nothing otherwise"
 HOMEPAGE="https://github.com/wooorm/devlop#readme"

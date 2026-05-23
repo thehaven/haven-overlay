@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="longest-streak"
 
-inherit npm
 
 DESCRIPTION="Count the longest repeating streak of a substring"
 HOMEPAGE="https://github.com/wooorm/longest-streak#readme"

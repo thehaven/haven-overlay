@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="validate-npm-package-name"
 
-inherit npm
 
 DESCRIPTION="Give me a string and I'll tell you if it's a valid npm package name"
 HOMEPAGE="https://github.com/npm/validate-npm-package-name"

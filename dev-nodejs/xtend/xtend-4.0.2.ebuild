@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="xtend"
 
-inherit npm
 
 DESCRIPTION="extend like a boss"
 HOMEPAGE="https://github.com/Raynos/xtend"

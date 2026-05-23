@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="upath"
 
-inherit npm
 
 DESCRIPTION="A drop-in replacement / proxy to Node.js path, replacing \\\\ with / for all results & adding file extension functions."
 HOMEPAGE="https://github.com/anodynos/upath/"

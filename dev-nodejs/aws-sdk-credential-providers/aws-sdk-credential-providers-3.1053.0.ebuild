@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/credential-providers"
 
-inherit npm
 
 DESCRIPTION="A collection of credential providers, without requiring service clients like STS, Cognito"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages/credential-providers"

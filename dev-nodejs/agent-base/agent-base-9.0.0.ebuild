@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="agent-base"
 
-inherit npm
 
 DESCRIPTION="Turn a function into an \`http.Agent\` instance"
 HOMEPAGE="https://github.com/TooTallNate/proxy-agents#readme"

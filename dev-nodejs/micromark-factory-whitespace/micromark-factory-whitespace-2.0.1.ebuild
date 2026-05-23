@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-factory-whitespace"
 
-inherit npm
 
 DESCRIPTION="micromark factory to parse markdown whitespace (found in lots of places)"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

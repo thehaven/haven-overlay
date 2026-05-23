@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="resolve-alpn"
 
-inherit npm
 
 DESCRIPTION="Detects the ALPN protocol"
 HOMEPAGE="https://github.com/szmarczak/resolve-alpn#readme"

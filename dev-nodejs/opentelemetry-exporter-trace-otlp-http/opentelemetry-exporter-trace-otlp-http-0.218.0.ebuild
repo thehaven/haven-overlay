@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/exporter-trace-otlp-http"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry Collector Trace Exporter allows user to send collected traces to the OpenTelemetry Collector"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/exporter-trace-otlp-http"

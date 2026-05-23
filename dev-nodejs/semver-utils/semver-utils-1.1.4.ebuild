@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="semver-utils"
 
-inherit npm
 
 DESCRIPTION="Tools for manipulating semver strings and objects"
 HOMEPAGE="https://git.coolaj86.com/coolaj86/semver-utils.js"

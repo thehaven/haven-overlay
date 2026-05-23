@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="json-bigint"
 
-inherit npm
 
 DESCRIPTION="JSON.parse with bigints support"
 HOMEPAGE="https://github.com/sidorares/json-bigint#readme"

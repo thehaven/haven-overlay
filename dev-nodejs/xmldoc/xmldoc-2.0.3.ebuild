@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="xmldoc"
 
-inherit npm
 
 DESCRIPTION="A lightweight XML Document class for JavaScript."
 HOMEPAGE="https://github.com/nfarina/xmldoc#readme"

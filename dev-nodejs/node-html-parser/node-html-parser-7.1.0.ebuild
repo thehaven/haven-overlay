@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="node-html-parser"
 
-inherit npm
 
 DESCRIPTION="A very fast HTML parser, generating a simplified DOM, with basic element query support."
 HOMEPAGE="https://github.com/taoqf/node-fast-html-parser"

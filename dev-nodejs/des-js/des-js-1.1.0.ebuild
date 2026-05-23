@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="des.js"
 
-inherit npm
 
 DESCRIPTION="DES implementation"
 HOMEPAGE="https://github.com/indutny/des.js#readme"

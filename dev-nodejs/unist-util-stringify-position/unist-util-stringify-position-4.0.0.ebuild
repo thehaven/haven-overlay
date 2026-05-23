@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="unist-util-stringify-position"
 
-inherit npm
 
 DESCRIPTION="unist utility to serialize a node, position, or point as a human readable location"
 HOMEPAGE="https://github.com/syntax-tree/unist-util-stringify-position#readme"

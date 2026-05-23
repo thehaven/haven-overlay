@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="non-error"
 
-inherit npm
 
 DESCRIPTION="An error subclass for wrapping non-error values"
 HOMEPAGE="https://github.com/sindresorhus/non-error#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mkdirp"
 
-inherit npm
 
 DESCRIPTION="Recursively mkdir, like \`mkdir -p\`"
 HOMEPAGE="https://github.com/isaacs/node-mkdirp#readme"

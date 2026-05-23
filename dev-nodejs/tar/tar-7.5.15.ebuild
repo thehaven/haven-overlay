@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="tar"
 
-inherit npm
 
 DESCRIPTION="tar for node"
 HOMEPAGE="https://github.com/isaacs/node-tar#readme"

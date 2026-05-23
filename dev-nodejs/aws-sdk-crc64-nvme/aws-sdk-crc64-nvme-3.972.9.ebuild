@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/crc64-nvme"
 
-inherit npm
 
 DESCRIPTION="A pure JS implementation of CRC64-NVME checksum"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages/crc64-nvme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mimic-response"
 
-inherit npm
 
 DESCRIPTION="Mimic a Node.js HTTP response stream"
 HOMEPAGE="https://github.com/sindresorhus/mimic-response#readme"

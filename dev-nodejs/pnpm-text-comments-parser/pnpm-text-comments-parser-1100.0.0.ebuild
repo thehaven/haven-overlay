@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/text.comments-parser"
 
-inherit npm
 
 DESCRIPTION="Extracts and inserts comments from/to text"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/text/comments-parser#readme"

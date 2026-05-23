@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="dom-serializer"
 
-inherit npm
 
 DESCRIPTION="render domhandler DOM nodes to a string"
 HOMEPAGE="https://github.com/cheeriojs/dom-serializer#readme"

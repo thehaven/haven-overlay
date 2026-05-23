@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="glob"
 
-inherit npm
 
 DESCRIPTION="the most correct and second fastest glob implementation in JavaScript"
 HOMEPAGE="https://github.com/isaacs/node-glob#readme"

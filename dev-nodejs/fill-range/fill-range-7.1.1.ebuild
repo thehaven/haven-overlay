@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fill-range"
 
-inherit npm
 
 DESCRIPTION="Fill in a range of numbers or letters, optionally passing an increment or \`step\` to use, or create a regex-compatible range with \`options.toRegex\`"
 HOMEPAGE="https://github.com/jonschlinkert/fill-range"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="source-map-support"
 
-inherit npm
 
 DESCRIPTION="Fixes stack traces for files with source maps"
 HOMEPAGE="https://github.com/evanw/node-source-map-support#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="keyv"
 
-inherit npm
 
 DESCRIPTION="Simple key-value storage with support for multiple backends"
 HOMEPAGE="https://github.com/jaredwray/keyv"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="adm-zip"
 
-inherit npm
 
 DESCRIPTION="Javascript implementation of zip for nodejs with support for electron original-fs. Allows user to create or extract zip files both in memory or to/from disk"
 HOMEPAGE="https://github.com/cthackers/adm-zip"

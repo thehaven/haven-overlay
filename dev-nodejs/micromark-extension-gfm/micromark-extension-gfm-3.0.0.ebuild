@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-extension-gfm"
 
-inherit npm
 
 DESCRIPTION="micromark extension to support GFM (GitHub Flavored Markdown)"
 HOMEPAGE="https://github.com/micromark/micromark-extension-gfm#readme"

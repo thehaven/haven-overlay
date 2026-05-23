@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="universalify"
 
-inherit npm
 
 DESCRIPTION="Make a callback- or promise-based function support both promises and callbacks."
 HOMEPAGE="https://github.com/RyanZim/universalify#readme"

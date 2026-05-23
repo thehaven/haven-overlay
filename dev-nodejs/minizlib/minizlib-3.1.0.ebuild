@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="minizlib"
 
-inherit npm
 
 DESCRIPTION="A small fast zlib stream built on [minipass](http://npm.im/minipass) and Node.js's zlib binding."
 HOMEPAGE="https://github.com/isaacs/minizlib#readme"

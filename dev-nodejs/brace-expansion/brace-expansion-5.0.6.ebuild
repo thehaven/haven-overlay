@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="brace-expansion"
 
-inherit npm
 
 DESCRIPTION="Brace expansion as known from sh/bash"
 HOMEPAGE="https://github.com/juliangruber/brace-expansion#readme"

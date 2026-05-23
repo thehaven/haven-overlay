@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="node-fetch"
 
-inherit npm
 
 DESCRIPTION="A light-weight module that brings Fetch API to node.js"
 HOMEPAGE="https://github.com/node-fetch/node-fetch"

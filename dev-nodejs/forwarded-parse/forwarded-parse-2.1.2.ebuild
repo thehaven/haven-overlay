@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="forwarded-parse"
 
-inherit npm
 
 DESCRIPTION="Parse the Forwarded header (RFC 7239) into an array of objects"
 HOMEPAGE="https://github.com/lpinca/forwarded-parse"

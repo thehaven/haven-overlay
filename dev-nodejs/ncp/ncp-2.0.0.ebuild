@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ncp"
 
-inherit npm
 
 DESCRIPTION="Asynchronous recursive file copy utility."
 HOMEPAGE="https://github.com/AvianFlu/ncp"

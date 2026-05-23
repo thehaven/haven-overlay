@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/middleware-location-constraint"
 
-inherit npm
 
 DESCRIPTION="[![NPM version](https://img.shields.io/npm/v/@aws-sdk/middleware-location-constraint/latest.svg)](https://www.npmjs.com/package/@aws-sdk/middleware-location-constraint) [![NPM downloads](https://img.shields.io/npm/dm/@aws-sdk/middleware-location-constrain"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-location-constraint"

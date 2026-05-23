@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fastq"
 
-inherit npm
 
 DESCRIPTION="Fast, in memory work queue"
 HOMEPAGE="https://github.com/mcollina/fastq#readme"

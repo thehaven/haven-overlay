@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ecdsa-sig-formatter"
 
-inherit npm
 
 DESCRIPTION="Translate ECDSA signatures between ASN.1/DER and JOSE-style concatenation"
 HOMEPAGE="https://github.com/Brightspace/node-ecdsa-sig-formatter#readme"

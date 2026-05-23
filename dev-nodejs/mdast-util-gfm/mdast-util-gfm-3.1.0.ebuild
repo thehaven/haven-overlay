@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-gfm"
 
-inherit npm
 
 DESCRIPTION="mdast extension to parse and serialize GFM (GitHub Flavored Markdown)"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-gfm#readme"

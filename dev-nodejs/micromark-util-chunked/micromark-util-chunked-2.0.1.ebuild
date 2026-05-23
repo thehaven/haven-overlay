@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-chunked"
 
-inherit npm
 
 DESCRIPTION="micromark utility to splice and push with giant arrays"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

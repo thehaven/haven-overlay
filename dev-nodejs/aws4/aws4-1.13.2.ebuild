@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="aws4"
 
-inherit npm
 
 DESCRIPTION="Signs and prepares requests using AWS Signature Version 4"
 HOMEPAGE="https://github.com/mhart/aws4#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="cjs-module-lexer"
 
-inherit npm
 
 DESCRIPTION="Lexes CommonJS modules, returning their named exports metadata"
 HOMEPAGE="https://github.com/nodejs/cjs-module-lexer#readme"

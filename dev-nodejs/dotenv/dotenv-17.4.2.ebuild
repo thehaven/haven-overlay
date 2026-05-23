@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="dotenv"
 
-inherit npm
 
 DESCRIPTION="Loads environment variables from .env file"
 HOMEPAGE="https://github.com/motdotla/dotenv#readme"

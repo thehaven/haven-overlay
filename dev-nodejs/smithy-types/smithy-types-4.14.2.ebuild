@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@smithy/types"
 
-inherit npm
 
 DESCRIPTION="[![NPM version](https://img.shields.io/npm/v/@smithy/types/latest.svg)](https://www.npmjs.com/package/@smithy/types) [![NPM downloads](https://img.shields.io/npm/dm/@smithy/types.svg)](https://www.npmjs.com/package/@smithy/types)"
 HOMEPAGE="https://github.com/smithy-lang/smithy-typescript/tree/main/packages/types"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="changelog-filename-regex"
 
-inherit npm
 
 DESCRIPTION="A regular expression that matches a CHANGELOG filename"
 HOMEPAGE="https://github.com/shinnn/changelog-filename-regex#readme"

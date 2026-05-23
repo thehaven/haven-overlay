@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="es-define-property"
 
-inherit npm
 
 DESCRIPTION="\`Object.defineProperty\`, but not IE 8's broken one."
 HOMEPAGE="https://github.com/ljharb/es-define-property#readme"

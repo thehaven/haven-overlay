@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="neo-async"
 
-inherit npm
 
 DESCRIPTION="Neo-Async is a drop-in replacement for Async, it almost fully covers its functionality and runs faster "
 HOMEPAGE="https://github.com/suguru03/neo-async"

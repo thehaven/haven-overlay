@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/api"
 
-inherit npm
 
 DESCRIPTION="Public API for OpenTelemetry"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/api"

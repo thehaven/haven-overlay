@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="bail"
 
-inherit npm
 
 DESCRIPTION="Throw a given error"
 HOMEPAGE="https://github.com/wooorm/bail#readme"

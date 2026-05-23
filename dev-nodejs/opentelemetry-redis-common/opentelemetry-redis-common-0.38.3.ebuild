@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/redis-common"
 
-inherit npm
 
 DESCRIPTION="Redis utilities for redis instrumentations"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/redis-common#readme"

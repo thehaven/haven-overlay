@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-gfm-table"
 
-inherit npm
 
 DESCRIPTION="mdast extension to parse and serialize GFM tables"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-gfm-table#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-crypto/util"
 
-inherit npm
 
 DESCRIPTION="Helper functions"
 HOMEPAGE="https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/util"

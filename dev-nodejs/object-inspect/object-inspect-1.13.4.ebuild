@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="object-inspect"
 
-inherit npm
 
 DESCRIPTION="string representations of objects in node and the browser"
 HOMEPAGE="https://github.com/inspect-js/object-inspect"

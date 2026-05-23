@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="merge2"
 
-inherit npm
 
 DESCRIPTION="Merge multiple streams into one stream in sequence or parallel."
 HOMEPAGE="https://github.com/teambition/merge2"

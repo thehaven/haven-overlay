@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="linkify-it"
 
-inherit npm
 
 DESCRIPTION="Links recognition library with FULL unicode support"
 HOMEPAGE="https://github.com/markdown-it/linkify-it#readme"

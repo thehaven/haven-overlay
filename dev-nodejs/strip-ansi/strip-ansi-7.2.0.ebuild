@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="strip-ansi"
 
-inherit npm
 
 DESCRIPTION="Strip ANSI escape codes from a string"
 HOMEPAGE="https://github.com/chalk/strip-ansi#readme"

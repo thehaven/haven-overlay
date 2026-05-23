@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="email-addresses"
 
-inherit npm
 
 DESCRIPTION="An email address parser based on rfc5322"
 HOMEPAGE="https://github.com/jackbearheart/email-addresses"

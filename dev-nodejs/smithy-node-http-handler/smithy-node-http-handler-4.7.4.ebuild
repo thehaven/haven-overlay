@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@smithy/node-http-handler"
 
-inherit npm
 
 DESCRIPTION="Provides a way to make requests"
 HOMEPAGE="https://github.com/smithy-lang/smithy-typescript/tree/main/packages/node-http-handler"

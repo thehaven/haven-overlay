@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="gcp-metadata"
 
-inherit npm
 
 DESCRIPTION="Get the metadata from a Google Cloud Platform environment"
 HOMEPAGE="https://github.com/googleapis/google-cloud-node-core/tree/main/packages/gcp-metadata"

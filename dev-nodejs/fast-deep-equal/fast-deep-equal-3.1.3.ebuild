@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fast-deep-equal"
 
-inherit npm
 
 DESCRIPTION="Fast deep equal"
 HOMEPAGE="https://github.com/epoberezkin/fast-deep-equal#readme"

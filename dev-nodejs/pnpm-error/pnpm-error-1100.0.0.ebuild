@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/error"
 
-inherit npm
 
 DESCRIPTION="An error class for pnpm errors"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/core/error#readme"

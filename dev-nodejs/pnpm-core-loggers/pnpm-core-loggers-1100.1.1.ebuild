@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/core-loggers"
 
-inherit npm
 
 DESCRIPTION="Core loggers of pnpm"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/core/core-loggers#readme"

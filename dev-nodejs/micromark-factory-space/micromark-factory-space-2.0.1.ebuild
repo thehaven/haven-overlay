@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-factory-space"
 
-inherit npm
 
 DESCRIPTION="micromark factory to parse markdown space (found in lots of places)"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

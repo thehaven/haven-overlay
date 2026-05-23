@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="json-stringify-pretty-compact"
 
-inherit npm
 
 DESCRIPTION="The best of both \`JSON.stringify(obj)\` and \`JSON.stringify(obj, null, indent)\`."
 HOMEPAGE="https://github.com/lydell/json-stringify-pretty-compact#readme"

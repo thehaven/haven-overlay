@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="parse-json"
 
-inherit npm
 
 DESCRIPTION="Parse JSON with more helpful errors"
 HOMEPAGE="https://github.com/sindresorhus/parse-json#readme"

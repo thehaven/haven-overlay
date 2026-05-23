@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="uint8array-extras"
 
-inherit npm
 
 DESCRIPTION="Useful utilities for working with Uint8Array (and Buffer)"
 HOMEPAGE="https://github.com/sindresorhus/uint8array-extras#readme"

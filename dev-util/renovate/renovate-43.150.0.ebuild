@@ -3,22 +3,31 @@
 
 EAPI=8
 
-NPM_MODULE="renovate"
 inherit npm
+
+NPM_MODULE="renovate"
+
 
 DESCRIPTION="Automated dependency updates. Flexible so you don't need to be."
 HOMEPAGE="https://renovatebot.com"
 
-LICENSE="AGPL-3"
+LICENSE="unknown"
 SLOT="0"
 KEYWORDS="~amd64"
-
-IUSE="+aws +azure +google +telemetry"
 
 RDEPEND="
 	dev-nodejs/ae-cvss-calculator
 	dev-nodejs/agentkeepalive
 	dev-nodejs/async-mutex
+	dev-nodejs/aws-sdk-client-codecommit
+	dev-nodejs/aws-sdk-client-ec2
+	dev-nodejs/aws-sdk-client-ecr
+	dev-nodejs/aws-sdk-client-eks
+	dev-nodejs/aws-sdk-client-rds
+	dev-nodejs/aws-sdk-client-s3
+	dev-nodejs/aws-sdk-credential-providers
+	dev-nodejs/aws4
+	dev-nodejs/azure-devops-node-api
 	dev-nodejs/baszalmstra-rattler
 	dev-nodejs/breejs-later
 	dev-nodejs/bunyan
@@ -68,6 +77,21 @@ RDEPEND="
 	dev-nodejs/ms
 	dev-nodejs/neotraverse
 	dev-nodejs/node-html-parser
+	dev-nodejs/opentelemetry-api
+	dev-nodejs/opentelemetry-context-async-hooks
+	dev-nodejs/opentelemetry-exporter-trace-otlp-http
+	dev-nodejs/opentelemetry-instrumentation
+	dev-nodejs/opentelemetry-instrumentation-bunyan
+	dev-nodejs/opentelemetry-instrumentation-http
+	dev-nodejs/opentelemetry-instrumentation-redis
+	dev-nodejs/opentelemetry-resource-detector-aws
+	dev-nodejs/opentelemetry-resource-detector-azure
+	dev-nodejs/opentelemetry-resource-detector-gcp
+	dev-nodejs/opentelemetry-resource-detector-github
+	dev-nodejs/opentelemetry-resources
+	dev-nodejs/opentelemetry-sdk-trace-base
+	dev-nodejs/opentelemetry-sdk-trace-node
+	dev-nodejs/opentelemetry-semantic-conventions
 	dev-nodejs/p-all
 	dev-nodejs/p-map
 	dev-nodejs/p-queue
@@ -109,61 +133,6 @@ RDEPEND="
 	dev-nodejs/yarnpkg-core
 	dev-nodejs/yarnpkg-parsers
 	dev-nodejs/zod
-
-	aws? (
-		dev-nodejs/aws-sdk-client-codecommit
-		dev-nodejs/aws-sdk-client-ec2
-		dev-nodejs/aws-sdk-client-ecr
-		dev-nodejs/aws-sdk-client-eks
-		dev-nodejs/aws-sdk-client-rds
-		dev-nodejs/aws-sdk-client-s3
-		dev-nodejs/aws-sdk-credential-providers
-		dev-nodejs/aws4
-		dev-nodejs/smithy-core
-		dev-nodejs/smithy-fetch-http-handler
-		dev-nodejs/smithy-node-http-handler
-		dev-nodejs/smithy-protocol-http
-		dev-nodejs/smithy-signature-v4
-		dev-nodejs/smithy-types
-		dev-nodejs/smithy-util-base64
-		dev-nodejs/smithy-util-body-length-browser
-		dev-nodejs/smithy-util-body-length-node
-		dev-nodejs/smithy-util-defaults-mode-browser
-		dev-nodejs/smithy-util-defaults-mode-node
-		dev-nodejs/smithy-util-endpoints
-		dev-nodejs/smithy-util-hex-encoding
-		dev-nodejs/smithy-util-middleware
-		dev-nodejs/smithy-util-retry
-		dev-nodejs/smithy-util-stream
-		dev-nodejs/smithy-util-uri-escape
-		dev-nodejs/smithy-util-utf8
-	)
-
-	azure? (
-		dev-nodejs/azure-devops-node-api
-	)
-
-	google? (
-		dev-nodejs/google-auth-library
-	)
-
-	telemetry? (
-		dev-nodejs/opentelemetry-api
-		dev-nodejs/opentelemetry-context-async-hooks
-		dev-nodejs/opentelemetry-exporter-trace-otlp-http
-		dev-nodejs/opentelemetry-instrumentation
-		dev-nodejs/opentelemetry-instrumentation-bunyan
-		dev-nodejs/opentelemetry-instrumentation-http
-		dev-nodejs/opentelemetry-instrumentation-redis
-		dev-nodejs/opentelemetry-resources
-		dev-nodejs/opentelemetry-sdk-trace-base
-		dev-nodejs/opentelemetry-sdk-trace-node
-		dev-nodejs/opentelemetry-semantic-conventions
-		aws? ( dev-nodejs/opentelemetry-resource-detector-aws )
-		azure? ( dev-nodejs/opentelemetry-resource-detector-azure )
-		google? ( dev-nodejs/opentelemetry-resource-detector-gcp )
-		dev-nodejs/opentelemetry-resource-detector-github
-	)
 "
 BDEPEND=""
 

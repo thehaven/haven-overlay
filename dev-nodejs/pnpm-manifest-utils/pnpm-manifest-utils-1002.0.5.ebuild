@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/manifest-utils"
 
-inherit npm
 
 DESCRIPTION="Utils for dealing with package manifest"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/pkg-manifest/manifest-utils#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@renovatebot/good-enough-parser"
 
-inherit npm
 
 DESCRIPTION="Parse and query computer programs source code"
 HOMEPAGE="https://github.com/renovatebot/good-enough-parser#readme"

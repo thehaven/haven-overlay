@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="vfile-message"
 
-inherit npm
 
 DESCRIPTION="vfile utility to create a virtual message"
 HOMEPAGE="https://github.com/vfile/vfile-message#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="bignumber.js"
 
-inherit npm
 
 DESCRIPTION="A library for arbitrary-precision decimal and non-decimal arithmetic"
 HOMEPAGE="https://github.com/MikeMcl/bignumber.js#readme"

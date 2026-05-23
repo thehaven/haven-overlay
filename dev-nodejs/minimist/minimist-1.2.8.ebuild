@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="minimist"
 
-inherit npm
 
 DESCRIPTION="parse argument options"
 HOMEPAGE="https://github.com/minimistjs/minimist"

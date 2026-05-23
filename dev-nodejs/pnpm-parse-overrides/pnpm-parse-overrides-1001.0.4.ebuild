@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/parse-overrides"
 
-inherit npm
 
 DESCRIPTION="Parse overrides"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/config/parse-overrides#readme"

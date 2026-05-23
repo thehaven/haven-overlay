@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="write-file-atomic"
 
-inherit npm
 
 DESCRIPTION="Write files in an atomic fashion w/configurable ownership"
 HOMEPAGE="https://github.com/npm/write-file-atomic"

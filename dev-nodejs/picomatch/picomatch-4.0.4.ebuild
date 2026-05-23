@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="picomatch"
 
-inherit npm
 
 DESCRIPTION="Blazing fast and accurate glob matcher written in JavaScript, with no dependencies and full support for standard and extended Bash glob features, including braces, extglobs, POSIX brackets, and regular expressions."
 HOMEPAGE="https://github.com/micromatch/picomatch"

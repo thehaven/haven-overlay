@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="quick-lru"
 
-inherit npm
 
 DESCRIPTION="Simple “Least Recently Used” (LRU) cache"
 HOMEPAGE="https://github.com/sindresorhus/quick-lru#readme"

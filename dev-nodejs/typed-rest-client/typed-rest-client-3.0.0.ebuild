@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="typed-rest-client"
 
-inherit npm
 
 DESCRIPTION="Node Rest and Http Clients for use with TypeScript"
 HOMEPAGE="https://github.com/Microsoft/typed-rest-client#readme"

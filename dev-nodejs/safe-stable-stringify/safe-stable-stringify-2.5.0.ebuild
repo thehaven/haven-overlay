@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="safe-stable-stringify"
 
-inherit npm
 
 DESCRIPTION="Deterministic and safely JSON.stringify to quickly serialize JavaScript objects"
 HOMEPAGE="https://github.com/BridgeAR/safe-stable-stringify#readme"

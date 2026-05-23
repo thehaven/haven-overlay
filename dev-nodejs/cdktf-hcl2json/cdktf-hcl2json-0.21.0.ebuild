@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@cdktf/hcl2json"
 
-inherit npm
 
 DESCRIPTION="Transform HCL into JSON"
 HOMEPAGE="https://github.com/hashicorp/terraform-cdk#readme"

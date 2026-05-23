@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-extension-gfm-table"
 
-inherit npm
 
 DESCRIPTION="micromark extension to support GFM tables"
 HOMEPAGE="https://github.com/micromark/micromark-extension-gfm-table#readme"

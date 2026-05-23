@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdurl"
 
-inherit npm
 
 DESCRIPTION="URL utilities for markdown-it"
 HOMEPAGE="https://github.com/markdown-it/mdurl#readme"

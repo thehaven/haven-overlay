@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ansi-regex"
 
-inherit npm
 
 DESCRIPTION="Regular expression for matching ANSI escape codes"
 HOMEPAGE="https://github.com/chalk/ansi-regex#readme"

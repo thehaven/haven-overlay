@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@npmcli/fs"
 
-inherit npm
 
 DESCRIPTION="filesystem utilities for the npm cli"
 HOMEPAGE="https://github.com/npm/fs#readme"

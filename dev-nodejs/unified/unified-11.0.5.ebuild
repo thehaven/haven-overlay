@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="unified"
 
-inherit npm
 
 DESCRIPTION="parse, inspect, transform, and serialize content through syntax trees"
 HOMEPAGE="https://unifiedjs.com"

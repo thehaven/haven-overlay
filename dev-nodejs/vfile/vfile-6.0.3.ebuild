@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="vfile"
 
-inherit npm
 
 DESCRIPTION="Virtual file format for text processing"
 HOMEPAGE="https://github.com/vfile/vfile#readme"

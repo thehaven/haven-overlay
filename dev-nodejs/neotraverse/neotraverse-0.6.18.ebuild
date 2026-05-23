@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="neotraverse"
 
-inherit npm
 
 DESCRIPTION="traverse and transform objects by visiting every node on a recursive walk"
 HOMEPAGE="https://github.com/PuruVJ/neotraverse"

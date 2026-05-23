@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-extension-gfm-footnote"
 
-inherit npm
 
 DESCRIPTION="micromark extension to support GFM footnotes"
 HOMEPAGE="https://github.com/micromark/micromark-extension-gfm-footnote#readme"

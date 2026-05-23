@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="css-select"
 
-inherit npm
 
 DESCRIPTION="a CSS selector compiler/engine"
 HOMEPAGE="https://github.com/fb55/css-select#readme"

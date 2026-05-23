@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-factory-label"
 
-inherit npm
 
 DESCRIPTION="micromark factory to parse labels (found in media, definitions)"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

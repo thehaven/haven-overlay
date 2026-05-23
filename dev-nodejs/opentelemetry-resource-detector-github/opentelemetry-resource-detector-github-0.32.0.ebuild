@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/resource-detector-github"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry SDK resource detector for GitHub"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/resource-detector-github#readme"

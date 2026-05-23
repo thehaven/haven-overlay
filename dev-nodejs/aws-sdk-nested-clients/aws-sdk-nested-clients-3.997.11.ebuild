@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@aws-sdk/nested-clients"
 
-inherit npm
 
 DESCRIPTION="Nested clients for AWS SDK packages."
 HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients"

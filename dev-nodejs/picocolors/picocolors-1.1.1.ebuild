@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="picocolors"
 
-inherit npm
 
 DESCRIPTION="The tiniest and the fastest library for terminal output formatting with ANSI colors"
 HOMEPAGE="https://github.com/alexeyraspopov/picocolors#readme"

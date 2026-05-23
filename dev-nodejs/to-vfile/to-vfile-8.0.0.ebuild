@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="to-vfile"
 
-inherit npm
 
 DESCRIPTION="vfile utility to read and write to the file system"
 HOMEPAGE="https://github.com/vfile/to-vfile#readme"

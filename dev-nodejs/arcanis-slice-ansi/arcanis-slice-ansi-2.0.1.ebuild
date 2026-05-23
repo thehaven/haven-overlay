@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@arcanis/slice-ansi"
 
-inherit npm
 
 DESCRIPTION="Node.js module"
 HOMEPAGE="https://www.npmjs.com/package/@arcanis/slice-ansi"

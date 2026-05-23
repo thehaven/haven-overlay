@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-util-normalize-identifier"
 
-inherit npm
 
 DESCRIPTION="micromark utility normalize identifiers (as found in references, definitions)"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

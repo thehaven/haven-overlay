@@ -3,11 +3,12 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="clipanion"
 
 MY_PV="4.0.0-rc.4"
 SRC_URI="https://registry.npmjs.org/${NPM_MODULE}/-/${NPM_MODULE##*/}-${MY_PV}.tgz -> ${P}.tgz"
-inherit npm
 
 DESCRIPTION="Type-safe CLI library / framework with no runtime dependencies"
 HOMEPAGE="https://mael.dev/clipanion/"

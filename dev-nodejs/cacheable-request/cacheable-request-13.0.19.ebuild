@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="cacheable-request"
 
-inherit npm
 
 DESCRIPTION="Wrap native HTTP requests with RFC compliant cache support"
 HOMEPAGE="https://github.com/jaredwray/cacheable#readme"

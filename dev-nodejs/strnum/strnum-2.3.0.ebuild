@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="strnum"
 
-inherit npm
 
 DESCRIPTION="Parse String to Number based on configuration"
 HOMEPAGE="https://github.com/NaturalIntelligence/strnum#readme"

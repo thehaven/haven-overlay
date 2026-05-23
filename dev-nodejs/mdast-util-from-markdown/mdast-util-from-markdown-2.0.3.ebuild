@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-from-markdown"
 
-inherit npm
 
 DESCRIPTION="mdast utility to parse markdown"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-from-markdown#readme"

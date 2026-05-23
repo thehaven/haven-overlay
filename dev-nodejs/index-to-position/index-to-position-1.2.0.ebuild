@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="index-to-position"
 
-inherit npm
 
 DESCRIPTION="Convert a string index to its line and column position"
 HOMEPAGE="https://github.com/sindresorhus/index-to-position#readme"

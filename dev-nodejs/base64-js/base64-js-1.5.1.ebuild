@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="base64-js"
 
-inherit npm
 
 DESCRIPTION="Base64 encoding/decoding in pure JS"
 HOMEPAGE="https://github.com/beatgammit/base64-js"

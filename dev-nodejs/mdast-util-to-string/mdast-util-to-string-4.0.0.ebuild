@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mdast-util-to-string"
 
-inherit npm
 
 DESCRIPTION="mdast utility to get the plain text content of a node"
 HOMEPAGE="https://github.com/syntax-tree/mdast-util-to-string#readme"

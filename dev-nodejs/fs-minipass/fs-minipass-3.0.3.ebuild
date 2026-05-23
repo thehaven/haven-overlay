@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="fs-minipass"
 
-inherit npm
 
 DESCRIPTION="fs read and write streams based on minipass"
 HOMEPAGE="https://github.com/npm/fs-minipass#readme"

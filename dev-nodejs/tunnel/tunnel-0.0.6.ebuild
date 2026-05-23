@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="tunnel"
 
-inherit npm
 
 DESCRIPTION="Node HTTP/HTTPS Agents for tunneling proxies"
 HOMEPAGE="https://github.com/koichik/node-tunnel/"

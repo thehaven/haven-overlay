@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/instrumentation"
 
-inherit npm
 
 DESCRIPTION="Base class for node which OpenTelemetry instrumentation modules extend"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/opentelemetry-instrumentation"

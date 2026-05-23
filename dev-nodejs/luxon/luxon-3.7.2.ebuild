@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="luxon"
 
-inherit npm
 
 DESCRIPTION="Immutable date wrapper"
 HOMEPAGE="https://github.com/moment/luxon#readme"

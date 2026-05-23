@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@opentelemetry/resources"
 
-inherit npm
 
 DESCRIPTION="OpenTelemetry SDK resources"
 HOMEPAGE="https://github.com/open-telemetry/opentelemetry-js/tree/main/packages/opentelemetry-resources"

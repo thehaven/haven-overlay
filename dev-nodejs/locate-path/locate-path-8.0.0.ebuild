@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="locate-path"
 
-inherit npm
 
 DESCRIPTION="Get the first path that exists on disk of multiple paths"
 HOMEPAGE="https://github.com/sindresorhus/locate-path#readme"

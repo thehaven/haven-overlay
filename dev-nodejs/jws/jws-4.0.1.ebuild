@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="jws"
 
-inherit npm
 
 DESCRIPTION="Implementation of JSON Web Signatures"
 HOMEPAGE="https://github.com/brianloveswords/node-jws#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@thi.ng/equiv"
 
-inherit npm
 
 DESCRIPTION="Extensible deep value equivalence checking for any data types"
 HOMEPAGE="https://thi.ng/equiv"

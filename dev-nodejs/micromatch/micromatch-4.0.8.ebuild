@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromatch"
 
-inherit npm
 
 DESCRIPTION="Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch."
 HOMEPAGE="https://github.com/micromatch/micromatch"

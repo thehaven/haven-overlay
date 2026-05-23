@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="minipass-collect"
 
-inherit npm
 
 DESCRIPTION="A Minipass stream that collects all the data into a single chunk"
 HOMEPAGE="https://github.com/isaacs/minipass-collect#readme"

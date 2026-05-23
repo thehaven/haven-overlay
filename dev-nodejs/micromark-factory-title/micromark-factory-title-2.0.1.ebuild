@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-factory-title"
 
-inherit npm
 
 DESCRIPTION="micromark factory to parse markdown titles (found in resources, definitions)"
 HOMEPAGE="https://github.com/micromark/micromark/tree/main#readme"

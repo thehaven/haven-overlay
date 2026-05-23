@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="toml-eslint-parser"
 
-inherit npm
 
 DESCRIPTION="A TOML parser that produces output compatible with ESLint"
 HOMEPAGE="https://github.com/ota-meshi/toml-eslint-parser#readme"

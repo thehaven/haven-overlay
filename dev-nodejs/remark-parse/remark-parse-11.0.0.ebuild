@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="remark-parse"
 
-inherit npm
 
 DESCRIPTION="remark plugin to add support for parsing markdown input"
 HOMEPAGE="https://remark.js.org"

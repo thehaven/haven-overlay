@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="js-tokens"
 
-inherit npm
 
 DESCRIPTION="Tiny JavaScript tokenizer."
 HOMEPAGE="https://github.com/lydell/js-tokens#readme"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="trough"
 
-inherit npm
 
 DESCRIPTION="\`trough\` is middleware"
 HOMEPAGE="https://github.com/wooorm/trough#readme"

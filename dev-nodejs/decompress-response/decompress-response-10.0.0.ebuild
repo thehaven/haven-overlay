@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="decompress-response"
 
-inherit npm
 
 DESCRIPTION="Decompress a HTTP response if needed"
 HOMEPAGE="https://github.com/sindresorhus/decompress-response#readme"

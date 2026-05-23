@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="global-agent"
 
-inherit npm
 
 DESCRIPTION="Global HTTP/HTTPS proxy configurable using environment variables."
 HOMEPAGE="https://github.com/gajus/global-agent#readme"

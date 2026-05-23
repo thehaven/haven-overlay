@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="define-properties"
 
-inherit npm
 
 DESCRIPTION="Define multiple non-enumerable properties at once. Uses \`Object.defineProperty\` when available; falls back to standard assignment in older engines."
 HOMEPAGE="https://github.com/ljharb/define-properties#readme"

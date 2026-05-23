@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="ini"
 
-inherit npm
 
 DESCRIPTION="An ini encoder/decoder for node"
 HOMEPAGE="https://github.com/npm/ini#readme"

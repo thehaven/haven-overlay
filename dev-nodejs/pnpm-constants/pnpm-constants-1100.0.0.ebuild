@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@pnpm/constants"
 
-inherit npm
 
 DESCRIPTION="pnpm constants"
 HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/core/constants#readme"

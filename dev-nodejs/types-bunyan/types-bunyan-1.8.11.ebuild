@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="@types/bunyan"
 
-inherit npm
 
 DESCRIPTION="TypeScript definitions for bunyan"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/bunyan"

@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="es-object-atoms"
 
-inherit npm
 
 DESCRIPTION="ES Object-related atoms: Object, ToObject, RequireObjectCoercible"
 HOMEPAGE="https://github.com/ljharb/es-object-atoms#readme"

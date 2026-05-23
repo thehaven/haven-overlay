@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="mv"
 
-inherit npm
 
 DESCRIPTION="fs.rename but works across devices. same as the unix utility 'mv'"
 HOMEPAGE="https://github.com/andrewrk/node-mv"

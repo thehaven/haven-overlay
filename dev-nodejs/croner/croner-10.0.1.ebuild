@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="croner"
 
-inherit npm
 
 DESCRIPTION="Trigger functions and/or evaluate cron expressions in JavaScript. No dependencies. Most features. All environments."
 HOMEPAGE="https://croner.56k.guru"

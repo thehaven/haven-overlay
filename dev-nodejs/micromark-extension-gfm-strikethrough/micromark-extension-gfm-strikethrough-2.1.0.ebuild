@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="micromark-extension-gfm-strikethrough"
 
-inherit npm
 
 DESCRIPTION="micromark extension to support GFM strikethrough"
 HOMEPAGE="https://github.com/micromark/micromark-extension-gfm-strikethrough#readme"

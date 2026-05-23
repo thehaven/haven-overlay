@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="graph-data-structure"
 
-inherit npm
 
 DESCRIPTION="A graph data structure with topological sort."
 HOMEPAGE="https://github.com/datavis-tech/graph-data-structure#readme"

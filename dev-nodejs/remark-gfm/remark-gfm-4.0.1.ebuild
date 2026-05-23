@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="remark-gfm"
 
-inherit npm
 
 DESCRIPTION="remark plugin to support GFM (autolink literals, footnotes, strikethrough, tables, tasklists)"
 HOMEPAGE="https://github.com/remarkjs/remark-gfm#readme"

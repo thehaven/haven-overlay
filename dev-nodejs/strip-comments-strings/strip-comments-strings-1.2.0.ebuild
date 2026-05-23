@@ -3,9 +3,10 @@
 
 EAPI=8
 
+inherit npm
+
 NPM_MODULE="strip-comments-strings"
 
-inherit npm
 
 DESCRIPTION="Strip or extract comments, strings or both from source code."
 HOMEPAGE="https://www.npmjs.com/package/strip-comments-strings"
