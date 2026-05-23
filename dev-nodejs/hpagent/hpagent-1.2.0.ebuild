@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="hpagent"
+
 inherit npm
 
 DESCRIPTION="A ready to use http and https agent for working with proxies that keeps connections alive!"

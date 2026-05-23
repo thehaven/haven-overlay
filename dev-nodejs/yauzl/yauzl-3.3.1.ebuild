@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="yauzl"
+
 inherit npm
 
 DESCRIPTION="yet another unzip library for node"

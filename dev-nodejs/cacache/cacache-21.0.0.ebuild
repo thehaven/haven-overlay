@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cacache"
+
 inherit npm
 
 DESCRIPTION="Fast, fault-tolerant, cross-platform, disk-based, data-agnostic, content-addressable cache."

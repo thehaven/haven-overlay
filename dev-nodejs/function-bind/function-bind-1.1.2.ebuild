@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="function-bind"
+
 inherit npm
 
 DESCRIPTION="Implementation of Function.prototype.bind"

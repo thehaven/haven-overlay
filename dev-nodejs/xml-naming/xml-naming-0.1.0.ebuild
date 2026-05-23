@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="xml-naming"
+
 inherit npm
 
 DESCRIPTION="Validates XML name productions — Name, NCName, QName, NMToken, NMTokens — for XML 1.0 and 1.1"

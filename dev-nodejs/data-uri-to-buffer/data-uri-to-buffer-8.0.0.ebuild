@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="data-uri-to-buffer"
+
 inherit npm
 
 DESCRIPTION="Create an ArrayBuffer instance from a Data URI string"

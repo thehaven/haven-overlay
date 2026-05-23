@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/semver.peer-range"
+
 inherit npm
 
 DESCRIPTION="Validates peer ranges"

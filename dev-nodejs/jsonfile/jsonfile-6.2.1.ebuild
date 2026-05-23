@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="jsonfile"
+
 inherit npm
 
 DESCRIPTION="Easily read/write JSON files."

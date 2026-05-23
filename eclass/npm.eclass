@@ -39,14 +39,8 @@ inherit multilib
 
 HOMEPAGE="https://www.npmjs.com/package/${PN}"
 
-# @FUNCTION: _npm_get_tarball_name
-# @INTERNAL
-_npm_get_tarball_name() {
-	local name="${NPM_MODULE}"
-	echo "${name##*/}"
-}
-
-SRC_URI="https://registry.npmjs.org/${NPM_MODULE}/-/$(_npm_get_tarball_name)-${PV}.tgz -> ${P}.tgz"
+# Use bash variable expansion to remove scope prefix for the tarball filename part
+SRC_URI="https://registry.npmjs.org/${NPM_MODULE}/-/${NPM_MODULE##*/}-${PV}.tgz -> ${P}.tgz"
 
 # @FUNCTION: npm_src_unpack
 # @DESCRIPTION:
@@ -88,6 +82,8 @@ npm_src_install() {
 	# Install documentation
 	local d
 	for d in ${NPM_DOCS}; do
+		# find files matching the pattern and dodoc them
+		# we use a loop to avoid shell expansion issues
 		while IFS= read -r -d "" file; do
 			[[ -s "${file}" ]] && dodoc -r "${file}"
 		done < <(find "${S}" -maxdepth 1 -name "${d}" -print0 2>/dev/null)

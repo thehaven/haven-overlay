@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="path-scurry"
+
 inherit npm
 
 DESCRIPTION="walk paths fast and efficiently"

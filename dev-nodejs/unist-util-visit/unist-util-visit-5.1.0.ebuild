@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="unist-util-visit"
+
 inherit npm
 
 DESCRIPTION="unist utility to visit nodes"

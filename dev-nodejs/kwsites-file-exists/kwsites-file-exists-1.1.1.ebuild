@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@kwsites/file-exists"
+
 inherit npm
 
 DESCRIPTION="Synchronous validation of a path existing either as a file or as a directory."

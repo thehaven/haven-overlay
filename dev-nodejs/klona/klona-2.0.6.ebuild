@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="klona"
+
 inherit npm
 
 DESCRIPTION="A tiny (240B to 501B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!"

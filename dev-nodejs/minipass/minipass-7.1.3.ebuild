@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minipass"
+
 inherit npm
 
 DESCRIPTION="minimal implementation of a PassThrough stream"

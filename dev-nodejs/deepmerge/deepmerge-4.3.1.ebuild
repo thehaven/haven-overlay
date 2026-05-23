@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="deepmerge"
+
 inherit npm
 
 DESCRIPTION="A library for deep (recursive) merging of Javascript objects"

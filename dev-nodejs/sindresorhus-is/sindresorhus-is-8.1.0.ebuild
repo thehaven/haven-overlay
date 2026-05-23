@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@sindresorhus/is"
+
 inherit npm
 
 DESCRIPTION="Type check values"

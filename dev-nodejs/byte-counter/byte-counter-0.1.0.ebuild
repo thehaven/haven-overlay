@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="byte-counter"
+
 inherit npm
 
 DESCRIPTION="Count bytes passing through a stream"

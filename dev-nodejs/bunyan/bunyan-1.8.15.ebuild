@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="bunyan"
+
 inherit npm
 
 DESCRIPTION="a JSON logging library for node.js services"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="glob-parent"
+
 inherit npm
 
 DESCRIPTION="Extract the non-magic parent path from a glob string."

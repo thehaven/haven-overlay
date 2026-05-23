@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="normalize-url"
+
 inherit npm
 
 DESCRIPTION="Normalize a URL"

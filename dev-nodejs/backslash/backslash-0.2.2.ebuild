@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="backslash"
+
 inherit npm
 
 DESCRIPTION="parse string escapes (\\n, \\r, etc.)"

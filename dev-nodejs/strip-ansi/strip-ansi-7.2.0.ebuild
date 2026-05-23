@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strip-ansi"
+
 inherit npm
 
 DESCRIPTION="Strip ANSI escape codes from a string"

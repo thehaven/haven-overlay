@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fast-xml-parser"
+
 inherit npm
 
 DESCRIPTION="Validate XML, Parse XML, Build XML without C/C++ based libraries"

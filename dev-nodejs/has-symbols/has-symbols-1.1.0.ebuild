@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="has-symbols"
+
 inherit npm
 
 DESCRIPTION="Determine if the JS environment has Symbol support. Supports spec, or shams."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="parse-json"
+
 inherit npm
 
 DESCRIPTION="Parse JSON with more helpful errors"

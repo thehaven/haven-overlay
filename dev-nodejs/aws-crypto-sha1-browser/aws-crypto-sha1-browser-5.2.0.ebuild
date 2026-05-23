@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/sha1-browser"
+
 inherit npm
 
 DESCRIPTION="SHA1 wrapper for browsers that prefers \`window.crypto.subtle\`."

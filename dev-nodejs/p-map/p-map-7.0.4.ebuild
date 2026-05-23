@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-map"
+
 inherit npm
 
 DESCRIPTION="Map over promises concurrently"

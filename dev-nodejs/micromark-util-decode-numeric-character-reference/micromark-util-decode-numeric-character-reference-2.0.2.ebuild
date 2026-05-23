@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-decode-numeric-character-reference"
+
 inherit npm
 
 DESCRIPTION="micromark utility to decode numeric character references"

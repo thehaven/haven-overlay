@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ms"
+
 inherit npm
 
 DESCRIPTION="Tiny millisecond conversion utility"

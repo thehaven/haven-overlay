@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="css-what"
+
 inherit npm
 
 DESCRIPTION="a CSS selector parser"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="editorconfig"
+
 inherit npm
 
 DESCRIPTION="EditorConfig File Locator and Interpreter for Node.js"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/types"
+
 inherit npm
 
 DESCRIPTION="Basic types used by pnpm"

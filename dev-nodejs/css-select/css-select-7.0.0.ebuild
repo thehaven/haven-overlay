@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="css-select"
+
 inherit npm
 
 DESCRIPTION="a CSS selector compiler/engine"

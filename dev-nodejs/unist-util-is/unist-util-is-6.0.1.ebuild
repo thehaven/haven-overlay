@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="unist-util-is"
+
 inherit npm
 
 DESCRIPTION="unist utility to check if a node passes a test"

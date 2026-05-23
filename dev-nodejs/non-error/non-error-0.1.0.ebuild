@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="non-error"
+
 inherit npm
 
 DESCRIPTION="An error subclass for wrapping non-error values"

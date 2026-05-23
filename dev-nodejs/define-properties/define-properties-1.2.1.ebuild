@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="define-properties"
+
 inherit npm
 
 DESCRIPTION="Define multiple non-enumerable properties at once. Uses \`Object.defineProperty\` when available; falls back to standard assignment in older engines."

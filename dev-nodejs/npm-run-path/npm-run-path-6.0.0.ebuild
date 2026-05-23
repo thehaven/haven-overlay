@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="npm-run-path"
+
 inherit npm
 
 DESCRIPTION="Get your PATH prepended with locally installed binaries"

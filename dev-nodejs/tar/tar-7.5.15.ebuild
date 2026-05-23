@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="tar"
+
 inherit npm
 
 DESCRIPTION="tar for node"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="lru-cache"
+
 inherit npm
 
 DESCRIPTION="A cache object that deletes the least-recently-used items."

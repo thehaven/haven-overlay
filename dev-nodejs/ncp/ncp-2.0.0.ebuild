@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ncp"
+
 inherit npm
 
 DESCRIPTION="Asynchronous recursive file copy utility."

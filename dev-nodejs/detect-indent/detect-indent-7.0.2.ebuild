@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="detect-indent"
+
 inherit npm
 
 DESCRIPTION="Detect the indentation of code"

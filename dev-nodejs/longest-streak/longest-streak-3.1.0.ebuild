@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="longest-streak"
+
 inherit npm
 
 DESCRIPTION="Count the longest repeating streak of a substring"

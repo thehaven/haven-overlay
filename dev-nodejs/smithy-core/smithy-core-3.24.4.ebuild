@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@smithy/core"
+
 inherit npm
 
 DESCRIPTION="[![NPM version](https://img.shields.io/npm/v/@smithy/core/latest.svg)](https://www.npmjs.com/package/@smithy/core) [![NPM downloads](https://img.shields.io/npm/dm/@smithy/core.svg)](https://www.npmjs.com/package/@smithy/core)"

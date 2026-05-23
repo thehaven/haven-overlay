@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="uc.micro"
+
 inherit npm
 
 DESCRIPTION="Micro subset of unicode data files for markdown-it projects."

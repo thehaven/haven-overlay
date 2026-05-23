@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/crc32c"
+
 inherit npm
 
 DESCRIPTION="Pure JS implementation of CRC32-C https://en.wikipedia.org/wiki/Cyclic_redundancy_check"

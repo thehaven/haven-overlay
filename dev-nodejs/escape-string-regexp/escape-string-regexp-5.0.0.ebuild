@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="escape-string-regexp"
+
 inherit npm
 
 DESCRIPTION="Escape RegExp special characters"

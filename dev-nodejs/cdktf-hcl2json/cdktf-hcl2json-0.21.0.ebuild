@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@cdktf/hcl2json"
+
 inherit npm
 
 DESCRIPTION="Transform HCL into JSON"

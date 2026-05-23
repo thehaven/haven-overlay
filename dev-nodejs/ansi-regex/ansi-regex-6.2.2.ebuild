@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ansi-regex"
+
 inherit npm
 
 DESCRIPTION="Regular expression for matching ANSI escape codes"

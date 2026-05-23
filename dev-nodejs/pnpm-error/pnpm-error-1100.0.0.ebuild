@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/error"
+
 inherit npm
 
 DESCRIPTION="An error class for pnpm errors"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="merge2"
+
 inherit npm
 
 DESCRIPTION="Merge multiple streams into one stream in sequence or parallel."

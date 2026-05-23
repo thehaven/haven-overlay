@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@opentelemetry/semantic-conventions"
+
 inherit npm
 
 DESCRIPTION="OpenTelemetry semantic conventions"

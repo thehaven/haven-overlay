@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@smithy/credential-provider-imds"
+
 inherit npm
 
 DESCRIPTION="AWS credential provider that sources credentials from the EC2 instance metadata service and ECS container metadata service"

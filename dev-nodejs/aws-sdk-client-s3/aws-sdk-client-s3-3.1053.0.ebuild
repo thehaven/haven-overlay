@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/client-s3"
+
 inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript S3 Client for Node.js, Browser and React Native"

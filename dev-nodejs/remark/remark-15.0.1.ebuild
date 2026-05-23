@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="remark"
+
 inherit npm
 
 DESCRIPTION="markdown processor powered by plugins part of the unified collective"

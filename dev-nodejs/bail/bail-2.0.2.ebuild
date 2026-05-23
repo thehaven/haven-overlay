@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="bail"
+
 inherit npm
 
 DESCRIPTION="Throw a given error"

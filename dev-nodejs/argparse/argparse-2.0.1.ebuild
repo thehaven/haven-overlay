@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="argparse"
+
 inherit npm
 
 DESCRIPTION="CLI arguments parser. Native port of python's argparse."

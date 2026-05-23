@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="run-parallel"
+
 inherit npm
 
 DESCRIPTION="Run an array of functions in parallel"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="math-intrinsics"
+
 inherit npm
 
 DESCRIPTION="ES Math-related intrinsics and helpers, robustly cached."

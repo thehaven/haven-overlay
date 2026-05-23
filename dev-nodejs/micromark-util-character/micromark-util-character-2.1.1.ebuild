@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-character"
+
 inherit npm
 
 DESCRIPTION="micromark utility to handle character codes"

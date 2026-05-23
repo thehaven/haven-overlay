@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="write-yaml-file"
+
 inherit npm
 
 DESCRIPTION="Stringify and write YAML to a file atomically"

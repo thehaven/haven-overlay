@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="path-key"
+
 inherit npm
 
 DESCRIPTION="Get the PATH environment variable key cross-platform"

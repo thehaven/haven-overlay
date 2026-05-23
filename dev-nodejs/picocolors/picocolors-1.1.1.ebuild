@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="picocolors"
+
 inherit npm
 
 DESCRIPTION="The tiniest and the fastest library for terminal output formatting with ANSI colors"

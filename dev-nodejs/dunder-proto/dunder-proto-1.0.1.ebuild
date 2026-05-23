@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="dunder-proto"
+
 inherit npm
 
 DESCRIPTION="If available, the \`Object.prototype.__proto__\` accessor and mutator, call-bound"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/credential-provider-sso"
+
 inherit npm
 
 DESCRIPTION="AWS credential provider that exchanges a resolved SSO login token file for temporary AWS credentials"

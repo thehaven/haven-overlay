@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="boolbase"
+
 inherit npm
 
 DESCRIPTION="two functions: One that returns true, one that returns false"

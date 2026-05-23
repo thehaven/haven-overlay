@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/core-loggers"
+
 inherit npm
 
 DESCRIPTION="Core loggers of pnpm"

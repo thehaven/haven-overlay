@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">renovatebot/renovate</remote-id>
+		<remote-id type="npm">renovate</remote-id>
 	</upstream>
 </pkgmetadata>

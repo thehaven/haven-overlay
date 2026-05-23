@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/util.lex-comparator"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

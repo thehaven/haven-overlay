@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="remark-parse"
+
 inherit npm
 
 DESCRIPTION="remark plugin to add support for parsing markdown input"

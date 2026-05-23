@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="moment"
+
 inherit npm
 
 DESCRIPTION="Parse, validate, manipulate, and display dates"

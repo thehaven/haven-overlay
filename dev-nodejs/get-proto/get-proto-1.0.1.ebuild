@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="get-proto"
+
 inherit npm
 
 DESCRIPTION="Robustly get the [[Prototype]] of an object"

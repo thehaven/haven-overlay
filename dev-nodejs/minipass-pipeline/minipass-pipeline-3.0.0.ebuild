@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minipass-pipeline"
+
 inherit npm
 
 DESCRIPTION="create a pipeline of streams using Minipass"

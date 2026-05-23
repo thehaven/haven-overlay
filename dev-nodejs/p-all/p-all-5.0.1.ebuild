@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-all"
+
 inherit npm
 
 DESCRIPTION="Run promise-returning & async functions concurrently with optional limited concurrency"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@thi.ng/errors"
+
 inherit npm
 
 DESCRIPTION="Custom error types and error factory functions"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@babel/code-frame"
+
 inherit npm
 
 DESCRIPTION="Generate errors that contain a code frame that point to source locations."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="find-packages"
+
 inherit npm
 
 DESCRIPTION="Find all packages inside a directory"

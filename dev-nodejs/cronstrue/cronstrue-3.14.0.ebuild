@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cronstrue"
+
 inherit npm
 
 DESCRIPTION="Convert cron expressions into human readable descriptions"

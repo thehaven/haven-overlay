@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="signal-exit"
+
 inherit npm
 
 DESCRIPTION="when you want to fire an event no matter how a process exits."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="is-ssh"
+
 inherit npm
 
 DESCRIPTION="Check if an input value is a ssh url or not."

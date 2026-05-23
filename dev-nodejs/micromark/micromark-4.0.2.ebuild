@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark"
+
 inherit npm
 
 DESCRIPTION="small commonmark compliant markdown parser with positional info and concrete tokens"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="es-object-atoms"
+
 inherit npm
 
 DESCRIPTION="ES Object-related atoms: Object, ToObject, RequireObjectCoercible"

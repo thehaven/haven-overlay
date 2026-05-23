@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-classify-character"
+
 inherit npm
 
 DESCRIPTION="micromark utility to classify whether a character is whitespace or punctuation"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-timeout"
+
 inherit npm
 
 DESCRIPTION="Timeout a promise after a specified amount of time"

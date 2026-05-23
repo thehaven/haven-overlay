@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="inherits"
+
 inherit npm
 
 DESCRIPTION="Browser-friendly inheritance fully compatible with standard node.js inherits()"

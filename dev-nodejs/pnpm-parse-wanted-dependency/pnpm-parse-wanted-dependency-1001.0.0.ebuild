@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/parse-wanted-dependency"
+
 inherit npm
 
 DESCRIPTION="Parse dependency specifier"

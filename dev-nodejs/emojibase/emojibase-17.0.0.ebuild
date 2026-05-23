@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="emojibase"
+
 inherit npm
 
 DESCRIPTION="Emojibase utility functions for working with emoji characters."

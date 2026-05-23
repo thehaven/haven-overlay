@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/credential-provider-ini"
+
 inherit npm
 
 DESCRIPTION="AWS credential provider that sources credentials from ~/.aws/credentials and ~/.aws/config"

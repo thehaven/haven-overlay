@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="json5"
+
 inherit npm
 
 DESCRIPTION="JSON for Humans"

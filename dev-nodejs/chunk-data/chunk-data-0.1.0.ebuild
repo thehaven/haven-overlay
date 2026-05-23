@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="chunk-data"
+
 inherit npm
 
 DESCRIPTION="Split buffers and streams into smaller chunks"

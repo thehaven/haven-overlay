@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="core-js-pure"
+
 inherit npm
 
 DESCRIPTION="Standard library"

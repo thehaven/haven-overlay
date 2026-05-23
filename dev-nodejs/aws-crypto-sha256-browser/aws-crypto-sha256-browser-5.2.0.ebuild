@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/sha256-browser"
+
 inherit npm
 
 DESCRIPTION="SHA256 wrapper for browsers that prefers \`window.crypto.subtle\` but will fall back to a pure JS implementation in @aws-crypto/sha256-js to provide a consistent interface for SHA256."

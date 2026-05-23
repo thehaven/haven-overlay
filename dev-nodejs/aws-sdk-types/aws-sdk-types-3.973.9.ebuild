@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/types"
+
 inherit npm
 
 DESCRIPTION="Types for the AWS SDK"

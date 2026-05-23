@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="is-number"
+
 inherit npm
 
 DESCRIPTION="Returns true if a number or string value is a finite number. Useful for regex matches, parsing, user input, etc."

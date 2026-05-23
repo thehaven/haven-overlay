@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="clean-git-ref"
+
 inherit npm
 
 DESCRIPTION="Clean an input string into a usable git ref"

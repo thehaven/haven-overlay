@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@sec-ant/readable-stream"
+
 inherit npm
 
 DESCRIPTION="A tiny, zero-dependency yet spec-compliant asynchronous iterator polyfill/ponyfill for ReadableStreams."

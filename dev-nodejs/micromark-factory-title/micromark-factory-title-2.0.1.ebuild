@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-factory-title"
+
 inherit npm
 
 DESCRIPTION="micromark factory to parse markdown titles (found in resources, definitions)"

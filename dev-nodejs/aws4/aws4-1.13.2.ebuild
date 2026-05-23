@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="aws4"
+
 inherit npm
 
 DESCRIPTION="Signs and prepares requests using AWS Signature Version 4"

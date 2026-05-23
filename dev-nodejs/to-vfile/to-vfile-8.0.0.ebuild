@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="to-vfile"
+
 inherit npm
 
 DESCRIPTION="vfile utility to read and write to the file system"

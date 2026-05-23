@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="formdata-polyfill"
+
 inherit npm
 
 DESCRIPTION="HTML5 \`FormData\` for Browsers and Node."

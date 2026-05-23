@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="markdown-table"
+
 inherit npm
 
 DESCRIPTION="Generate a markdown (GFM) table"

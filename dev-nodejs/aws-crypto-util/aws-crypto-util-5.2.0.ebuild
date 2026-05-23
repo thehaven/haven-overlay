@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/util"
+
 inherit npm
 
 DESCRIPTION="Helper functions"

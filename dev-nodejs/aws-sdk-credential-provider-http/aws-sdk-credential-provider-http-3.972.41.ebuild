@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/credential-provider-http"
+
 inherit npm
 
 DESCRIPTION="AWS credential provider for containers and HTTP sources"

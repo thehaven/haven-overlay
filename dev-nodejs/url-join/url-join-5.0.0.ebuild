@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="url-join"
+
 inherit npm
 
 DESCRIPTION="Join urls and normalize as in path.join."

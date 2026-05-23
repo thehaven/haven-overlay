@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-extension-gfm-autolink-literal"
+
 inherit npm
 
 DESCRIPTION="micromark extension to support GFM autolink literals"

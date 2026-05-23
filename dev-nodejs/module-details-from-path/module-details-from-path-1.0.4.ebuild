@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="module-details-from-path"
+
 inherit npm
 
 DESCRIPTION="Resolve npm package details, like name and base path, given an absolute path to a file inside a package"

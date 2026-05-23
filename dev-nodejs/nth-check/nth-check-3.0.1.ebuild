@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="nth-check"
+
 inherit npm
 
 DESCRIPTION="Parses and compiles CSS nth-checks to highly optimized functions."

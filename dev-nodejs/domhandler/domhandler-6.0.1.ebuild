@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="domhandler"
+
 inherit npm
 
 DESCRIPTION="Handler for htmlparser2 that turns pages into a dom"

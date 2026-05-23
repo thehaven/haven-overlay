@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="es-errors"
+
 inherit npm
 
 DESCRIPTION="A simple cache for a few of the JS Error constructors."

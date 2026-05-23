@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/ms"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for ms"

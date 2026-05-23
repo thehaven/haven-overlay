@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="safe-buffer"
+
 inherit npm
 
 DESCRIPTION="Safer Node.js Buffer API"

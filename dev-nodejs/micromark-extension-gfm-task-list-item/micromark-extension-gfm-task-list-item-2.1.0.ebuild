@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-extension-gfm-task-list-item"
+
 inherit npm
 
 DESCRIPTION="micromark extension to support GFM task list items"

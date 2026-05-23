@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="emojibase-regex"
+
 inherit npm
 
 DESCRIPTION="Evergreen emoji regex patterns."

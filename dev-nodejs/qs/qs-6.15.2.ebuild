@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="qs"
+
 inherit npm
 
 DESCRIPTION="A querystring parser that supports nesting and arrays, with a depth limit"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="index-to-position"
+
 inherit npm
 
 DESCRIPTION="Convert a string index to its line and column position"

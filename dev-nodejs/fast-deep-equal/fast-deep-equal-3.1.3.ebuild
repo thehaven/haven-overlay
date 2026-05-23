@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fast-deep-equal"
+
 inherit npm
 
 DESCRIPTION="Fast deep equal"

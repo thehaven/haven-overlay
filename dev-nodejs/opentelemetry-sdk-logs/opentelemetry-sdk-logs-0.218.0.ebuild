@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@opentelemetry/sdk-logs"
+
 inherit npm
 
 DESCRIPTION="OpenTelemetry logs SDK"

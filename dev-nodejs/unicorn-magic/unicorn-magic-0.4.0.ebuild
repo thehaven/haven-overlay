@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="unicorn-magic"
+
 inherit npm
 
 DESCRIPTION="Some useful utilities I often need"

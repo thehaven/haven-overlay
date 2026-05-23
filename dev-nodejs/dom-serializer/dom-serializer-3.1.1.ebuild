@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="dom-serializer"
+
 inherit npm
 
 DESCRIPTION="render domhandler DOM nodes to a string"

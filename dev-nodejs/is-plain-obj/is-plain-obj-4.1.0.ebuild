@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="is-plain-obj"
+
 inherit npm
 
 DESCRIPTION="Check if a value is a plain object"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-subtokenize"
+
 inherit npm
 
 DESCRIPTION="micromark utility to tokenize subtokens"

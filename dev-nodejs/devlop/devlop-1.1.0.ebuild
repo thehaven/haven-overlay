@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="devlop"
+
 inherit npm
 
 DESCRIPTION="Do things in development and nothing otherwise"

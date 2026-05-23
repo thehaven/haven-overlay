@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="figures"
+
 inherit npm
 
 DESCRIPTION="Unicode symbols with fallbacks for older terminals"

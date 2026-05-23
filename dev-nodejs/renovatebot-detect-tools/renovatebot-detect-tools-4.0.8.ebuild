@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@renovatebot/detect-tools"
+
 inherit npm
 
 DESCRIPTION=""

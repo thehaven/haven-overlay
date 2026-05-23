@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="rimraf"
+
 inherit npm
 
 DESCRIPTION="A deep deletion module for node (like \`rm -rf\`)"

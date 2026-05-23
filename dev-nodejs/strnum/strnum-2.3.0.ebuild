@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strnum"
+
 inherit npm
 
 DESCRIPTION="Parse String to Number based on configuration"

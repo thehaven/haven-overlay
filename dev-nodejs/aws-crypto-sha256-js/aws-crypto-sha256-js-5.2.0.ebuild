@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/sha256-js"
+
 inherit npm
 
 DESCRIPTION="A pure JS implementation SHA256."

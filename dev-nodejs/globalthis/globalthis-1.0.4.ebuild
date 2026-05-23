@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="globalthis"
+
 inherit npm
 
 DESCRIPTION="ECMAScript spec-compliant polyfill/shim for \`globalThis\`"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strip-bom"
+
 inherit npm
 
 DESCRIPTION="Strip UTF-8 byte order mark (BOM) from a string"

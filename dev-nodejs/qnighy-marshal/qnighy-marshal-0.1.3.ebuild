@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@qnighy/marshal"
+
 inherit npm
 
 DESCRIPTION="Decoder for Ruby's Marshal"

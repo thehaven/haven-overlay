@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="punycode.js"
+
 inherit npm
 
 DESCRIPTION="A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="des.js"
+
 inherit npm
 
 DESCRIPTION="DES implementation"

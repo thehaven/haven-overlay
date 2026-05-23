@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-crypto/supports-web-crypto"
+
 inherit npm
 
 DESCRIPTION="Provides functions for detecting if the host environment supports the WebCrypto API"

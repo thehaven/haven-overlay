@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="safe-json-stringify"
+
 inherit npm
 
 DESCRIPTION="Prevent defined property getters from throwing errors"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@baszalmstra/rattler"
+
 inherit npm
 
 DESCRIPTION="Javascript bindings to the rattler library"

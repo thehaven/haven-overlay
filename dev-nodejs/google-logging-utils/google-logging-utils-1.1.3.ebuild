@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="google-logging-utils"
+
 inherit npm
 
 DESCRIPTION="A debug logger package for other Google libraries"

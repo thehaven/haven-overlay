@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mdast-util-to-markdown"
+
 inherit npm
 
 DESCRIPTION="mdast utility to serialize markdown"

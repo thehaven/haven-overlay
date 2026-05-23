@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="balanced-match"
+
 inherit npm
 
 DESCRIPTION="Match balanced character pairs, like \"{\" and \"}\""

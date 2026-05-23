@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/client-ec2"
+
 inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript Ec2 Client for Node.js, Browser and React Native"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@renovatebot/ruby-semver"
+
 inherit npm
 
 DESCRIPTION="Ruby SemVer in TypeScript."

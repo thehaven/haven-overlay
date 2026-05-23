@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="object-keys"
+
 inherit npm
 
 DESCRIPTION="An Object.keys replacement, in case Object.keys is not available. From https://github.com/es-shims/es5-shim"

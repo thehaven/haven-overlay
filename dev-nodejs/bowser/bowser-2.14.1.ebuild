@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="bowser"
+
 inherit npm
 
 DESCRIPTION="Lightweight browser detector"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cluster-key-slot"
+
 inherit npm
 
 DESCRIPTION="Generates CRC hashes for strings - for use by node redis clients to determine key slots."

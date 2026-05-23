@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="is-extglob"
+
 inherit npm
 
 DESCRIPTION="Returns true if a string has an extglob."

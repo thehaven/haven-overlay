@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="emoji-regex"
+
 inherit npm
 
 DESCRIPTION="A regular expression to match all Emoji-only symbols as per the Unicode Standard."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="diff"
+
 inherit npm
 
 DESCRIPTION="A JavaScript text diff implementation."

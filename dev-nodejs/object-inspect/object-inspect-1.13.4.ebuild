@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="object-inspect"
+
 inherit npm
 
 DESCRIPTION="string representations of objects in node and the browser"

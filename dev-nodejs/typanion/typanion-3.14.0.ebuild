@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="typanion"
+
 inherit npm
 
 DESCRIPTION="Simple runtime TypeScript validator library"

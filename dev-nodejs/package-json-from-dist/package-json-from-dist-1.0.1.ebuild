@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="package-json-from-dist"
+
 inherit npm
 
 DESCRIPTION="Load the local package.json from either src or dist folder"

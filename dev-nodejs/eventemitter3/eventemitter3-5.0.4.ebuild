@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="eventemitter3"
+
 inherit npm
 
 DESCRIPTION="EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface."

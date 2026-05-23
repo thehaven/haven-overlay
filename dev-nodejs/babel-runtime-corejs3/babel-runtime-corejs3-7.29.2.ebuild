@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@babel/runtime-corejs3"
+
 inherit npm
 
 DESCRIPTION="babel's modular runtime helpers with core-js@3 polyfilling"

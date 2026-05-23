@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cacheable-lookup"
+
 inherit npm
 
 DESCRIPTION="A cacheable dns.lookup(…) that respects TTL"

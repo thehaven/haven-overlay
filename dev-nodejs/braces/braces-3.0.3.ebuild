@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="braces"
+
 inherit npm
 
 DESCRIPTION="Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support for the Bash 4.3 braces specification, without sacrificing speed."

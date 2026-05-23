@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@nodelib/fs.stat"
+
 inherit npm
 
 DESCRIPTION="Get the status of a file with some features"

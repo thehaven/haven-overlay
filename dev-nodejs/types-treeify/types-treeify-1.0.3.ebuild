@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/treeify"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for treeify"

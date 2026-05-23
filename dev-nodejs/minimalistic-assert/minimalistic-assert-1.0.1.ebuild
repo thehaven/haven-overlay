@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minimalistic-assert"
+
 inherit npm
 
 DESCRIPTION="minimalistic-assert ==="

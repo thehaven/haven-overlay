@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="http2-wrapper"
+
 inherit npm
 
 DESCRIPTION="HTTP2 client, just with the familiar \`https\` API"

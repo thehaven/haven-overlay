@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="global-agent"
+
 inherit npm
 
 DESCRIPTION="Global HTTP/HTTPS proxy configurable using environment variables."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/constants"
+
 inherit npm
 
 DESCRIPTION="pnpm constants"

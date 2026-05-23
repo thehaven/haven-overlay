@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/mdast"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for mdast"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@renovatebot/osv-offline-db"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

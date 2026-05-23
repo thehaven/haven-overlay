@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="entities"
+
 inherit npm
 
 DESCRIPTION="Encode & decode XML and HTML entities with ease & speed"

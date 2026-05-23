@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-types"
+
 inherit npm
 
 DESCRIPTION="micromark utility with a couple of typescript types"

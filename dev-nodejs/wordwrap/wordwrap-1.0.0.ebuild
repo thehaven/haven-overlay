@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="wordwrap"
+
 inherit npm
 
 DESCRIPTION="Wrap those words. Show them at what columns to start and stop."

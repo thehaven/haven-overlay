@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/text.comments-parser"
+
 inherit npm
 
 DESCRIPTION="Extracts and inserts comments from/to text"

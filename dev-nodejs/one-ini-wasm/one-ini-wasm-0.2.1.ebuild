@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@one-ini/wasm"
+
 inherit npm
 
 DESCRIPTION="Parse EditorConfig-INI file contents into AST"

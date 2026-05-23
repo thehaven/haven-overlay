@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="human-signals"
+
 inherit npm
 
 DESCRIPTION="Human-friendly process signals"

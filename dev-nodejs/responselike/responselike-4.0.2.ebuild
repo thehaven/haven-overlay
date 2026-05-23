@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="responselike"
+
 inherit npm
 
 DESCRIPTION="A response-like object for mocking a Node.js HTTP response stream"

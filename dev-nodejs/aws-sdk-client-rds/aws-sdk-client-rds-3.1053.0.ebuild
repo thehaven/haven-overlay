@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/client-rds"
+
 inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript Rds Client for Node.js, Browser and React Native"

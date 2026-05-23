@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="yoctocolors"
+
 inherit npm
 
 DESCRIPTION="The smallest and fastest command-line coloring package on the internet"

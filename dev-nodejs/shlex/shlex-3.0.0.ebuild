@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="shlex"
+
 inherit npm
 
 DESCRIPTION="Node.js port of Python's shlex shell-like lexer"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ae-cvss-calculator"
+
 inherit npm
 
 DESCRIPTION="A CVSS vector modeling and score calculation implementation for all CVSS versions by {metæffekt}."

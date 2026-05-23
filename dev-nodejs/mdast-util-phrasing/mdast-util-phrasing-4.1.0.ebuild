@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mdast-util-phrasing"
+
 inherit npm
 
 DESCRIPTION="mdast utility to check if a node is phrasing content"

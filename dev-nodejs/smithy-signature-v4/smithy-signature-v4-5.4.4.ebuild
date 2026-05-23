@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@smithy/signature-v4"
+
 inherit npm
 
 DESCRIPTION="A standalone implementation of the AWS Signature V4 request signing algorithm"

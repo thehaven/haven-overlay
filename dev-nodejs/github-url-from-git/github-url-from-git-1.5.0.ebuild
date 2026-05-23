@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="github-url-from-git"
+
 inherit npm
 
 DESCRIPTION="Parse a github git url and return the github repo url"

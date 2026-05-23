@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="yaml"
+
 inherit npm
 
 DESCRIPTION="JavaScript parser and stringifier for YAML"

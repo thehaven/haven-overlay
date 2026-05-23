@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fast-xml-builder"
+
 inherit npm
 
 DESCRIPTION="Build XML from JSON without C/C++ based libraries"

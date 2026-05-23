@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ci-info"
+
 inherit npm
 
 DESCRIPTION="Get details about the current Continuous Integration environment"

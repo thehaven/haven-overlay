@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="matcher"
+
 inherit npm
 
 DESCRIPTION="Simple wildcard matching"

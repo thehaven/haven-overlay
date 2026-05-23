@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fs-extra"
+
 inherit npm
 
 DESCRIPTION="fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as recursive mkdir, copy, and remove."

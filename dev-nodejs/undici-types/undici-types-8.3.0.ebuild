@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="undici-types"
+
 inherit npm
 
 DESCRIPTION="A stand-alone types package for Undici"

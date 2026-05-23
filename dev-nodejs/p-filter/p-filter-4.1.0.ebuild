@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-filter"
+
 inherit npm
 
 DESCRIPTION="Filter promises concurrently"

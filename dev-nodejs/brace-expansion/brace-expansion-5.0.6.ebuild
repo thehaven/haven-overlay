@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="brace-expansion"
+
 inherit npm
 
 DESCRIPTION="Brace expansion as known from sh/bash"

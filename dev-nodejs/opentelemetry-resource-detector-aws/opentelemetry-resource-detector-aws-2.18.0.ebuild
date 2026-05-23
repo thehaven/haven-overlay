@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@opentelemetry/resource-detector-aws"
+
 inherit npm
 
 DESCRIPTION="OpenTelemetry SDK resource detector for AWS"

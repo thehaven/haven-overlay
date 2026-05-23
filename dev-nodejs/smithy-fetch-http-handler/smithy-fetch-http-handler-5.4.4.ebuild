@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@smithy/fetch-http-handler"
+
 inherit npm
 
 DESCRIPTION="Provides a way to make requests"

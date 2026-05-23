@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="safe-stable-stringify"
+
 inherit npm
 
 DESCRIPTION="Deterministic and safely JSON.stringify to quickly serialize JavaScript objects"

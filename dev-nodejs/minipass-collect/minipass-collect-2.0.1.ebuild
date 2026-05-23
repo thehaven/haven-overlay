@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minipass-collect"
+
 inherit npm
 
 DESCRIPTION="A Minipass stream that collects all the data into a single chunk"

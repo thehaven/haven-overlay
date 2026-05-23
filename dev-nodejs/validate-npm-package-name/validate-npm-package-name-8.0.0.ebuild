@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="validate-npm-package-name"
+
 inherit npm
 
 DESCRIPTION="Give me a string and I'll tell you if it's a valid npm package name"

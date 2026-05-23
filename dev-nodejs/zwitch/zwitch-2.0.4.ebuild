@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="zwitch"
+
 inherit npm
 
 DESCRIPTION="Handle values based on a property"

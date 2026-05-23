@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-factory-destination"
+
 inherit npm
 
 DESCRIPTION="micromark factory to parse destinations (found in resources, definitions)"

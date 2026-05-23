@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="parse-path"
+
 inherit npm
 
 DESCRIPTION="Parse paths (local paths, urls: ssh/git/etc)"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="queue-microtask"
+
 inherit npm
 
 DESCRIPTION="fast, tiny \`queueMicrotask\` shim for modern engines"

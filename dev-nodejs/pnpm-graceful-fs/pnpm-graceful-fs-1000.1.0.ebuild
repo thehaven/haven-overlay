@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/graceful-fs"
+
 inherit npm
 
 DESCRIPTION="Promisified graceful-fs"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="buffer-from"
+
 inherit npm
 
 DESCRIPTION="A [ponyfill](https://ponyfill.com) for \`Buffer.from\`, uses native implementation if available."

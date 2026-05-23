@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="character-entities"
+
 inherit npm
 
 DESCRIPTION="Map of named character references"

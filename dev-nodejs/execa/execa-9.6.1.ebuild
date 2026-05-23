@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="execa"
+
 inherit npm
 
 DESCRIPTION="Process execution for humans"

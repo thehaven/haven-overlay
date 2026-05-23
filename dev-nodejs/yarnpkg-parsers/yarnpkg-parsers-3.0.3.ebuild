@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@yarnpkg/parsers"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

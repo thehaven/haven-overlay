@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="git-up"
+
 inherit npm
 
 DESCRIPTION="A low level git url parser."

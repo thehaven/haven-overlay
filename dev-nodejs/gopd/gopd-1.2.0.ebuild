@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="gopd"
+
 inherit npm
 
 DESCRIPTION="\`Object.getOwnPropertyDescriptor\`, but accounts for IE's broken implementation."

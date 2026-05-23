@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="jwa"
+
 inherit npm
 
 DESCRIPTION="JWA implementation (supports all JWS algorithms)"

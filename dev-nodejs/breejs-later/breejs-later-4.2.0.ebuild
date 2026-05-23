@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@breejs/later"
+
 inherit npm
 
 DESCRIPTION="Maintained fork of later. Determine later (or previous) occurrences of recurring schedules"

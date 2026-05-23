@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="graph-data-structure"
+
 inherit npm
 
 DESCRIPTION="A graph data structure with topological sort."

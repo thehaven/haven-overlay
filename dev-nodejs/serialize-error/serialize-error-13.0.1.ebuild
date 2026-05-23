@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="serialize-error"
+
 inherit npm
 
 DESCRIPTION="Serialize/deserialize an error into a plain object"

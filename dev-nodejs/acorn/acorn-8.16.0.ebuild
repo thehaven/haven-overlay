@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="acorn"
+
 inherit npm
 
 DESCRIPTION="ECMAScript parser"

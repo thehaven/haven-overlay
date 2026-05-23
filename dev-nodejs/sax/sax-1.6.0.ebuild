@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="sax"
+
 inherit npm
 
 DESCRIPTION="An evented streaming XML parser in JavaScript"

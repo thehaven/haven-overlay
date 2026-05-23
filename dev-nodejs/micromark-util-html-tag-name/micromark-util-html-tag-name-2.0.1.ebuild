@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-html-tag-name"
+
 inherit npm
 
 DESCRIPTION="micromark utility with list of html tag names"

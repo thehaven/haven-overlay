@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cacheable-request"
+
 inherit npm
 
 DESCRIPTION="Wrap native HTTP requests with RFC compliant cache support"

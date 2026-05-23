@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-locate"
+
 inherit npm
 
 DESCRIPTION="Get the first fulfilled promise that satisfies the provided testing function"

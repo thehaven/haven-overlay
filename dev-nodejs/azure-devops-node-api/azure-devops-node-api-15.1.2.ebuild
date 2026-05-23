@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="azure-devops-node-api"
+
 inherit npm
 
 DESCRIPTION="Node client for Azure DevOps and TFS REST APIs"

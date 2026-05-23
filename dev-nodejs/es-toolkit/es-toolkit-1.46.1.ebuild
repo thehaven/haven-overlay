@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="es-toolkit"
+
 inherit npm
 
 DESCRIPTION="A state-of-the-art, high-performance JavaScript utility library with a small bundle size and strong type annotations."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/http-cache-semantics"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for http-cache-semantics"

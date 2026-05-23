@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/credential-provider-web-identity"
+
 inherit npm
 
 DESCRIPTION="AWS credential provider that calls STS assumeRole for temporary AWS credentials"

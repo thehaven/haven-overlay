@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="unist-util-visit-parents"
+
 inherit npm
 
 DESCRIPTION="unist utility to recursively walk over nodes, with ancestral information"

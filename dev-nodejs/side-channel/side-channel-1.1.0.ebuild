@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="side-channel"
+
 inherit npm
 
 DESCRIPTION="Store information about any JS value in a side channel. Uses WeakMap if available."

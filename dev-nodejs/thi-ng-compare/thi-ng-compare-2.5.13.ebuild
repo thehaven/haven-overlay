@@ -3,17 +3,18 @@
 
 EAPI=8
 
-NPM_MODULE="@thi.ng/checks"
+NPM_MODULE="@thi.ng/compare"
+
 inherit npm
 
-DESCRIPTION="Collection of 70+ type, feature & value checks"
-HOMEPAGE="https://thi.ng/checks"
+DESCRIPTION="Comparators with support for types implementing the @thi.ng/api/ICompare interface"
+HOMEPAGE="https://thi.ng/compare"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/thi-ng-api
 "
 BDEPEND="${RDEPEND}"

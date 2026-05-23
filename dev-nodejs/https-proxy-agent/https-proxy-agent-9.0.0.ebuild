@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="https-proxy-agent"
+
 inherit npm
 
 DESCRIPTION="An HTTP(s) proxy \`http.Agent\` implementation for HTTPS"

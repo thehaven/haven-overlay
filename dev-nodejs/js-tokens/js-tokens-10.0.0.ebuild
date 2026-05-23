@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="js-tokens"
+
 inherit npm
 
 DESCRIPTION="Tiny JavaScript tokenizer."

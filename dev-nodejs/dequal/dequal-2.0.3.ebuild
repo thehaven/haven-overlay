@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="dequal"
+
 inherit npm
 
 DESCRIPTION="A tiny (304B to 489B) utility for check for deep equality"

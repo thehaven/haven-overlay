@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fastq"
+
 inherit npm
 
 DESCRIPTION="Fast, in memory work queue"

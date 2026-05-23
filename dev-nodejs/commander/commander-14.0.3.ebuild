@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="commander"
+
 inherit npm
 
 DESCRIPTION="the complete solution for node.js command-line programs"

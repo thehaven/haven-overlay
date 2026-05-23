@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="es-define-property"
+
 inherit npm
 
 DESCRIPTION="\`Object.defineProperty\`, but not IE 8's broken one."

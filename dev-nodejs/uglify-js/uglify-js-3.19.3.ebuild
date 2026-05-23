@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="uglify-js"
+
 inherit npm
 
 DESCRIPTION="JavaScript parser, mangler/compressor and beautifier toolkit"

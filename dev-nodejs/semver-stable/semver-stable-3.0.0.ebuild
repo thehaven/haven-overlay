@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="semver-stable"
+
 inherit npm
 
 DESCRIPTION="semver-stable"

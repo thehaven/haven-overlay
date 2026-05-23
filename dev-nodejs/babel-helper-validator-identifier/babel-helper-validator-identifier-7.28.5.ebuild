@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@babel/helper-validator-identifier"
+
 inherit npm
 
 DESCRIPTION="Validate identifier/keywords name"

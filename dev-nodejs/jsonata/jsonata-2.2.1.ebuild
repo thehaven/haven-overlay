@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="jsonata"
+
 inherit npm
 
 DESCRIPTION="JSON query and transformation language"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="agent-base"
+
 inherit npm
 
 DESCRIPTION="Turn a function into an \`http.Agent\` instance"

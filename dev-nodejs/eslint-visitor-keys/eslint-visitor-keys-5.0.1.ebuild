@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="eslint-visitor-keys"
+
 inherit npm
 
 DESCRIPTION="Constants and utilities about visitor keys to traverse AST."

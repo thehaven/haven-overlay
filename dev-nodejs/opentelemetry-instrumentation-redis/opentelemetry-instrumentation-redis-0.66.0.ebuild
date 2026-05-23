@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@opentelemetry/instrumentation-redis"
+
 inherit npm
 
 DESCRIPTION="OpenTelemetry instrumentation for \`redis\` database client for Redis"

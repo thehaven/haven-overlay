@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="tinylogic"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

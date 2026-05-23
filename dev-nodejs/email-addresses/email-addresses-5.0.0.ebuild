@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="email-addresses"
+
 inherit npm
 
 DESCRIPTION="An email address parser based on rfc5322"

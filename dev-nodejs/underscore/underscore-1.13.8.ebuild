@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="underscore"
+
 inherit npm
 
 DESCRIPTION="JavaScript's functional programming helper library."

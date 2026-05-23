@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mdast-util-to-string"
+
 inherit npm
 
 DESCRIPTION="mdast utility to get the plain text content of a node"

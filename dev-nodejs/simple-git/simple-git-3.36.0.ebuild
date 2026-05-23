@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="simple-git"
+
 inherit npm
 
 DESCRIPTION="Simple GIT interface for node.js"

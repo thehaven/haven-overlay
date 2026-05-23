@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="node-domexception"
+
 inherit npm
 
 DESCRIPTION="An implementation of the DOMException class from NodeJS"

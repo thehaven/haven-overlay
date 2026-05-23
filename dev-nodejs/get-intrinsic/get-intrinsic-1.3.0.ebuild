@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="get-intrinsic"
+
 inherit npm
 
 DESCRIPTION="Get and robustly cache all JS language-level intrinsics at first require time"

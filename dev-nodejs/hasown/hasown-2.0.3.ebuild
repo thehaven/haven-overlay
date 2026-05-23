@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="hasown"
+
 inherit npm
 
 DESCRIPTION="A robust, ES3 compatible, \"has own property\" predicate."

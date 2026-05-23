@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="protobufjs"
+
 inherit npm
 
 DESCRIPTION="Protocol Buffers for JavaScript & TypeScript."

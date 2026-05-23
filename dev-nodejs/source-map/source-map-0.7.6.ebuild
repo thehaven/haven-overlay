@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="source-map"
+
 inherit npm
 
 DESCRIPTION="Generates and consumes source maps"

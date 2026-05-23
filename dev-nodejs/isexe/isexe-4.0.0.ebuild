@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="isexe"
+
 inherit npm
 
 DESCRIPTION="Minimal module to check if a file is executable."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@thi.ng/api"
+
 inherit npm
 
 DESCRIPTION="Common, generic types, interfaces & mixins"

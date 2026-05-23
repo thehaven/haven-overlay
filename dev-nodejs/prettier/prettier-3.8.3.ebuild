@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="prettier"
+
 inherit npm
 
 DESCRIPTION="Prettier is an opinionated code formatter"

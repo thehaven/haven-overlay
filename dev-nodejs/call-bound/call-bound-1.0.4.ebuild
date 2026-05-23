@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="call-bound"
+
 inherit npm
 
 DESCRIPTION="Robust call-bound JavaScript intrinsics, using \`call-bind\` and \`get-intrinsic\`."

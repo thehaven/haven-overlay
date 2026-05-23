@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@nodable/entities"
+
 inherit npm
 
 DESCRIPTION="Entity parser for XML, HTML, External entites with security and NCR control"

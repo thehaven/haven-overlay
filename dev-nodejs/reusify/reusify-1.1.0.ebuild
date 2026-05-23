@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="reusify"
+
 inherit npm
 
 DESCRIPTION="Reuse objects and functions with style"

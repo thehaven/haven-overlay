@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-queue"
+
 inherit npm
 
 DESCRIPTION="Promise queue with concurrency control"

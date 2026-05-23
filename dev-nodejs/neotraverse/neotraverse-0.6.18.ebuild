@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="neotraverse"
+
 inherit npm
 
 DESCRIPTION="traverse and transform objects by visiting every node on a recursive walk"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="decode-named-character-reference"
+
 inherit npm
 
 DESCRIPTION="Decode named character references"

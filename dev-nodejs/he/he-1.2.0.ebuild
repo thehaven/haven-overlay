@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="he"
+
 inherit npm
 
 DESCRIPTION="A robust HTML entities encoder/decoder with full Unicode support."

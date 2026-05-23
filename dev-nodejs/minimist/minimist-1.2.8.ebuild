@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minimist"
+
 inherit npm
 
 DESCRIPTION="parse argument options"

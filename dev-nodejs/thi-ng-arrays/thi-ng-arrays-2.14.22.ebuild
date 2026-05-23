@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@thi.ng/arrays"
+
 inherit npm
 
 DESCRIPTION="Array / Arraylike utilities"

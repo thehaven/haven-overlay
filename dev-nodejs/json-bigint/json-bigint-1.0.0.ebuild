@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="json-bigint"
+
 inherit npm
 
 DESCRIPTION="JSON.parse with bigints support"

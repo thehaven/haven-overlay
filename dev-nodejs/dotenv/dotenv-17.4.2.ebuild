@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="dotenv"
+
 inherit npm
 
 DESCRIPTION="Loads environment variables from .env file"

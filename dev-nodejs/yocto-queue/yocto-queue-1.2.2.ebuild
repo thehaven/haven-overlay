@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="yocto-queue"
+
 inherit npm
 
 DESCRIPTION="Tiny queue data structure"

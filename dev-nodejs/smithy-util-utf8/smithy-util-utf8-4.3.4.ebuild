@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@smithy/util-utf8"
+
 inherit npm
 
 DESCRIPTION="A UTF-8 string <-> UInt8Array converter"

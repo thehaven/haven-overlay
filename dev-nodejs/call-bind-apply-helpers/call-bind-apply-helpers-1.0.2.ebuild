@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="call-bind-apply-helpers"
+
 inherit npm
 
 DESCRIPTION="Helper functions around Function call/apply/bind, for use in \`call-bind\`"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ccount"
+
 inherit npm
 
 DESCRIPTION="Count how often a character (or substring) is used in a string"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="yallist"
+
 inherit npm
 
 DESCRIPTION="Yet Another Linked List"

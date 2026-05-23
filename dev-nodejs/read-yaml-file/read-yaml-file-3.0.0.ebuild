@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="read-yaml-file"
+
 inherit npm
 
 DESCRIPTION="Read and parse a YAML file"

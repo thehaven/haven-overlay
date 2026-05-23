@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="define-data-property"
+
 inherit npm
 
 DESCRIPTION="Define a data property on an object. Will fall back to assignment in an engine without descriptors."

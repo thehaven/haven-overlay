@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@simple-git/args-pathspec"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

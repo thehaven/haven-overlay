@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-sanitize-uri"
+
 inherit npm
 
 DESCRIPTION="micromark utility to sanitize urls"

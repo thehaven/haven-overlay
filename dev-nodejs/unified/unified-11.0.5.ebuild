@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="unified"
+
 inherit npm
 
 DESCRIPTION="parse, inspect, transform, and serialize content through syntax trees"

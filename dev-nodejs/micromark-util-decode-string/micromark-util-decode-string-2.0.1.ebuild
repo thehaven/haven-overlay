@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-decode-string"
+
 inherit npm
 
 DESCRIPTION="micromark utility to decode markdown strings"

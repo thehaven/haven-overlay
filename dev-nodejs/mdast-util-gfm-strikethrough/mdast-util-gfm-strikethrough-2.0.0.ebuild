@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mdast-util-gfm-strikethrough"
+
 inherit npm
 
 DESCRIPTION="mdast extension to parse and serialize GFM strikethrough"

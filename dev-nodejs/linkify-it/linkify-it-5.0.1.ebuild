@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="linkify-it"
+
 inherit npm
 
 DESCRIPTION="Links recognition library with FULL unicode support"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strip-json-comments"
+
 inherit npm
 
 DESCRIPTION="Strip comments from JSON. Lets you use comments in your JSON files!"

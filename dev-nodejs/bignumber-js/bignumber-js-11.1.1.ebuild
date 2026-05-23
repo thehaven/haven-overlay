@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="bignumber.js"
+
 inherit npm
 
 DESCRIPTION="A library for arbitrary-precision decimal and non-decimal arithmetic"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="fetch-blob"
+
 inherit npm
 
 DESCRIPTION="Blob & File implementation in Node.js, originally from node-fetch."

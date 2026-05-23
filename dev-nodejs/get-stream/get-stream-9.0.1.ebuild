@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="get-stream"
+
 inherit npm
 
 DESCRIPTION="Get a stream as a string, Buffer, ArrayBuffer or array"

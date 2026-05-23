@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="write-file-atomic"
+
 inherit npm
 
 DESCRIPTION="Write files in an atomic fashion w/configurable ownership"

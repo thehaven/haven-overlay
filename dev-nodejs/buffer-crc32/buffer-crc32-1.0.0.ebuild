@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="buffer-crc32"
+
 inherit npm
 
 DESCRIPTION="A pure javascript CRC32 algorithm that plays nice with binary data"

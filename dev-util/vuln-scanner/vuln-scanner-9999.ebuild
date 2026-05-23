@@ -57,7 +57,7 @@ src_install() {
 	fi
 
 	keepdir /var/log/security-scans
-	fperms 0770 /var/log/security-scans
+	fperms 0755 /var/log/security-scans
 }
 
 pkg_postinst() {

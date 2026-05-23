@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="pend"
+
 inherit npm
 
 DESCRIPTION="dead-simple optimistic async helper"

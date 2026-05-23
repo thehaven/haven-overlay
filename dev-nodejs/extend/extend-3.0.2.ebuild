@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="extend"
+
 inherit npm
 
 DESCRIPTION="Port of jQuery.extend for node.js and the browser"

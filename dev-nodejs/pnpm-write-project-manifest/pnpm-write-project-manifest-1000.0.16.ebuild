@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/write-project-manifest"
+
 inherit npm
 
 DESCRIPTION="Write a project manifest (called package.json in most cases)"

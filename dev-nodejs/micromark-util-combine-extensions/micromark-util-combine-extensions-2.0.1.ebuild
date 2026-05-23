@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-util-combine-extensions"
+
 inherit npm
 
 DESCRIPTION="micromark utility to combine syntax or html extensions"

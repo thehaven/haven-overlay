@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="is-unicode-supported"
+
 inherit npm
 
 DESCRIPTION="Detect whether the terminal supports Unicode"

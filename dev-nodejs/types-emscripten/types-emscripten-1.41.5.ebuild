@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/emscripten"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for emscripten"

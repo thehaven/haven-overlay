@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="type-fest"
+
 inherit npm
 
 DESCRIPTION="A collection of essential TypeScript types"

@@ -37,3 +37,10 @@ This overlay contains personal and work projects for Haven (Simon Alman).
 
 ## Known Blockers
 - **Harbor**: requires Swagger code generation which is currently container-only upstream.
+
+## Node.js Packaging Standards
+- **Strictly Source-Based**: All Node.js packages MUST be packaged as individual source-based ebuilds.
+- **No npm install**: The use of `npm install` or `RESTRICT="network-sandbox"` to fetch dependencies at build time is explicitly FORBIDDEN.
+- **Eclass**: Use `inherit npm` (modernized version) for all Node.js packages.
+- **Categories**: Core Node.js applications go in `dev-util` or `www-apps`, while dependencies go in `dev-nodejs`.
+- **Tooling**: Use `/var/db/repos/haven-overlay/scripts/npm2ebuild.py` to programmatically generate dependency trees.

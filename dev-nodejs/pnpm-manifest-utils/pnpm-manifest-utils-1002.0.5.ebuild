@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@pnpm/manifest-utils"
+
 inherit npm
 
 DESCRIPTION="Utils for dealing with package manifest"

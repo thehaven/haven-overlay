@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="micromark-core-commonmark"
+
 inherit npm
 
 DESCRIPTION="The CommonMark markdown constructs"

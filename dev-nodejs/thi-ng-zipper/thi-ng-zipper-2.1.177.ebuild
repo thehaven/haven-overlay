@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@thi.ng/zipper"
+
 inherit npm
 
 DESCRIPTION="Functional tree editing, manipulation & navigation"

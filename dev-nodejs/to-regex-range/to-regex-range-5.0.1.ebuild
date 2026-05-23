@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="to-regex-range"
+
 inherit npm
 
 DESCRIPTION="Pass two numbers, get a regex-compatible source string for matching ranges. Validated against more than 2.78 million test assertions."

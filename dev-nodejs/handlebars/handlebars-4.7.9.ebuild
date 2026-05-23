@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="handlebars"
+
 inherit npm
 
 DESCRIPTION="Handlebars provides the power necessary to let you build semantic templates effectively with no frustration"

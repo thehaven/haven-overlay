@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@types/bunyan"
+
 inherit npm
 
 DESCRIPTION="TypeScript definitions for bunyan"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="ignore"
+
 inherit npm
 
 DESCRIPTION="Ignore is a manager and filter for .gitignore rules, the one used by eslint, gitbook and many others."

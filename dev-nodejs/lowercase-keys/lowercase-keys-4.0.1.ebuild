@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="lowercase-keys"
+
 inherit npm
 
 DESCRIPTION="Lowercase the keys of an object"

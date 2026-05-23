@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minimatch"
+
 inherit npm
 
 DESCRIPTION="a glob matcher in javascript"

@@ -4,12 +4,13 @@
 EAPI=8
 
 NPM_MODULE="renovate"
+
 inherit npm
 
 DESCRIPTION="Automated dependency updates. Flexible so you don't need to be."
 HOMEPAGE="https://renovatebot.com"
 
-LICENSE="AGPL-3"
+LICENSE="unknown"
 SLOT="0"
 KEYWORDS="~amd64"
 

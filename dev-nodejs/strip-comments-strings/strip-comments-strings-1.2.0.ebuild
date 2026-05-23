@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strip-comments-strings"
+
 inherit npm
 
 DESCRIPTION="Strip or extract comments, strings or both from source code."

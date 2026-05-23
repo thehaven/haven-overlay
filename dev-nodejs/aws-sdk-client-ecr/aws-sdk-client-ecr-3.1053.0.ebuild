@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/client-ecr"
+
 inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript Ecr Client for Node.js, Browser and React Native"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mv"
+
 inherit npm
 
 DESCRIPTION="fs.rename but works across devices. same as the unix utility 'mv'"

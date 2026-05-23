@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="moo"
+
 inherit npm
 
 DESCRIPTION="Optimised tokenizer/lexer generator! 🐄 Much performance. Moo!"

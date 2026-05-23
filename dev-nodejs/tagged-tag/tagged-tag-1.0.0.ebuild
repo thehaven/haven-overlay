@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="tagged-tag"
+
 inherit npm
 
 DESCRIPTION="Unique tag for use in the type-fest Tagged type"

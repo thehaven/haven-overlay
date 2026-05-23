@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="xmldoc"
+
 inherit npm
 
 DESCRIPTION="A lightweight XML Document class for JavaScript."

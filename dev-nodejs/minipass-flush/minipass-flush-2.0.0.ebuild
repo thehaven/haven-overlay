@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="minipass-flush"
+
 inherit npm
 
 DESCRIPTION="A Minipass stream that calls a flush function before emitting 'end'"

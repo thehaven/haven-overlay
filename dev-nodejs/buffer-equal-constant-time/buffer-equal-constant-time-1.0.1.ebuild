@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="buffer-equal-constant-time"
+
 inherit npm
 
 DESCRIPTION="Constant-time comparison of Buffers"

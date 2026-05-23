@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="slugify"
+
 inherit npm
 
 DESCRIPTION="Slugifies a String"

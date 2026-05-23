@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="require-in-the-middle"
+
 inherit npm
 
 DESCRIPTION="Module to hook into the Node.js require function"

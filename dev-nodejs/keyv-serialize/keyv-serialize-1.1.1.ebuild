@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@keyv/serialize"
+
 inherit npm
 
 DESCRIPTION="Serialization for Keyv"

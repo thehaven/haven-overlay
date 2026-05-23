@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="markdown-it"
+
 inherit npm
 
 DESCRIPTION="Markdown-it - modern pluggable markdown parser."

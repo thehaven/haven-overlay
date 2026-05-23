@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@opentelemetry/instrumentation-http"
+
 inherit npm
 
 DESCRIPTION="OpenTelemetry instrumentation for \`node:http\` and \`node:https\` http client and server modules"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/xml-builder"
+
 inherit npm
 
 DESCRIPTION="XML utilities for the AWS SDK"

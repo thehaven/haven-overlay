@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="cross-spawn"
+
 inherit npm
 
 DESCRIPTION="Cross platform child_process#spawn and child_process#spawnSync"

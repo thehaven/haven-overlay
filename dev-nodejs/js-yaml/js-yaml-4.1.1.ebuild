@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="js-yaml"
+
 inherit npm
 
 DESCRIPTION="YAML 1.2 parser and serializer"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="long"
+
 inherit npm
 
 DESCRIPTION="A Long class for representing a 64-bit two's-complement integer value."

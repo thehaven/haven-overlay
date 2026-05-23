@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="protocols"
+
 inherit npm
 
 DESCRIPTION="Get the protocols of an input url."

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="mimic-response"
+
 inherit npm
 
 DESCRIPTION="Mimic a Node.js HTTP response stream"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="strip-final-newline"
+
 inherit npm
 
 DESCRIPTION="Strip the final newline character from a string or Uint8Array"

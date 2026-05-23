@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@simple-git/argv-parser"
+
 inherit npm
 
 DESCRIPTION="Node.js module"

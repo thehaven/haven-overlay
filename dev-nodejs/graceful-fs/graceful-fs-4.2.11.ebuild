@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="graceful-fs"
+
 inherit npm
 
 DESCRIPTION="A drop-in replacement for fs, making various improvements."

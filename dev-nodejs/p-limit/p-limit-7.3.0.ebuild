@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-limit"
+
 inherit npm
 
 DESCRIPTION="Run multiple promise-returning & async functions with limited concurrency"

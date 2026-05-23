@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="which"
+
 inherit npm
 
 DESCRIPTION="Like which(1) unix command. Find the first instance of an executable in the PATH."

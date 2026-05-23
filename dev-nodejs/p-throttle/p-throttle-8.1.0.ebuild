@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="p-throttle"
+
 inherit npm
 
 DESCRIPTION="Throttle promise-returning & async functions"

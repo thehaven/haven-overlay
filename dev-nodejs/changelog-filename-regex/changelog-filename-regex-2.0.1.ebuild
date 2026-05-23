@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="changelog-filename-regex"
+
 inherit npm
 
 DESCRIPTION="A regular expression that matches a CHANGELOG filename"

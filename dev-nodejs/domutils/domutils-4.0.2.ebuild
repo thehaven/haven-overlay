@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="domutils"
+
 inherit npm
 
 DESCRIPTION="Utilities for working with htmlparser2's dom"

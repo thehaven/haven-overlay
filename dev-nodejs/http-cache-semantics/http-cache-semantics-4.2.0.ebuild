@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="http-cache-semantics"
+
 inherit npm
 
 DESCRIPTION="Parses Cache-Control and other headers. Helps building correct HTTP caches and proxies"

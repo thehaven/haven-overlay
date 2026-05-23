@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="trough"
+
 inherit npm
 
 DESCRIPTION="\`trough\` is middleware"

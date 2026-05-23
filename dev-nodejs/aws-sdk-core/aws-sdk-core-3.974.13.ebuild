@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/core"
+
 inherit npm
 
 DESCRIPTION="Core functions & classes shared by multiple AWS SDK clients."

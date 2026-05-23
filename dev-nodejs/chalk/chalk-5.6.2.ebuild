@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="chalk"
+
 inherit npm
 
 DESCRIPTION="Terminal string styling done right"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="toml-eslint-parser"
+
 inherit npm
 
 DESCRIPTION="A TOML parser that produces output compatible with ESLint"

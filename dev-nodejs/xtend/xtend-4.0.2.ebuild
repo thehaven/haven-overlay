@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="xtend"
+
 inherit npm
 
 DESCRIPTION="extend like a boss"

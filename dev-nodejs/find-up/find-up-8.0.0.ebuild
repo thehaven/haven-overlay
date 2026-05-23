@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="find-up"
+
 inherit npm
 
 DESCRIPTION="Find a file or directory by walking up parent directories"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="debug"
+
 inherit npm
 
 DESCRIPTION="Lightweight debugging utility for Node.js and the browser"

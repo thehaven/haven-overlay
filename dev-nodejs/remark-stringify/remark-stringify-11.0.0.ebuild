@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="remark-stringify"
+
 inherit npm
 
 DESCRIPTION="remark plugin to add support for serializing markdown"

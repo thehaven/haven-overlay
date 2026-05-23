@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="async-mutex"
+
 inherit npm
 
 DESCRIPTION="A mutex for guarding async workflows"

@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="decompress-response"
+
 inherit npm
 
 DESCRIPTION="Decompress a HTTP response if needed"

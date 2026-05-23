@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="@aws-sdk/client-cognito-identity"
+
 inherit npm
 
 DESCRIPTION="AWS SDK for JavaScript Cognito Identity Client for Node.js, Browser and React Native"

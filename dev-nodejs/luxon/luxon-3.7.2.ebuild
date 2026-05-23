@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="luxon"
+
 inherit npm
 
 DESCRIPTION="Immutable date wrapper"
