@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<use>
+		<flag name="filetree"></flag>
+		<flag name="keyring"></flag>
+		<flag name="memory"></flag>
+	</use>
+	<upstream>
+		<remote-id type="github">thefuzzylogic/py-key-value-aio</remote-id>
+	</upstream>
+</pkgmetadata>
