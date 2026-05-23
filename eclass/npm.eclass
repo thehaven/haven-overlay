@@ -1,110 +1,116 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 # @ECLASS: npm.eclass
 # @MAINTAINER:
-# Jesus Rivero <neurogeek@gentoo.org>
-# @BLURB: Eclass for NodeJS packages available through the npm registry.
+# Simon Alman <haven@thehavennet.org.uk>
+# @BLURB: Modern Eclass for NodeJS packages following strict source-based patterns.
 # @DESCRIPTION:
-# This eclass contains various functions that may be useful when dealing with
-# packages from the npm registry, for NodeJS.
-# Requires EAPI=2 or later.
+# This eclass contains functions to package NodeJS modules from the npm registry
+# WITHOUT invoking the "npm" binary during build or install phases.
+# It implements a strict "Extract-Only" pattern suitable for system-wide auditing
+# and Portage-managed dependency trees.
+# Requires EAPI=8.
 
 case ${EAPI} in
-    2|3|4|5|6) : ;;
-    *)     die "npm.eclass: unsupported EAPI=${EAPI:-0}" ;;
+    8) : ;;
+    *) die "npm.eclass: unsupported EAPI=${EAPI:-0} (EAPI 8 required)" ;;
 esac
 
 inherit multilib
 
 # @ECLASS-VARIABLE: NPM_MODULE
 # @DESCRIPTION:
-# Name of the resulting NodeJS/npm module. 
-# The Default value for NPM_MODULE is ${PN}
-#
-# Example: NPM_MODULE="${MY_PN}"
-if [[ -z $NPM_MODULE ]]; then
-	NPM_MODULE="${PN}"
-fi
+# Name of the NodeJS/npm module (e.g. "@renovatebot/pep440").
+# Defaults to ${PN}.
+: "${NPM_MODULE:=${PN}}"
 
 # @ECLASS-VARIABLE: NPM_FILES
-# @INTERNAL
 # @DESCRIPTION:
-# Files and directories that usually come in a standard NodeJS/npm module.
-NPM_FILES="index.js lib package.json ${NPM_MODULE}.js"
+# Files and directories to install to the module directory.
+# Defaults to common source files.
+: "${NPM_FILES:=index.js lib dist package.json ${NPM_MODULE}.js}"
 
 # @ECLASS-VARIABLE: NPM_DOCS
 # @DESCRIPTION:
-# Document files that come in a NodeJS/npm module, outside of the usual docs
-# list of README*, ChangeLog AUTHORS* etc. These are only installed if 'doc' is
-# in ${USE}
-# NPM_DOCS="README* LICENSE HISTORY*"
+# Document files to be installed with dodoc.
+# Defaults to standard README and license files.
+: "${NPM_DOCS:=README* LICENSE* HISTORY* CHANGELOG*}"
 
-# @ECLASS-VARIABLE: NPM_EXTRA_FILES
+HOMEPAGE="https://www.npmjs.com/package/${PN}"
+
+# @FUNCTION: _npm_get_tarball_name
+# @INTERNAL
+_npm_get_tarball_name() {
+	local name="${NPM_MODULE}"
+	echo "${name##*/}"
+}
+
+SRC_URI="https://registry.npmjs.org/${NPM_MODULE}/-/$(_npm_get_tarball_name)-${PV}.tgz -> ${P}.tgz"
+
+# @FUNCTION: npm_src_unpack
 # @DESCRIPTION:
-# If additional dist files are present in the NodeJS/npm module that are not
-# listed in NPM_FILES, then this is the place to put them in.
-# Can be either files, or directories.
-# Example: NPM_EXTRA_FILES="rigger.js modules"
-
-HOMEPAGE="https://www.npmjs.org/package/${PN}"
-SRC_URI="http://registry.npmjs.org/${PN}/-/${P}.tgz"
-
-# @FUNCTION: npm-src_unpack
-# @DESCRIPTION:
-# Default src_unpack function for NodeJS/npm packages. This funtions unpacks
-# the source code, then renames the 'package' dir to ${S}.
-
+# Unpacks the npm tarball and renames the resulting "package" directory to ${S}.
 npm_src_unpack() {
-    unpack "${A}"
-    mv "${WORKDIR}/package" ${S}
+	unpack "${A}"
+	if [[ -d "${WORKDIR}/package" ]]; then
+		mv "${WORKDIR}/package" "${S}" || die
+	fi
 }
 
-# @FUNCTION: npm-src_compile
+# @FUNCTION: npm_src_compile
 # @DESCRIPTION:
-# This function does nothing.
+# No-op for JavaScript source packages.
 npm_src_compile() {
-    true
+	:
 }
 
-# @FUNCTION: npm-src_install
+# @FUNCTION: npm_src_install
 # @DESCRIPTION:
-# This function installs the NodeJS/npm module to an appropriate location, also
-# taking care of NPM_FILES, NPM_EXTRA_FILES, NPM_DOCS
-
+# Installs the module files to /usr/lib/node_modules/${NPM_MODULE}.
+# Also handles symlinking executables defined in package.json if requested.
 npm_src_install() {
-    local npm_files="${NPM_FILES} ${NPM_EXTRA_FILES}"
-    local node_modules="${D}/usr/$(get_libdir)/node_modules/${NPM_MODULE}"
+	debug-print-function ${FUNCNAME} "$@"
 
-    mkdir -p ${node_modules} || die "Could not create DEST folder"
+	local libdir=$(get_libdir)
+	local module_dir="/usr/${libdir}/node_modules/${NPM_MODULE}"
 
-    for f in ${npm_files}
-    do
-        if [[ -e "${S}/$f" ]]; then
-            cp -r "${S}/$f" ${node_modules}
-        fi
-    done
-
-	# Install docs usually found in NodeJS/NPM packages.
+	insinto "${module_dir}"
+	
+	# Install source files
 	local f
-	for f in README* HISTORY* ChangeLog AUTHORS NEWS TODO CHANGES \
-			THANKS BUGS FAQ CREDITS CHANGELOG*; do
-		if [[ -s ${f} ]]; then
-			dodoc "${f}"
+	for f in ${NPM_FILES}; do
+		if [[ -e "${S}/${f}" ]]; then
+			doins -r "${S}/${f}"
 		fi
 	done
-    
-    if has doc ${USE}; then
-        local npm_docs="${NPM_DOCS}"
 
-        for f in $npm_docs
-        do
-            if [[ -e "${S}/$f" ]]; then
-                dodoc -r "${S}/$f"
-            fi
-        done
-    fi
+	# Install documentation
+	local d
+	for d in ${NPM_DOCS}; do
+		while IFS= read -r -d "" file; do
+			[[ -s "${file}" ]] && dodoc -r "${file}"
+		done < <(find "${S}" -maxdepth 1 -name "${d}" -print0 2>/dev/null)
+	done
+}
+
+# @FUNCTION: npm_install_bin
+# @USAGE: <script_path> [alias]
+# @DESCRIPTION:
+# Helper to install a script as a system binary and symlink it correctly
+# to the node_modules location.
+npm_install_bin() {
+	[[ -z $1 ]] && die "Usage: ${FUNCNAME} <script_path> [alias]"
+	local script_path="$1"
+	local alias="${2:-${PN}}"
+	local libdir=$(get_libdir)
+	local module_dir="/usr/${libdir}/node_modules/${NPM_MODULE}"
+	
+	# Ensure the script is executable in the image
+	fperms +x "${module_dir}/${script_path}"
+	
+	# Create a symlink in /usr/bin
+	dosym "${module_dir}/${script_path}" "/usr/bin/${alias}"
 }
 
 EXPORT_FUNCTIONS src_unpack src_compile src_install
