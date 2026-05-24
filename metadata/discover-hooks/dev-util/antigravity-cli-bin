@@ -1,0 +1,2 @@
+source = "cmd"
+cmd = "curl -s https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/manifests/linux_amd64.json | jq -r .version"

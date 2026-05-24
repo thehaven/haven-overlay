@@ -44,3 +44,13 @@ This overlay contains personal and work projects for Haven (Simon Alman).
 - **Eclass**: Use `inherit npm` (modernized version) for all Node.js packages.
 - **Categories**: Core Node.js applications go in `dev-util` or `www-apps`, while dependencies go in `dev-nodejs`.
 - **Tooling**: Use `/var/db/repos/haven-overlay/scripts/npm2ebuild.py` to programmatically generate dependency trees.
+
+## Second Brain & Vault Rules
+
+### 1. Document Routing
+- All planning, design, specs, research, or decisions files MUST be saved to the Obsidian second brain vault under `~/.obsidian/Proofpoint/` using the PARA structure, rather than in `~/.gemini/` or local `docs/` directories.
+- Any temporary or scratch files should be placed in the conversation artifacts directory or `~/.gemini/antigravity-cli/scratch/`.
+
+### 2. Skill Updates & Backporting
+- All modifications to system skills MUST be developed first under `/storage/home/haven/projects/personal/salman-skills`.
+- To sync updates back to the system, run `make install all` in the skills repository.
