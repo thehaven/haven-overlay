@@ -7,7 +7,7 @@ DESCRIPTION="Google Antigravity CLI - Unified agentic terminal platform"
 HOMEPAGE="https://antigravity.google"
 
 # Manifest URL: https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/manifests/linux_${ARCH}.json
-# Version 1.0.0 ID: 5288553236791296
+# Version 1.0.2 ID: 5288553236791296
 BASE_URI="https://storage.googleapis.com/antigravity-public/antigravity-cli/1.0.2-6109799369277440"
 SRC_URI="
 	amd64? ( ${BASE_URI}/linux-x64/cli_linux_x64.tar.gz -> ${PN}-${PV}-amd64.tar.gz )
