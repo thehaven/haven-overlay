@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Python client for fal.ai"
-HOMEPAGE="https://github.com/fal-ai/fal-client"
+HOMEPAGE="https://pypi.org/project/fal-client/"
+HOMEPAGE="https://pypi.org/project/fal-client/"
 
 LICENSE="MIT"
 SLOT="0"

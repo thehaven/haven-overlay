@@ -9,7 +9,8 @@ NPM_MODULE="@pnpm/parse-wanted-dependency"
 
 
 DESCRIPTION="Parse dependency specifier"
-HOMEPAGE="https://github.com/pnpm/pnpm/blob/main/packages/parse-wanted-dependency#readme"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-parse-wanted-dependency"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-parse-wanted-dependency"
 
 LICENSE="MIT"
 SLOT="0"

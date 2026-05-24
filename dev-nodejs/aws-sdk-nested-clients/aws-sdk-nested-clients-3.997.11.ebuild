@@ -9,7 +9,8 @@ NPM_MODULE="@aws-sdk/nested-clients"
 
 
 DESCRIPTION="Nested clients for AWS SDK packages."
-HOMEPAGE="https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients"
+HOMEPAGE="https://www.npmjs.com/package/aws-sdk-nested-clients"
+HOMEPAGE="https://www.npmjs.com/package/aws-sdk-nested-clients"
 
 LICENSE="Apache-2.0"
 SLOT="0"

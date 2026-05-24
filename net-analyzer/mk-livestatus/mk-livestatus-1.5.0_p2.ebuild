@@ -13,7 +13,8 @@ MY_P="${PN}-${MY_PV}"
 inherit perl-module python-r1
 
 DESCRIPTION="Nagios/Icinga event broker module that allows quick/direct access to your status data"
-HOMEPAGE="http://mathias-kettner.de/checkmk_livestatus.html"
+HOMEPAGE="https://github.com/search?q=mk-livestatus"
+HOMEPAGE="https://github.com/search?q=mk-livestatus"
 SRC_URI="https://mathias-kettner.de/support/${MY_PV}/check-mk-raw-${MY_PV}.cre.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"

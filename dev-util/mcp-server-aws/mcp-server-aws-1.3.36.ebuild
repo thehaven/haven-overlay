@@ -9,7 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="MCP server for AWS API operations"
-HOMEPAGE="https://github.com/awslabs/aws-api-mcp-server"
+HOMEPAGE="https://github.com/search?q=mcp-server-aws"
+HOMEPAGE="https://github.com/search?q=mcp-server-aws"
 
 LICENSE="Apache-2.0"
 SLOT="0"

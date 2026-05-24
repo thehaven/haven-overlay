@@ -9,7 +9,8 @@ NPM_MODULE="@pnpm/manifest-utils"
 
 
 DESCRIPTION="Utils for dealing with package manifest"
-HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/pkg-manifest/manifest-utils#readme"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-manifest-utils"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-manifest-utils"
 
 LICENSE="MIT"
 SLOT="0"

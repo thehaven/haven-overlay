@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Google AI Generative Language API client library"
-HOMEPAGE="https://github.com/googleapis/python-ai-generativelanguage"
+HOMEPAGE="https://pypi.org/project/google-ai-generativelanguage/"
+HOMEPAGE="https://pypi.org/project/google-ai-generativelanguage/"
 
 LICENSE="Apache-2.0"
 SLOT="0"

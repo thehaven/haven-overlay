@@ -9,7 +9,8 @@ PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="MCP server for pytest test execution"
-HOMEPAGE="https://github.com/tumf/mcp-pytest-runner"
+HOMEPAGE="https://github.com/search?q=mcp-server-pytest"
+HOMEPAGE="https://github.com/search?q=mcp-server-pytest"
 
 LICENSE="MIT"
 SLOT="0"

@@ -9,7 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="OpenAPI (v3) models for Pydantic"
-HOMEPAGE="https://github.com/kuimono/openapi-pydantic"
+HOMEPAGE="https://pypi.org/project/openapi-pydantic/"
+HOMEPAGE="https://pypi.org/project/openapi-pydantic/"
 
 LICENSE="MIT"
 SLOT="0"

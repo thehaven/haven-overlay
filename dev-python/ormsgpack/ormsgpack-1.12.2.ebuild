@@ -43,7 +43,8 @@ CRATES="
 inherit cargo distutils-r1 pypi
 
 DESCRIPTION="Fast Python MessagePack library"
-HOMEPAGE="https://github.com/jason-kuo/ormsgpack"
+HOMEPAGE="https://pypi.org/project/ormsgpack/"
+HOMEPAGE="https://pypi.org/project/ormsgpack/"
 SRC_URI="https://github.com/jason-kuo/ormsgpack/archive/refs/tags/v1.12.2.tar.gz -> ormsgpack-1.12.2.tar.gz
 	${CARGO_CRATE_URIS}"
 

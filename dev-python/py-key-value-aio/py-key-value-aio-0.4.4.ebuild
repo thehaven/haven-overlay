@@ -9,7 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Async Key-Value Store Interface for Python"
-HOMEPAGE="https://github.com/thefuzzylogic/py-key-value-aio"
+HOMEPAGE="https://pypi.org/project/py-key-value-aio/"
+HOMEPAGE="https://pypi.org/project/py-key-value-aio/"
 
 LICENSE="MIT"
 SLOT="0"

@@ -9,7 +9,8 @@ NPM_MODULE="find-packages"
 
 
 DESCRIPTION="Find all packages inside a directory"
-HOMEPAGE="https://github.com/pnpm/pnpm/blob/main/fs/find-packages#readme"
+HOMEPAGE="https://www.npmjs.com/package/find-packages"
+HOMEPAGE="https://www.npmjs.com/package/find-packages"
 
 LICENSE="MIT"
 SLOT="0"

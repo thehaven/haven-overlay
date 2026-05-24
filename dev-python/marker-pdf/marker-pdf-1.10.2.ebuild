@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Convert documents to markdown with high speed and accuracy"
-HOMEPAGE="https://github.com/vikun-khanna/marker"
+HOMEPAGE="https://pypi.org/project/marker-pdf/"
+HOMEPAGE="https://pypi.org/project/marker-pdf/"
 
 LICENSE="GPL-3"
 SLOT="0"

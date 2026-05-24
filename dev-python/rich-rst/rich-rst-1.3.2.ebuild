@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="A rich renderable for reStructuredText"
-HOMEPAGE="https://github.com/darrenburns/rich-rst"
+HOMEPAGE="https://pypi.org/project/rich-rst/"
+HOMEPAGE="https://pypi.org/project/rich-rst/"
 
 LICENSE="MIT"
 SLOT="0"

@@ -9,7 +9,8 @@ NPM_MODULE="google-logging-utils"
 
 
 DESCRIPTION="A debug logger package for other Google libraries"
-HOMEPAGE="https://github.com/googleapis/google-cloud-node-core/tree/main/dev-packages/logging-utils"
+HOMEPAGE="https://www.npmjs.com/package/google-logging-utils"
+HOMEPAGE="https://www.npmjs.com/package/google-logging-utils"
 
 LICENSE="Apache-2.0"
 SLOT="0"

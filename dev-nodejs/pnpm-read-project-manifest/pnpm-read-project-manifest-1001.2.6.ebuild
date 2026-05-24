@@ -9,7 +9,8 @@ NPM_MODULE="@pnpm/read-project-manifest"
 
 
 DESCRIPTION="Read a project manifest (called package.json in most cases)"
-HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/pkg-manifest/read-project-manifest#readme"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-read-project-manifest"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-read-project-manifest"
 
 LICENSE="MIT"
 SLOT="0"

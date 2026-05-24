@@ -9,7 +9,8 @@ NPM_MODULE="@pnpm/semver.peer-range"
 
 
 DESCRIPTION="Validates peer ranges"
-HOMEPAGE="https://github.com/pnpm/pnpm/blob/main/semver/peer-range#readme"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-semver-peer-range"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-semver-peer-range"
 
 LICENSE="MIT"
 SLOT="0"

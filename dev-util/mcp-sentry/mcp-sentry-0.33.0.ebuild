@@ -4,7 +4,8 @@
 EAPI=8
 
 DESCRIPTION="Official Sentry MCP server"
-HOMEPAGE="https://github.com/getsentry/mcp-server"
+HOMEPAGE="https://github.com/search?q=mcp-sentry"
+HOMEPAGE="https://github.com/search?q=mcp-sentry"
 SRC_URI="https://registry.npmjs.org/@sentry/mcp-server/-/mcp-server-${PV}.tgz"
 S="${WORKDIR}/package"
 

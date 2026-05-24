@@ -100,7 +100,8 @@ CRATES="
 inherit cargo distutils-r1 pypi
 
 DESCRIPTION="Universal ID Utilities for Python"
-HOMEPAGE="https://github.com/mraspaud/uuid-utils"
+HOMEPAGE="https://pypi.org/project/uuid-utils/"
+HOMEPAGE="https://pypi.org/project/uuid-utils/"
 SRC_URI+=" ${CARGO_CRATE_URIS}"
 
 LICENSE="MIT Apache-2.0 BSD Unicode-3.0 ZLIB"

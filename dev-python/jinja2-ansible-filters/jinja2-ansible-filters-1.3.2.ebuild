@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1
 
 DESCRIPTION="Jinja2 filters for Ansible"
-HOMEPAGE="https://github.com/eyeseast/jinja2-ansible-filters"
+HOMEPAGE="https://pypi.org/project/jinja2-ansible-filters/"
+HOMEPAGE="https://pypi.org/project/jinja2-ansible-filters/"
 SRC_URI="https://files.pythonhosted.org/packages/source/j/jinja2-ansible-filters/jinja2-ansible-filters-${PV}.tar.gz"
 
 LICENSE="MIT"

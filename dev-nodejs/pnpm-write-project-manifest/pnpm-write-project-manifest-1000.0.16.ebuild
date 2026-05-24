@@ -9,7 +9,8 @@ NPM_MODULE="@pnpm/write-project-manifest"
 
 
 DESCRIPTION="Write a project manifest (called package.json in most cases)"
-HOMEPAGE="https://github.com/pnpm/pnpm/tree/main/pkg-manifest/write-project-manifest#readme"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-write-project-manifest"
+HOMEPAGE="https://www.npmjs.com/package/pnpm-write-project-manifest"
 
 LICENSE="MIT"
 SLOT="0"

@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Python module for managing uncalled variables"
-HOMEPAGE="https://github.com/thefuzzylogic/uncalled-for"
+HOMEPAGE="https://pypi.org/project/uncalled-for/"
+HOMEPAGE="https://pypi.org/project/uncalled-for/"
 
 LICENSE="MIT"
 SLOT="0"
