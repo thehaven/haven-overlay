@@ -8,7 +8,7 @@ DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Distillation and quantization toolkit for language models"
-HOMEPAGE="https://github.com/voidful/Distil"
+HOMEPAGE="https://pypi.org/project/distil/"
 SRC_URI="https://github.com/voidful/Distil/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
