@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">alvinunreal/oh-my-opencode-slim</remote-id>
+		<remote-id type="github">boxpositron/envsitter</remote-id>
 	</upstream>
 </pkgmetadata>
