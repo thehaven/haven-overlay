@@ -3,28 +3,29 @@
 
 EAPI=8
 
+MY_NODE_D="tokscale-node_modules-2.1.3"
+
 DESCRIPTION="Token usage tracking CLI for AI agents"
 HOMEPAGE="https://github.com/junhoyeo/tokscale"
-SRC_URI="https://github.com/junhoyeo/tokscale/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/junhoyeo/tokscale/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
+	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
+"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-RESTRICT="network-sandbox test"
-
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )
+BDEPEND="
+	|| ( dev-lang/bun-bin dev-lang/bun )
 	dev-vcs/git
-	dev-lang/rust"
+	dev-lang/rust
+"
 RDEPEND="dev-util/opencode"
 
 S="${WORKDIR}/tokscale-${PV}"
 
 src_compile() {
-	einfo "Installing dependencies..."
-	bun install --ignore-scripts || die
-
-	einfo "Building tokscale..."
 	cargo build --release -p tokscale-cli || die
 }
 
