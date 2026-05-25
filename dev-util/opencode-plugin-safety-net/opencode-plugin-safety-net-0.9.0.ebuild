@@ -36,6 +36,5 @@ src_install() {
 pkg_postinst() {
 	einfo "OpenCode CC Safety Net plugin installed."
 	einfo "To enable, add to opencode.json:"
-	einfo "  { \"name\": \"safety-net\","
-	einfo "    \"src\": \"/usr/bin/cc-safety-net.js\" }"
+	einfo "  \"/usr/bin/cc-safety-net.js\""
 }

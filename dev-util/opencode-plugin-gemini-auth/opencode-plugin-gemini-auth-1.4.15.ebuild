@@ -20,6 +20,5 @@ RDEPEND="
 pkg_postinst() {
 	einfo "OpenCode Gemini Auth plugin installed."
 	einfo "To enable, add to opencode.json:"
-	einfo "  { \"name\": \"opencode-gemini-auth\","
-	einfo "    \"src\": \"/usr/lib/node_modules/opencode-gemini-auth/dist/index.js\" }"
+	einfo "  \"/usr/lib/node_modules/opencode-gemini-auth/dist/index.js\""
 }

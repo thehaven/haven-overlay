@@ -34,5 +34,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-antigravity-auth installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/dist/index.js\" }"
+	einfo "  \"/usr/lib/node_modules/${PN}/dist/index.js\""
 }

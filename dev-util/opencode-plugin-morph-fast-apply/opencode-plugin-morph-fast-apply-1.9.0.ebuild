@@ -27,6 +27,5 @@ pkg_postinst() {
 	einfo "OpenCode Morph Fast Apply plugin installed."
 	einfo "Requires MORPH_API_KEY environment variable."
 	einfo "To enable, add to opencode.json:"
-	einfo "  { \"name\": \"opencode-morph-fast-apply\","
-	einfo "    \"src\": \"/usr/lib/node_modules/opencode-plugin-morph-fast-apply/src/index.ts\" }"
+	einfo "  \"/usr/lib/node_modules/opencode-plugin-morph-fast-apply/src/index.ts\""
 }

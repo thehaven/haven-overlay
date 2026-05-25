@@ -21,6 +21,5 @@ RDEPEND="
 pkg_postinst() {
 	einfo "OpenCode Notify plugin installed."
 	einfo "To enable, add to opencode.json:"
-	einfo "  { \"name\": \"opencode-notify\","
-	einfo "    \"src\": \"/usr/lib/node_modules/opencode-notify/dist/index.js\" }"
+	einfo "  \"/usr/lib/node_modules/opencode-notify/dist/index.js\""
 }

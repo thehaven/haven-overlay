@@ -21,6 +21,5 @@ RDEPEND="
 pkg_postinst() {
 	einfo "OpenCode Codex Auth plugin installed."
 	einfo "To enable, add to opencode.json:"
-	einfo "  { \"name\": \"opencode-openai-codex-auth\","
-	einfo "    \"src\": \"/usr/lib/node_modules/opencode-openai-codex-auth/dist/index.js\" }"
+	einfo "  \"/usr/lib/node_modules/opencode-openai-codex-auth/dist/index.js\""
 }

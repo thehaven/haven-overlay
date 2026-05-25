@@ -36,5 +36,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-worktree-workflow installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/src/plugin/worktree.ts\" }"
+	einfo "  \"/usr/lib/node_modules/${PN}/src/plugin/worktree.ts\""
 }
