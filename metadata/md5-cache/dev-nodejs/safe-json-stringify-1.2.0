@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Prevent defined property getters from throwing errors
+EAPI=8
+HOMEPAGE=https://github.com/debitoor/safe-json-stringify
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=
+SLOT=0
+SRC_URI=https://registry.npmjs.org/safe-json-stringify/-/safe-json-stringify-1.2.0.tgz -> safe-json-stringify-1.2.0.tgz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	ad4b8f3cd36c63dd1918041641cfeb9a
+_md5_=5abae18bc5f07251b6706831fbd747df

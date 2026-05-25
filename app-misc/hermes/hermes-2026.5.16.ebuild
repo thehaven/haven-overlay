@@ -143,6 +143,20 @@ src_prepare() {
 	if [[ -f hermes_cli/doctor.py ]]; then
 		sed -i 's/if sys.platform != "win32":/if False:/' hermes_cli/doctor.py || die
 	fi
+
+	# 4. Resolve namespace collision: hermes_cli.py (module file) and
+	#    hermes_cli/ (regular package) both exist after renaming.
+	#    In Python 3.3+, regular packages take precedence, so
+	#    "from hermes_cli import main" resolves to the __init__.py
+	#    (which has no 'main'), causing Python to import hermes_cli/main.py
+	#    as a MODULE instead of the hermes_cli.py main() function.
+	#    Fix: move the module file into the package.
+	if [[ -f hermes_cli.py && -d hermes_cli ]]; then
+		mv hermes_cli.py hermes_cli/chat_runner.py || die
+		find . -name "*.py" -exec sed -i \
+			-e 's/\bfrom hermes_cli import main\b/from hermes_cli.chat_runner import main/g' \
+			{} + || die
+	fi
 }
 
 src_install() {
