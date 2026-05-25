@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="cross-spawn"
-
+inherit npm
 
 DESCRIPTION="Cross platform child_process#spawn and child_process#spawnSync"
 HOMEPAGE="https://github.com/moxystudio/node-cross-spawn"
@@ -20,4 +18,4 @@ RDEPEND="
 	dev-nodejs/shebang-command
 	dev-nodejs/which
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="side-channel-map"
-
+inherit npm
 
 DESCRIPTION="Store information about any JS value in a side channel, using a Map"
 HOMEPAGE="https://github.com/ljharb/side-channel-map#readme"
@@ -21,4 +19,4 @@ RDEPEND="
 	dev-nodejs/get-intrinsic
 	dev-nodejs/object-inspect
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

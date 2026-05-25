@@ -3,9 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>haven@thehavennet.org.uk</email>
-		<name>Haven</name>
+		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">boxpositron/envsitter-guard</remote-id>
+		<remote-id type="npm">envsitter-guard</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="isexe"
-
+inherit npm
 
 DESCRIPTION="Minimal module to check if a file is executable."
 HOMEPAGE="https://github.com/isaacs/isexe#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

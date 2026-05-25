@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="get-proto"
-
+inherit npm
 
 DESCRIPTION="Robustly get the [[Prototype]] of an object"
 HOMEPAGE="https://github.com/ljharb/get-proto#readme"
@@ -19,4 +17,4 @@ RDEPEND="
 	dev-nodejs/dunder-proto
 	dev-nodejs/es-object-atoms
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

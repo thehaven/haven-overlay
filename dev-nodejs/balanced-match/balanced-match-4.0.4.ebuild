@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="balanced-match"
-
+inherit npm
 
 DESCRIPTION="Match balanced character pairs, like \"{\" and \"}\""
 HOMEPAGE="https://github.com/juliangruber/balanced-match#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">boxpositron/envsitter</remote-id>
+		<remote-id type="npm">envsitter</remote-id>
 	</upstream>
 </pkgmetadata>

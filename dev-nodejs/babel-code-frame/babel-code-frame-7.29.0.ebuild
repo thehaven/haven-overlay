@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="@babel/code-frame"
-
+inherit npm
 
 DESCRIPTION="Generate errors that contain a code frame that point to source locations."
 HOMEPAGE="https://babel.dev/docs/en/next/babel-code-frame"
@@ -20,4 +18,4 @@ RDEPEND="
 	dev-nodejs/js-tokens
 	dev-nodejs/picocolors
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

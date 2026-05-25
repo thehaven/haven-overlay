@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="call-bind-apply-helpers"
-
+inherit npm
 
 DESCRIPTION="Helper functions around Function call/apply/bind, for use in \`call-bind\`"
 HOMEPAGE="https://github.com/ljharb/call-bind-apply-helpers#readme"
@@ -19,4 +17,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/function-bind
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

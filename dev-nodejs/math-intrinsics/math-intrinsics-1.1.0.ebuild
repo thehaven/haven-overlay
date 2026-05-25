@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="math-intrinsics"
-
+inherit npm
 
 DESCRIPTION="ES Math-related intrinsics and helpers, robustly cached."
 HOMEPAGE="https://github.com/es-shims/math-intrinsics#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="semver"
-
+inherit npm
 
 DESCRIPTION="The semantic version parser used by npm."
 HOMEPAGE="https://github.com/npm/node-semver#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

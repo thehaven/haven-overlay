@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="shebang-regex"
-
+inherit npm
 
 DESCRIPTION="Regular expression for matching a shebang line"
 HOMEPAGE="https://github.com/sindresorhus/shebang-regex#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

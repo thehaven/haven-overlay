@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="commander"
-
+inherit npm
 
 DESCRIPTION="the complete solution for node.js command-line programs"
 HOMEPAGE="https://github.com/tj/commander.js#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

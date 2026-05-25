@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="path-key"
-
+inherit npm
 
 DESCRIPTION="Get the PATH environment variable key cross-platform"
 HOMEPAGE="https://github.com/sindresorhus/path-key#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

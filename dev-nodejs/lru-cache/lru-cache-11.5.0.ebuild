@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="lru-cache"
-
+inherit npm
 
 DESCRIPTION="A cache object that deletes the least-recently-used items."
 HOMEPAGE="https://github.com/isaacs/node-lru-cache#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

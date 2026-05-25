@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="side-channel-list"
-
+inherit npm
 
 DESCRIPTION="Store information about any JS value in a side channel, using a linked list"
 HOMEPAGE="https://github.com/ljharb/side-channel-list#readme"
@@ -19,4 +17,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/object-inspect
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

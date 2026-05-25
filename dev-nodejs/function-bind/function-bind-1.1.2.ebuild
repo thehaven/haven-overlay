@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="function-bind"
-
+inherit npm
 
 DESCRIPTION="Implementation of Function.prototype.bind"
 HOMEPAGE="https://github.com/Raynos/function-bind"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

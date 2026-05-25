@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="gopd"
-
+inherit npm
 
 DESCRIPTION="\`Object.getOwnPropertyDescriptor\`, but accounts for IE's broken implementation."
 HOMEPAGE="https://github.com/ljharb/gopd#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

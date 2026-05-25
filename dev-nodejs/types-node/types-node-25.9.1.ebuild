@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="@types/node"
-
+inherit npm
 
 DESCRIPTION="TypeScript definitions for node"
 HOMEPAGE="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/undici-types
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

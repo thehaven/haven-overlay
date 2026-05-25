@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="diff"
-
+inherit npm
 
 DESCRIPTION="A JavaScript text diff implementation."
 HOMEPAGE="https://www.npmjs.com/package/diff"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

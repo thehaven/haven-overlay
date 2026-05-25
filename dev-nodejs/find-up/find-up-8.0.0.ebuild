@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="find-up"
-
+inherit npm
 
 DESCRIPTION="Find a file or directory by walking up parent directories"
 HOMEPAGE="https://github.com/sindresorhus/find-up#readme"
@@ -19,4 +17,4 @@ RDEPEND="
 	dev-nodejs/locate-path
 	dev-nodejs/unicorn-magic
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="dunder-proto"
-
+inherit npm
 
 DESCRIPTION="If available, the \`Object.prototype.__proto__\` accessor and mutator, call-bound"
 HOMEPAGE="https://github.com/es-shims/dunder-proto#readme"
@@ -20,4 +18,4 @@ RDEPEND="
 	dev-nodejs/es-errors
 	dev-nodejs/gopd
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="side-channel-weakmap"
-
+inherit npm
 
 DESCRIPTION="Store information about any JS value in a side channel. Uses WeakMap if available."
 HOMEPAGE="https://github.com/ljharb/side-channel-weakmap#readme"
@@ -22,4 +20,4 @@ RDEPEND="
 	dev-nodejs/object-inspect
 	dev-nodejs/side-channel-map
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

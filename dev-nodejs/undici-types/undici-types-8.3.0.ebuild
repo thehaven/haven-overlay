@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="undici-types"
-
+inherit npm
 
 DESCRIPTION="A stand-alone types package for Undici"
 HOMEPAGE="https://undici.nodejs.org"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="get-intrinsic"
-
+inherit npm
 
 DESCRIPTION="Get and robustly cache all JS language-level intrinsics at first require time"
 HOMEPAGE="https://github.com/ljharb/get-intrinsic#readme"
@@ -27,4 +25,4 @@ RDEPEND="
 	dev-nodejs/hasown
 	dev-nodejs/math-intrinsics
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

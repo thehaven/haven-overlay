@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="inherits"
-
+inherit npm
 
 DESCRIPTION="Browser-friendly inheritance fully compatible with standard node.js inherits()"
 HOMEPAGE="https://github.com/isaacs/inherits#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="qs"
-
+inherit npm
 
 DESCRIPTION="A querystring parser that supports nesting and arrays, with a depth limit"
 HOMEPAGE="https://github.com/ljharb/qs"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/side-channel
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

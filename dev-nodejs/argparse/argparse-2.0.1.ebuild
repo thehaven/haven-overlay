@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="argparse"
-
+inherit npm
 
 DESCRIPTION="CLI arguments parser. Native port of python's argparse."
 HOMEPAGE="https://github.com/nodeca/argparse#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

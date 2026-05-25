@@ -1,32 +1,29 @@
-# Copyright 2026 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-DESCRIPTION="Composio MCP Server"
-HOMEPAGE="https://github.com/composiohq/composio"
-SRC_URI="https://registry.npmjs.org/@composio/mcp/-/mcp-1.0.9.tgz "
+NPM_MODULE="@composio/mcp"
+inherit npm
 
-LICENSE="MIT"
+DESCRIPTION="MCP CLI tool"
+HOMEPAGE="https://www.npmjs.com/package/@composio/mcp"
+
+LICENSE="ISC"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="~amd64"
 
-S="${WORKDIR}/package"
-RESTRICT="network-sandbox"
-
-BDEPEND="net-libs/nodejs[npm]"
-RDEPEND="net-libs/nodejs"
-
-
-src_compile() { :; }
-
-src_install() {
-	insinto /usr/lib/node_modules/${PN}
-	doins -r .
-}
-
-pkg_postinst() {
-	einfo "composio-mcp installed."
-	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/dist/index.js\" }"
-}
+RDEPEND="
+	dev-nodejs/abortcontroller-polyfill
+	dev-nodejs/chalk
+	dev-nodejs/commander
+	dev-nodejs/composiohq-modelcontextprotocol-typescript-sdk
+	dev-nodejs/event-source-polyfill
+	dev-nodejs/event-target-polyfill
+	dev-nodejs/js-yaml
+	dev-nodejs/rollup-plugin-node-polyfills
+	dev-nodejs/types-js-yaml
+	dev-nodejs/yargs
+	dev-nodejs/zod
+"
+BDEPEND="${RDEPEND}"

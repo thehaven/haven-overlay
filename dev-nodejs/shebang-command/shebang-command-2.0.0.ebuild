@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="shebang-command"
-
+inherit npm
 
 DESCRIPTION="Get the command from a shebang"
 HOMEPAGE="https://github.com/kevva/shebang-command#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/shebang-regex
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="yocto-queue"
-
+inherit npm
 
 DESCRIPTION="Tiny queue data structure"
 HOMEPAGE="https://github.com/sindresorhus/yocto-queue#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

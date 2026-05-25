@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="path-scurry"
-
+inherit npm
 
 DESCRIPTION="walk paths fast and efficiently"
 HOMEPAGE="https://github.com/isaacs/path-scurry#readme"
@@ -19,4 +17,4 @@ RDEPEND="
 	dev-nodejs/lru-cache
 	dev-nodejs/minipass
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

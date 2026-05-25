@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="has-symbols"
-
+inherit npm
 
 DESCRIPTION="Determine if the JS environment has Symbol support. Supports spec, or shams."
 HOMEPAGE="https://github.com/ljharb/has-symbols#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

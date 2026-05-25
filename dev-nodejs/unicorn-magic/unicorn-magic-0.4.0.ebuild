@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="unicorn-magic"
-
+inherit npm
 
 DESCRIPTION="Some useful utilities I often need"
 HOMEPAGE="https://github.com/sindresorhus/unicorn-magic#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

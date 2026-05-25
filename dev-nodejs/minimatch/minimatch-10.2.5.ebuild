@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="minimatch"
-
+inherit npm
 
 DESCRIPTION="a glob matcher in javascript"
 HOMEPAGE="https://github.com/isaacs/minimatch#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/brace-expansion
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

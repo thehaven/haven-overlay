@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="brace-expansion"
-
+inherit npm
 
 DESCRIPTION="Brace expansion as known from sh/bash"
 HOMEPAGE="https://github.com/juliangruber/brace-expansion#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/balanced-match
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

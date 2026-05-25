@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="p-locate"
-
+inherit npm
 
 DESCRIPTION="Get the first fulfilled promise that satisfies the provided testing function"
 HOMEPAGE="https://github.com/sindresorhus/p-locate#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/p-limit
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

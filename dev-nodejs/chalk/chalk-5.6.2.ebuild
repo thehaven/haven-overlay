@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="chalk"
-
+inherit npm
 
 DESCRIPTION="Terminal string styling done right"
 HOMEPAGE="https://github.com/chalk/chalk#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="p-limit"
-
+inherit npm
 
 DESCRIPTION="Run multiple promise-returning & async functions with limited concurrency"
 HOMEPAGE="https://github.com/sindresorhus/p-limit#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/yocto-queue
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

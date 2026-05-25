@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="entities"
-
+inherit npm
 
 DESCRIPTION="Encode & decode XML and HTML entities with ease & speed"
 HOMEPAGE="https://github.com/fb55/entities#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

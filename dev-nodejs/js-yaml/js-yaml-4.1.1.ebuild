@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="js-yaml"
-
+inherit npm
 
 DESCRIPTION="YAML 1.2 parser and serializer"
 HOMEPAGE="https://github.com/nodeca/js-yaml#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/argparse
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"
