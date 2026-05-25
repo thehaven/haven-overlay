@@ -3,13 +3,13 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="convert-to-spaces"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Convert tabs to spaces in a string"
+HOMEPAGE="https://github.com/vadimdemedes/convert-to-spaces#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 

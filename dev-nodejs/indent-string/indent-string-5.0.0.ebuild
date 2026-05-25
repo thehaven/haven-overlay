@@ -3,13 +3,13 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="indent-string"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Indent each line in a string"
+HOMEPAGE="https://github.com/sindresorhus/indent-string#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 

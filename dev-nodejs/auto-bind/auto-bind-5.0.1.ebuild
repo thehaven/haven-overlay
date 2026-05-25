@@ -3,13 +3,13 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="auto-bind"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Automatically bind methods to their class instance"
+HOMEPAGE="https://github.com/sindresorhus/auto-bind#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 

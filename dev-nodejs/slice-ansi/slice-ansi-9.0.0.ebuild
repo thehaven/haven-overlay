@@ -3,17 +3,18 @@
 
 EAPI=8
 
-NPM_MODULE="tagged-tag"
+NPM_MODULE="slice-ansi"
 inherit npm
 
-DESCRIPTION="Unique tag for use in the type-fest Tagged type"
-HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"
+DESCRIPTION="Slice a string with ANSI escape codes"
+HOMEPAGE="https://github.com/chalk/slice-ansi#readme"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/ansi-styles
+	dev-nodejs/is-fullwidth-code-point
 "
 BDEPEND="${RDEPEND}"

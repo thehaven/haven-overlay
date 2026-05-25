@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="tagged-tag"
+NPM_MODULE="ansi-escapes"
 inherit npm
 
-DESCRIPTION="Unique tag for use in the type-fest Tagged type"
-HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"
+DESCRIPTION="ANSI escape codes for manipulating the terminal"
+HOMEPAGE="https://github.com/sindresorhus/ansi-escapes#readme"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/environment
 "
 BDEPEND="${RDEPEND}"

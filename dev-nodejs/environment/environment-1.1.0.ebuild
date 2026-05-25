@@ -3,11 +3,11 @@
 
 EAPI=8
 
-NPM_MODULE="tagged-tag"
+NPM_MODULE="environment"
 inherit npm
 
-DESCRIPTION="Unique tag for use in the type-fest Tagged type"
-HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"
+DESCRIPTION="Check which JavaScript environment your code is running in at runtime: browser, Node.js, Bun, etc"
+HOMEPAGE="https://github.com/sindresorhus/environment#readme"
 
 LICENSE="MIT"
 SLOT="0"

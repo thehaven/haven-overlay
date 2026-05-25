@@ -3,17 +3,18 @@
 
 EAPI=8
 
-NPM_MODULE="tagged-tag"
+NPM_MODULE="restore-cursor"
 inherit npm
 
-DESCRIPTION="Unique tag for use in the type-fest Tagged type"
-HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"
+DESCRIPTION="Gracefully restore the CLI cursor on exit"
+HOMEPAGE="https://github.com/sindresorhus/restore-cursor#readme"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/onetime
+	dev-nodejs/signal-exit
 "
 BDEPEND="${RDEPEND}"

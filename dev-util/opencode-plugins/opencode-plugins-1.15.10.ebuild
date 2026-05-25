@@ -12,7 +12,7 @@ KEYWORDS="~amd64"
 S="${WORKDIR}"
 
 IUSE="+secret-redactor +dcp +conductor snip vibeguard worktree-workflow otel
-	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota"
+	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota +canvas ntfy +tmux"
 
 RDEPEND="
 	dev-util/opencode
@@ -31,6 +31,9 @@ RDEPEND="
 	composio? ( dev-util/composio-mcp )
 	oh-my-opencode-slim? ( dev-util/oh-my-opencode-slim )
 	quota? ( dev-util/opencode-plugin-quota )
+	ntfy? ( dev-util/opencode-plugin-ntfy )
+	canvas? ( dev-util/opencode-plugin-canvas )
+	tmux? ( dev-util/opencode-plugin-tmux )
 "
 
 src_install() { :; }

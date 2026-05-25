@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="code-excerpt"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Extract code excerpts"
+HOMEPAGE="https://github.com/vadimdemedes/code-excerpt#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/convert-to-spaces
 "
 BDEPEND="${RDEPEND}"

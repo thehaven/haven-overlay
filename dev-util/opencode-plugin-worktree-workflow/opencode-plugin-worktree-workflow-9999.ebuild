@@ -3,23 +3,27 @@
 
 EAPI=8
 
+inherit git-r3
+
 DESCRIPTION="OpenCode plugin for git worktree lifecycle management"
 HOMEPAGE="https://github.com/kdcokenny/opencode-worktree"
-SRC_URI="https://github.com/kdcokenny/opencode-worktree/archive/refs/heads/main.tar.gz -> opencode-worktree-main.tar.gz"
+EGIT_REPO_URI="https://github.com/kdcokenny/opencode-worktree.git"
 
 LICENSE="MIT"
+S="${WORKDIR}/${P}"
+
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
 
-RESTRICT="network-sandbox test"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
-RDEPEND="dev-util/opencode dev-vcs/git"
+RESTRICT="test"
 
-S="${WORKDIR}/opencode-worktree-main"
+RDEPEND="
+	dev-util/opencode
+	dev-vcs/git
+"
 
 src_compile() {
-	# No build script, no package.json in root (based on earlier ls)
+	# No build script, no package.json in root
 	# It's a collection of .ts files in src/plugin
 	einfo "Source contains .ts files only. Installing as-is."
 }
@@ -31,6 +35,6 @@ src_install() {
 
 pkg_postinst() {
 	einfo "opencode-worktree-workflow installed."
-	einfo "Note: This plugin appears to be source-only (TypeScript)."
-	einfo "OpenCode may need to be configured to load .ts files via bun."
+	einfo "To use this plugin, add it to your opencode.json:"
+	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/src/plugin/worktree.ts\" }"
 }

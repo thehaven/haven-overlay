@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="escape-string-regexp"
-
+inherit npm
 
 DESCRIPTION="Escape RegExp special characters"
 HOMEPAGE="https://github.com/sindresorhus/escape-string-regexp#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

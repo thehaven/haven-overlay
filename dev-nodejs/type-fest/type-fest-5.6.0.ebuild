@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="type-fest"
-
+inherit npm
 
 DESCRIPTION="A collection of essential TypeScript types"
 HOMEPAGE="https://github.com/sindresorhus/type-fest#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-nodejs/tagged-tag
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"

@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="react-reconciler"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="React package for creating custom renderers."
+HOMEPAGE="https://react.dev/"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/scheduler
 "
 BDEPEND="${RDEPEND}"

@@ -3,13 +3,13 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="react"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="React is a JavaScript library for building user interfaces."
+HOMEPAGE="https://react.dev/"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 

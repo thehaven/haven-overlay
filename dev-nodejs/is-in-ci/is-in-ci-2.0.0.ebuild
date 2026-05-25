@@ -3,13 +3,13 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="is-in-ci"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Check if the process is running in a Continuous Integration (CI) environment"
+HOMEPAGE="https://github.com/sindresorhus/is-in-ci#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 

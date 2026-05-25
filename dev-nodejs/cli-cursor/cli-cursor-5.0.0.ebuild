@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="cli-cursor"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Toggle the CLI cursor"
+HOMEPAGE="https://github.com/sindresorhus/cli-cursor#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/restore-cursor
 "
 BDEPEND="${RDEPEND}"

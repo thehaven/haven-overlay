@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="ink-spinner"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Spinner component for Ink"
+HOMEPAGE="https://github.com/vadimdemedes/ink-spinner#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/cli-spinners
 "
 BDEPEND="${RDEPEND}"

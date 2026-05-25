@@ -3,11 +3,11 @@
 
 EAPI=8
 
-NPM_MODULE="tagged-tag"
+NPM_MODULE="es-toolkit"
 inherit npm
 
-DESCRIPTION="Unique tag for use in the type-fest Tagged type"
-HOMEPAGE="https://github.com/sindresorhus/tagged-tag#readme"
+DESCRIPTION="A state-of-the-art, high-performance JavaScript utility library with a small bundle size and strong type annotations."
+HOMEPAGE="https://es-toolkit.dev"
 
 LICENSE="MIT"
 SLOT="0"

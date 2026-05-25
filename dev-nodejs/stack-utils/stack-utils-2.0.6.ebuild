@@ -3,17 +3,17 @@
 
 EAPI=8
 
-NPM_MODULE="graceful-fs"
+NPM_MODULE="stack-utils"
 inherit npm
 
-DESCRIPTION="A drop-in replacement for fs, making various improvements."
-HOMEPAGE="https://github.com/isaacs/node-graceful-fs#readme"
+DESCRIPTION="Captures and cleans stack traces"
+HOMEPAGE="https://github.com/tapjs/stack-utils#readme"
 
-LICENSE="ISC"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-
+	dev-nodejs/escape-string-regexp
 "
 BDEPEND="${RDEPEND}"

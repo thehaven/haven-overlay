@@ -3,10 +3,8 @@
 
 EAPI=8
 
-inherit npm
-
 NPM_MODULE="signal-exit"
-
+inherit npm
 
 DESCRIPTION="when you want to fire an event no matter how a process exits."
 HOMEPAGE="https://github.com/tapjs/signal-exit#readme"
@@ -18,4 +16,4 @@ KEYWORDS="~amd64"
 RDEPEND="
 
 "
-BDEPEND=""
+BDEPEND="${RDEPEND}"
