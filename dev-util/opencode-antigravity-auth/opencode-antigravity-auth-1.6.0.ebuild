@@ -29,10 +29,13 @@ src_compile() {
 src_install() {
 	insinto /usr/lib/node_modules/${PN}
 	doins -r dist package.json index.ts src
+
+	exeinto /usr/lib/node_modules/${PN}/dist
+	doexe "${FILESDIR}/wrapper.js"
 }
 
 pkg_postinst() {
 	einfo "opencode-antigravity-auth installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/dist/index.js\""
+	einfo "  \"/usr/lib/node_modules/${PN}/dist/wrapper.js\""
 }
