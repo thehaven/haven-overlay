@@ -1,0 +1,14 @@
+BDEPEND=|| ( dev-lang/rust dev-lang/rust-bin ) || ( >=dev-lang/rust-bin-1.74.1:* >=dev-lang/rust-1.74.1:* )
+DEFINED_PHASES=compile configure install postinst setup test unpack
+DESCRIPTION=A Rust compiler front-end for IDEs — LSP server for Rust (source build)
+EAPI=8
+HOMEPAGE=https://rust-analyzer.github.io https://github.com/rust-lang/rust-analyzer
+INHERIT=cargo
+IUSE=debug
+KEYWORDS=~amd64
+LICENSE=Apache-2.0 MIT
+RESTRICT=network-sandbox mirror
+SLOT=0
+SRC_URI=https://github.com/rust-lang/rust-analyzer/archive/refs/tags/2026-05-25.tar.gz -> rust-analyzer-20260525.tar.gz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	rust	20da14430886f3de143eb101684fcf62	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	cargo	aeba1d272f6c2e000912e11d8cf626eb
+_md5_=3ec671323bc674a3477f97413fc24254
