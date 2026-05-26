@@ -5,7 +5,7 @@ EAPI=8
 
 MY_PV="${PV:0:4}-${PV:4:2}-${PV:6:2}"
 
-inherit cargo
+inherit multiprocessing
 
 DESCRIPTION="A Rust compiler front-end for IDEs — LSP server for Rust (source build)"
 HOMEPAGE="https://rust-analyzer.github.io https://github.com/rust-lang/rust-analyzer"
@@ -20,8 +20,21 @@ RESTRICT="network-sandbox mirror"
 
 BDEPEND="|| ( dev-lang/rust dev-lang/rust-bin )"
 
+src_configure() {
+	export CARGO_HOME="${WORKDIR}/cargo_home"
+	mkdir -p "${CARGO_HOME}" || die
+	cat > "${CARGO_HOME}/config.toml" <<- EOF || die
+	[build]
+	jobs = $(makeopts_jobs)
+	incremental = false
+
+	[term]
+	verbose = true
+	EOF
+}
+
 src_compile() {
-	cargo_src_compile --bin rust-analyzer
+	cargo build --release --bin rust-analyzer || die
 }
 
 src_install() {
