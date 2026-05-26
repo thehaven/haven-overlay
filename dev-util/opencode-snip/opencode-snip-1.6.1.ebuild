@@ -3,33 +3,20 @@
 
 EAPI=8
 
-DESCRIPTION="OpenCode plugin that prefixes shell commands with snip"
+NPM_MODULE="opencode-snip"
+inherit npm
+
+DESCRIPTION="OpenCode plugin that prefixes shell commands with snip for token reduction"
 HOMEPAGE="https://github.com/VincentHardouin/opencode-snip"
-SRC_URI="https://github.com/VincentHardouin/opencode-snip/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="~amd64"
 
-RESTRICT="network-sandbox test"
-
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
-RDEPEND="dev-util/opencode dev-util/snip"
-
-S="${WORKDIR}/opencode-snip-${PV}"
-
-src_compile() {
-	einfo "Installing dependencies..."
-	bun install --ignore-scripts || die
-}
-
-src_install() {
-	insinto /usr/lib/node_modules/${PN}
-	doins -r .opencode package.json
-}
+RESTRICT="test"
 
 pkg_postinst() {
 	einfo "opencode-snip installed."
-	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/.opencode/plugins/index.ts\""
+	einfo "To enable, add to opencode.json:"
+	einfo "  \"/usr/lib64/node_modules/opencode-snip/.opencode/plugins/index.ts\""
 }
