@@ -3,29 +3,40 @@
 
 EAPI=8
 
-DESCRIPTION="Morph Fast Apply plugin — 10,500+ tokens/sec code editing for OpenCode"
+MY_NODE_D="${PN}-node_modules-${PV}"
+DESCRIPTION="Integrates Morph's Fast Apply API for 10,500+ tokens/sec code editing"
 HOMEPAGE="https://github.com/JRedeker/opencode-morph-fast-apply"
-SRC_URI="https://github.com/JRedeker/opencode-morph-fast-apply/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/JRedeker/opencode-morph-fast-apply/archive/0625507c07ac73443ec8780a674778287a4a0c4e.tar.gz -> ${P}.tar.gz
+	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
+"
+S="${WORKDIR}/opencode-morph-fast-apply-1.9.0"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND="
-	dev-nodejs/opencode-ai-plugin
-	dev-nodejs/diff
-"
+BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
-S="${WORKDIR}/opencode-morph-fast-apply-${PV}"
+src_compile() {
+	einfo "Source-only plugin. No build required."
+}
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
-	doins -r src package.json tsconfig.json
+	local libdir=$(get_libdir)
+	local module_dir="/usr/${libdir}/node_modules/${PN}"
+	
+	insinto "${module_dir}"
+	# Install everything in the root
+	doins -r .
+	
+	einfo "Installing vendor node_modules..."
+	mkdir -p "${ED}/${module_dir}" || die
+	cp -a "${WORKDIR}/node_modules" "${ED}/${module_dir}/" || die
 }
 
 pkg_postinst() {
-	einfo "OpenCode Morph Fast Apply plugin installed."
-	einfo "Requires MORPH_API_KEY environment variable."
-	einfo "To enable, add to opencode.json:"
-	einfo "  \"/usr/lib/node_modules/opencode-plugin-morph-fast-apply/src/index.ts\""
+	einfo "opencode-plugin-morph-fast-apply installed."
+	einfo "To use this plugin, add it to your opencode.json:"
+	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/index.ts\" }"
 }

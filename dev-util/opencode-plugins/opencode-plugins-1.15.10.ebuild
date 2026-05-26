@@ -12,7 +12,7 @@ KEYWORDS="~amd64"
 S="${WORKDIR}"
 
 IUSE="+secret-redactor +dcp +conductor snip vibeguard worktree-workflow otel
-	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota +canvas ntfy +tmux"
+	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota +canvas ntfy +tmux +morph-fast-apply"
 
 RDEPEND="
 	dev-util/opencode
@@ -33,6 +33,7 @@ RDEPEND="
 	quota? ( dev-util/opencode-plugin-quota )
 	ntfy? ( dev-util/opencode-plugin-ntfy )
 	canvas? ( dev-util/opencode-plugin-canvas )
+	morph-fast-apply? ( dev-util/opencode-plugin-morph-fast-apply )
 	tmux? ( dev-util/opencode-plugin-tmux )
 "
 

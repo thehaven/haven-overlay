@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="npm">@composio/mcp</remote-id>
+		<remote-id type="github">composiohq/composio</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -3,16 +3,26 @@
 
 EAPI=8
 
+MY_NODE_D="${PN}-node_modules-${PV}"
 DESCRIPTION="OpenCode tmux integration: automatically opens subagent panes"
 HOMEPAGE="https://github.com/AnganSamadder/opentmux"
-SRC_URI="https://registry.npmjs.org/opentmux/-/opentmux-1.5.7.tgz -> ${P}.tgz"
-S="${WORKDIR}/package"
+SRC_URI="
+	https://github.com/AnganSamadder/opentmux/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
+	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
+"
+S="${WORKDIR}/opentmux-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-RDEPEND=">=net-libs/nodejs-20"
+BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+
+src_compile() {
+	# Vendor tarball gives us the node_modules
+	ln -s "${WORKDIR}/node_modules" node_modules || die
+	bun run build || die
+}
 
 src_install() {
 	insinto /usr/lib/node_modules/${PN}
@@ -22,5 +32,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-plugin-tmux installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/dist/index.js\""
+	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/dist/index.js\" }"
 }
