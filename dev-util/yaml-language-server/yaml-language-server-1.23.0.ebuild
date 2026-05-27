@@ -11,4 +11,4 @@ HOMEPAGE="https://www.npmjs.com/package/yaml-language-server"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"

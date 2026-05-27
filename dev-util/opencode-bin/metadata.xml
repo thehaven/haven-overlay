@@ -28,5 +28,6 @@
 		<flag name="terraform">Install Terraform/OpenTofu and terraform-ls for HCL formatting and LSP support</flag>
 		<flag name="uv">Install uv for Python package management and uvx-based MCP server execution</flag>
 		<flag name="zig">Install Zig toolchain for zig fmt and zig LSP support</flag>
+		<flag name="lsp">Pull dev-util/lsp-meta with all LSP servers (pin-granularity via lsp-meta USE flags)</flag>
 	</use>
 </pkgmetadata>

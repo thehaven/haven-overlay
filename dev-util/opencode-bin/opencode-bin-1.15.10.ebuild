@@ -50,7 +50,7 @@ RDEPEND="
 	rust?      ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin )
 	shfmt?     ( dev-util/shfmt )
 	terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls )
-	lsp?       ( dev-go/gopls dev-python/pyright || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) dev-util/terraform-ls dev-util/bash-language-server dev-util/typescript-language-server dev-util/yaml-language-server dev-util/svelte-language-server dev-util/vue-language-server dev-util/intelephense dev-util/astrojs-language-server dev-util/tinymist )
+	lsp?       ( dev-util/lsp-meta )
 	uv?        ( dev-python/uv )
 	zig?       ( dev-lang/zig )
 	!dev-util/opencode

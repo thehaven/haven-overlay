@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<use>
+		<flag name="bash">Pull dev-util/bash-language-server</flag>
+		<flag name="typescript">Pull dev-util/typescript-language-server</flag>
+		<flag name="yaml">Pull dev-util/yaml-language-server</flag>
+		<flag name="svelte">Pull dev-util/svelte-language-server</flag>
+		<flag name="vue">Pull dev-util/vue-language-server</flag>
+		<flag name="php">Pull dev-util/intelephense (PHP)</flag>
+		<flag name="astro">Pull dev-util/astrojs-language-server</flag>
+		<flag name="typst">Pull dev-util/tinymist (Typst)</flag>
+		<flag name="go">Pull dev-go/gopls</flag>
+		<flag name="python">Pull dev-python/pyright</flag>
+		<flag name="rust">Pull dev-util/rust-analyzer or rust-analyzer-bin</flag>
+		<flag name="terraform">Pull dev-util/terraform-ls</flag>
+	</use>
+<upstream><remote-id type="github">anomalyco/opencode</remote-id></upstream>
+</pkgmetadata>
