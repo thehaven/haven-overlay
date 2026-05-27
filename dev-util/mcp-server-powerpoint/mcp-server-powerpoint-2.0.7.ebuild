@@ -12,78 +12,31 @@ DESCRIPTION="MCP server for PowerPoint"
 HOMEPAGE="https://pypi.org/project/office-powerpoint-mcp-server/"
 
 LICENSE="MIT"
+
+RDEPEND="
+	dev-python/fonttools[${PYTHON_USEDEP}]
+	>=dev-python/mcp-1.8.0[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
+	dev-python/python-pptx[${PYTHON_USEDEP}]
+"
 SLOT="0"
 KEYWORDS="~amd64"
 
-python_test() {
-	# Auto-generated import check
-	local mod candidates
-	# Normalize PN by replacing - with _
-	local norm_pn="${PN//-/_}"
-	# Strip mcp-server- and mcp- prefixes
-	local suffix="${PN#mcp-server-}"
-	suffix="${suffix#mcp-}"
-	local norm_suffix="${suffix//-/_}"
-	
-	candidates=(
-		"${norm_pn}"
-		"mcp_server_${norm_suffix}"
-		"${norm_suffix}"
-	)
-	
-	for mod in "${candidates[@]}"; do
-		einfo "Checking import of ${mod}..."
-		if ${EPYTHON} -c "import ${mod}" 2>/dev/null; then
-			einfo "✅ Import successful: ${mod}"
-			return 0
-		fi
+src_install() {
+	distutils-r1_src_install
+
+	# Fix broken import resolution — upstream's module layout
+	# uses bare 'import utils' which fails. Add sys.path.
+	python_foreach_impl python_fix_shebang -q \
+		"${ED}/usr/lib/python-exec/${EPYTHON}/ppt_mcp_server"
+
+	for wrapper in $(find "${ED}" -name 'ppt_mcp_server' -path '*/python-exec/*'); do
+		local pyver=$(basename $(dirname "$wrapper"))
+		local site="/usr/lib/${pyver}/site-packages/office_powerpoint_mcp_server"
+		sed -i "3a\\
+import sys; sys.path.insert(0, \\"${site}\\")\\
+from office_powerpoint_mcp_server.ppt_mcp_server import main" "$wrapper"
+		# Remove the broken original import
+		sed -i '/^from ppt_mcp_server import main/d' "$wrapper"
 	done
-	die "❌ Import test failed: none of the candidates (${candidates[*]}) could be imported"
-}
-
-RDEPEND="
-	>=dev-python/mcp-1.2.0[${PYTHON_USEDEP}]
-	dev-python/python-pptx[${PYTHON_USEDEP}]
-"
-
-S="${WORKDIR}/office_powerpoint_mcp_server-${PV}"
-
-src_prepare() {
-	distutils-r1_src_prepare
-
-	# Fix stray top-level files by creating a proper package structure
-	mkdir office_powerpoint_mcp_server || die
-	mv tools utils ppt_mcp_server.py slide_layout_templates.json __init__.py office_powerpoint_mcp_server/ || die
-	
-	# Update pyproject.toml to include the new package and remove conflicting target config
-	sed -i 's/only-include = .*/packages = ["office_powerpoint_mcp_server"]/' pyproject.toml || die
-	sed -i '/sources = \[/d' pyproject.toml || die
-
-	# Patch imports in the moved files
-	sed -i 's/from tools/from office_powerpoint_mcp_server.tools/' office_powerpoint_mcp_server/ppt_mcp_server.py || die
-	sed -i 's/from utils/from office_powerpoint_mcp_server.utils/' office_powerpoint_mcp_server/ppt_mcp_server.py || die
-}
-
-
-pkg_postinst() {
-	elog "To add this MCP server to your AI clients:"
-	elog ""
-	elog "  Gemini CLI (~/.gemini/settings.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"command\": \"/usr/bin/ppt_mcp_server\","
-	elog "      \"args\": []"
-	elog "    }"
-	elog ""
-	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"command\": \"/usr/bin/ppt_mcp_server\","
-	elog "      \"args\": []"
-	elog "    }"
-	elog ""
-	elog "  OpenCode (~/.config/opencode/opencode.json):"
-	elog "    \"${PN}\": {"
-	elog "      \"type\": \"local\","
-	elog "      \"command\": [\"/usr/bin/ppt_mcp_server\"],"
-	elog "      \"enabled\": true"
-	elog "    }"
 }

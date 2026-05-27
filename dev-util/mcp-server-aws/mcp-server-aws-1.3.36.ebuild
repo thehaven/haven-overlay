@@ -43,6 +43,7 @@ python_test() {
 }
 
 RDEPEND="
+	dev-python/python-frontmatter[${PYTHON_USEDEP}]
 	dev-python/boto3[${PYTHON_USEDEP}]
 	dev-python/botocore[${PYTHON_USEDEP}]
 	dev-python/fastmcp[${PYTHON_USEDEP}]
