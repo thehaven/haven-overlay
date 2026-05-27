@@ -1,0 +1,6 @@
+_schema = 1
+source = "github"
+github = "oven-sh/bun"
+use_max_tag = true
+prefix = "bun-v"
+exclude_regex = ".*-(alpha|beta|rc|dev|preview|nightly|canary|snapshot).*|.*\\+.*|.*\.dev\\d*"
