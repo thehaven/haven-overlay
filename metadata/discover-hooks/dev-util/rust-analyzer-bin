@@ -1,0 +1,4 @@
+_schema = 1
+source = "regex"
+url = "https://github.com/rust-lang/rust-analyzer/tags"
+regex = 'tags/(\d{4}-\d{2}-\d{2})'
