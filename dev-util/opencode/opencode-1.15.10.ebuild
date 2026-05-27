@@ -10,7 +10,7 @@ SRC_URI="https://github.com/anomalyco/opencode/archive/refs/tags/v${PV}.tar.gz -
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go lsp rust terraform zig"
+IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go +lsp rust terraform zig"
 
 # bun install needs network for node_modules;
 # build.ts fetches models.dev/api.json at compile time

@@ -33,7 +33,7 @@ fi
 S="${WORKDIR}"
 LICENSE="MIT"
 SLOT="0"
-IUSE="cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go lsp rust terraform zig"
+IUSE="cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go +lsp rust terraform zig"
 RESTRICT="mirror strip"
 
 [[ ${PV} == 9999 ]] && BDEPEND+=" net-misc/curl"
