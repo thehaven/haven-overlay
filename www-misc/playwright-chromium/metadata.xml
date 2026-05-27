@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>
+		Chromium browser binary version-pinned for Playwright.
+		Installs to /usr/share/playwright-browsers/ for use
+		with dev-util/mcp-server-playwright and other Playwright tools.
+		Revision tracks Playwright's browsers.json manifest.
+	</longdescription>
+	<upstream><remote-id type="github">microsoft/playwright</remote-id></upstream>
+</pkgmetadata>
