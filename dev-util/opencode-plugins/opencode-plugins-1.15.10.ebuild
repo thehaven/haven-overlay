@@ -12,7 +12,8 @@ KEYWORDS="~amd64"
 S="${WORKDIR}"
 
 IUSE="+secret-redactor +dcp +conductor snip vibeguard worktree-workflow otel
-	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota +canvas +ntfy +tmux +morph-fast-apply"
+	+supermemory pty +envsitter-guard +snippets +direnv +composio oh-my-opencode-slim +quota +canvas +ntfy +tmux +morph-fast-apply
+	+antigravity-auth +background-agents +codex-auth +gemini-auth +notify +safety-net"
 
 RDEPEND="
 	dev-util/opencode
@@ -35,6 +36,12 @@ RDEPEND="
 	canvas? ( dev-util/opencode-plugin-canvas )
 	morph-fast-apply? ( dev-util/opencode-plugin-morph-fast-apply )
 	tmux? ( dev-util/opencode-plugin-tmux )
+	antigravity-auth? ( dev-util/opencode-plugin-antigravity-auth )
+	background-agents? ( dev-util/opencode-plugin-background-agents )
+	codex-auth? ( dev-util/opencode-plugin-codex-auth )
+	gemini-auth? ( dev-util/opencode-plugin-gemini-auth )
+	notify? ( dev-util/opencode-plugin-notify )
+	safety-net? ( dev-util/opencode-plugin-safety-net )
 "
 
 src_install() { :; }
