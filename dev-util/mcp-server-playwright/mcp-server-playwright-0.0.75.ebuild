@@ -15,12 +15,12 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=net-libs/nodejs-20
-	www-misc/playwright-chromium
+	>=www-client/google-chrome-148
 "
 
 pkg_postinst() {
 	einfo "Playwright MCP server installed."
-	einfo "Browsers are managed via www-misc/playwright-chromium."
+	einfo "Browsers are managed via >=www-client/google-chrome-148."
 	einfo ""
 	einfo "To add this MCP server to your AI clients:"
 	einfo ""

@@ -1,0 +1,4 @@
+_schema = 1
+source = "deb"
+deb = "https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages"
+package = "google-chrome-stable"
