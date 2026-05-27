@@ -15,6 +15,17 @@ KEYWORDS="~amd64"
 
 RESTRICT="network-sandbox"
 
+BDEPEND=">=dev-lang/go-1.25"
+
+src_unpack() {
+	default
+}
+
+src_prepare() {
+	default
+	sed -i 's/^go 1\.26\.[0-9]*/go 1.25/' go.mod || die
+}
+
 src_compile() {
 	ego mod tidy
 	ego build -o mcp-grafana ./cmd/mcp-grafana
