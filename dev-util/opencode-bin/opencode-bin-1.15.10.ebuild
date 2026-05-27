@@ -33,7 +33,7 @@ fi
 S="${WORKDIR}"
 LICENSE="MIT"
 SLOT="0"
-IUSE="cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig"
+IUSE="cpu_flags_x86_avx2 +nodejs +ruff +shfmt +uv clang deno elixir gleam go lsp rust terraform zig"
 RESTRICT="mirror strip"
 
 [[ ${PV} == 9999 ]] && BDEPEND+=" net-misc/curl"
@@ -50,6 +50,7 @@ RDEPEND="
 	rust?      ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin )
 	shfmt?     ( dev-util/shfmt )
 	terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls )
+	lsp?       ( dev-go/gopls dev-python/pyright || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) dev-util/terraform-ls dev-util/bash-language-server dev-util/typescript-language-server dev-util/yaml-language-server dev-util/svelte-language-server dev-util/vue-language-server dev-util/intelephense dev-util/astrojs-language-server dev-util/tinymist )
 	uv?        ( dev-python/uv )
 	zig?       ( dev-lang/zig )
 	!dev-util/opencode

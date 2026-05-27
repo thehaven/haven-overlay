@@ -10,7 +10,7 @@ SRC_URI="https://github.com/anomalyco/opencode/archive/refs/tags/v${PV}.tar.gz -
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig"
+IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go lsp rust terraform zig"
 
 # bun install needs network for node_modules;
 # build.ts fetches models.dev/api.json at compile time
@@ -29,6 +29,7 @@ RDEPEND="
 	rust?      ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin )
 	shfmt?     ( dev-util/shfmt )
 	terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls )
+	lsp?       ( dev-go/gopls dev-python/pyright || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) dev-util/terraform-ls dev-util/bash-language-server dev-util/typescript-language-server dev-util/yaml-language-server dev-util/svelte-language-server dev-util/vue-language-server dev-util/intelephense dev-util/astrojs-language-server dev-util/tinymist )
 	uv?        ( dev-python/uv )
 	zig?       ( dev-lang/zig )
 	!dev-util/opencode-bin
