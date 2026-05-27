@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Typst language server
+EAPI=8
+HOMEPAGE=https://github.com/Myriad-Dreamin/tinymist
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0
+RESTRICT=mirror
+SLOT=0
+SRC_URI=amd64? ( https://github.com/Myriad-Dreamin/tinymist/releases/download/v0.14.18/tinymist-x86_64-unknown-linux-gnu.tar.gz -> tinymist-0.14.18-amd64.tar.gz ) arm64? ( https://github.com/Myriad-Dreamin/tinymist/releases/download/v0.14.18/tinymist-aarch64-unknown-linux-gnu.tar.gz -> tinymist-0.14.18-arm64.tar.gz )
+_md5_=4002f0f4875373d8a1da45f1abe9cf33

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Meta-package for LSP servers — install what you need
+EAPI=8
+HOMEPAGE=https://github.com/anomalyco/opencode
+IUSE=bash typescript yaml svelte vue php astro typst go python rust terraform
+KEYWORDS=~amd64 ~arm64
+LICENSE=metapackage
+RDEPEND=bash? ( dev-util/bash-language-server ) typescript? ( dev-util/typescript-language-server ) yaml? ( dev-util/yaml-language-server ) svelte? ( dev-util/svelte-language-server ) vue? ( dev-util/vue-language-server ) php? ( dev-util/intelephense ) astro? ( dev-util/astrojs-language-server ) typst? ( dev-util/tinymist ) go? ( dev-go/gopls ) python? ( dev-python/pyright ) rust? ( || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) ) terraform? ( dev-util/terraform-ls )
+SLOT=0
+_md5_=19a0b5d8524f9da5f0f059abee3e93e4

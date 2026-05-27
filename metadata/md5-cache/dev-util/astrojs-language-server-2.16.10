@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Astro language server
+EAPI=8
+HOMEPAGE=https://www.npmjs.com/package/@astrojs/language-server
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@astrojs/language-server/-/language-server-2.16.10.tgz -> astrojs-language-server-2.16.10.tgz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=23013e0640206f965ea25e1058bc58df
