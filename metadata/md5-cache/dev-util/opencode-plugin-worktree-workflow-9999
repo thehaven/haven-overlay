@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install postinst unpack
+DESCRIPTION=OpenCode plugin for git worktree lifecycle management
+EAPI=8
+HOMEPAGE=https://github.com/kdcokenny/opencode-worktree
+INHERIT=git-r3
+LICENSE=MIT
+PROPERTIES=live
+RDEPEND=dev-util/opencode dev-vcs/git
+RESTRICT=test
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=9f434a74cafe162fd82c950463cb9f1b

@@ -1,0 +1,11 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Safety net catching destructive git and filesystem commands for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/kenryu42/claude-code-safety-net
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/opencode-ai-plugin dev-nodejs/shell-quote dev-nodejs/typescript
+SLOT=0
+SRC_URI=https://github.com/kenryu42/claude-code-safety-net/archive/refs/tags/v0.9.0.tar.gz -> opencode-plugin-safety-net-0.9.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-plugin-safety-net-node_modules-0.9.0.tar.xz
+_md5_=f43c2d7d275d148fa933b7b0f22e2ddf

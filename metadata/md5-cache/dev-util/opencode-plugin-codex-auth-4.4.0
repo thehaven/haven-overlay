@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install postinst unpack
+DESCRIPTION=OpenAI Codex OAuth for OpenCode — ChatGPT Plus/Pro models
+EAPI=8
+HOMEPAGE=https://github.com/numman-ali/opencode-openai-codex-auth
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/opencode-ai-plugin dev-nodejs/jsonc-parser
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opencode-openai-codex-auth/-/opencode-openai-codex-auth-4.4.0.tgz -> opencode-plugin-codex-auth-4.4.0.tgz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=d02dbb9c6e841c9cbbc616d789d2ff08

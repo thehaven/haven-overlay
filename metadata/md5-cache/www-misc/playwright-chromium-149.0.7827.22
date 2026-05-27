@@ -1,0 +1,11 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst
+DESCRIPTION=Chromium browser for Playwright — Chrome for Testing (Google-hosted)
+EAPI=8
+HOMEPAGE=https://developer.chrome.com/blog/chrome-for-testing
+KEYWORDS=-* ~amd64
+LICENSE=free-noncomm
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://storage.googleapis.com/chrome-for-testing-public/149.0.7827.22/linux64/chrome-linux64.zip -> playwright-chromium-149.0.7827.22-amd64.zip )
+_md5_=42cb2e43cad1887e95b9fabf663576cb

@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/inkdust2021/opencode-vibeguard/archive/refs/heads/master.tar.gz -> opencode-vibeguard-main.tar.gz
-_md5_=2f8cd7556674654b1b0ddb1cfdd404b9
+_md5_=84416d09481637f853a1348f8dcb4730

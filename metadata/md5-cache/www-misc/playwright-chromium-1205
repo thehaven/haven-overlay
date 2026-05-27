@@ -1,0 +1,11 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst
+DESCRIPTION=Chromium browser binary for Playwright (version-pinned, headless)
+EAPI=8
+HOMEPAGE=https://playwright.dev
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=BSD
+RESTRICT=mirror strip network-sandbox
+SLOT=0
+SRC_URI=amd64? ( https://playwright.azureedge.net/builds/chromium/1205/chromium-linux.zip -> playwright-chromium-1205-amd64.zip ) arm64? ( https://playwright.azureedge.net/builds/chromium/1205/chromium-linux-arm64.zip -> playwright-chromium-1205-arm64.zip )
+_md5_=04731bfc7b13eedd537fc93c6d03e6ad

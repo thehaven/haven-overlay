@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/iso8601-duration dev-nodejs/opencode-notification-sdk
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=OpenCode plugin that sends push notifications via ntfy.sh
+EAPI=8
+HOMEPAGE=https://github.com/lannuttia/opencode-ntfy.sh#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/iso8601-duration dev-nodejs/opencode-notification-sdk
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opencode-ntfy.sh/-/opencode-ntfy.sh-1.1.0.tgz -> opencode-plugin-ntfy-1.1.0.tgz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=0819fc8f5a035d677f24705432bdef52
