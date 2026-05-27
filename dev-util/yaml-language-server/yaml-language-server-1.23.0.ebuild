@@ -40,3 +40,12 @@ src_install() {
 		doins -r "${WORKDIR}/node_modules"
 	fi
 }
+
+pkg_postinst() {
+	einfo "yaml-language-server ${PV} installed."
+	einfo ""
+	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
+	einfo "  \"yaml-ls\": {"
+	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/yaml-language-server/bin/yaml-language-server\", \"--stdio\"]"
+	einfo "  }"
+}

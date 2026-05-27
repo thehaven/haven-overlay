@@ -31,3 +31,15 @@ src_install() {
 
 	npm "${mynpmargs[@]}" install "${DISTDIR}/${P}.tgz" || die "npm install failed"
 }
+
+pkg_postinst() {
+	einfo "pyright ${PV} installed."
+	einfo ""
+	einfo "NOTE: /usr/bin/pyright is the CLI linter, not the LSP server."
+	einfo "The LSP server is at: /usr/$(get_libdir)/node_modules/pyright/langserver.index.js"
+	einfo ""
+	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
+	einfo "  \"pyright\": {"
+	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/pyright/langserver.index.js\", \"--stdio\"]"
+	einfo "  }"
+}

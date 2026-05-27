@@ -40,3 +40,12 @@ src_install() {
 		doins -r "${WORKDIR}/node_modules"
 	fi
 }
+
+pkg_postinst() {
+	einfo "bash-language-server ${PV} installed."
+	einfo ""
+	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
+	einfo "  \"bash\": {"
+	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/bash-language-server/out/cli.js\", \"start\"]"
+	einfo "  }"
+}

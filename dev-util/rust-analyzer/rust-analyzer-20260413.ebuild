@@ -44,8 +44,12 @@ src_install() {
 
 pkg_postinst() {
 	einfo "rust-analyzer ${MY_PV} installed (source build)."
-	einfo "opencode will auto-detect rust-analyzer for .rs files."
+	einfo "opencode auto-detects rust-analyzer on PATH for .rs files."
 	einfo ""
-	einfo "rust-analyzer requires a Rust toolchain (dev-lang/rust or dev-lang/rust-bin)"
-	einfo "and a project-level rust-project.json or Cargo.toml to activate."
+	einfo "For explicit control, add to ~/.config/opencode/opencode.json lsp section:"
+	einfo "  \"rust-analyzer\": {"
+	einfo "    \"command\": [\"/usr/bin/nice\", \"/usr/bin/rust-analyzer\"]"
+	einfo "  }"
+	einfo ""
+	einfo "Requires dev-lang/rust or dev-lang/rust-bin and a Cargo.toml to activate."
 }
