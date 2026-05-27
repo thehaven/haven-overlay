@@ -12,7 +12,7 @@ LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-IUSE="bash typescript yaml svelte vue php astro typst go python rust terraform"
+IUSE="+bash +python +typescript +yaml svelte vue php astro typst go rust terraform"
 
 RDEPEND="
 	bash?       ( dev-util/bash-language-server )
