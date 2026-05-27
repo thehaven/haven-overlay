@@ -15,6 +15,8 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
+RDEPEND="net-libs/nodejs"
+
 src_unpack() {
 	unpack ${A}
 	if [[ -d "${WORKDIR}/package" ]]; then
@@ -42,10 +44,5 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "yaml-language-server ${PV} installed."
-	einfo ""
-	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
-	einfo "  \"yaml-ls\": {"
-	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/yaml-language-server/bin/yaml-language-server\", \"--stdio\"]"
-	einfo "  }"
+	einfo "yaml-language-server ${PV}: LSP server for YAML — works with OpenCode"
 }

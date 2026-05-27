@@ -13,11 +13,8 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
+RDEPEND="net-libs/nodejs"
+
 pkg_postinst() {
-	einfo "typescript-language-server ${PV} installed."
-	einfo ""
-	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
-	einfo "  \"typescript\": {"
-	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/typescript-language-server/lib/cli.mjs\", \"--stdio\"]"
-	einfo "  }"
+	einfo "typescript-language-server ${PV}: LSP server for TypeScript/JS — works with OpenCode"
 }

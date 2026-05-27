@@ -7,7 +7,7 @@ MY_PV="${PV:0:4}-${PV:4:2}-${PV:6:2}"
 
 inherit multiprocessing
 
-DESCRIPTION="A Rust compiler front-end for IDEs — LSP server for Rust (source build)"
+DESCRIPTION="Rust LSP server — source build"
 HOMEPAGE="https://rust-analyzer.github.io https://github.com/rust-lang/rust-analyzer"
 SRC_URI="https://github.com/rust-lang/${PN}/archive/refs/tags/${MY_PV}.tar.gz -> ${P}.tar.gz"
 
@@ -19,6 +19,7 @@ KEYWORDS="~amd64"
 RESTRICT="network-sandbox mirror"
 
 BDEPEND="|| ( dev-lang/rust dev-lang/rust-bin )"
+RDEPEND="${BDEPEND}"
 
 src_configure() {
 	export CARGO_HOME="${WORKDIR}/cargo_home"
@@ -43,13 +44,5 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "rust-analyzer ${MY_PV} installed (source build)."
-	einfo "opencode auto-detects rust-analyzer on PATH for .rs files."
-	einfo ""
-	einfo "For explicit control, add to ~/.config/opencode/opencode.json lsp section:"
-	einfo "  \"rust-analyzer\": {"
-	einfo "    \"command\": [\"/usr/bin/nice\", \"/usr/bin/rust-analyzer\"]"
-	einfo "  }"
-	einfo ""
-	einfo "Requires dev-lang/rust or dev-lang/rust-bin and a Cargo.toml to activate."
+	einfo "rust-analyzer ${MY_PV}: LSP server for Rust — works with OpenCode"
 }

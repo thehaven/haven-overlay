@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DESCRIPTION="Static type checker for Python"
+DESCRIPTION="Static type checker and LSP server for Python"
 HOMEPAGE="https://github.com/microsoft/pyright"
 SRC_URI="https://github.com/microsoft/pyright/releases/download/${PV}/${PN}.tgz -> ${P}.tgz"
 S="${WORKDIR}"
@@ -33,13 +33,5 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "pyright ${PV} installed."
-	einfo ""
-	einfo "NOTE: /usr/bin/pyright is the CLI linter, not the LSP server."
-	einfo "The LSP server is at: /usr/$(get_libdir)/node_modules/pyright/langserver.index.js"
-	einfo ""
-	einfo "Add to ~/.config/opencode/opencode.json lsp section:"
-	einfo "  \"pyright\": {"
-	einfo "    \"command\": [\"node\", \"/usr/$(get_libdir)/node_modules/pyright/langserver.index.js\", \"--stdio\"]"
-	einfo "  }"
+	elog "pyright ${PV}: LSP server at /usr/$(get_libdir)/node_modules/pyright/langserver.index.js"
 }
