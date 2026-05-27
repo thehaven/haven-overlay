@@ -64,13 +64,6 @@ src_unpack() {
 src_prepare() {
 	distutils-r1_src_prepare
 
-	# Patch incorrect model names (hallucinated/preview v3.1)
-	# gemini-3.5-flash: Best for high-frequency agentic loops, ultra-low latency, native tool use.
-	# gemini-3.1-pro:   Best for final synthesis, frontier reasoning depth.
-	find . -name "*.py" -exec sed -i \
-		-e 's/gemini-3.1-flash/gemini-3.5-flash/g' \
-		-e 's/gemini-3.1-pro/gemini-3.1-pro/g' \
-		{} + || die
 }
 
 src_install() {
@@ -95,10 +88,10 @@ pkg_postinst() {
 	elog "      \"args\": [],"
 	elog "      \"env\": {"
 	elog "        \"GEMINI_API_KEY\": \"AIzaSy... (your key)\","
-	elog "        \"QUERY_GENERATOR_MODEL\": \"gemini-3.5-flash\","
-	elog "        \"WEB_SEARCH_MODEL\": \"gemini-3.5-flash\","
-	elog "        \"REFLECTION_MODEL\": \"gemini-3.5-flash\","
-	elog "        \"ANSWER_MODEL\": \"gemini-3.1-pro\""
+	elog "        \"QUERY_GENERATOR_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "        \"WEB_SEARCH_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "        \"REFLECTION_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "        \"ANSWER_MODEL\": \"gemini-3.1-pro-preview\""
 	elog "      }"
 	elog "    }"
 	elog ""
@@ -109,10 +102,10 @@ pkg_postinst() {
 	elog "        \"args\": [],"
 	elog "        \"env\": {"
 	elog "          \"GEMINI_API_KEY\": \"AIzaSy... (your key)\","
-	elog "          \"QUERY_GENERATOR_MODEL\": \"gemini-3.5-flash\","
-	elog "          \"WEB_SEARCH_MODEL\": \"gemini-3.5-flash\","
-	elog "          \"REFLECTION_MODEL\": \"gemini-3.5-flash\","
-	elog "          \"ANSWER_MODEL\": \"gemini-3.1-pro\""
+	elog "          \"QUERY_GENERATOR_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "          \"WEB_SEARCH_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "          \"REFLECTION_MODEL\": \"gemini-3.1-flash-lite\","
+	elog "          \"ANSWER_MODEL\": \"gemini-3.1-pro-preview\""
 	elog "        }"
 	elog "      }"
 	elog "    }"
