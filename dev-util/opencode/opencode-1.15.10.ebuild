@@ -16,7 +16,7 @@ IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go +lsp +mcp +plugins rus
 # build.ts fetches models.dev/api.json at compile time
 RESTRICT="network-sandbox test strip"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+BDEPEND="|| ( >=dev-lang/bun-bin-1.3.14 >=dev-lang/bun-1.3.14 )"
 RDEPEND="
 	dev-vcs/git
 	clang?     ( llvm-core/clang )
