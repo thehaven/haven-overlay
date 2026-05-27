@@ -29,12 +29,12 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r src
 }
 
 pkg_postinst() {
 	einfo "opencode-worktree-workflow installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/src/plugin/worktree.ts\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/src/plugin/worktree.ts\""
 }

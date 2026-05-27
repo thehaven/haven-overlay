@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>salman@thehavennet.org.uk</email>
+		<name>Salman Aljaberi</name>
+	</maintainer>
+	<longdescription>
+		TypeScript-first schema declaration and validation library
+		with static type inference. Runtime dependency of oh-my-opencode-slim
+		and other Node.js packages that use Zod for schema validation.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">colinhacks/zod</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -28,7 +28,7 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins index.ts package.json
 	doins -r instructions
 }
@@ -36,5 +36,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-morph-fast-apply installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/index.ts\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/index.ts\""
 }

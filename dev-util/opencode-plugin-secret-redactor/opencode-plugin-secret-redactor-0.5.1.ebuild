@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
 src_install() {
-	insinto "/usr/lib/node_modules/${PN}"
+	insinto "/usr/$(get_libdir)/node_modules/${PN}"
 	doins -r dist package.json
-	fperms 0755 "/usr/lib/node_modules/${PN}/dist/plugin.cjs"
+	fperms 0755 "/usr/$(get_libdir)/node_modules/${PN}/dist/plugin.cjs"
 }

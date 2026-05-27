@@ -15,12 +15,12 @@ KEYWORDS="~amd64 ~arm64"
 RDEPEND=">=net-libs/nodejs-20"
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r src package.json
 }
 
 pkg_postinst() {
 	einfo "opencode-plugin-direnv installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/src/index.ts\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/src/index.ts\""
 }

@@ -29,7 +29,7 @@ src_install() {
 	# Find slack in src/ or wherever it is
 	if [[ -d src/slack ]]; then
 		cd src/slack || die
-		insinto /usr/lib/node_modules/${PN}
+		insinto /usr/$(get_libdir)/node_modules/${PN}
 		doins -r dist package.json
 	fi
 }

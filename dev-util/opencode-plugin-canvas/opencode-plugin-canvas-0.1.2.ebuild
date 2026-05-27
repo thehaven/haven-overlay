@@ -24,12 +24,12 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json
 }
 
 pkg_postinst() {
 	einfo "opencode-plugin-canvas installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/dist/index.js\" }"
+	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/$(get_libdir)/node_modules/${PN}/dist/index.js\" }"
 }

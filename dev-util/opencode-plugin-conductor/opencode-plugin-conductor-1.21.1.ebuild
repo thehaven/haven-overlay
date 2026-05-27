@@ -28,7 +28,7 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json
 	
 	dodoc README.md
@@ -37,5 +37,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-plugin-conductor ${PV} installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/dist/index.js\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/dist/index.js\""
 }

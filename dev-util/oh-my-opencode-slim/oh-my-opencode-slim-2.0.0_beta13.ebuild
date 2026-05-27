@@ -16,6 +16,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+RDEPEND="
+	dev-util/zod
+	net-libs/nodejs
+"
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
 S="${WORKDIR}/${PN}-${PV/_beta/-beta.}"
@@ -26,18 +30,26 @@ src_compile() {
 	bun run build || die
 }
 
+src_test() {
+	local libdir="$(get_libdir)"
+	local node_path="${WORKDIR}/node_modules:/usr/${libdir}/node_modules"
+	NODE_PATH="${node_path}" node -e "require('zod')" \
+		|| die "zod peerDependency not found; ensure dev-util/zod is installed"
+}
+
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	local libdir="$(get_libdir)"
+	insinto "/usr/${libdir}/node_modules/${PN}"
 	doins -r dist package.json
 
 	# CLI entry point
-	fperms +x "/usr/lib/node_modules/${PN}/dist/cli/index.js"
-	dosym "../lib/node_modules/${PN}/dist/cli/index.js" \
+	fperms +x "/usr/${libdir}/node_modules/${PN}/dist/cli/index.js"
+	dosym "../${libdir}/node_modules/${PN}/dist/cli/index.js" \
 		"/usr/bin/oh-my-opencode-slim"
 }
 
 pkg_postinst() {
 	einfo "oh-my-opencode-slim installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/dist/index.js\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/dist/index.js\""
 }

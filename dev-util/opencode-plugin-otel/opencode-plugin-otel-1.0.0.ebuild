@@ -26,7 +26,7 @@ bun run build || die
 }
 
 src_install() {
-insinto /usr/lib/node_modules/${PN}
+insinto /usr/$(get_libdir)/node_modules/${PN}
 doins -r dist package.json
 }
 

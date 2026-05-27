@@ -17,6 +17,7 @@ RESTRICT="network-sandbox test"
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 RDEPEND="
 	dev-util/opencode
+	dev-util/zod
 	net-libs/nodejs
 "
 
@@ -28,13 +29,21 @@ src_compile() {
 	bun run build || die
 }
 
+src_test() {
+	local libdir="$(get_libdir)"
+	local node_path="${S}/node_modules:/usr/${libdir}/node_modules"
+	NODE_PATH="${node_path}" node -e "require('zod')" \
+		|| die "zod peerDependency not found; ensure dev-util/zod is installed"
+}
+
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	local libdir="$(get_libdir)"
+	insinto "/usr/${libdir}/node_modules/${PN}"
 	doins -r dist package.json
 
-	dosym ../lib/node_modules/${PN}/dist/cli/index.js \
+	dosym "../${libdir}/node_modules/${PN}/dist/cli/index.js" \
 		/usr/bin/oh-my-opencode-slim
-	fperms +x /usr/lib/node_modules/${PN}/dist/cli/index.js
+	fperms +x "/usr/${libdir}/node_modules/${PN}/dist/cli/index.js"
 }
 
 pkg_postinst() {

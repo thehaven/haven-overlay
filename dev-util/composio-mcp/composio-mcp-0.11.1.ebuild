@@ -66,7 +66,7 @@ src_install() {
 	dodir /usr/bin
 	cat <<-'WRAPPER' > "${ED}/usr/bin/composio-mcp"
 		#!/usr/bin/env node
-		import "/usr/lib/node_modules/mcp-server-composio/dist/bin.mjs"
+		import "/usr/$(get_libdir)/node_modules/mcp-server-composio/dist/bin.mjs"
 	WRAPPER
 	fperms +x /usr/bin/composio-mcp
 }

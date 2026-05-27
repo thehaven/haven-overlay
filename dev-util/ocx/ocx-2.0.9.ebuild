@@ -28,16 +28,16 @@ src_compile() {
 
 src_install() {
 	# Install CLI
-	insinto /usr/lib/node_modules/ocx
+	insinto /usr/$(get_libdir)/node_modules/ocx
 	doins -r packages/cli/dist packages/cli/package.json
 	
 	# Install Registry worker (optional but useful if Haven wants to run local registry)
-	# insinto /usr/lib/node_modules/ocx-worker
+	# insinto /usr/$(get_libdir)/node_modules/ocx-worker
 	# doins -r packages/worker/dist packages/worker/package.json
 
 	# Create binary symlink
-	dosym ../lib/node_modules/ocx/dist/index.js /usr/bin/ocx
-	fperms +x /usr/lib/node_modules/ocx/dist/index.js
+	dosym "../$(get_libdir)/node_modules/ocx/dist/index.js" /usr/bin/ocx
+	fperms +x /usr/$(get_libdir)/node_modules/ocx/dist/index.js
 	
 	dodoc README.md
 }

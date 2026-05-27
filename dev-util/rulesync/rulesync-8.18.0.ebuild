@@ -27,7 +27,7 @@ src_compile() {
 }
 
 src_install() {
-	local module_dir="/usr/lib/node_modules/${PN}"
+	local module_dir="/usr/$(get_libdir)/node_modules/${PN}"
 	insinto "${module_dir}"
 	doins -r .
 

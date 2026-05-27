@@ -38,5 +38,5 @@ src_install() {
 pkg_postinst() {
 	einfo "opencode-plugin-morph-fast-apply installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/lib/node_modules/${PN}/index.ts\" }"
+	einfo "  { \"name\": \"${PN}\", \"src\": \"/usr/$(get_libdir)/node_modules/${PN}/index.ts\" }"
 }

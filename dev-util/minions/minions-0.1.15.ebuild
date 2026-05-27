@@ -25,12 +25,12 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json
 }
 
 pkg_postinst() {
 	einfo "Minions (Mission Control) installed."
-	einfo "Start: cd /usr/lib/node_modules/minions && node dist/server/server/index.js"
+	einfo "Start: cd /usr/$(get_libdir)/node_modules/minions && node dist/server/server/index.js"
 	einfo "Web UI: http://localhost:6969"
 }

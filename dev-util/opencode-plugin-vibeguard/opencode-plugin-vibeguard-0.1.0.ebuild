@@ -24,12 +24,12 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
+	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r src package.json
 }
 
 pkg_postinst() {
 	einfo "opencode-vibeguard ${PV} installed."
 	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/lib/node_modules/${PN}/src/index.js\""
+	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/src/index.js\""
 }
