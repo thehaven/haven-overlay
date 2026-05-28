@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/JRedeker/opencode-morph-fast-apply/archive/refs/heads/trunk.tar.gz -> opencode-plugin-morph-fast-apply-9999.tar.gz
-_md5_=8a37e9ed5bc06a10d83491aa04127dba
+_md5_=66605dec4ec6b232bf54d586e8dc6fa3

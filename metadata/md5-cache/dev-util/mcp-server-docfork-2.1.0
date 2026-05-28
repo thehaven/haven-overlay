@@ -9,4 +9,4 @@ RDEPEND=>=net-libs/nodejs-20
 RESTRICT=network-sandbox
 SLOT=0
 SRC_URI=https://registry.npmjs.org/docfork/-/docfork-2.1.0.tgz
-_md5_=9bd174adece1afd7eb9e9dd10b5e6c1a
+_md5_=c6cb2dd5809cccf5f5a7ce47fbebad88

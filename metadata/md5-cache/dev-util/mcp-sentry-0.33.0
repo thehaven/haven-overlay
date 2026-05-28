@@ -2,11 +2,11 @@ BDEPEND=>=net-libs/nodejs-20[npm]
 DEFINED_PHASES=compile install postinst
 DESCRIPTION=Official Sentry MCP server
 EAPI=8
-HOMEPAGE=https://github.com/getsentry/mcp-server
+HOMEPAGE=https://github.com/search?q=mcp-sentry
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
 RDEPEND=>=net-libs/nodejs-20
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://registry.npmjs.org/@sentry/mcp-server/-/mcp-server-0.33.0.tgz
-_md5_=c12973575a5c21997e54cedc0da1abb5
+_md5_=48789351ed46498e7e70c3ab0e5cf34e

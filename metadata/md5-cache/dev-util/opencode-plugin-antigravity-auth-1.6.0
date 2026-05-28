@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=dev-nodejs/opencode-ai-plugin dev-nodejs/zod
 SLOT=0
 SRC_URI=https://registry.npmjs.org/opencode-antigravity-auth/-/opencode-antigravity-auth-1.6.0.tgz -> opencode-plugin-antigravity-auth-1.6.0.tgz
-_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
-_md5_=c0f0a18aa52524e27c4378167f013bb5
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=e9d032e2f6197972caecdf9e9b9f062c

@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/boxpositron/envsitter-guard/archive/refs/heads/main.tar.gz -> envsitter-guard-9999.tar.gz
-_md5_=353b3f3939e332734f03b1552505a68d
+_md5_=0661ed026d2298ed635822eaba0ceac8

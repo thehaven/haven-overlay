@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=dev-nodejs/opencode-ai-plugin
 SLOT=0
 SRC_URI=https://registry.npmjs.org/opencode-gemini-auth/-/opencode-gemini-auth-1.4.15.tgz -> opencode-plugin-gemini-auth-1.4.15.tgz
-_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
-_md5_=21b11d8bdbd6dae0d11b317ede22a34c
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=b875b5d349bee5ef076c4e959be0139a

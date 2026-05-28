@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/PagerDuty/pagerduty-mcp-server/archive/refs/heads/main.tar.gz -> mcp-pagerduty-main.tar.gz
-_md5_=a878028e7bb44b59a19505895497b0ec
+_md5_=b4eb03f69144a7866ad3a9438b365321

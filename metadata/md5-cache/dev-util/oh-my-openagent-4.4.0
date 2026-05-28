@@ -1,0 +1,11 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=omo; the best agent harness for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/code-yeongyu/oh-my-openagent
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+SLOT=0
+SRC_URI=https://github.com/code-yeongyu/oh-my-openagent/archive/refs/tags/v4.4.0.tar.gz -> oh-my-openagent-4.4.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/oh-my-openagent-node_modules-4.4.0.tar.xz
+_md5_=d885b8d90ac274686432d79b0eabc8ae

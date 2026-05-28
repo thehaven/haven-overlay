@@ -1,11 +1,12 @@
-DEFINED_PHASES=compile install unpack
+DEFINED_PHASES=compile install postinst test unpack
 DESCRIPTION=YAML language server
 EAPI=8
 HOMEPAGE=https://www.npmjs.com/package/yaml-language-server
 INHERIT=npm
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
+RDEPEND=net-libs/nodejs
 SLOT=0
-SRC_URI=https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.23.0.tgz -> yaml-language-server-1.23.0.tgz
-_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
-_md5_=db748bf7d9baac1564d8682426244127
+SRC_URI=https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.23.0.tgz -> yaml-language-server-1.23.0.tgz https://gitlab-ee.thehavennet.org.uk/haven/gentoo-distfiles/-/raw/main/yaml-language-server-node_modules-1.23.0.tar.xz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=25df2103910e224d2bb160606e1bcd72

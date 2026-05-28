@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/DEVtheOPS/opencode-plugin-otel/archive/refs/tags/v0.9.0.tar.gz -> opencode-plugin-otel-0.9.0.tar.gz
-_md5_=2668ea8dde842bf0910d0752f2a40276
+_md5_=31a96bb1d8c0538d8bb79e3852a9e127

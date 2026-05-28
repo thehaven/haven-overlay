@@ -2,7 +2,7 @@ DEFINED_PHASES=compile configure install prepare test
 DEPEND=perl? ( dev-lang/perl virtual/perl-Digest-MD5 virtual/perl-Thread-Queue virtual/perl-Time-HiRes virtual/perl-Encode dev-perl/JSON-XS ) perl? ( dev-perl/Module-Install virtual/perl-ExtUtils-MakeMaker virtual/perl-File-Path virtual/perl-File-Spec virtual/perl-File-Temp test? ( dev-perl/File-Copy-Recursive dev-perl/Test-Pod dev-perl/Test-Perl-Critic dev-perl/Test-Pod-Coverage dev-perl/Perl-Critic dev-perl/Perl-Critic-Policy-Dynamic-NoIndirect dev-perl/Perl-Critic-Deprecated dev-perl/Perl-Critic-Nits ) )
 DESCRIPTION=Nagios/Icinga event broker module that allows quick/direct access to your status data
 EAPI=8
-HOMEPAGE=http://mathias-kettner.de/checkmk_livestatus.html
+HOMEPAGE=https://github.com/search?q=mk-livestatus
 INHERIT=perl-module python-r1
 IUSE=examples perl python test python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
 KEYWORDS=~amd64 ~ppc ~x86
@@ -11,4 +11,4 @@ RDEPEND=perl? ( dev-lang/perl virtual/perl-Digest-MD5 virtual/perl-Thread-Queue 
 SLOT=0
 SRC_URI=https://mathias-kettner.de/support/1.5.0p2/check-mk-raw-1.5.0p2.cre.tar.gz -> mk-livestatus-1.5.0_p2.tar.gz
 _eclasses_=multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	perl-functions	1863acf0982afafc67797e3ce7275b4c	perl-module	41920449ca174fe9b9b303dfcbdb37a3	python-r1	0e15b2ab9cfc87d7474678201d6bca38	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	readme.gentoo-r1	b045f3acf546393ab6b3170781875358	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
-_md5_=0bcf538f65b2bf022b62b66f0a40de9b
+_md5_=8ed2c183f6a487b69a0e1a0047f4d9a6

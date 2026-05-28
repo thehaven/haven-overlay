@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/NoeFabris/opencode-antigravity-auth/archive/refs/tags/v1.6.0.tar.gz -> opencode-antigravity-auth-1.6.0.tar.gz
-_md5_=3211efe467e6b3b1ed195ad7ca01cbed
+_md5_=1a53d76a0b6be73b170e43d82cb3f845

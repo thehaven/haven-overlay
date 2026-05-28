@@ -1,0 +1,10 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Integrates Morph's Fast Apply API for 10,500+ tokens/sec code editing
+EAPI=8
+HOMEPAGE=https://github.com/JRedeker/opencode-morph-fast-apply
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/JRedeker/opencode-morph-fast-apply/archive/0625507c07ac73443ec8780a674778287a4a0c4e.tar.gz -> opencode-plugin-morph-fast-apply-1.9.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-plugin-morph-fast-apply-node_modules-1.9.0.tar.xz
+_md5_=f9049720eb50d4d63916ee65a0f142db

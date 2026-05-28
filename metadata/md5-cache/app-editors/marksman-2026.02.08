@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=Markdown LSP server providing completion, references, symbols, and diagnostics
+EAPI=8
+HOMEPAGE=https://github.com/artempyanykh/marksman
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-x64 -> marksman-2026.02.08-amd64 ) arm64? ( https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-arm64 -> marksman-2026.02.08-arm64 )
+_md5_=8e313d04b1f4be827bc3b6a38742ca19

@@ -7,4 +7,4 @@ KEYWORDS=~amd64
 LICENSE=MIT
 SLOT=0
 SRC_URI=https://github.com/Agent-3-7/minions/archive/refs/tags/v0.1.15.tar.gz -> minions-0.1.15.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/minions-node_modules-0.1.15.tar.xz
-_md5_=023e17220a024c6d13eda35994676d1c
+_md5_=766d193a56dd85eaf5ecb2c879b2a484

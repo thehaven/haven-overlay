@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Moonlight colour theme for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/brunogabriel/opencode-moonlight-theme
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/brunogabriel/opencode-moonlight-theme/archive/d2266b691cbbe4ed177a168615f2eed0f508041b.tar.gz -> opencode-theme-moonlight-1.0.0.tar.gz
+_md5_=28962ad673a2dc28ab35e1821f89598a

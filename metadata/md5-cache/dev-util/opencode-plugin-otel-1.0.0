@@ -8,4 +8,4 @@ LICENSE=MIT
 RDEPEND=dev-util/opencode
 SLOT=0
 SRC_URI=https://github.com/DEVtheOPS/opencode-plugin-otel/archive/refs/tags/v1.0.0.tar.gz -> opencode-plugin-otel-1.0.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-plugin-otel-node_modules-1.0.0.tar.xz
-_md5_=21097f5b108e910d1d118400210421fc
+_md5_=107e57dc49c340936631d5555b32bb03

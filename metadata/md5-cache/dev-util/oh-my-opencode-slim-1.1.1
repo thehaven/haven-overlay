@@ -1,12 +1,12 @@
 BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
-DEFINED_PHASES=compile install postinst
+DEFINED_PHASES=compile install postinst test
 DESCRIPTION=Slim agent harness for OpenCode with TUI and CLI
 EAPI=8
 HOMEPAGE=https://github.com/alvinunreal/oh-my-opencode-slim
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
-RDEPEND=dev-util/opencode net-libs/nodejs
+RDEPEND=dev-util/opencode dev-util/zod net-libs/nodejs
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/alvinunreal/oh-my-opencode-slim/archive/refs/tags/v1.1.1.tar.gz -> oh-my-opencode-slim-1.1.1.tar.gz
-_md5_=cc73086499041485c0bdc31463a897b4
+_md5_=93dcb522e054a0f18446782ae8bbafb4

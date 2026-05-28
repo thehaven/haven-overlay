@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Lavi — soft sweet colour scheme for OpenCode and 15+ apps
+EAPI=8
+HOMEPAGE=https://github.com/b0o/lavi
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/b0o/lavi/archive/1db679a05896e060849f424eec40c0d904bef2d1.tar.gz -> opencode-theme-lavi-1.0.0.tar.gz
+_md5_=a94c271716249039beca5ca7e426adc0

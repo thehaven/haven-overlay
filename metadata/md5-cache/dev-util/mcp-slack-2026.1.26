@@ -9,4 +9,4 @@ RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/modelcontextprotocol/servers/archive/refs/heads/main.tar.gz -> mcp-servers-main.tar.gz
-_md5_=84f424f2307433cc3d09fcc900b187fa
+_md5_=62537cc7e319776b8a3216749f3edb92

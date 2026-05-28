@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Ayu Dark colour scheme for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/postrednik/opencode-ayu-theme
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/postrednik/opencode-ayu-theme/archive/71c2a8b2fd0adcc59c0db3c5e793213a8bd54ccc.tar.gz -> opencode-theme-ayu-dark-1.0.0.tar.gz
+_md5_=0193f4213f1cdc6d000540935cfe8372

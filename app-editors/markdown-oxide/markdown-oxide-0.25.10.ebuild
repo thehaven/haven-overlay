@@ -239,7 +239,7 @@ SRC_URI="https://github.com/Feel-ix-343/${PN}/archive/refs/tags/v${PV}.tar.gz ->
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND=">=dev-lang/rust-1.81"
 

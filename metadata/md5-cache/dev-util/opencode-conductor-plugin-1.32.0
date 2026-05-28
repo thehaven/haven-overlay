@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Conductor plugin for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/derekbar90/opencode-conductor
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0
+RDEPEND=>=net-libs/nodejs-20
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opencode-conductor-plugin/-/opencode-conductor-plugin-1.32.0.tgz
+_md5_=057b21d1a250f73a12d599ff9b7122cc

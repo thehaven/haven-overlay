@@ -1,0 +1,11 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst test
+DESCRIPTION=Slim agent harness for OpenCode with TUI and CLI
+EAPI=8
+HOMEPAGE=https://github.com/alvinunreal/oh-my-opencode-slim
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-util/zod net-libs/nodejs
+SLOT=0
+SRC_URI=https://github.com/alvinunreal/oh-my-opencode-slim/archive/refs/tags/v2.0.0-beta.13.tar.gz -> oh-my-opencode-slim-2.0.0_beta13.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/oh-my-opencode-slim-node_modules-2.0.0-beta.13.tar.xz
+_md5_=e94c832cd451fa85b5ddbc5a0c2e8da5

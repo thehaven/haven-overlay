@@ -1,6 +1,6 @@
 BDEPEND=net-libs/nodejs[npm]
-DEFINED_PHASES=install
-DESCRIPTION=Static type checker for Python
+DEFINED_PHASES=install postinst
+DESCRIPTION=Static type checker and LSP server for Python
 EAPI=8
 HOMEPAGE=https://github.com/microsoft/pyright
 KEYWORDS=~amd64
@@ -8,4 +8,4 @@ LICENSE=MIT
 RDEPEND=net-libs/nodejs
 SLOT=0
 SRC_URI=https://github.com/microsoft/pyright/releases/download/1.1.409/pyright.tgz -> pyright-1.1.409.tgz
-_md5_=42a6614b9bb3324cff8a277cc6b8c43c
+_md5_=433add78ff38bca71204712682693767
