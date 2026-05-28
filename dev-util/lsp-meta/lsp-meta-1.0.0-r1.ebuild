@@ -23,7 +23,9 @@ RDEPEND="
 	php?        ( dev-util/intelephense )
 	astro?      ( dev-util/astrojs-language-server )
 	typst?      ( dev-util/tinymist )
-	go?         ( dev-go/gopls )
+	go?         (
+		amd64? ( dev-go/gopls )
+	)
 	python?     ( dev-python/pyright )
 	rust?       ( || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) )
 	terraform?  ( dev-util/terraform-ls )
