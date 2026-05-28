@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>rust@gentoo.org</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Marksman is a program that integrates with editors to provide
+		markdown-specific features such as completion, goto-definition,
+		find-references, rename, diagnostics, and more. It is a
+		language server that speaks LSP and currently supports
+		Semantic Tokens and Code Action.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">artempyanykh/marksman</remote-id>
+	</upstream>
+</pkgmetadata>

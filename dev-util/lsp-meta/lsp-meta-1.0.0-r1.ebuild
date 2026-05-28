@@ -1,4 +1,4 @@
-# Copyright 2026 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,7 +12,7 @@ LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-IUSE="+bash +python +typescript +yaml svelte vue php astro typst go rust terraform"
+IUSE="+bash +python +typescript +yaml svelte vue php astro typst go rust terraform markdown docker"
 
 RDEPEND="
 	bash?       ( dev-util/bash-language-server )
@@ -27,6 +27,8 @@ RDEPEND="
 	python?     ( dev-python/pyright )
 	rust?       ( || ( dev-util/rust-analyzer-bin dev-util/rust-analyzer ) )
 	terraform?  ( dev-util/terraform-ls )
+	markdown?   ( app-editors/marksman app-editors/markdown-oxide )
+	docker?     ( dev-util/docker-language-server )
 "
 
 src_install() { :; }

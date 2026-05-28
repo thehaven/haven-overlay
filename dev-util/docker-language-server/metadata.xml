@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>PZ8w6Eg1VEjw3RGQ1VrZt1eQb@artifactory.thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Docker Language Server is an LSP server for Dockerfile,
+		Docker Compose, and Docker Bake files. It provides
+		completions, diagnostics, hover documentation, and code
+		navigation for Docker-related configuration files.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">docker/docker-language-server</remote-id>
+	</upstream>
+</pkgmetadata>

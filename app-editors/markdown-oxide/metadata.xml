@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>rust@gentoo.org</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Markdown Oxide is a markdown language server with support for
+		Obsidian-style wikilinks, daily notes, backlinks, tags, and
+		references. It provides completions, diagnostics, and LSP
+		features for a personal knowledge management workflow.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Feel-ix-343/markdown-oxide</remote-id>
+	</upstream>
+</pkgmetadata>
