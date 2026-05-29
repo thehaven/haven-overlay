@@ -10,6 +10,7 @@ inherit distutils-r1
 DESCRIPTION="Hydra: A framework for configuring complex applications"
 HOMEPAGE="https://github.com/facebookresearch/hydra"
 SRC_URI="https://github.com/facebookresearch/hydra/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/hydra-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
