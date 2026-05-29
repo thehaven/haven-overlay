@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Orchestration layer for Gentoo overlay ebuild lifecycle management"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater"
-EGIT_REPO_URI="file:///storage/home/haven/projects/ebuild-updater"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater.git"
 EGIT_COMMIT="v${PV}"
 
 LICENSE="GPL-2"
@@ -24,7 +24,6 @@ RDEPEND="
 	dev-python/rich[${PYTHON_USEDEP}]
 	dev-python/jinja2[${PYTHON_USEDEP}]
 	dev-python/tomlkit[${PYTHON_USEDEP}]
-	$(python_gen_cond_dep 'dev-python/tomli[${PYTHON_USEDEP}]' python3_10)
 	dev-util/nvchecker
 	cron? ( virtual/cron )
 	notifications? ( dev-python/apprise[${PYTHON_USEDEP}] )

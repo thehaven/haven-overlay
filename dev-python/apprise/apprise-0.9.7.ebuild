@@ -35,8 +35,8 @@ DEPEND="${REDEPEND}
 
 
 src_prepare() {
-    export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
-    distutils-r1_src_prepare
+	export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
+	distutils-r1_src_prepare
 }
 
 python_test() {
