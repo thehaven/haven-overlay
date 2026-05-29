@@ -49,7 +49,7 @@ RDEPEND="
 	dev-python/pyparsing
 	dev-python/requests
 	dev-python/rich
-	dev-python/ruamel_yaml
+	dev-python/ruamel-yaml
 	dev-python/scmrepo
 	dev-python/shortuuid
 	dev-python/shtab
