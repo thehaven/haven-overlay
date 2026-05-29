@@ -15,6 +15,11 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
+src_prepare() {
+	export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
+	distutils-r1_src_prepare
+}
+
 RDEPEND="
 	dev-python/dvc
 	dev-python/fsspec
