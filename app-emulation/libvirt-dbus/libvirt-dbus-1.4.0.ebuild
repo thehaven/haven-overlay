@@ -22,7 +22,7 @@ RDEPEND="${DEPEND}
 	sys-auth/polkit
 	acct-user/libvirtdbus"
 BDEPEND="
-	dev-util/ninja"
+	dev-build/ninja"
 
 src_configure() {
 	local emesonargs=(

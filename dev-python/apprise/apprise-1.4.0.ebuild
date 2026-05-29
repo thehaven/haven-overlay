@@ -32,6 +32,13 @@ DEPEND="${REDEPEND}
 		dev-python/pytest[${PYTHON_USEDEP}]
 	)"
 
+
+
+src_prepare() {
+    export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
+    distutils-r1_src_prepare
+}
+
 python_test() {
 	nosetests --verbose || die
 	py.test -v -v || die

@@ -25,3 +25,8 @@ DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 "
+
+src_prepare() {
+	export SETUPTOOLS_SCM_PRETEND_VERSION="${PV}"
+	distutils-r1_src_prepare
+}

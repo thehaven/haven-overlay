@@ -22,7 +22,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	dev-python/configshell
+	sys-block/configshell-fb
 	!dev-python/rtslib
 	dev-python/rtslib-fb
 	sys-apps/ethtool
