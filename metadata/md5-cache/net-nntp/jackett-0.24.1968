@@ -1,0 +1,13 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install unpack
+DESCRIPTION=API Support for your favorite torrent trackers.
+EAPI=8
+HOMEPAGE=https://github.com/Jackett/Jackett
+INHERIT=systemd
+KEYWORDS=~x86 ~amd64
+LICENSE=GPL-3
+RDEPEND=acct-user/jackett >=dev-lang/mono-5.8 net-misc/curl
+SLOT=0
+SRC_URI=https://github.com/Jackett/Jackett/releases/download/v0.24.1968/Jackett.Binaries.Mono.tar.gz -> jackett-0.24.1968.tar.gz
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=03838de30cefe17a9bb5f9c43ccd9e09

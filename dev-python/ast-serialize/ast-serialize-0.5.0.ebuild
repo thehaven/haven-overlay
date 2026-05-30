@@ -7,12 +7,127 @@ DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=maturin
 PYTHON_COMPAT=( python3_{11..14} )
 PYPI_PN="ast-serialize"
+
+CRATES="
+	aho-corasick@1.1.4
+	anyhow@1.0.100
+	attribute-derive@0.10.5
+	attribute-derive-macro@0.10.5
+	bitflags@2.10.0
+	block-buffer@0.10.4
+	bstr@1.12.1
+	castaway@0.2.4
+	cfg-if@1.0.4
+	collection_literals@1.0.3
+	compact_str@0.9.0
+	cpufeatures@0.2.17
+	crypto-common@0.1.7
+	derive-where@1.6.0
+	digest@0.10.7
+	either@1.15.0
+	equivalent@1.0.2
+	generic-array@0.14.7
+	get-size-derive2@0.8.0
+	get-size2@0.8.0
+	getopts@0.2.24
+	getrandom@0.2.17
+	hashbrown@0.17.1
+	heck@0.5.0
+	indexmap@2.14.0
+	indoc@2.0.7
+	interpolator@0.5.0
+	is-macro@0.3.7
+	itertools@0.14.0
+	itoa@1.0.17
+	libc@0.2.180
+	log@0.4.29
+	manyhow@0.11.4
+	manyhow-macros@0.11.4
+	memchr@2.7.6
+	once_cell@1.21.3
+	ordermap@1.2.0
+	phf@0.11.3
+	phf_codegen@0.11.3
+	phf_generator@0.11.3
+	phf_shared@0.11.3
+	portable-atomic@1.13.0
+	ppv-lite86@0.2.21
+	proc-macro-utils@0.10.0
+	proc-macro2@1.0.106
+	pyo3@0.28.2
+	pyo3-build-config@0.28.2
+	pyo3-ffi@0.28.2
+	pyo3-macros@0.28.2
+	pyo3-macros-backend@0.28.2
+	quote@1.0.44
+	quote-use@0.8.4
+	quote-use-macros@0.8.4
+	rand@0.8.5
+	rand_chacha@0.3.1
+	rand_core@0.6.4
+	regex-automata@0.4.13
+	rustc-hash@2.1.1
+	rustversion@1.0.22
+	ryu@1.0.22
+	serde@1.0.228
+	serde_core@1.0.228
+	serde_derive@1.0.228
+	sha1@0.10.6
+	siphasher@1.0.1
+	smallvec@1.15.1
+	static_assertions@1.1.0
+	syn@2.0.114
+	target-lexicon@0.13.5
+	thiserror@2.0.18
+	thiserror-impl@2.0.18
+	tinyvec@1.10.0
+	tinyvec_macros@0.1.1
+	typenum@1.19.0
+	unicode-ident@1.0.22
+	unicode-normalization@0.1.25
+	unicode-width@0.2.2
+	unicode_names2@1.3.0
+	unicode_names2_generator@1.3.0
+	version_check@0.9.5
+	wasi@0.11.1+wasi-snapshot-preview1
+	zerocopy@0.8.33
+	zerocopy-derive@0.8.33
+"
+
 inherit cargo distutils-r1 pypi
 
 DESCRIPTION="ast-serialize Python package"
 HOMEPAGE="https://github.com/mypyc/ast_serialize"
 
+RUFF_PV="0.15.12"
+SRC_URI+="
+	${CARGO_CRATE_URIS}
+	https://github.com/astral-sh/ruff/archive/refs/tags/${RUFF_PV}.tar.gz -> ruff-${RUFF_PV}.gh.tar.gz"
+
 LICENSE="MIT"
+# Dependent crate licenses
+LICENSE+="
+	Apache-2.0 BSD BSD-2 ISC MIT MPL-2.0 Unicode-DFS-2016
+"
 SLOT="0"
 KEYWORDS="~amd64"
 
+QA_FLAGS_IGNORED=".*"
+
+src_prepare() {
+	distutils-r1_src_prepare
+
+	# Patch Cargo.toml to use local ruff source
+	cat >> Cargo.toml <<-EOF
+
+[patch."https://github.com/astral-sh/ruff"]
+ruff_python_ast = { path = "${WORKDIR}/ruff-${RUFF_PV}/crates/ruff_python_ast" }
+ruff_python_parser = { path = "${WORKDIR}/ruff-${RUFF_PV}/crates/ruff_python_parser" }
+ruff_python_trivia = { path = "${WORKDIR}/ruff-${RUFF_PV}/crates/ruff_python_trivia" }
+ruff_source_file = { path = "${WORKDIR}/ruff-${RUFF_PV}/crates/ruff_source_file" }
+ruff_text_size = { path = "${WORKDIR}/ruff-${RUFF_PV}/crates/ruff_text_size" }
+EOF
+
+	# Lower rust-version requirement in ruff to match stable portage
+	sed -i 's/rust-version = "1.93"/rust-version = "1.92"/' "${WORKDIR}/ruff-${RUFF_PV}/Cargo.toml" || die
+}

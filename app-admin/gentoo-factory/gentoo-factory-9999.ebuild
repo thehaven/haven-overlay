@@ -8,16 +8,16 @@ PYTHON_COMPAT=( python3_{11..14} )
 
 inherit distutils-r1
 
-DESCRIPTION="A declarative Gentoo build orchestrator"
-HOMEPAGE="https://github.com/haven/gentoo-factory"
+DESCRIPTION="A declarative Gentoo build orchestrator with plugin engine"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/gentoo-factory"
 SRC_URI=""
-EGIT_REPO_URI="file:///home/haven/projects/gentoo-factory"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/gentoo-factory.git"
 
 if [[ ${PV} == 9999* ]]; then
 	inherit git-r3
 else
-	SRC_URI="https://github.com/haven/gentoo-factory/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
+	SRC_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/gentoo-factory/-/archive/v${PV}/gentoo-factory-v${PV}.tar.gz"
+	KEYWORDS=""
 fi
 
 LICENSE="MIT"
@@ -30,6 +30,10 @@ RDEPEND="
 	dev-python/mcp[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/docker[${PYTHON_USEDEP}]
+	dev-python/pluggy[${PYTHON_USEDEP}]
+	dev-python/rich[${PYTHON_USEDEP}]
+	dev-python/structlog[${PYTHON_USEDEP}]
+	dev-python/tomlkit[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	doc? ( sys-apps/texinfo )
@@ -40,23 +44,3 @@ BDEPEND="
 "
 
 distutils_enable_tests pytest
-
-python_compile_all() {
-	if use doc; then
-		makeinfo docs/gentoo-factory.texi || die
-	fi
-}
-
-python_install_all() {
-	distutils-r1_python_install_all
-	if use doc; then
-		doman docs/gentoo-factory.1
-		doinfo gentoo-factory.info
-	fi
-	
-	insinto /usr/share/doc/${PF}/examples
-	doins gentoo-factory.yaml
-	
-	insinto /etc/gentoo-factory
-	newins gentoo-factory.yaml gentoo-factory.yaml.example
-}
