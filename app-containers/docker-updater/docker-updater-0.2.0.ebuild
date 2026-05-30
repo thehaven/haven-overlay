@@ -10,7 +10,7 @@ inherit distutils-r1 systemd git-r3
 
 DESCRIPTION="Webhook listener for ZFS-aware Docker Compose updates"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater"
-EGIT_REPO_URI="git@gitlab-ee.thehavennet.org.uk:gentoo/docker-updater.git"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater.git"
 EGIT_COMMIT="v${PV}"
 
 LICENSE="MIT"
@@ -23,7 +23,7 @@ RDEPEND="
 	dev-python/prometheus-client[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/uvicorn[${PYTHON_USEDEP}]
-	dev-python/jinja[${PYTHON_USEDEP}]
+	dev-python/jinja2[${PYTHON_USEDEP}]
 	dev-python/textual[${PYTHON_USEDEP}]
 	acct-user/docker-updater
 	acct-group/docker-updater
