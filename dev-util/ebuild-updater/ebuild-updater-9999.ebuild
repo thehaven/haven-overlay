@@ -15,7 +15,7 @@ EGIT_COMMIT="master"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="**"
 IUSE="build-test +cron doc mcp notifications qa test"
 RESTRICT="!test? ( test )"
 
