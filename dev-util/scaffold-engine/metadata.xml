@@ -10,6 +10,9 @@
 		profile-driven project generation with Makefile-first
 		contracts, pre-commit hooks, and verification gates.
 	</longdescription>
+	<use>
+		<flag name="dag">Enable DVC DAG visualization support</flag>
+	</use>
 	<upstream>
 		<remote-id type="gitlab">ai-ml/scaffold-engine</remote-id>
 	</upstream>

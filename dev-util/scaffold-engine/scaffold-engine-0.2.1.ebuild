@@ -8,8 +8,11 @@ PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="Project scaffold and governance engine"
-HOMEPAGE="ssh://ghaven@example.com/ai-ml/scaffold-engine"
-SRC_URI="ssh://ghaven@example.com/ai-ml/scaffold-engine/-/archive/v${PV}/scaffold-engine-v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="ssh://gitlab.example.com/ai-ml/scaffold-engine"
+SRC_URI="
+	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/b5/${P}.tar.gz
+	ssh://gitlab.example.com/ai-ml/scaffold-engine/-/archive/v${PV}/scaffold-engine-v${PV}.tar.gz -> ${P}.tar.gz
+"
 
 LICENSE="MIT"
 SLOT="0"
