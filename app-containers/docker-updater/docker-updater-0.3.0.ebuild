@@ -16,7 +16,7 @@ EGIT_COMMIT="v0.3.0"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="+cron"
+IUSE="+cron +systemd"
 RESTRICT="test" # System-wide omegaconf/hydra pytest plugin is broken due to missing antlr4
 
 RDEPEND="
@@ -55,9 +55,11 @@ EOF_INNER_CONFIG
 	doins "${T}/config.toml"
 
 	# Install systemd service unit
-	sed -e 's|/storage/docker/docker-updater/.venv/bin/python -m docker_updater.main|/usr/bin/docker-updater|' \
-		templates/docker-updater.service > "${T}/docker-updater.service" || die
-	systemd_dounit "${T}/docker-updater.service"
+	if use systemd; then
+		sed -e 's|/storage/docker/docker-updater/.venv/bin/python -m docker_updater.main|/usr/bin/docker-updater|' \
+			templates/docker-updater.service > "${T}/docker-updater.service" || die
+		systemd_dounit "${T}/docker-updater.service"
+	fi
 
 	# Install OpenRC init script
 	sed -e 's|command="/storage/docker/docker-updater/.venv/bin/python"|command="/usr/bin/docker-updater"|' \
