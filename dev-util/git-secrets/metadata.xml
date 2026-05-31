@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <maintainer type="person">
+        <email>haven@example.com</email>
+        <name>Haven</name>
+    </maintainer>
+    <longdescription>
+        Prevents committing secrets and credentials into git repositories.
+        Provides commands to scan for passwords, API keys, and other
+        sensitive information before commits.
+    </longdescription>
+    <upstream>
+        <remote-id type="github">awslabs/git-secrets</remote-id>
+    </upstream>
+</pkgmetadata>
