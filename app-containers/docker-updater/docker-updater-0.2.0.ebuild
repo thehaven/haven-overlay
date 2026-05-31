@@ -11,7 +11,7 @@ inherit distutils-r1 systemd git-r3
 DESCRIPTION="Webhook listener for ZFS-aware Docker Compose updates"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater"
 EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater.git"
-EGIT_COMMIT="v${PV}"
+EGIT_COMMIT="4a65b9555ed1c3d72bf58656cb10572d2d15575a"
 
 LICENSE="MIT"
 SLOT="0"
@@ -33,15 +33,6 @@ DEPEND="${RDEPEND}"
 src_install() {
 	distutils-r1_src_install
 
-	# Create and install python wrapper script
-	cat << 'EOF_INNER_WRAPPER' > "${T}/docker-updater"
-#!/usr/bin/env python3
-import sys
-from docker_updater.main import main
-if __name__ == '__main__':
-	sys.exit(main())
-EOF_INNER_WRAPPER
-	dobin "${T}/docker-updater"
 
 	# Install manual page
 	doman docs/docker-updater.1
