@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <maintainer type="person">
+        <email>haven@example.com</email>
+        <name>Haven</name>
+    </maintainer>
+    <longdescription>
+        Automated semantic versioning and changelog generation for any
+        language. Determines next version from conventional commit messages
+        and generates release notes. Runs in CI, not as a project dependency.
+    </longdescription>
+    <upstream>
+        <remote-id type="github">semantic-release/semantic-release</remote-id>
+    </upstream>
+</pkgmetadata>

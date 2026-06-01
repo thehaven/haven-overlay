@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <maintainer type="person">
+        <email>haven@example.com</email>
+        <name>Haven</name>
+    </maintainer>
+    <longdescription>
+        Automatic semantic versioning and changelog generation for Python
+        projects. Uses conventional commit messages to determine version
+        bumps and generates release notes.
+    </longdescription>
+    <upstream>
+        <remote-id type="github">python-semantic-release/python-semantic-release</remote-id>
+    </upstream>
+</pkgmetadata>

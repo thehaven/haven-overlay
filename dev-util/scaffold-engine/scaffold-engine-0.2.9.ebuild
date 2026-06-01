@@ -14,12 +14,13 @@ SRC_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/scaffold-engine/-/archive/v$
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+dag"
+IUSE="dag +semantic-release"
 
 RDEPEND="
 	dev-python/copier[${PYTHON_USEDEP}]
 	dev-python/dvc[dag?,${PYTHON_USEDEP}]
 	dev-python/jinja2[${PYTHON_USEDEP}]
+	semantic-release? ( dev-python/python-semantic-release[${PYTHON_USEDEP}] )
 "
 BDEPEND="dev-python/uv-build[${PYTHON_USEDEP}]"
 

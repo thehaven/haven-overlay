@@ -12,6 +12,7 @@
 	</longdescription>
 	<use>
 		<flag name="dag">Enable DVC DAG visualization support</flag>
+		<flag name="semantic-release">Enable automated semantic versioning and changelog generation</flag>
 	</use>
 	<upstream>
 		<remote-id type="gitlab">ai-ml/scaffold-engine</remote-id>
