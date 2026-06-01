@@ -1,0 +1,19 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+NPM_MODULE="signal-exit"
+inherit npm
+
+DESCRIPTION="when you want to fire an event no matter how a process exits."
+HOMEPAGE="https://github.com/tapjs/signal-exit#readme"
+
+LICENSE="ISC"
+SLOT="0"
+KEYWORDS="~amd64"
+
+RDEPEND="
+
+"
+BDEPEND="${RDEPEND}"

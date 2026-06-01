@@ -1,0 +1,26 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+inherit npm
+
+NPM_MODULE="micromark-extension-gfm-strikethrough"
+
+
+DESCRIPTION="micromark extension to support GFM strikethrough"
+HOMEPAGE="https://github.com/micromark/micromark-extension-gfm-strikethrough#readme"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64"
+
+RDEPEND="
+	dev-nodejs/devlop
+	dev-nodejs/micromark-util-chunked
+	dev-nodejs/micromark-util-classify-character
+	dev-nodejs/micromark-util-resolve-all
+	dev-nodejs/micromark-util-symbol
+	dev-nodejs/micromark-util-types
+"
+BDEPEND=""
