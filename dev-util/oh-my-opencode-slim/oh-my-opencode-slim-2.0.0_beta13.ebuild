@@ -8,8 +8,8 @@ MY_NODE_D="oh-my-opencode-slim-node_modules-2.0.0-beta.13"
 DESCRIPTION="Slim agent harness for OpenCode with TUI and CLI"
 HOMEPAGE="https://github.com/alvinunreal/oh-my-opencode-slim"
 SRC_URI="
-	https://github.com/alvinunreal/${PN}/archive/refs/tags/v${PV/_beta/-beta.}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
+        https://github.com/alvinunreal/${PN}/archive/refs/tags/v${PV/_beta/-beta.}.tar.gz -> ${P}.tar.gz
+        https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
 "
 
 LICENSE="MIT"
@@ -17,39 +17,44 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	dev-util/zod
-	net-libs/nodejs
+        dev-nodejs/jsdom
+        dev-nodejs/opencode-ai-plugin
+        dev-nodejs/opencode-ai-sdk
+        dev-nodejs/opentui-core
+        dev-nodejs/opentui-solid
+        dev-util/zod
+        net-libs/nodejs
 "
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
 S="${WORKDIR}/${PN}-${PV/_beta/-beta.}"
 
 src_compile() {
-	# node_modules/ is at ${WORKDIR}/node_modules/ — Bun resolves by
-	# walking up the directory tree from ${S} (per Node resolution algorithm)
-	bun run build || die
+        # node_modules/ is at ${WORKDIR}/node_modules/ — Bun resolves by
+        # walking up the directory tree from ${S} (per Node resolution algorithm)
+        bun run build || die
 }
 
 src_test() {
-	local libdir="$(get_libdir)"
-	local node_path="${WORKDIR}/node_modules:/usr/${libdir}/node_modules"
-	NODE_PATH="${node_path}" node -e "require('zod')" \
-		|| die "zod peerDependency not found; ensure dev-util/zod is installed"
+        local libdir="$(get_libdir)"
+        local node_path="${WORKDIR}/node_modules:/usr/${libdir}/node_modules"
+        NODE_PATH="${node_path}" node -e "require('zod')" \
+                || die "zod peerDependency not found; ensure dev-util/zod is installed"
 }
 
 src_install() {
-	local libdir="$(get_libdir)"
-	insinto "/usr/${libdir}/node_modules/${PN}"
-	doins -r dist package.json
+        local libdir="$(get_libdir)"
+        insinto "/usr/${libdir}/node_modules/${PN}"
+        doins -r dist package.json
 
-	# CLI entry point
-	fperms +x "/usr/${libdir}/node_modules/${PN}/dist/cli/index.js"
-	dosym "../${libdir}/node_modules/${PN}/dist/cli/index.js" \
-		"/usr/bin/oh-my-opencode-slim"
+        # CLI entry point
+        fperms +x "/usr/${libdir}/node_modules/${PN}/dist/cli/index.js"
+        dosym "../${libdir}/node_modules/${PN}/dist/cli/index.js" \
+                "/usr/bin/oh-my-opencode-slim"
 }
 
 pkg_postinst() {
-	einfo "oh-my-opencode-slim installed."
-	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/dist/index.js\""
+        einfo "oh-my-opencode-slim installed."
+        einfo "To use this plugin, add it to your opencode.json:"
+        einfo "  \"/usr/\$(get_libdir)/node_modules/\${PN}/dist/index.js\""
 }
