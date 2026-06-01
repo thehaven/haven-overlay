@@ -24,14 +24,14 @@ BDEPEND="
 
 src_compile() {
 	# Use pnpm via npx to install dependencies and build
-	npx --yes pnpm install || die "pnpm install failed"
+	npx --yes pnpm install --dangerously-allow-all-builds || die "pnpm install failed"
 	npx --yes pnpm run build || die "pnpm build failed"
 }
 
 src_install() {
 	local appdir="/opt/${PN}"
 	dodir "${appdir}"
-	
+
 	# Copy built assets
 	cp -r bin dist schemas scripts package.json package-lock.json pnpm-lock.yaml node_modules "${ED}${appdir}/" || die
 
