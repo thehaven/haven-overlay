@@ -1,0 +1,4 @@
+_schema = 1
+source = "regex"
+url = "https://github.com/github/spec-kit/tags"
+regex = 'releases/tag/v([\d\.]+)'

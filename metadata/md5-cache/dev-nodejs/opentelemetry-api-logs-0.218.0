@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Public logs API for OpenTelemetry
+EAPI=8
+HOMEPAGE=https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/api-logs
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/opentelemetry-api
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opentelemetry-api-logs/-/opentelemetry-api-logs-0.218.0.tgz -> opentelemetry-api-logs-0.218.0.tgz
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=d74b54c9e9025bf3d0a0923abfb05891
