@@ -23,7 +23,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~arm64"
 IUSE="systemd"
 
-RESTRICT="bindist mirror"
+RESTRICT="bindist mirror fetch"
 
 RDEPEND="
 	acct-group/splunkfwd

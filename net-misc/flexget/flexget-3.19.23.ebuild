@@ -1,29 +1,20 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=8
 
 PYTHON_COMPAT=( python3_{12..14})
 
 DISTUTILS_USE_PEP517=setuptools
-inherit distutils-r1
-
-if [[ ${PV} != 9999 ]]; then
-	MY_P="FlexGet-${PV}"
-	SRC_URI="https://files.pythonhosted.org/packages/source/F/FlexGet/${MY_P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-else
-	inherit git-r3
-	EGIT_REPO_URI="git://github.com/Flexget/Flexget.git
-		https://github.com/Flexget/Flexget.git"
-fi
+PYPI_PN="FlexGet"
+inherit distutils-r1 pypi
 
 DESCRIPTION="Multipurpose automation tool for content like torrents, nzbs, podcasts, comics"
 HOMEPAGE="http://flexget.com/"
 
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64"
 IUSE="test transmission"
 
 DEPEND="
@@ -66,16 +57,7 @@ RDEPEND="${DEPEND}
 "
 DEPEND+=" test? ( dev-python/nose[${PYTHON_USEDEP}] )"
 
-if [[ ${PV} == 9999 ]]; then
-	DEPEND+=" dev-python/paver[${PYTHON_USEDEP}]"
-else
-	S="${WORKDIR}/${MY_P}"
-fi
-
 python_prepare_all() {
-	# Prevent setup from grabbing nose from pypi
-	# sed -e /setup_requires/d -i pavement.py || die
-
 	distutils-r1_python_prepare_all
 }
 
