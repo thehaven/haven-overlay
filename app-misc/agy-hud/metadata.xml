@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Antigravity CLI status-line HUD plugin.  Reads Antigravity
+		status-line JSON from stdin and renders a compact terminal HUD
+		with quota tracking, session info, and git branch display.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">franksde/agy-hud</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Customisable status line formatter for Claude Code CLI.
+		Displays model info, git branch, token usage, session costs,
+		block timers, and more via a compact Ink-based terminal UI.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">sirmalloc/ccstatusline</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@example.com</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		OpenCode plugin that displays subagent session statusline state
+		(running/done/failed agents, elapsed time, token/context usage).
+		Includes a TUI sidebar and runtime file-output plugin.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Joaquinvesapa/sub-agent-statusline</remote-id>
+	</upstream>
+</pkgmetadata>
