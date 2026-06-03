@@ -18,7 +18,12 @@ else
 	MY_PN=${PN}
 fi
 
-MY_P="${MY_PN}_${PV}-1"
+# Google Chrome versions use dash build suffixes (e.g. 149.0.7827.53-1).
+# Portage normalises these to _p (149.0.7827.53_p1).  Convert back for
+# the upstream URL.  For versions without a build suffix, append -1.
+MY_PV="${PV//_p/-}"
+[[ ${PV} != *_p* ]] && MY_PV+="-1"
+MY_P="${MY_PN}_${MY_PV}"
 SRC_URI="https://dl.google.com/linux/chrome/deb/pool/main/g/${MY_PN}/${MY_P}_amd64.deb"
 S=${WORKDIR}
 
