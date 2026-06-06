@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=semver-stable
+EAPI=8
+HOMEPAGE=https://github.com/kaelzhang/node-semver-stable#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/semver
+SLOT=0
+SRC_URI=https://registry.npmjs.org/semver-stable/-/semver-stable-3.0.0.tgz -> semver-stable-3.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=5f7ada98b10f0655dae5fb4e2eb7af32

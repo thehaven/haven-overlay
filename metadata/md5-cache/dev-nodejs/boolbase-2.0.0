@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=two functions: One that returns true, one that returns false
+EAPI=8
+HOMEPAGE=https://github.com/fb55/boolbase
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=ISC
+SLOT=0
+SRC_URI=https://registry.npmjs.org/boolbase/-/boolbase-2.0.0.tgz -> boolbase-2.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=b18cf46298ad5071ed5e31368031d565

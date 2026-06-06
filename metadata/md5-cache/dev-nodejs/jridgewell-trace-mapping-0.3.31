@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/jridgewell-resolve-uri dev-nodejs/jridgewell-sourcemap-codec
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Trace the original position through a source map
+EAPI=8
+HOMEPAGE=https://github.com/jridgewell/sourcemaps/tree/main/packages/trace-mapping
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/jridgewell-resolve-uri dev-nodejs/jridgewell-sourcemap-codec
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz -> jridgewell-trace-mapping-0.3.31.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=1ed030459105cb4438b3fe8586b69fe9

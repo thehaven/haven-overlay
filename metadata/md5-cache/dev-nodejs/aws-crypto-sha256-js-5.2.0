@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=A pure JS implementation SHA256.
+EAPI=8
+HOMEPAGE=https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/sha256-js
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/aws-crypto-util dev-nodejs/aws-sdk-types dev-nodejs/tslib
+SLOT=0
+SRC_URI=https://registry.npmjs.org/aws-crypto-sha256-js/-/aws-crypto-sha256-js-5.2.0.tgz -> aws-crypto-sha256-js-5.2.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=98d730717a01be58f5739f858f1a7f99

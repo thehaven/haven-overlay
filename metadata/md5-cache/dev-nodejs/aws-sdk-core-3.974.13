@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Core functions & classes shared by multiple AWS SDK clients.
+EAPI=8
+HOMEPAGE=https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/core
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/aws-lambda-invoke-store dev-nodejs/aws-sdk-types dev-nodejs/aws-sdk-xml-builder dev-nodejs/bowser dev-nodejs/smithy-core dev-nodejs/smithy-signature-v4 dev-nodejs/smithy-types dev-nodejs/tslib
+SLOT=0
+SRC_URI=https://registry.npmjs.org/aws-sdk-core/-/aws-sdk-core-3.974.13.tgz -> aws-sdk-core-3.974.13.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=1172e5e0fd76ea56c43d5ac8942b6f74

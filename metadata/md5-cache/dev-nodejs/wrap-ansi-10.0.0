@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/ansi-styles dev-nodejs/string-width dev-nodejs/strip-ansi
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Wordwrap a string with ANSI escape codes
+EAPI=8
+HOMEPAGE=https://github.com/chalk/wrap-ansi#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/ansi-styles dev-nodejs/string-width dev-nodejs/strip-ansi
+SLOT=0
+SRC_URI=https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-10.0.0.tgz -> wrap-ansi-10.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=dc7f0b98332a1f23269b5a9fa60b0808

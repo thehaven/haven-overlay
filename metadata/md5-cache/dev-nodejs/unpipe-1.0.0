@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Unpipe a stream from all destinations
+EAPI=8
+HOMEPAGE=https://github.com/stream-utils/unpipe
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz -> unpipe-1.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=d04af14f02d9dc724def65f3c0baadbd

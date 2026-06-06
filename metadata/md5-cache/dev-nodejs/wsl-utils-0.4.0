@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/is-wsl dev-nodejs/powershell-utils
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Utilities for working with Windows Subsystem for Linux (WSL)
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/wsl-utils#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/is-wsl dev-nodejs/powershell-utils
+SLOT=0
+SRC_URI=https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.4.0.tgz -> wsl-utils-0.4.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=3c216e27e8ce35adaa7cfc4fbaf00fe6

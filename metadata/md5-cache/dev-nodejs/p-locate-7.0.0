@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/p-limit
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Get the first fulfilled promise that satisfies the provided testing function
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/p-locate#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/p-limit
+SLOT=0
+SRC_URI=https://registry.npmjs.org/p-locate/-/p-locate-7.0.0.tgz -> p-locate-7.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=9953c6fcef6d4990672ba23f5235e09c

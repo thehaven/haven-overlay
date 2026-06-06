@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=micromark extension to support GFM footnotes
+EAPI=8
+HOMEPAGE=https://github.com/micromark/micromark-extension-gfm-footnote#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/devlop dev-nodejs/micromark-core-commonmark dev-nodejs/micromark-factory-space dev-nodejs/micromark-util-character dev-nodejs/micromark-util-normalize-identifier dev-nodejs/micromark-util-sanitize-uri dev-nodejs/micromark-util-symbol dev-nodejs/micromark-util-types
+SLOT=0
+SRC_URI=https://registry.npmjs.org/micromark-extension-gfm-footnote/-/micromark-extension-gfm-footnote-2.1.0.tgz -> micromark-extension-gfm-footnote-2.1.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=8fc256722d43d1b1f608127094dad3f7

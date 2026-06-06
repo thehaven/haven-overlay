@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Array / Arraylike utilities
+EAPI=8
+HOMEPAGE=https://thi.ng/arrays
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/thi-ng-api dev-nodejs/thi-ng-checks dev-nodejs/thi-ng-compare dev-nodejs/thi-ng-equiv dev-nodejs/thi-ng-errors dev-nodejs/thi-ng-random
+SLOT=0
+SRC_URI=https://registry.npmjs.org/thi-ng-arrays/-/thi-ng-arrays-2.14.22.tgz -> thi-ng-arrays-2.14.22.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=a67d4c350c9e306b6951cfe9b8d729b3

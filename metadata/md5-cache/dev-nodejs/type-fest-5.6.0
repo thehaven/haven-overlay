@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/tagged-tag
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=A collection of essential TypeScript types
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/type-fest#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=unknown
+RDEPEND=dev-nodejs/tagged-tag
+SLOT=0
+SRC_URI=https://registry.npmjs.org/type-fest/-/type-fest-5.6.0.tgz -> type-fest-5.6.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=9fdd2a46c0e4e4da65d0ab8729eb83ba

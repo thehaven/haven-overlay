@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=CLI proxy reducing LLM token consumption by 60-90% on dev commands
+EAPI=8
+HOMEPAGE=https://github.com/rtk-ai/rtk
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0
+RESTRICT=mirror
+SLOT=0
+SRC_URI=amd64? ( https://github.com/rtk-ai/rtk/releases/download/v0.42.3/rtk-x86_64-unknown-linux-musl.tar.gz -> rtk-0.42.3-amd64.tar.gz ) arm64? ( https://github.com/rtk-ai/rtk/releases/download/v0.42.3/rtk-aarch64-unknown-linux-gnu.tar.gz -> rtk-0.42.3-arm64.tar.gz )
+_md5_=f2ae879df2f968b1315f3a8fd6469821

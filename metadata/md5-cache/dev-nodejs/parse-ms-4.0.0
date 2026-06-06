@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Parse milliseconds into an object
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/parse-ms#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/parse-ms/-/parse-ms-4.0.0.tgz -> parse-ms-4.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=c51ec32b282a4ebe65ac1445cb07b7ea

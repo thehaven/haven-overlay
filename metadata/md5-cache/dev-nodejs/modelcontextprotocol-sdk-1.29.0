@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/ajv dev-nodejs/ajv-formats dev-nodejs/content-type dev-nodejs/cors dev-nodejs/cross-spawn dev-nodejs/eventsource dev-nodejs/eventsource-parser dev-nodejs/express dev-nodejs/express-rate-limit dev-nodejs/hono dev-nodejs/hono-node-server dev-nodejs/jose dev-nodejs/json-schema-typed dev-nodejs/pkce-challenge dev-nodejs/raw-body dev-nodejs/zod dev-nodejs/zod-to-json-schema
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Model Context Protocol implementation for TypeScript
+EAPI=8
+HOMEPAGE=https://modelcontextprotocol.io
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/ajv dev-nodejs/ajv-formats dev-nodejs/content-type dev-nodejs/cors dev-nodejs/cross-spawn dev-nodejs/eventsource dev-nodejs/eventsource-parser dev-nodejs/express dev-nodejs/express-rate-limit dev-nodejs/hono dev-nodejs/hono-node-server dev-nodejs/jose dev-nodejs/json-schema-typed dev-nodejs/pkce-challenge dev-nodejs/raw-body dev-nodejs/zod dev-nodejs/zod-to-json-schema
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@modelcontextprotocol/sdk/-/sdk-1.29.0.tgz -> modelcontextprotocol-sdk-1.29.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=05ae724085c47e5caaad53e47f395364

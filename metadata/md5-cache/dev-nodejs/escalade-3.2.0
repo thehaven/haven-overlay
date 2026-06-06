@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=A tiny (183B to 210B) and fast utility to ascend parent directories
+EAPI=8
+HOMEPAGE=https://github.com/lukeed/escalade#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz -> escalade-3.2.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=9050e76ecc1aa00002dd246208e22c68

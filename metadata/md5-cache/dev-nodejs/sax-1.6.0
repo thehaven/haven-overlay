@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=An evented streaming XML parser in JavaScript
+EAPI=8
+HOMEPAGE=https://github.com/isaacs/sax-js#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=unknown
+SLOT=0
+SRC_URI=https://registry.npmjs.org/sax/-/sax-1.6.0.tgz -> sax-1.6.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=b7b726236e4899b734c061a2c30aeafe

@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Base class for node which OpenTelemetry instrumentation modules extend
+EAPI=8
+HOMEPAGE=https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/opentelemetry-instrumentation
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/import-in-the-middle dev-nodejs/opentelemetry-api-logs dev-nodejs/require-in-the-middle
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opentelemetry-instrumentation/-/opentelemetry-instrumentation-0.218.0.tgz -> opentelemetry-instrumentation-0.218.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=178a77fc196ec9bde35fa1c93266d4b7

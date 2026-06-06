@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=OpenTelemetry SDK resource detector for AWS
+EAPI=8
+HOMEPAGE=https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages/resource-detector-aws#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/opentelemetry-core dev-nodejs/opentelemetry-resources dev-nodejs/opentelemetry-semantic-conventions
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opentelemetry-resource-detector-aws/-/opentelemetry-resource-detector-aws-2.18.0.tgz -> opentelemetry-resource-detector-aws-2.18.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=633b82894e5b930d5abffdddcf8d96ae

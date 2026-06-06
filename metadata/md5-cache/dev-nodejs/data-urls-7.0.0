@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/whatwg-mimetype dev-nodejs/whatwg-url
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Parses data: URLs
+EAPI=8
+HOMEPAGE=https://github.com/jsdom/data-urls#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/whatwg-mimetype dev-nodejs/whatwg-url
+SLOT=0
+SRC_URI=https://registry.npmjs.org/data-urls/-/data-urls-7.0.0.tgz -> data-urls-7.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=8aefd163824d3cee4c0d1678ede65382

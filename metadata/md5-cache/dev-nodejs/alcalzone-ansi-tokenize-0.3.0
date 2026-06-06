@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/ansi-styles dev-nodejs/is-fullwidth-code-point
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Efficiently modify strings containing ANSI escape codes
+EAPI=8
+HOMEPAGE=https://www.npmjs.com/package/@alcalzone/ansi-tokenize
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/ansi-styles dev-nodejs/is-fullwidth-code-point
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@alcalzone/ansi-tokenize/-/ansi-tokenize-0.3.0.tgz -> alcalzone-ansi-tokenize-0.3.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=951bce889ac44b53e2ee558b82664e1d

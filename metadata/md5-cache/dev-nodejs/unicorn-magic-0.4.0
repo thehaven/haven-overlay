@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Some useful utilities I often need
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/unicorn-magic#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/unicorn-magic/-/unicorn-magic-0.4.0.tgz -> unicorn-magic-0.4.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=80c1251d1e6b6b623dcd0c21f25d1fe0

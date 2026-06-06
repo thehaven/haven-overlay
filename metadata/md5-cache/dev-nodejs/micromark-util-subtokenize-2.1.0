@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=micromark utility to tokenize subtokens
+EAPI=8
+HOMEPAGE=https://github.com/micromark/micromark/tree/main#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/devlop dev-nodejs/micromark-util-chunked dev-nodejs/micromark-util-symbol dev-nodejs/micromark-util-types
+SLOT=0
+SRC_URI=https://registry.npmjs.org/micromark-util-subtokenize/-/micromark-util-subtokenize-2.1.0.tgz -> micromark-util-subtokenize-2.1.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=16d6afedb92ccc7f2bcf8d5b07d4695a

@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Fixes stack traces for files with source maps
+EAPI=8
+HOMEPAGE=https://github.com/evanw/node-source-map-support#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/buffer-from dev-nodejs/source-map
+SLOT=0
+SRC_URI=https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.21.tgz -> source-map-support-0.5.21.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=7f2edb512e5178b1ae7c3998be73c8b3

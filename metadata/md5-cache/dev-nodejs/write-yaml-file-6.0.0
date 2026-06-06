@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Stringify and write YAML to a file atomically
+EAPI=8
+HOMEPAGE=https://github.com/zkochan/packages/tree/main/write-yaml-file#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/js-yaml dev-nodejs/write-file-atomic
+SLOT=0
+SRC_URI=https://registry.npmjs.org/write-yaml-file/-/write-yaml-file-6.0.0.tgz -> write-yaml-file-6.0.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=211e5df7b73c29ec7d460279feb09646

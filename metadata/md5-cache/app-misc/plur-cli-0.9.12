@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=PLUR CLI — persistent memory for AI agents from the command line
+EAPI=8
+HOMEPAGE=https://github.com/plur-ai/plur
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 dev-db/sqlite
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@plur-ai/cli/-/cli-0.9.12.tgz -> plur-cli-0.9.12.tgz
+_md5_=b41d4a940d734bd7eae9b2bd565ff228

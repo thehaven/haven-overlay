@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Unicode symbols with fallbacks for older terminals
+EAPI=8
+HOMEPAGE=https://github.com/sindresorhus/figures#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/is-unicode-supported
+SLOT=0
+SRC_URI=https://registry.npmjs.org/figures/-/figures-6.1.0.tgz -> figures-6.1.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=1906e74cf145a19bcb22930b34c87760

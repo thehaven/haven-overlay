@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=OpenTelemetry Collector Trace Exporter allows user to send collected traces to the OpenTelemetry Collector
+EAPI=8
+HOMEPAGE=https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/exporter-trace-otlp-http
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-nodejs/opentelemetry-core dev-nodejs/opentelemetry-otlp-exporter-base dev-nodejs/opentelemetry-otlp-transformer dev-nodejs/opentelemetry-resources dev-nodejs/opentelemetry-sdk-trace-base
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opentelemetry-exporter-trace-otlp-http/-/opentelemetry-exporter-trace-otlp-http-0.218.0.tgz -> opentelemetry-exporter-trace-otlp-http-0.218.0.tgz
+_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_md5_=4c1d5e8913fc80c19af231f01869bc4f
