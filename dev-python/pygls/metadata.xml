@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>jonathan@zefr.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pygls</remote-id>
+		<remote-id type="github">openlawlibrary/pygls</remote-id>
+	</upstream>
+</pkgmetadata>

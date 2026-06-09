@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>moses.palmer@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Serena is an MCP (Model Context Protocol) toolkit for coding agents.
+		It provides semantic code retrieval, editing, refactoring, and debugging
+		tools at the symbol level — acting as the IDE for your coding agent.
+		Features include cross-file renames, reference lookups, type hierarchy
+		queries, and integration with any MCP-enabled AI client.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">oraios/serena</remote-id>
+		<remote-id type="pypi">serena-agent</remote-id>
+	</upstream>
+</pkgmetadata>
