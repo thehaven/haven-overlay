@@ -2,17 +2,71 @@
 # /etc/cron.daily/ebuild-updater
 # Automated ebuild-updater execution.
 # Reads configuration from /etc/ebuild-updater/config.toml
-
 set -euo pipefail
 
-# Check if configuration exists
 CONFIG="/etc/ebuild-updater/config.toml"
+LOG="/var/log/ebuild-updater-nightly.log"
+JSONL_LOG="/var/log/ebuild-updater-nightly.jsonl"
+
+# Initialise log files with run marker
+echo "=== $(date -Iseconds) ===" >>"$LOG"
+
+# ---------------------------------------------------------------------------
+# Sanity checks
+# ---------------------------------------------------------------------------
 if [[ ! -f "$CONFIG" ]]; then
-    echo "Error: $CONFIG not found. Skipping daily update." >&2
+    echo "ERROR: $CONFIG not found. Skipping daily update." | tee -a "$LOG" >&2
     exit 0
 fi
 
-# Run the pipeline
-# --json-log emits structured data for potential aggregation
-# --commit, --push, --reinstall behaviors should be governed by config.toml
-/usr/bin/ebuild-updater --config "$CONFIG" pipeline --json-log
+if ! command -v ebuild-updater &>/dev/null; then
+    echo "ERROR: ebuild-updater not in PATH" | tee -a "$LOG" >&2
+    exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# Step 1: Pre-cleanup — repair broken ebuilds and commit. Must run
+#         before discover/bump so egencache reflects repaired state.
+# ---------------------------------------------------------------------------
+echo "[cleanup] $(date -Iseconds)" >>"$LOG"
+ebuild-updater --config "$CONFIG" cleanup run --commit >>"$LOG" 2>&1 || {
+    echo "WARNING: cleanup failed — continuing to pipeline" | tee -a "$LOG" >&2
+}
+
+# ---------------------------------------------------------------------------
+# Step 2: Regenerate Portage metadata cache AFTER cleanup so it
+#         reflects repaired ebuilds.
+# ---------------------------------------------------------------------------
+echo "[egencache] $(date -Iseconds)" >>"$LOG"
+if command -v egencache &>/dev/null; then
+    egencache --update --repo=haven-overlay --jobs=4 >>"$LOG" 2>&1 || {
+        echo "WARNING: egencache failed — continuing to pipeline" | tee -a "$LOG" >&2
+    }
+fi
+
+# ---------------------------------------------------------------------------
+# Step 3: Full pipeline. Stage selection, --commit, --push, --reinstall,
+#         and retain_versions are all governed by config.toml.
+#         stderr (JSONL via --json-log) → $JSONL_LOG for monitoring.
+#         stdout (console summary) → $LOG via tee.
+# ---------------------------------------------------------------------------
+echo "[pipeline] $(date -Iseconds)" >>"$LOG"
+PIPELINE_RC=0
+
+ebuild-updater --config "$CONFIG" pipeline --json-log 2>>"$JSONL_LOG" | tee -a "$LOG" || PIPELINE_RC=$?
+UPDATE_COUNT=$(grep -c "bump to" "$LOG" 2>/dev/null || echo 0)
+
+# ---------------------------------------------------------------------------
+# Step 4: Dead-man's switch — 0 updates on 2 consecutive runs = alert.
+#         Low-update runs are the primary silent failure mode.
+# ---------------------------------------------------------------------------
+STALE_FILE="/var/lib/ebuild-updater/last_update_count"
+LAST_COUNT=$(cat "$STALE_FILE" 2>/dev/null || echo 0)
+
+if [[ "$UPDATE_COUNT" -eq 0 && "$LAST_COUNT" -eq 0 ]]; then
+    echo "⚠️  DEAD MAN'S SWITCH: 0 updates for 2 consecutive runs." | tee -a "$LOG" >&2
+fi
+echo "$UPDATE_COUNT" >"$STALE_FILE"
+
+echo "[done] $(date -Iseconds) pipeline_rc=$PIPELINE_RC updates=$UPDATE_COUNT" >>"$LOG"
+exit "$PIPELINE_RC"
