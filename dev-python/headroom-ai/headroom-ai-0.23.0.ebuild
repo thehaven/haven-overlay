@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=maturin
 DISTUTILS_SINGLE_IMPL=1
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 # Native Rust extension via PyO3
 DISTUTILS_EXT=1
