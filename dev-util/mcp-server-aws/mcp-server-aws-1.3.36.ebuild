@@ -5,7 +5,7 @@ EAPI=8
 
 PYPI_PN="awslabs-aws-api-mcp-server"
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="MCP server for AWS API operations"

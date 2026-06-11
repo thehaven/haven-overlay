@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit python-single-r1
 
 DESCRIPTION="High-throughput LLM serving engine with PagedAttention"

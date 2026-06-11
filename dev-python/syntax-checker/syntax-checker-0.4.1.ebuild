@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=maturin
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 CRATES="
 	aho-corasick@1.1.4

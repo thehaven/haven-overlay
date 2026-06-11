@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYPI_PN="py-key-value-aio"
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Async Key-Value Store Interface for Python"
