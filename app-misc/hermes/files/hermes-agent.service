@@ -1,8 +1,7 @@
 [Unit]
-Description=Hermes Web UI
-Documentation=https://github.com/nesquena/hermes-webui
-After=network.target hermes-agent.service
-Wants=hermes-agent.service
+Description=Hermes Agent Gateway Daemon
+Documentation=https://github.com/NousResearch/hermes-agent
+After=network.target
 
 [Service]
 Type=simple
@@ -11,10 +10,9 @@ Group=hermes-webui
 WorkingDirectory=/var/lib/hermes-webui
 Environment=HOME=/var/lib/hermes-webui
 Environment=XDG_CONFIG_HOME=/var/lib/hermes-webui/.config
-EnvironmentFile=-/etc/hermes/webui.conf
-ExecStart=/usr/bin/hermes-webui
+ExecStart=/usr/bin/hermes gateway run --accept-hooks
 Restart=always
-RestartSec=5
+RestartSec=10
 
 # Security sandbox
 ProtectSystem=full

@@ -6,7 +6,7 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{12..15} )
 
-inherit distutils-r1
+inherit distutils-r1 systemd
 
 DESCRIPTION="The self-improving AI agent"
 HOMEPAGE="https://github.com/NousResearch/hermes-agent"
@@ -161,6 +161,10 @@ src_prepare() {
 
 src_install() {
 	distutils-r1_src_install
+	systemd_dounit "${FILESDIR}/hermes-agent.service"
+	# Fix hermes-agent entry point: module renamed run_agent -> hermes_run_agent
+	sed -i 's/from run_agent import main/from hermes_run_agent import main/' "${ED}"/usr/bin/hermes-agent 2>/dev/null || true
+	find "${ED}"/usr/lib/python-exec -name hermes-agent -exec sed -i 's/from run_agent import main/from hermes_run_agent import main/' {} + 2>/dev/null || true
 	
 	insinto /usr/share/hermes
 	doins cli-config.yaml.example
