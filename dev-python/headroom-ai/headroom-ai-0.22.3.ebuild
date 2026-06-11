@@ -31,6 +31,11 @@ IUSE="code proxy debug test"
 # (onnxruntime, transformers, torch) not yet packaged.
 RESTRICT="test network-sandbox"
 
+src_compile() {
+	export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
+	distutils-r1_src_compile
+}
+
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # Core (runtime — needed even without USE flags)

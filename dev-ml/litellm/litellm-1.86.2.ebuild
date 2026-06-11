@@ -48,7 +48,7 @@ src_install() {
 	"${ED}${instdir}/bin/pip" install \
 		--no-cache-dir \
 		--disable-pip-version-check \
-		"litellm${extras}==${PV}" || die "pip install failed"
+		"litellm${extras}==${PV}" --ignore-requires-python || die "pip install failed"
 
 	# Fix paths baked during install
 	find "${ED}${instdir}" -type f \( -name '*.py' -o -name '*.cfg' \) -exec \

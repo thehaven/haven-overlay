@@ -9,5 +9,5 @@ LICENSE=GPL-3
 RDEPEND=acct-user/readarr >=dev-lang/mono-3.12.1 dev-util/lttng-ust media-libs/chromaprint[tools] net-misc/curl www-client/elinks
 SLOT=0
 SRC_URI=https://github.com/Readarr/Readarr/releases/download/v0.4.18.2805/Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz -> readarr-0.4.18.2805.tar.gz
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861
 _md5_=89e3c0cdbaa474794d50b0780d9c957f

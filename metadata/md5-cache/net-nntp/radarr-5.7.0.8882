@@ -9,5 +9,5 @@ LICENSE=GPL-3
 RDEPEND=acct-user/radarr media-video/mediainfo dev-db/sqlite
 SLOT=0
 SRC_URI=https://github.com/Radarr/Radarr/releases/download/v5.7.0.8882/Radarr.master.5.7.0.8882.linux-core-x64.tar.gz -> radarr-5.7.0.8882.tar.gz
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861
 _md5_=6e6d96c6e5dccb7b1160168e805409c3
