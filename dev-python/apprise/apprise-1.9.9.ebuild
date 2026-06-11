@@ -22,7 +22,7 @@ RDEPEND="dev-python/requests[${PYTHON_USEDEP}]
 	>=dev-python/click-5.0[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]"
 DEPEND="${REDEPEND}
-	dev-python/Babel[${PYTHON_USEDEP}]
+	dev-python/babel[${PYTHON_USEDEP}]
 	dev-python/pip[${PYTHON_USEDEP}]
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]

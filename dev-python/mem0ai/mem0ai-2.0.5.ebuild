@@ -22,7 +22,7 @@ RDEPEND="
 	>=dev-python/pydantic-2.7.3[${PYTHON_USEDEP}]
 	>=dev-python/pytz-2024.1[${PYTHON_USEDEP}]
 	>=dev-python/qdrant-client-1.12.0[${PYTHON_USEDEP}]
-	>=dev-python/sqlalchemy-2.0.51[${PYTHON_USEDEP}]
+	>=dev-python/sqlalchemy-2.0.31[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
