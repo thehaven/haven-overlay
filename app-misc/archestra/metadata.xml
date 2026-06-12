@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Archestra is an enterprise AI platform for managing and orchestrating
+		Model Context Protocol (MCP) servers. This package installs the
+		migration kit — a set of zero-dependency Python scripts that help
+		migrate existing AI pilots (Claude Code projects, custom MCP servers)
+		into the Archestra platform.
+
+		The migration kit scans existing project structures, generates a
+		secret-redacted inventory, and applies migration plans to an Archestra
+		instance. The full platform (backend, frontend, database, Kubernetes
+		orchestrator) is available as a Docker container at
+		docker.io/archestra/platform.
+	</longdescription>
+	<upstream>
+		<maintainer status="active">
+			<name>Archestra AI</name>
+		</maintainer>
+		<remote-id type="github">archestra-ai/archestra</remote-id>
+	</upstream>
+</pkgmetadata>
