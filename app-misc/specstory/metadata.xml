@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		SpecStory is a local-first CLI that automatically captures AI
+		conversation history from terminal coding agents (Claude Code,
+		Cursor, Codex CLI, Gemini CLI, OpenCode, and others). Sessions
+		are saved as searchable Markdown files in .specstory/history/,
+		committable to Git for team sharing. Cloud sync is opt-in only.
+	</longdescription>
+	<upstream>
+		<maintainer status="active">
+			<name>SpecStory AI</name>
+		</maintainer>
+		<remote-id type="github">specstoryai/getspecstory</remote-id>
+	</upstream>
+</pkgmetadata>
