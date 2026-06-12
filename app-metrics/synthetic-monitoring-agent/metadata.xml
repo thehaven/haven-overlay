@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>Grafana Synthetic Monitoring agent executes network and browser checks from distributed locations.</longdescription>
+	<upstream><remote-id type="github">grafana/synthetic-monitoring-agent</remote-id></upstream>
+</pkgmetadata>

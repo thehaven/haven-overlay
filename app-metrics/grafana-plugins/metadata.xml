@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>Meta package pulling in popular Grafana plugins.</longdescription>
+	<use>
+		<flag name="piechart-panel">Pie chart panel plugin</flag>
+		<flag name="worldmap-panel">World map panel plugin</flag>
+		<flag name="clock-panel">Clock panel plugin</flag>
+		<flag name="polystat-panel">Polystat (composite) panel</flag>
+		<flag name="discrete-panel">Discrete event panel</flag>
+		<flag name="status-panel">Status panel plugin</flag>
+		<flag name="bargauge-panel">Bar gauge panel plugin</flag>
+		<flag name="kubernetes-app">Kubernetes monitoring app</flag>
+		<flag name="all-plugins">Pull in all available plugins</flag>
+	</use>
+</pkgmetadata>

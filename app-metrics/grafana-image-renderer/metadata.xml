@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>Headless browser service for rendering Grafana panels and dashboards to PNG and PDF.</longdescription>
+	<upstream><remote-id type="github">grafana/grafana-image-renderer</remote-id></upstream>
+	<use><flag name="systemd">Install systemd service unit</flag></use>
+</pkgmetadata>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Grafana Image Renderer
+Documentation=https://grafana.com/docs/grafana/latest/setup-grafana/image-rendering/
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+ExecStart=/usr/bin/grafana-image-renderer
+Restart=always
+RestartSec=10
+
+ProtectSystem=full
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

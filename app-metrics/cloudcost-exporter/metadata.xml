@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>Prometheus exporter for cloud provider cost and pricing data from AWS, GCP, and Azure.</longdescription>
+	<upstream><remote-id type="github">grafana/cloudcost-exporter</remote-id></upstream>
+</pkgmetadata>
