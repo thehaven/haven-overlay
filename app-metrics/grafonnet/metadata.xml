@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		grafonnet is a Jsonnet library for generating Grafana dashboards.
+		It provides idiomatic, type-safe Jsonnet functions for building
+		panels, rows, queries, alerts, and other Grafana resources.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">grafana/grafonnet</remote-id>
+	</upstream>
+	<use>
+		<flag name="docsonnet">Install jsonnet-libs/docsonnet doc-util dependency</flag>
+		<flag name="xtd">Install jsonnet-libs/xtd extended stdlib dependency</flag>
+	</use>
+</pkgmetadata>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Jsonnet xtd provides an extended standard library (xtd)
+		with additional utility functions for Jsonnet.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">jsonnet-libs/xtd</remote-id>
+	</upstream>
+</pkgmetadata>

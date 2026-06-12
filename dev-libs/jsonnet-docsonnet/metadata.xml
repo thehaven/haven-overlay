@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		docsonnet provides Jsonnet documentation utilities (doc-util).
+		Used by grafonnet for generating function documentation.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">jsonnet-libs/docsonnet</remote-id>
+	</upstream>
+</pkgmetadata>
