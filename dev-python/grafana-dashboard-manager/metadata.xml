@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person"><email>haven@thehavennet.org.uk</email><name>Haven</name></maintainer>
+	<longdescription>CLI utility to save and restore Grafana dashboards via the Grafana HTTP API.</longdescription>
+	<upstream><remote-id type="github">simPod/grafana-dashboard-manager</remote-id></upstream>
+</pkgmetadata>
