@@ -1,0 +1,20 @@
+[Unit]
+Description=Grafana Alloy (OpenTelemetry Collector)
+Documentation=https://grafana.com/docs/alloy/latest/
+After=network.target
+
+[Service]
+Type=simple
+User=alloy
+Group=alloy
+ExecStart=/usr/bin/alloy run /etc/alloy/config.alloy
+Restart=always
+RestartSec=10
+WorkingDirectory=/var/lib/alloy
+
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

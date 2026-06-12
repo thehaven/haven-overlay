@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Grafana Alloy is an OpenTelemetry Collector distribution with
+		programmable pipelines. It ingests, processes, and exports
+		telemetry data (metrics, logs, traces) using a declarative
+		configuration language.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">grafana/alloy</remote-id>
+	</upstream>
+	<use>
+		<flag name="systemd">Install systemd service unit</flag>
+	</use>
+</pkgmetadata>
