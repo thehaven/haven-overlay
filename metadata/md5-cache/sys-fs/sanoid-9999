@@ -10,5 +10,5 @@ LICENSE=GPL-3.0
 PROPERTIES=live
 RDEPEND=app-arch/lzop dev-perl/Config-IniFiles sys-apps/pv sys-block/mbuffer virtual/perl-Data-Dumper
 SLOT=0
-_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
 _md5_=158d23c668c8b0e85c263b94b6e77588

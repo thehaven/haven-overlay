@@ -10,5 +10,5 @@ RDEPEND=|| ( dev-lang/rust dev-lang/rust-bin )
 RESTRICT=network-sandbox mirror
 SLOT=0
 SRC_URI=https://github.com/rust-lang/rust-analyzer/archive/refs/tags/2026-04-13.tar.gz -> rust-analyzer-20260413.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f
+_eclasses_=multiprocessing	45d0620f25c2f063ad6276ecd9ed9399
 _md5_=cc5873e3ab4cd942d8b9caaa773911f7

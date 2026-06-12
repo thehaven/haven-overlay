@@ -9,5 +9,5 @@ LICENSE=GPL-3
 RDEPEND=acct-user/lidarr >=dev-lang/mono-3.12.1 media-libs/chromaprint[tools] net-misc/curl
 SLOT=0
 SRC_URI=https://github.com/Lidarr/Lidarr/releases/download/v1.3.4.3458/Lidarr.develop.1.3.4.3458.linux-core-x64.tar.gz -> lidarr-1.3.4.3458.tar.gz
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=d975ea818b461ee9c9a8b9afa4a17801

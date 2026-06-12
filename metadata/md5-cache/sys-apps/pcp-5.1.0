@@ -10,5 +10,5 @@ LICENSE=LGPL-2.1+
 RDEPEND=acct-user/pcp systemd? ( sys-apps/systemd ) X? ( x11-libs/libXt ) qt4? ( dev-qt/qtcore:4 ) python? ( || ( dev-lang/python:3.14 dev-lang/python:3.13 dev-lang/python:3.12 ) ) perfevent? ( dev-libs/libpfm ) papi? ( dev-libs/papi ) discovery? ( net-dns/avahi[dbus] ) webapi? ( net-libs/libmicrohttpd[messages] )
 SLOT=0
 SRC_URI=https://github.com/performancecopilot/pcp/archive/5.1.0.tar.gz -> pcp-5.1.0.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-any-r1	891415dfe39ad9b41b461f2b86354af0	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	python-any-r1	891415dfe39ad9b41b461f2b86354af0	python-utils-r1	3ce55b5ac9c0a92cc4aeb1f88010d707	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=dbeea960123cd35b8fba02854600eac1

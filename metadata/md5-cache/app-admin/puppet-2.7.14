@@ -13,5 +13,5 @@ REQUIRED_USE=|| ( ruby_targets_ruby18 )
 RESTRICT=!test? ( test ) !test? ( test ) !test? ( test )
 SLOT=0
 SRC_URI=https://rubygems.org/gems/puppet-2.7.14.gem
-_eclasses_=elisp-common	ce20c7e2fc0c52b58ddabcd536b7310b	multilib	404b65bd5212cff83b3935c685419d08	ruby-fakegem	bc37b1e2fa23e795fae856dd70a23846	ruby-ng	960d5adaf301da1ef0ab9bdba5018a6d	ruby-utils	a3a0978ae7e8a40e253821da24a24782	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=elisp-common	0ea9a0d3bc26353e1642c73560a24fdf	multilib	fc812e8eb2170022c28272d80a1f9e77	ruby-fakegem	48f84e242da52518087150e5f863d4e8	ruby-ng	705ab926556cb5cb4811999dd0c670b0	ruby-utils	70349884e22849da218b0f0c4a32da54	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=85dd5effacf1b3ce5120b5ea53e240f3

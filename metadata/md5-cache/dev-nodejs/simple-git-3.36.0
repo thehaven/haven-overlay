@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=dev-nodejs/debug dev-nodejs/kwsites-file-exists dev-nodejs/kwsites-promise-deferred dev-nodejs/simple-git-args-pathspec dev-nodejs/simple-git-argv-parser
 SLOT=0
 SRC_URI=https://registry.npmjs.org/simple-git/-/simple-git-3.36.0.tgz -> simple-git-3.36.0.tgz
-_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=b2e3b046d7a716562fdfb47ecffc5639

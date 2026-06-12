@@ -8,5 +8,5 @@ KEYWORDS=~amd64
 LICENSE=MIT
 RDEPEND=>=net-libs/nodejs-18
 SLOT=0
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=2854da9a8a659520b0bc3915988894e1

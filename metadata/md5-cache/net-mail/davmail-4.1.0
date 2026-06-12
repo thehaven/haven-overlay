@@ -10,5 +10,5 @@ RDEPEND=acct-user/davmail dev-java/commons-codec:0 dev-java/commons-httpclient:3
 RESTRICT=test
 SLOT=0
 SRC_URI=https://downloads.sourceforge.net/davmail/davmail-src-4.1.0-2042.tgz
-_eclasses_=desktop	7b6f6e9d65093966fbc8475399c5dd4e
+_eclasses_=desktop	26d57169ca094c04be416993844ec8bc
 _md5_=c6fa54d79934fd33960ff6f6d251358f

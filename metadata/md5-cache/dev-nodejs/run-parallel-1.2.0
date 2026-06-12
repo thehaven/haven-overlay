@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=dev-nodejs/queue-microtask
 SLOT=0
 SRC_URI=https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz -> run-parallel-1.2.0.tgz
-_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=88f5fc9e64b9cb5fa6458ba33ff2e1ce

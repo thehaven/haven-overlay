@@ -9,5 +9,5 @@ PROPERTIES=live
 RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox
 SLOT=0
-_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
 _md5_=7127af667297a4cf2f8c8782287403a9

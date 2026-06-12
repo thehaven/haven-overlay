@@ -8,5 +8,5 @@ LICENSE=Apache-2.0
 RDEPEND=dev-nodejs/aws-sdk-core dev-nodejs/aws-sdk-types dev-nodejs/smithy-core dev-nodejs/smithy-signature-v4 dev-nodejs/smithy-types dev-nodejs/tslib
 SLOT=0
 SRC_URI=https://registry.npmjs.org/aws-sdk-middleware-sdk-rds/-/aws-sdk-middleware-sdk-rds-3.972.27.tgz -> aws-sdk-middleware-sdk-rds-3.972.27.tgz
-_eclasses_=multilib	404b65bd5212cff83b3935c685419d08	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=7549c16e587848959213a4c7a689de5c

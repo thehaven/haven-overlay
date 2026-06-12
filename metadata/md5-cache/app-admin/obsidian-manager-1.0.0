@@ -8,5 +8,5 @@ KEYWORDS=~amd64
 LICENSE=MIT
 RDEPEND=|| ( app-editors/obsidian app-editors/obsidian-bin ) net-misc/kasmvnc-bin dev-util/obsidian-mcp x11-base/xorg-server[xvfb] acct-user/obsidian acct-group/obsidian app-admin/pass dev-lang/python
 SLOT=0
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=448c5c84c3664eb3791ce4eaca31566e

@@ -10,5 +10,5 @@ LICENSE=GPL-3
 RDEPEND=acct-user/sonarr >=dev-lang/mono-4.6.1 media-video/mediainfo dev-db/sqlite
 SLOT=0
 SRC_URI=http://download.sonarr.tv/v3/main/3.0.9.1549/Sonarr.main.3.0.9.1549.linux.tar.gz -> sonarr-3.0.9.1549.tar.gz
-_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=f0afe7578a6686a3054a1da50f154a82

@@ -10,5 +10,5 @@ RDEPEND=>=app-admin/cockpit-266 app-emulation/libvirt-dbus app-emulation/libvirt
 REQUIRED_USE=^^ ( python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14 )
 SLOT=0
 SRC_URI=https://github.com/cockpit-project/cockpit-machines/releases/download/266/cockpit-machines-266.tar.xz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57	python-utils-r1	dbb8c4d794033ad7e7221eaf567a6c90	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57	python-utils-r1	3ce55b5ac9c0a92cc4aeb1f88010d707	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=3f501cb4868777126c89a3a2c204298c

@@ -11,5 +11,5 @@ PROPERTIES=live
 RDEPEND=acct-user/emby-server >=dev-lang/mono-3.2.7 >=media-video/ffmpeg-2[vpx] >=media-libs/libmediainfo-0.7 media-gfx/imagemagick[jpeg,jpeg2k,webp,png] !media-tv/mediabrowser-server
 RESTRICT=mirror test
 SLOT=0
-_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
 _md5_=842965634406a60c89f878da8d2964b9
