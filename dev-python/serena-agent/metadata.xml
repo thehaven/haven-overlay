@@ -12,6 +12,9 @@
 		Features include cross-file renames, reference lookups, type hierarchy
 		queries, and integration with any MCP-enabled AI client.
 	</longdescription>
+	<use>
+		<flag name="dashboard">Enable the native GUI dashboard viewer (pywebview + pystray). Unsupported on Linux; use the browser-based fallback instead.</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">oraios/serena</remote-id>
 		<remote-id type="pypi">serena-agent</remote-id>

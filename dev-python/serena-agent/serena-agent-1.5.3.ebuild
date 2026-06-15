@@ -14,6 +14,8 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE="dashboard"
+
 RDEPEND="
 	dev-python/anthropic[${PYTHON_USEDEP}]
 	dev-python/beautifulsoup4[${PYTHON_USEDEP}]
@@ -30,10 +32,12 @@ RDEPEND="
 	dev-python/psutil[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/pygls[${PYTHON_USEDEP}]
-	dev-python/pystray[${PYTHON_USEDEP}]
+	dashboard? (
+		dev-python/pystray[${PYTHON_USEDEP}]
+		dev-python/pywebview[${PYTHON_USEDEP}]
+	)
 	dev-python/python-dotenv[${PYTHON_USEDEP}]
 	dev-python/python-multipart[${PYTHON_USEDEP}]
-	dev-python/pywebview[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/regex[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
