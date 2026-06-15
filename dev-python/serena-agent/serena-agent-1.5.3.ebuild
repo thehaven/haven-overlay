@@ -53,10 +53,15 @@ RDEPEND="
 
 src_prepare() {
 	distutils-r1_src_prepare
-	# Upstream has a top-level "import webview" that crashes when
+	# Upstream has top-level imports of webview that crash when
 	# pywebview is not installed (dashboard USE flag disabled).
-	# webview is only used inside _start_dashboard_viewer_process_function,
-	# so move the import there.
+
+	# agent.py: move top-level "import webview" into
+	# _start_dashboard_viewer_process_function (the only user)
 	sed -i '/^import webview$/d' src/serena/agent.py || die
-	sed -i '/^        try:/i\        import webview' src/serena/agent.py || die
+	sed -i '/SerenaDashboardViewer(url, start_minimized/i\            import webview' src/serena/agent.py || die
+
+	# pywebview.py: wrap imports so the module loads without webview
+	sed -i 's/^import webview$/try:\n    import webview\n    from PIL import Image\nexcept ImportError:\n    webview = None  # type: ignore\n    Image = None   # type: ignore/' src/serena/util/pywebview.py || die
+	sed -i '/^from PIL import Image$/d' src/serena/util/pywebview.py || die
 }
