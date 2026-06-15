@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-inherit go-module
+inherit bash-completion-r1 go-module
 
 DESCRIPTION="CLI to run commands against Kubernetes clusters"
 HOMEPAGE="https://kubernetes.io"
@@ -14,9 +14,9 @@ KEYWORDS="amd64 ~arm64"
 IUSE="hardened"
 
 DEPEND="!sys-cluster/kubernetes"
-BDEPEND=">=dev-lang/go-1.16"
+BDEPEND=">=dev-lang/go-1.26.0"
 
-RESTRICT+=" test"
+RESTRICT="network-sandbox test"
 S="${WORKDIR}/kubernetes-${PV}"
 
 src_compile() {
