@@ -50,3 +50,13 @@ RDEPEND="
 	dev-python/urllib3[${PYTHON_USEDEP}]
 	dev-python/werkzeug[${PYTHON_USEDEP}]
 "
+
+src_prepare() {
+	distutils-r1_src_prepare
+	# Upstream has a top-level "import webview" that crashes when
+	# pywebview is not installed (dashboard USE flag disabled).
+	# webview is only used inside _start_dashboard_viewer_process_function,
+	# so move the import there.
+	sed -i '/^import webview$/d' src/serena/agent.py || die
+	sed -i '/^        try:/i\        import webview' src/serena/agent.py || die
+}
