@@ -17,3 +17,9 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-python/typing-extensions[${PYTHON_USEDEP}]
 "
+
+src_prepare() {
+	distutils-r1_src_prepare
+	# PyPI sdist excludes requirements.txt but setup.py reads it unconditionally
+	touch requirements.txt || die
+}
