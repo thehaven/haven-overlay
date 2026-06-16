@@ -157,7 +157,7 @@ SRC_URI+="
 LICENSE="Apache-2.0 Boost-1.0 Apache-2.0-with-LLVM-exceptions MIT MPL-2.0 UoI-NCSA Unicode-3.0"
 SLOT="0"
 KEYWORDS="~amd64"
-RESTRICT="test" # requires nodejs
+#RESTRICT="test"  # upstream tests need nodejs; our src_test validates CRATES
 
 RDEPEND="dev-python/orjson[${PYTHON_USEDEP}]
 	dev-python/ujson[${PYTHON_USEDEP}]"
@@ -165,4 +165,47 @@ BDEPEND="dev-util/maturin[${PYTHON_USEDEP}]"
 
 QA_FLAGS_IGNORED="usr/lib/python.*/site-packages/jiter/jiter.*.so"
 
-distutils_enable_tests pytest
+src_test() {
+	einfo "Validating CRATES against upstream Cargo.lock"
+
+	# Parse Cargo.lock into name@version pairs using grep + paste
+	# Registry crates have a source=registry line right after name/version
+	local lock_crates
+	lock_crates=$(tar xzf "${DISTDIR}/${P}.tar.gz" --wildcards -O '*/Cargo.lock' 2>/dev/null \
+		| grep -B2 'source = "registry' \
+		| grep -E '^(name|version) = ' \
+		| sed 's/^name = "//;s/^version = "//;s/"$//' \
+		| paste - - \
+		| while read -r name ver; do printf '%s@%s\n' "$name" "$ver"; done \
+		| sort) || die "Failed to parse Cargo.lock"
+
+	# Parse CRATES variable from ebuild
+	local ebuild_crates
+	ebuild_crates=$(echo "${CRATES}" | tr -d '"\t' | grep '@' | sort)
+
+	if [[ -z "${lock_crates}" ]]; then
+		die "No registry crates found in Cargo.lock"
+	fi
+
+	# Compare with comm (nix diff)
+	local missing extra
+	missing=$(comm -23 <(echo "${lock_crates}") <(echo "${ebuild_crates}"))
+	extra=$(comm -13 <(echo "${lock_crates}") <(echo "${ebuild_crates}"))
+
+	local mismatched=0
+	if [[ -n "${missing}" ]]; then
+		eerror "MISSING from ebuild CRATES (in Cargo.lock but not in ebuild):"
+		eerror "${missing}"
+		mismatched=1
+	fi
+	if [[ -n "${extra}" ]]; then
+		eerror "EXTRA in ebuild CRATES (in ebuild but not in Cargo.lock):"
+		eerror "${extra}"
+		mismatched=1
+	fi
+
+	if [[ ${mismatched} -eq 1 ]]; then
+		die "CRATES list out of sync (above). Regenerate: pycargoebuild ${PN}"
+	fi
+	einfo "CRATES list matches Cargo.lock"
+}
