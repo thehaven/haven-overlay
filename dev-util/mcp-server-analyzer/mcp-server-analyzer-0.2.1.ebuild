@@ -53,3 +53,10 @@ pkg_postinst() {
 	elog "      \"enabled\": true"
 	elog "    }"
 }
+
+src_prepare() {
+	distutils-r1_src_prepare
+	if [ -f pyproject.toml ]; then
+		sed -i 's/build-backend = "uv_build"/build-backend = "hatchling.build"/' pyproject.toml || die
+	fi
+}
