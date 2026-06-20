@@ -1,0 +1,23 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_{12..15} )
+PYPI_PN="griffe"
+inherit distutils-r1 pypi
+
+BDEPEND="dev-python/uv-dynamic-versioning[${PYTHON_USEDEP}]"
+
+DESCRIPTION="griffe Python package"
+HOMEPAGE="https://mkdocstrings.github.io/griffe"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64"
+
+RDEPEND="
+	dev-python/griffecli[${PYTHON_USEDEP}]
+	dev-python/griffelib[${PYTHON_USEDEP}]
+"
