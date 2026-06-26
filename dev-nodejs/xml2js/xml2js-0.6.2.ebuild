@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/Leonidas-from-XIV/node-xml2js"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

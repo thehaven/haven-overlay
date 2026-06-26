@@ -10,7 +10,7 @@ HOMEPAGE="https://uaparser.dev"
 
 LICENSE="AGPL-3.0-or-later"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

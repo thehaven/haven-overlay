@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/TryGhost/node-sqlite3"
 
 LICENSE="BSD-3-Clause"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 QA_PREBUILT='*.node'
 RESTRICT='strip'

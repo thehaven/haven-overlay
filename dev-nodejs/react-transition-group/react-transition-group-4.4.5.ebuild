@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/reactjs/react-transition-group#readme"
 
 LICENSE="BSD-3-Clause"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

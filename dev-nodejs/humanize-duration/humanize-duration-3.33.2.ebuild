@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/EvanHahn/HumanizeDuration.js"
 
 LICENSE="Unlicense"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

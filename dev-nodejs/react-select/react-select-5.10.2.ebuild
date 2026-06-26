@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/JedWatson/react-select/tree/master#readme"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/supercharge/request-ip"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

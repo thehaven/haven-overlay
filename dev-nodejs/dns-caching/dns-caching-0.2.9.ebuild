@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/seerr-team/dns-caching#readme"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/brianc/node-postgres"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

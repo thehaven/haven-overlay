@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/nodejs/node-gyp#readme"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 QA_PREBUILT='*.node'
 RESTRICT='strip'
