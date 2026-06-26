@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>haven</name>
+	</maintainer>
+	<longdescription>
+		Seerr is a media request and discovery manager that fronts Jellyfin, Plex, and Emby servers
+		and integrates with Sonarr/Radarr. Successor project merging Overseerr and Jellyseerr.
+		Single Node.js service listening on port 5055.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">seerr-team/seerr</remote-id>
+	</upstream>
+</pkgmetadata>
