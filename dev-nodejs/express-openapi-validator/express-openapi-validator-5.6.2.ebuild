@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Automatically validate API requests and responses with OpenAPI 3 and Express."
+HOMEPAGE="https://github.com/cdimascio/express-openapi-validator#readme"
 
 LICENSE="MIT"
 SLOT="0"

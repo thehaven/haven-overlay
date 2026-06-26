@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Ace (Ajax.org Cloud9 Editor)"
+HOMEPAGE="https://github.com/ajaxorg/ace-builds"
 
-LICENSE="MIT"
+LICENSE="BSD-3-Clause"
 SLOT="0"
 KEYWORDS="~amd64"
 

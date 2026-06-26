@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A react component toolset for managing animations"
+HOMEPAGE="https://github.com/reactjs/react-transition-group#readme"
 
-LICENSE="MIT"
+LICENSE="BSD-3-Clause"
 SLOT="0"
 KEYWORDS="~amd64"
 

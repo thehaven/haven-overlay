@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A small package to cache DNS lookups in Node.js, with support for custom DNS ..."
+HOMEPAGE="https://github.com/seerr-team/dns-caching#readme"
 
 LICENSE="MIT"
 SLOT="0"

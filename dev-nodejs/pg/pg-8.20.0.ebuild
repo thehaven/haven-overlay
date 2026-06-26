@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="PostgreSQL client - pure javascript & libpq with the same API"
+HOMEPAGE="https://github.com/brianc/node-postgres"
 
 LICENSE="MIT"
 SLOT="0"

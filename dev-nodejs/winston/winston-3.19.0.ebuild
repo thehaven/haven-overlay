@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A logger for just about everything."
+HOMEPAGE="https://github.com/winstonjs/winston#readme"
 
 LICENSE="MIT"
 SLOT="0"

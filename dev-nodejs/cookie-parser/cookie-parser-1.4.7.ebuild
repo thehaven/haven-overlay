@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Parse HTTP request cookies"
+HOMEPAGE="https://github.com/expressjs/cookie-parser#readme"
 
 LICENSE="MIT"
 SLOT="0"

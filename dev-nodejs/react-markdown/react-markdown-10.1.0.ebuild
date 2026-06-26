@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="React component to render markdown"
+HOMEPAGE="https://github.com/remarkjs/react-markdown#readme"
 
 LICENSE="MIT"
 SLOT="0"

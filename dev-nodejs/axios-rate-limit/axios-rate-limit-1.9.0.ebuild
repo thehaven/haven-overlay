@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Rate limit for axios"
+HOMEPAGE="https://github.com/aishek/axios-rate-limit#readme"
 
 LICENSE="MIT"
 SLOT="0"

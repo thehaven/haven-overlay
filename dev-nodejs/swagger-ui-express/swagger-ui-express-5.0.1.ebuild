@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Swagger UI Express"
+HOMEPAGE="https://github.com/scottie1984/swagger-ui-express"
 
 LICENSE="MIT"
 SLOT="0"

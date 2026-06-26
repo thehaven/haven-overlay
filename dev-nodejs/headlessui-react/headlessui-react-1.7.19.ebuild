@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@headlessui/react"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A set of completely unstyled, fully accessible UI components for React, desig..."
+HOMEPAGE="https://github.com/tailwindlabs/headlessui#readme"
 
 LICENSE="MIT"
 SLOT="0"

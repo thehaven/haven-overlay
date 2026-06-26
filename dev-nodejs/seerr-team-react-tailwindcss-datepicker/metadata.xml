@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="npm">react</remote-id>
+		<remote-id type="npm">@seerr-team/react-tailwindcss-datepicker</remote-id>
 	</upstream>
 </pkgmetadata>

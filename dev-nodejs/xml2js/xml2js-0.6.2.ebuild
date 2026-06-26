@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Simple XML to JavaScript object converter."
+HOMEPAGE="https://github.com/Leonidas-from-XIV/node-xml2js"
 
 LICENSE="MIT"
 SLOT="0"

@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Get the URL to a Gravatar image from an identifier, such as an email"
+HOMEPAGE="https://github.com/sindresorhus/gravatar-url#readme"
 
 LICENSE="MIT"
 SLOT="0"

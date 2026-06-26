@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="The React Framework"
+HOMEPAGE="https://nextjs.org"
 
 LICENSE="MIT"
 SLOT="0"
@@ -14,3 +14,8 @@ KEYWORDS="~amd64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"
+
+src_install() {
+	npm_src_install
+	npm_install_bin "dist/bin/next" next
+}

@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Copy stuff into clipboard using JS with fallbacks"
+HOMEPAGE="https://github.com/sudodoki/copy-to-clipboard#readme"
 
 LICENSE="MIT"
 SLOT="0"

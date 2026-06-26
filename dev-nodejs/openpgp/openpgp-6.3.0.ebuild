@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="OpenPGP.js is a Javascript implementation of the OpenPGP protocol. This is de..."
+HOMEPAGE="https://openpgpjs.org/"
 
-LICENSE="MIT"
+LICENSE="LGPL-3.0+"
 SLOT="0"
 KEYWORDS="~amd64"
 

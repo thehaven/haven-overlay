@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@tanem/react-nprogress"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A React primitive for building slim progress bars."
+HOMEPAGE="github:tanem/react-nprogress"
 
 LICENSE="MIT"
 SLOT="0"

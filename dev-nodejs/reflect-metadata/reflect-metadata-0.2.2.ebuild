@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Polyfill for Metadata Reflection API"
+HOMEPAGE="http://rbuckton.github.io/reflect-metadata"
 
-LICENSE="MIT"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 

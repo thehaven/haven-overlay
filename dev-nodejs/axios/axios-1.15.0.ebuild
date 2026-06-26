@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Promise based HTTP client for the browser and node.js"
+HOMEPAGE="https://axios-http.com"
 
 LICENSE="MIT"
 SLOT="0"

@@ -3,12 +3,13 @@
 
 EAPI=8
 
+NPM_MODULE="@fontsource-variable/inter"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Self-host the Inter font in a neatly bundled NPM package."
+HOMEPAGE="https://fontsource.org/fonts/inter"
 
-LICENSE="MIT"
+LICENSE="OFL-1.1"
 SLOT="0"
 KEYWORDS="~amd64"
 

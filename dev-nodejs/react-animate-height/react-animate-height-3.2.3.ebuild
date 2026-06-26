@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Lightweight React component for animating height using CSS transitions."
+HOMEPAGE="https://github.com/Stanko/react-animate-height"
 
 LICENSE="MIT"
 SLOT="0"

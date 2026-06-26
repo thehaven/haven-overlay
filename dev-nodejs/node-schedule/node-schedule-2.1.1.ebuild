@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A cron-like and not-cron-like job scheduler for Node."
+HOMEPAGE="https://github.com/node-schedule/node-schedule#readme"
 
 LICENSE="MIT"
 SLOT="0"

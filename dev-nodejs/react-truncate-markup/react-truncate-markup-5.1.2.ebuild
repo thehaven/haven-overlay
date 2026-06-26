@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="React component for truncating JSX markup"
+HOMEPAGE="https://github.com/patrik-piskay/react-truncate-markup#readme"
 
-LICENSE="MIT"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 

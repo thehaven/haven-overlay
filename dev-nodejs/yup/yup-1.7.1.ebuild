@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Dead simple Object schema validation"
+HOMEPAGE="https://github.com/jquense/yup"
 
 LICENSE="MIT"
 SLOT="0"

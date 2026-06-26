@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Simple and fast NodeJS internal caching. Node internal in memory cache like m..."
+HOMEPAGE="https://github.com/node-cache/node-cache"
 
 LICENSE="MIT"
 SLOT="0"

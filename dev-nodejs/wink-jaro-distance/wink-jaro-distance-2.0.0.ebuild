@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="An Implementation of Jaro Distance Algorithm by Matthew A. Jaro"
+HOMEPAGE="http://winkjs.org/"
 
 LICENSE="MIT"
 SLOT="0"

@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@supercharge/request-ip"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Retrieve a request’s IP address in Node.js"
+HOMEPAGE="https://github.com/supercharge/request-ip"
 
 LICENSE="MIT"
 SLOT="0"

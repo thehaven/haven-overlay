@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="React Hooks library for remote data fetching"
+HOMEPAGE="https://swr.vercel.app"
 
 LICENSE="MIT"
 SLOT="0"

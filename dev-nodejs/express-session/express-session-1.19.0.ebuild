@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Simple session middleware for Express"
+HOMEPAGE="https://github.com/expressjs/session#readme"
 
 LICENSE="MIT"
 SLOT="0"

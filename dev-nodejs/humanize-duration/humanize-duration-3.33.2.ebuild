@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Convert millisecond durations to English and many other languages."
+HOMEPAGE="https://github.com/EvanHahn/HumanizeDuration.js"
 
-LICENSE="MIT"
+LICENSE="Unlicense"
 SLOT="0"
 KEYWORDS="~amd64"
 

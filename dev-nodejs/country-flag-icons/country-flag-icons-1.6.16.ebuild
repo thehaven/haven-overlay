@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Vector (*.svg) country flag icons in 3x2 aspect ratio."
+HOMEPAGE="https://gitlab.com/catamphetamine/country-flag-icons#readme"
 
 LICENSE="MIT"
 SLOT="0"

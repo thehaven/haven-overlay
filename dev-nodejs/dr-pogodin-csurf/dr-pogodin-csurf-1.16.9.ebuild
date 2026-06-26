@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@dr.pogodin/csurf"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="CSRF token middleware for ExpressJS"
+HOMEPAGE="https://dr.pogodin.studio/docs/csurf"
 
 LICENSE="MIT"
 SLOT="0"

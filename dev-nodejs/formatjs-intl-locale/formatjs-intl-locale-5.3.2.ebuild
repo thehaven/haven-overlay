@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@formatjs/intl-locale"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Intl.Locale polyfill"
+HOMEPAGE="https://github.com/formatjs/formatjs#readme"
 
 LICENSE="MIT"
 SLOT="0"

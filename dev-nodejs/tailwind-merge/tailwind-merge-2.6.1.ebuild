@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Merge Tailwind CSS classes without style conflicts"
+HOMEPAGE="https://github.com/dcastil/tailwind-merge"
 
 LICENSE="MIT"
 SLOT="0"

@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@seerr-team/react-tailwindcss-datepicker"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A modern React Datepicker using Tailwind CSS 3"
+HOMEPAGE="https://github.com/seerr-team/react-tailwindcss-datepicker#readme"
 
 LICENSE="MIT"
 SLOT="0"

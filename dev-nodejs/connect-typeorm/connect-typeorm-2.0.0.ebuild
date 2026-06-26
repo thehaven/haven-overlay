@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A TypeORM-based session store"
+HOMEPAGE="https://github.com/freshgiammi-lab/connect-typeorm#readme"
 
 LICENSE="MIT"
 SLOT="0"

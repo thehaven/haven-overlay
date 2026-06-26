@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Create, preview (browser/iOS Simulator), and send custom email templates for ..."
+HOMEPAGE="https://github.com/forwardemail/email-templates"
 
 LICENSE="MIT"
 SLOT="0"

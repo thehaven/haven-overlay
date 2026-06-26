@@ -5,7 +5,7 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
+DESCRIPTION="React package for working with the DOM."
 HOMEPAGE="https://react.dev/"
 
 LICENSE="MIT"

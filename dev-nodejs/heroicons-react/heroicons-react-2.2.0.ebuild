@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@heroicons/react"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="<p align='center'>   <a href='https://heroicons.com' target='_blank'>     <pi..."
+HOMEPAGE="https://github.com/tailwindlabs/heroicons#readme"
 
 LICENSE="MIT"
 SLOT="0"

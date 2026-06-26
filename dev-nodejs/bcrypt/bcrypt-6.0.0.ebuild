@@ -5,12 +5,15 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A bcrypt library for NodeJS."
+HOMEPAGE="https://github.com/kelektiv/node.bcrypt.js#readme"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+
+QA_PREBUILT='*.node'
+RESTRICT='strip'
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"

@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="An HTTP(s) proxy http.Agent implementation for HTTP"
+HOMEPAGE="https://github.com/TooTallNate/proxy-agents#readme"
 
 LICENSE="MIT"
 SLOT="0"

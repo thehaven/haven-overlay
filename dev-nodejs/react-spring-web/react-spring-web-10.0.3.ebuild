@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@react-spring/web"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="react-dom support"
+HOMEPAGE="https://github.com/pmndrs/react-spring#readme"
 
 LICENSE="MIT"
 SLOT="0"

@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Monitor if a component is inside the viewport, using IntersectionObserver API"
+HOMEPAGE="https://github.com/thebuilder/react-intersection-observer#readme"
 
 LICENSE="MIT"
 SLOT="0"

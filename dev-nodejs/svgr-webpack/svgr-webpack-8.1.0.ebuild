@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@svgr/webpack"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="SVGR webpack loader."
+HOMEPAGE="https://react-svgr.com"
 
 LICENSE="MIT"
 SLOT="0"

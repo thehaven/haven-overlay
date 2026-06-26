@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="String validation and sanitization"
+HOMEPAGE="https://github.com/validatorjs/validator.js"
 
 LICENSE="MIT"
 SLOT="0"

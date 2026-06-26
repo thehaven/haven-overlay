@@ -3,10 +3,11 @@
 
 EAPI=8
 
+NPM_MODULE="@formatjs/intl"
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Internationalize JS apps. This library provides an API to format dates, numbe..."
+HOMEPAGE="https://formatjs.github.io"
 
 LICENSE="MIT"
 SLOT="0"

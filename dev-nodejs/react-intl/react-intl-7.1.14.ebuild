@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Internationalize React apps. This library provides React components and an AP..."
+HOMEPAGE="https://formatjs.github.io/docs/react-intl"
 
-LICENSE="MIT"
+LICENSE="BSD-3-Clause"
 SLOT="0"
 KEYWORDS="~amd64"
 

@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Lodash modular utilities."
+HOMEPAGE="https://lodash.com/"
 
 LICENSE="MIT"
 SLOT="0"

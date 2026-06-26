@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Smoking hot React Notifications. Lightweight, customizable and beautiful by d..."
+HOMEPAGE="https://github.com/timolins/react-hot-toast#readme"
 
 LICENSE="MIT"
 SLOT="0"

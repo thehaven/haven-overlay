@@ -5,8 +5,8 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="A comprehensive library for mime-type mapping"
+HOMEPAGE="https://github.com/broofa/mime#readme"
 
 LICENSE="MIT"
 SLOT="0"
@@ -14,3 +14,8 @@ KEYWORDS="~amd64"
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"
+
+src_install() {
+	npm_src_install
+	npm_install_bin "bin/cli.js" mime
+}

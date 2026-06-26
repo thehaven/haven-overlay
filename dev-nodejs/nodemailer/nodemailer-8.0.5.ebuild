@@ -5,10 +5,10 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Easy as cake e-mail sending from your Node.js applications"
+HOMEPAGE="https://nodemailer.com/"
 
-LICENSE="MIT"
+LICENSE="MIT-0"
 SLOT="0"
 KEYWORDS="~amd64"
 

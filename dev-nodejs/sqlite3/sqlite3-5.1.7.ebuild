@@ -5,12 +5,15 @@ EAPI=8
 
 inherit npm
 
-DESCRIPTION="React is a JavaScript library for building user interfaces."
-HOMEPAGE="https://react.dev/"
+DESCRIPTION="Asynchronous, non-blocking SQLite3 bindings"
+HOMEPAGE="https://github.com/TryGhost/node-sqlite3"
 
-LICENSE="MIT"
+LICENSE="BSD-3-Clause"
 SLOT="0"
 KEYWORDS="~amd64"
+
+QA_PREBUILT='*.node'
+RESTRICT='strip'
 
 RDEPEND=""
 BDEPEND="${RDEPEND}"
