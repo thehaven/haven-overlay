@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Retrieve a request’s IP address in Node.js
+EAPI=8
+HOMEPAGE=https://github.com/supercharge/request-ip
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@supercharge/request-ip/-/request-ip-1.2.0.tgz -> supercharge-request-ip-1.2.0.tgz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=b092f05a1e8e3afbd0e50001078c5db0

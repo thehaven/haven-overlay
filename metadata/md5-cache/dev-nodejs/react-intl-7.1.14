@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Internationalize React apps. This library provides React components and an AP...
+EAPI=8
+HOMEPAGE=https://formatjs.github.io/docs/react-intl
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=BSD-3-Clause
+SLOT=0
+SRC_URI=https://registry.npmjs.org/react-intl/-/react-intl-7.1.14.tgz -> react-intl-7.1.14.tgz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=58f1a52e60cd8453d970ff0fea6e0a7c

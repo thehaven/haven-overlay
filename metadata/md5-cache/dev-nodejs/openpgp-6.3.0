@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=OpenPGP.js is a Javascript implementation of the OpenPGP protocol. This is de...
+EAPI=8
+HOMEPAGE=https://openpgpjs.org/
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=LGPL-3.0+
+SLOT=0
+SRC_URI=https://registry.npmjs.org/openpgp/-/openpgp-6.3.0.tgz -> openpgp-6.3.0.tgz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=0e3771b434c5728194c3d7cad788f809

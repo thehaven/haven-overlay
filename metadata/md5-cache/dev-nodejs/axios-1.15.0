@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Promise based HTTP client for the browser and node.js
+EAPI=8
+HOMEPAGE=https://axios-http.com
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/axios/-/axios-1.15.0.tgz -> axios-1.15.0.tgz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=ca9bcdc9e6288fe3f0211622a1b864e7

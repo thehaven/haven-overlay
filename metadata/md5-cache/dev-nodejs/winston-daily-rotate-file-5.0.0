@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=A transport for winston which logs to a rotating file each day.
+EAPI=8
+HOMEPAGE=https://github.com/winstonjs/winston-daily-rotate-file#readme
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/winston-daily-rotate-file/-/winston-daily-rotate-file-5.0.0.tgz -> winston-daily-rotate-file-5.0.0.tgz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4
+_md5_=fc3f89109254370dee283e04fc32cfe6

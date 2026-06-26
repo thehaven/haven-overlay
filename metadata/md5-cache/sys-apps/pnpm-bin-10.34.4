@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Fast, disk space efficient Node.js package manager (prebuilt binary)
+EAPI=8
+HOMEPAGE=https://pnpm.io
+IUSE=static
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RESTRICT=strip mirror
+SLOT=0
+SRC_URI=amd64? ( static? ( https://github.com/pnpm/pnpm/releases/download/v10.34.4/pnpm-linuxstatic-x64 -> pnpm-bin-10.34.4-amd64-static ) !static? ( https://github.com/pnpm/pnpm/releases/download/v10.34.4/pnpm-linux-x64 -> pnpm-bin-10.34.4-amd64-glibc ) ) arm64? ( static? ( https://github.com/pnpm/pnpm/releases/download/v10.34.4/pnpm-linuxstatic-arm64 -> pnpm-bin-10.34.4-arm64-static ) !static? ( https://github.com/pnpm/pnpm/releases/download/v10.34.4/pnpm-linux-arm64 -> pnpm-bin-10.34.4-arm64-glibc ) )
+_md5_=93b00a3f5d12866f1da781fac97e9477
