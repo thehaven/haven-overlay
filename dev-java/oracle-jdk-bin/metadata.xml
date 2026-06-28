@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Oracle's Java SE Development Kit (JDK) 21 — proprietary distribution
+		based on OpenJDK. Subject to the Oracle No-Fee Terms and Conditions
+		(NFTC). Non-redistributable; user must accept the license in
+		/etc/portage/package.license before installation.
+	</longdescription>
+	<use>
+		<flag name="commercial">Install features requiring a commercial license for production use</flag>
+		<flag name="headless-awt">Don't install the X backend for AWT, needed by some GUIs (was the old X flag)</flag>
+		<flag name="source">Install JVM sources (src.zip)</flag>
+	</use>
+	<upstream>
+		<remote-id type="gentoo">java/jdk</remote-id>
+	</upstream>
+</pkgmetadata>

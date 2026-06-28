@@ -1,0 +1,17 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst postrm prerm setup
+DEPEND=dev-java/java-config app-eselect/eselect-java
+DESCRIPTION=Oracle's Java SE Development Kit
+EAPI=8
+HOMEPAGE=https://www.oracle.com/java/
+IDEPEND=app-eselect/eselect-java
+INHERIT=java-vm-2
+IUSE=alsa +commercial cups headless-awt +source
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=NFTC
+RDEPEND=( alsa? ( media-libs/alsa-lib ) media-libs/fontconfig:1.0 media-libs/freetype:2 media-libs/harfbuzz !headless-awt? ( x11-libs/libX11 x11-libs/libXext x11-libs/libXi x11-libs/libXrender x11-libs/libXtst ) cups? ( net-print/cups ) ) dev-java/java-config app-eselect/eselect-java
+RESTRICT=bindist mirror preserve-libs strip
+SLOT=21
+SRC_URI=amd64? ( https://download.oracle.com/java/21/archive/jdk-21.0.8_linux-x64_bin.tar.gz ) arm64? ( https://download.oracle.com/java/21/archive/jdk-21.0.8_linux-aarch64_bin.tar.gz )
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	pax-utils	5555f2e75744739fe100ee62c22d28fe	prefix	c3c4c93ebda319c0fa7ed6f942ba1010	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	java-vm-2	6c7243f2269a7c9b5c177579e49f89ab
+_md5_=e438605192ea762d13eb5935ed80cef4
