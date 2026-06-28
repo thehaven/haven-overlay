@@ -7,5 +7,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="pypi">python-ulid</remote-id>
+	<remote-id type="github">mdomke/python-ulid</remote-id>
 	</upstream>
 </pkgmetadata>
