@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Composer is a dependency manager for PHP. It allows you to declare
+		the libraries your project depends on and it will manage (install/update)
+		them for you. Composer is the de-facto standard for PHP package management.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">composer/composer</remote-id>
+	</upstream>
+</pkgmetadata>
