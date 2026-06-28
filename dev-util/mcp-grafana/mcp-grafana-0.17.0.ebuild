@@ -27,6 +27,10 @@ src_prepare() {
 }
 
 src_compile() {
+	# grafana-plugin-sdk-go@v0.290.1 requires go >= 1.25.7; system go is
+	# 1.25.5 and the go-module eclass forces GOTOOLCHAIN=local. Allow Go
+	# to auto-fetch a newer toolchain (network-sandbox is unrestricted above).
+	export GOTOOLCHAIN="go1.25.7+"
 	ego mod tidy
 	ego build -o mcp-grafana ./cmd/mcp-grafana
 }
