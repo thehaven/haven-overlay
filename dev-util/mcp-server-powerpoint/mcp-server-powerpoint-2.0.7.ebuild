@@ -22,21 +22,24 @@ RDEPEND="
 SLOT="0"
 KEYWORDS="~amd64"
 
+src_prepare() {
+	default
+
+	# Upstream ships slide_layout_templates.json at the project root and lists
+	# it in [tool.hatch.build.targets.wheel] only-include. utils/template_utils.py
+	# (lines 197, 495) looks it up via os.path.join(dirname(__file__), ...), so
+	# the runtime path is site-packages/utils/slide_layout_templates.json.
+	# The pyproject.toml list also includes enhanced_slide_templates.json which
+	# is not actually shipped in the tarball (hatch warns at build time).
+	# Move the file to its expected runtime location, then prune both stale
+	# entries from only-include (the existing "utils/" glob picks up the move).
+	mv slide_layout_templates.json utils/slide_layout_templates.json || die
+	sed -i \
+		-e 's/, "slide_layout_templates.json"//g' \
+		-e 's/, "enhanced_slide_templates.json"//g' \
+		pyproject.toml || die
+}
+
 src_install() {
 	distutils-r1_src_install
-
-	# Fix broken import resolution — upstream's module layout
-	# uses bare 'import utils' which fails. Add sys.path.
-	python_foreach_impl python_fix_shebang -q \
-		"${ED}/usr/lib/python-exec/${EPYTHON}/ppt_mcp_server"
-
-	for wrapper in $(find "${ED}" -name 'ppt_mcp_server' -path '*/python-exec/*'); do
-		local pyver=$(basename $(dirname "$wrapper"))
-		local site="/usr/lib/${pyver}/site-packages/office_powerpoint_mcp_server"
-		sed -i "3a\\
-import sys; sys.path.insert(0, \\"${site}\\")\\
-from office_powerpoint_mcp_server.ppt_mcp_server import main" "$wrapper"
-		# Remove the broken original import
-		sed -i '/^from ppt_mcp_server import main/d' "$wrapper"
-	done
 }
