@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		httpx-retries is a transport-level retry plugin for httpx using an urllib3-style
+		exponential backoff. It supports 429 / 5xx retry-after semantics out of the box.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">httpx-retries</remote-id>
+		<remote-id type="github">sasseneg/httpx-retries</remote-id>
+	</upstream>
+</pkgmetadata>

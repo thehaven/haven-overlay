@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Imagehash is a Python library that implements perceptual image hashing.
+		It is written in pure Python and depends on NumPy, Pillow, SciPy, and PyWavelets.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">ImageHash</remote-id>
+		<remote-id type="github">JohannesBuchner/imagehash</remote-id>
+	</upstream>
+</pkgmetadata>
