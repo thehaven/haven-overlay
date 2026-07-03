@@ -16,6 +16,7 @@ KEYWORDS="~amd64"
 
 RDEPEND="dev-lang/php:*[curl,phar,ssl]
 	>=dev-lang/php-7.2.5"
+S="${WORKDIR}"
 
 src_unpack() {
 	# PHAR is installed as-is; do not attempt to extract
