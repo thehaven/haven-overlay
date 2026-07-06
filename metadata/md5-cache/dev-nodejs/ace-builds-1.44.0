@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Ace (Ajax.org Cloud9 Editor)
+EAPI=8
+HOMEPAGE=https://github.com/ajaxorg/ace-builds
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=BSD-3-Clause
+SLOT=0
+SRC_URI=https://registry.npmjs.org/ace-builds/-/ace-builds-1.44.0.tgz -> ace-builds-1.44.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=b8d19ab1ffd5c5f9cb6566021189d917

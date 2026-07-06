@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install
+DESCRIPTION=Paperclip CLI — orchestrate AI agent teams to run a business
+EAPI=8
+HOMEPAGE=https://github.com/paperclipai/paperclip
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 dev-db/postgresql net-misc/openssh
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/paperclipai/-/paperclipai-2026.618.0.tgz
+_md5_=ad6b20aca31d35d92aa5c6d1ee4f55dd

@@ -1,0 +1,9 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=CLI code generator for schema-to-code translation (CUE, JSON Schema, OpenAPI)
+EAPI=8
+HOMEPAGE=https://github.com/grafana/cog
+KEYWORDS=-* ~amd64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=https://github.com/grafana/cog/releases/download/v0.1.21/cog_Linux_x86_64.tar.gz
+_md5_=f0a570b6d0558456fa63365d4f8474d7

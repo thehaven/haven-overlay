@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/argparse
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=YAML 1.2 parser and serializer
+EAPI=8
+HOMEPAGE=https://github.com/nodeca/js-yaml#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/argparse
+SLOT=0
+SRC_URI=https://registry.npmjs.org/js-yaml/-/js-yaml-5.2.0.tgz -> js-yaml-5.2.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=b379e96390c5220c4c8a850eda015a2a

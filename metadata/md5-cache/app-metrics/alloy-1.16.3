@@ -1,0 +1,14 @@
+BDEPEND=app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=install postinst
+DESCRIPTION=OpenTelemetry Collector distribution with programmable pipelines
+EAPI=8
+HOMEPAGE=https://grafana.com/oss/alloy-opentelemetry-collector/
+INHERIT=systemd
+IUSE=+systemd
+KEYWORDS=-* ~amd64
+LICENSE=Apache-2.0
+RDEPEND=acct-user/alloy acct-group/alloy
+SLOT=0
+SRC_URI=https://github.com/grafana/alloy/releases/download/v1.16.3/alloy-linux-amd64.zip
+_eclasses_=systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=e317cc65a00e8c3c5e25bc9bb7c6cf4e

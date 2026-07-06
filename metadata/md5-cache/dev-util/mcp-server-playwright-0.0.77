@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install postinst unpack
+DESCRIPTION=MCP server for Playwright browser automation
+EAPI=8
+HOMEPAGE=https://github.com/microsoft/playwright-mcp
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=>=net-libs/nodejs-20 >=www-client/google-chrome-148
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@playwright/mcp/-/mcp-0.0.77.tgz -> mcp-server-playwright-0.0.77.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=5076855e7f8c96bf7c5e08f32558a72d

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=GitHub Action for Renovate
+EAPI=8
+HOMEPAGE=https://github.com/renovatebot/github-action
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-util/renovate
+SLOT=0
+SRC_URI=https://github.com/renovatebot/github-action/archive/v46.1.16.tar.gz -> renovate-github-action-46.1.16.tar.gz
+_md5_=563b461bddfa9e525e2ce6c667949444

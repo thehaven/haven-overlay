@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Merge Tailwind CSS classes without style conflicts
+EAPI=8
+HOMEPAGE=https://github.com/dcastil/tailwind-merge
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.6.0.tgz -> tailwind-merge-3.6.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=70b7401604f5ea3bb62d5a45525a1cdc

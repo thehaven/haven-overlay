@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Convert millisecond durations to English and many other languages.
+EAPI=8
+HOMEPAGE=https://github.com/EvanHahn/HumanizeDuration.js
+INHERIT=npm
+KEYWORDS=~amd64 ~arm64
+LICENSE=Unlicense
+SLOT=0
+SRC_URI=https://registry.npmjs.org/humanize-duration/-/humanize-duration-3.34.0.tgz -> humanize-duration-3.34.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=53d82afaf33f410294a2bec76bab61f5

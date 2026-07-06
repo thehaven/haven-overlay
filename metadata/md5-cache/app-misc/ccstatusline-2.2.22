@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Customisable status line formatter for Claude Code CLI
+EAPI=8
+HOMEPAGE=https://github.com/sirmalloc/ccstatusline
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-14
+SLOT=0
+SRC_URI=https://registry.npmjs.org/ccstatusline/-/ccstatusline-2.2.22.tgz
+_md5_=17b72626dd0118f09037a4c6540dbeb3

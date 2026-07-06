@@ -1,0 +1,13 @@
+BDEPEND=dev-nodejs/exodus-bytes dev-nodejs/tr46 dev-nodejs/webidl-conversions
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=An implementation of the WHATWG URL Standard's URL API and parsing machinery
+EAPI=8
+HOMEPAGE=https://github.com/jsdom/whatwg-url#readme
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-nodejs/exodus-bytes dev-nodejs/tr46 dev-nodejs/webidl-conversions
+SLOT=0
+SRC_URI=https://registry.npmjs.org/whatwg-url/-/whatwg-url-17.0.0.tgz -> whatwg-url-17.0.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=b9b3b741bc30f994f58eb2adc8d287a9

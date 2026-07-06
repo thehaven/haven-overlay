@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=OpenCode plugin for snippets expansion
+EAPI=8
+HOMEPAGE=https://github.com/JosXa/opencode-snippets
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+SLOT=0
+SRC_URI=https://registry.npmjs.org/opencode-snippets/-/opencode-snippets-3.0.0.tgz
+_md5_=a63006b1e3646eff2df7ec7757d72bc3

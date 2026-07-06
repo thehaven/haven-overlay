@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Jsonnet library for generating Grafana dashboards
+EAPI=8
+HOMEPAGE=https://github.com/grafana/grafonnet
+IUSE=docsonnet xtd
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=docsonnet? ( dev-libs/jsonnet-docsonnet ) xtd? ( dev-libs/jsonnet-xtd )
+SLOT=0
+SRC_URI=https://github.com/grafana/grafonnet/archive/f0fb5ab.tar.gz -> grafonnet-11.4.0.tar.gz
+_md5_=fed61af4c2f6e224b5ad224e06da87ff

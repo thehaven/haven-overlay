@@ -1,0 +1,10 @@
+DEFINED_PHASES=postinst
+DESCRIPTION=Meta package for popular Grafana plugins
+EAPI=8
+HOMEPAGE=https://grafana.com/grafana/plugins/
+IUSE=all-plugins piechart-panel worldmap-panel clock-panel polystat-panel discrete-panel status-panel bargauge-panel kubernetes-app
+KEYWORDS=~amd64
+LICENSE=metapackage
+RDEPEND=piechart-panel? ( app-metrics/grafana-plugin-piechart ) worldmap-panel? ( app-metrics/grafana-plugin-worldmap ) clock-panel? ( app-metrics/grafana-plugin-clock ) polystat-panel? ( app-metrics/grafana-plugin-polystat ) discrete-panel? ( app-metrics/grafana-plugin-discrete ) status-panel? ( app-metrics/grafana-plugin-status ) bargauge-panel? ( app-metrics/grafana-plugin-bargauge ) kubernetes-app? ( app-metrics/grafana-plugin-kubernetes )
+SLOT=0
+_md5_=ef6376969f8a51f310255dbd8c76d85e
