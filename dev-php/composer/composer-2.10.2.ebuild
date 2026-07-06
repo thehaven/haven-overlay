@@ -13,14 +13,31 @@ SRC_URI="
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="test"
+RESTRICT="!test? ( test )"
 
 RDEPEND="dev-lang/php:*[curl,phar,ssl]
 	>=dev-lang/php-7.2.5"
+BDEPEND="test? ( dev-lang/php:*[phar] )"
 S="${WORKDIR}"
 
 src_unpack() {
 	# PHAR is installed as-is; do not attempt to extract
 	:
+}
+
+src_test() {
+	# Assert the PHAR stub is structurally valid (contains the Composer marker)
+	head -c 4096 "${DISTDIR}/composer.phar" | grep -q 'Composer' \
+		|| die "PHAR stub missing 'Composer' marker"
+
+	# Assert PHP can execute the PHAR
+	php "${DISTDIR}/composer.phar" --version \
+		|| die "PHAR did not execute under php"
+
+	# Assert the reported version matches ${PV}
+	php "${DISTDIR}/composer.phar" --version | grep -q "Composer version ${PV}" \
+		|| die "PHAR reported wrong version (expected ${PV})"
 }
 
 src_install() {
