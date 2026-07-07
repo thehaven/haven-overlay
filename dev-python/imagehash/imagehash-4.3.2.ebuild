@@ -12,6 +12,7 @@ HOMEPAGE="https://github.com/JohannesBuchner/imagehash"
 # ImageHash is capital-I on PyPI; pypi_sdist_url would emit the wrong
 # case, so pin the URL directly.
 SRC_URI="https://files.pythonhosted.org/packages/cd/de/5c0189b0582e21583c2a213081c35a2501c0f9e51f21f6a52f55fbb9a4ff/ImageHash-${PV}.tar.gz"
+S="${WORKDIR}/ImageHash-${PV}"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"

@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{12..15} )
 inherit distutils-r1
 
@@ -13,10 +13,12 @@ HOMEPAGE="https://github.com/sasseneg/httpx-retries"
 # project name uses a hyphen (httpx-retries); pypi_sdist_url derives the
 # filename from the project name and gets it wrong. Pin the URL directly.
 SRC_URI="https://files.pythonhosted.org/packages/source/h/httpx-retries/httpx_retries-${PV}.tar.gz"
+S="${WORKDIR}/httpx_retries-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="dev-python/httpx[${PYTHON_USEDEP}]"
-BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+BDEPEND="dev-python/hatch-fancy-pypi-readme
+	dev-python/hatchling[${PYTHON_USEDEP}]"

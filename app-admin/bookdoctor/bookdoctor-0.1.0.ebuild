@@ -28,7 +28,7 @@ RDEPEND="
 BDEPEND="
 	dev-python/hatchling[${PYTHON_USEDEP}]
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
-	app-text/texinfo
+	sys-apps/texinfo
 "
 
 src_compile() {
