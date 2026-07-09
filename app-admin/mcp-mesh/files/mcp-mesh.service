@@ -7,8 +7,36 @@ Type=simple
 User=mcp
 Group=mcp
 EnvironmentFile=-/etc/conf.d/mcp-mesh
-ExecStart=/usr/bin/mcp-mesh serve --port ${PORT:-7780}
+ExecStart=/usr/bin/mcp-mesh serve --port ${PORT} --audit /var/lib/mcp-mesh/audit.jsonl
 Restart=on-failure
+
+# --- Hardening (added 2026-06-25, OpenSpec harden-mcp-mesh-service) ---
+# Privilege & execution
+NoNewPrivileges=yes
+RestrictRealtime=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+UMask=0077
+
+# Filesystem
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+
+# Kernel & cgroups
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+
+# Sockets & namespaces
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+
+# Managed directories (see mcp-mesh.confd for audit-path interaction)
+LogsDirectory=mcp-mesh
+ConfigurationDirectory=mcp-mesh
+StateDirectory=mcp-mesh
 
 [Install]
 WantedBy=multi-user.target

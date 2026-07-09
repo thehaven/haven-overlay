@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{12..14} )
-inherit distutils-r1 git-r3
+inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Dynamic MCP gateway: just-in-time tool mounting and policy-aware proxy"
 HOMEPAGE="https://github.com/haven/mcp-mesh"
@@ -43,6 +43,7 @@ python_test() {
 }
 
 RDEPEND="
+	acct-user/mcp
 	dev-python/fastapi[${PYTHON_USEDEP}]
 	dev-python/uvicorn[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
@@ -51,5 +52,22 @@ RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
 	dev-python/bcrypt[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-sdk[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-exporter-otlp-proto-http[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-instrumentation[${PYTHON_USEDEP}]
+	dev-python/urllib3[${PYTHON_USEDEP}]
+	dev-python/python-socks[${PYTHON_USEDEP}]
+	dev-python/cryptography[${PYTHON_USEDEP}]
+	dev-python/pyjwt[${PYTHON_USEDEP}]
+	dev-python/python-multipart[${PYTHON_USEDEP}]
+	dev-python/starlette[${PYTHON_USEDEP}]
+	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 "
+
+python_install_all() {
+	distutils-r1_python_install_all
+	systemd_dounit "${FILESDIR}"/mcp-mesh.service
+	newconfd "${FILESDIR}"/mcp-mesh.confd mcp-mesh
+}
+
 distutils_enable_tests pytest

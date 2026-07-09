@@ -1,2 +1,11 @@
 # Config for mcp-mesh
 PORT=7780
+
+# NOTE: The audit log is written to /var/lib/mcp-mesh/audit.jsonl
+# (systemd's StateDirectory=mcp-mesh). The CLI default of
+# ~/.local/state/mcp-mesh/audit.jsonl is intentionally overridden
+# in the unit's ExecStart so the audit log lives under the
+# systemd-managed state directory, which is writable even with
+# ProtectSystem=strict and ProtectHome=yes. LogsDirectory is for
+# syslog-style service output; ConfigurationDirectory is for
+# mounted config (none today); the audit log is not in either.
