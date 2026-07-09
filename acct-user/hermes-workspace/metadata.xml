@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>floppym@gentoo.org</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		System user for the Hermes Workspace web application
+		(www-apps/hermes-workspace / dev-util/hermes-workspace).
+		Home directory is /var/lib/hermes-workspace, used for runtime
+		state when the workspace is run as a systemd service.
+	</longdescription>
+</pkgmetadata>
