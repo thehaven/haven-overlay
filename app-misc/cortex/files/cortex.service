@@ -8,7 +8,7 @@ User=cortex
 Group=cortex
 WorkingDirectory=/var/lib/cortex
 EnvironmentFile=-/etc/cortex/cortex.env
-ExecStart=/usr/bin/cortex index --heartbeat # Example: run heartbeat on start
+ExecStart=/usr/bin/cortex heartbeat --no-bb-poll --format json
 Restart=always
 RestartSec=300
 

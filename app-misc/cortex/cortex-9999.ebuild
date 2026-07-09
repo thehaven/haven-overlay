@@ -29,6 +29,7 @@ RDEPEND="
         dev-python/mcp[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
         dev-python/structlog[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
         dev-python/sqlite-vec[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+        dev-python/networkx[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
         dev-python/watchfiles[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
         dev-python/psutil[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
 "
