@@ -1,10 +1,15 @@
-BDEPEND=>=net-libs/nodejs-22
-DEFINED_PHASES=compile install postinst
+BDEPEND=>=net-libs/nodejs-22 test? ( >=net-libs/nodejs-22 ) virtual/pkgconfig
+DEFINED_PHASES=compile install postinst test unpack
 DESCRIPTION=Web-based workspace for Hermes Agent with chat, terminal, skills manager
 EAPI=8
 HOMEPAGE=https://github.com/outsourc-e/hermes-workspace
+INHERIT=optfeature systemd
+IUSE=test
 KEYWORDS=~amd64
 LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-22 acct-user/hermes-workspace acct-group/hermes-workspace
+RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/outsourc-e/hermes-workspace/archive/refs/tags/v2.3.0.tar.gz -> hermes-workspace-2.3.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/hermes-workspace-node_modules-2.3.0.tar.xz
-_md5_=83e9262bca322085c62aa716c6cb669c
+_eclasses_=optfeature	538bce96e5589935b57e178e8635f301	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861
+_md5_=121f8a2efda3aa923947854857db0928

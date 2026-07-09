@@ -2,7 +2,17 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@thehavennet.org.uk</email>
+		<email>floppym@gentoo.org</email>
 		<name>Simon Alman</name>
 	</maintainer>
+	<longdescription>
+		Hermes Workspace is a web-based workspace for the Hermes Agent
+		ecosystem, providing chat, terminal, skills management, and
+		multi-agent orchestration. It is a TanStack Start SSR application
+		served by a Node.js HTTP server, proxying to a Hermes Agent
+		gateway (or any OpenAI-compatible backend).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">outsourc-e/hermes-workspace</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,0 +1,46 @@
+[Unit]
+Description=Hermes Workspace (Hermes Agent web UI)
+Documentation=https://github.com/outsourc-e/hermes-workspace
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hermes-workspace
+Group=hermes-workspace
+WorkingDirectory=/usr/share/hermes-workspace
+EnvironmentFile=/etc/hermes-workspace/hermes-workspace.env
+ExecStart=/usr/bin/node --max-old-space-size=2048 server-entry.js
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=60
+
+# Sane defaults; override via EnvironmentFile
+Environment=PORT=3000
+Environment=HOST=127.0.0.1
+Environment=HERMES_API_URL=http://127.0.0.1:8642
+Environment=NODE_ENV=production
+
+# Runtime data directories (auto-created with correct ownership)
+StateDirectory=hermes-workspace
+LogsDirectory=hermes-workspace
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/hermes-workspace /var/log/hermes-workspace
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
