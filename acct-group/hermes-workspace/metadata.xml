@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>floppym@gentoo.org</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		System group for the Hermes Workspace web application
+		(www-apps/hermes-workspace / dev-util/hermes-workspace).
+	</longdescription>
+</pkgmetadata>
