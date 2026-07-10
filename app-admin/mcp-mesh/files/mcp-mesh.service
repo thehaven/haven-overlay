@@ -32,6 +32,11 @@ ProtectControlGroups=yes
 # Sockets & namespaces
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=yes
+PrivateUsers=yes
+
+# System call filtering
+SystemCallFilter=~@system-service
+CapabilityBoundingSet=~CAP_SYSLOG
 
 # Managed directories (see mcp-mesh.confd for audit-path interaction)
 LogsDirectory=mcp-mesh
