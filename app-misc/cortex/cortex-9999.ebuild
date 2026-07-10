@@ -12,8 +12,8 @@ DESCRIPTION="Vault knowledge agent — search, RAG, and ingestion for Obsidian"
 HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
 EGIT_REPO_URI="file:///storage/home/haven/projects/services/cortex"
 
-KEYWORDS="~amd64"
-LICENSE="Proprietary"
+KEYWORDS="**"
+LICENSE="MIT"
 SLOT="0"
 
 RDEPEND="
