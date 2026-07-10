@@ -53,6 +53,16 @@ RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
 	dev-python/bcrypt[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-sdk[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-exporter-otlp-proto-http[${PYTHON_USEDEP}]
+	dev-python/opentelemetry-instrumentation[${PYTHON_USEDEP}]
+	dev-python/urllib3[${PYTHON_USEDEP}]
+	dev-python/python-socks[${PYTHON_USEDEP}]
+	dev-python/cryptography[${PYTHON_USEDEP}]
+	dev-python/pyjwt[${PYTHON_USEDEP}]
+	dev-python/python-multipart[${PYTHON_USEDEP}]
+	dev-python/starlette[${PYTHON_USEDEP}]
+	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 "
 
 python_install_all() {
