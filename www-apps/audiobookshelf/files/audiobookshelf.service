@@ -1,0 +1,18 @@
+[Unit]
+Description=Audiobookshelf Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+LimitNOFILE=65536
+EnvironmentFile=/etc/audiobookshelf.conf
+Environment=NODE_ENV=production
+User=audiobookshelf
+Group=audiobookshelf
+Type=exec
+Restart=on-failure
+WorkingDirectory=/usr/lib64/node_modules/audiobookshelf
+ExecStart=/usr/bin/node index.js
+
+[Install]
+WantedBy=multi-user.target
