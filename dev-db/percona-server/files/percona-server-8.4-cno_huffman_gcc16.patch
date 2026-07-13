@@ -1,0 +1,10 @@
+--- a/extra/libcno/cno_huffman_generator.cc
++++ b/extra/libcno/cno_huffman_generator.cc
+@@ -32,6 +32,7 @@
+ #include <list>
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ // This source code was created to implement same functionality as
+ // is supplied by:
