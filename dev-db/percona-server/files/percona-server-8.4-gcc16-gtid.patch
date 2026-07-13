@@ -1,0 +1,10 @@
+--- a/libs/mysql/gtid/gtid_format.h
++++ b/libs/mysql/gtid/gtid_format.h
+@@ -28,6 +28,7 @@
+ #include <memory>
+ #include <string>
+ #include "mysql/utils/enumeration_utils.h"
++#include <cstdint>
+ 
+ /// @addtogroup GroupLibsMysqlGtid
+ /// @{

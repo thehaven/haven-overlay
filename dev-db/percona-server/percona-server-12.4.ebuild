@@ -167,6 +167,7 @@ src_prepare() {
 	eapply "${FILESDIR}/percona-server-8.4-cstr_fix.patch"
 	eapply "${FILESDIR}/percona-server-8.4-stringconcat.patch"
 	eapply "${FILESDIR}/percona-server-8.4-cno_huffman_gcc16.patch"
+	eapply "${FILESDIR}/percona-server-8.4-gcc16-gtid.patch"
 
 	sed -i -e 's/MY_RPM rpm/MY_RPM rpmNOTEXISTENT/' CMakeLists.txt || die
 
