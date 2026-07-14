@@ -7,30 +7,18 @@ DESCRIPTION="OpenCode plugin that prevents agents from reading sensitive .env fi
 HOMEPAGE="https://github.com/boxpositron/envsitter-guard"
 SRC_URI="https://github.com/boxpositron/envsitter-guard/archive/refs/heads/main.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/envsitter-guard-main"
+
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-
 RESTRICT="network-sandbox test"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+inherit bun
+
 RDEPEND="dev-util/opencode"
-
-S="${WORKDIR}/envsitter-guard-main"
-
-src_compile() {
-	einfo "Installing dependencies..."
-	bun install --ignore-scripts || die
-
-	einfo "Building envsitter-guard..."
-	bun run build || die
-}
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json
-}
-
-pkg_postinst() {
-	einfo "envsitter-guard installed."
 }
