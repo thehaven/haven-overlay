@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit bun
+
 DESCRIPTION="Self-hosted audiobook library management system with Plex integration"
 HOMEPAGE="https://github.com/readmeabook/readmeabook"
 SRC_URI="
@@ -18,10 +20,10 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-db/postgresql-15
-	>=dev-libs/redis-7.0
+	>=dev-db/redis-7.0
 "
 
-BDEPEND=">=dev-util/bun-1.0"
+BUN_SKIP_COMPILE=1
 
 src_prepare() {
 	python3 "${FILESDIR}/patch-layout.py" \
@@ -36,12 +38,10 @@ src_prepare() {
 }
 
 src_compile() {
-	export DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
+	export DATABASE_URL="postgresql://localhost:5432/readmeabook?schema=public"
 
 	bun install --frozen-lockfile --production=false || die "bun install failed"
-
 	npx prisma generate || die "prisma generate failed"
-
 	bun run build || die "next build failed"
 }
 
@@ -63,7 +63,7 @@ src_install() {
 
 		if [[ -d "${S}/prisma" ]]; then
 			insinto "/usr/lib/${PN}/prisma"
-			doins -r "${S}/prisma"/*
+			doins -r "${S}/prisma/"*
 		fi
 	fi
 
