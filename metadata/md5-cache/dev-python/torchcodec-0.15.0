@@ -1,0 +1,16 @@
+BDEPEND=app-arch/unzip python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) python_targets_python3_15? ( dev-lang/python:3.15 ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?,python_targets_python3_15(-)?]
+DEFINED_PHASES=compile configure install prepare test unpack
+DESCRIPTION=PyTorch native video decoder
+EAPI=8
+HOMEPAGE=https://github.com/pytorch/torchcodec
+INHERIT=distutils-r1
+IUSE=python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 python_targets_python3_15
+KEYWORDS=~amd64
+LICENSE=BSD
+RDEPEND=>=dev-python/torch-2.10.0[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?,python_targets_python3_15(-)?] python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python3_14? ( dev-lang/python:3.14 ) python_targets_python3_15? ( dev-lang/python:3.15 )
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 python_targets_python3_15 )
+RESTRICT=bindist
+SLOT=0
+SRC_URI=python_targets_python3_12? ( https://files.pythonhosted.org/packages/d0/05/b7ba7ae04db4afeb1fd32d30ec6290d511c374adc464afe191c8fc8d4e22/torchcodec-0.15.0-cp312-cp312-manylinux_2_28_x86_64.whl -> torchcodec-0.15.0-cp312.whl.zip ) python_targets_python3_13? ( https://files.pythonhosted.org/packages/70/ff/f0e5795100bdf11f6e73a2fcc5197e9010e45030c1ee7f6b3ee32cffefe4/torchcodec-0.15.0-cp313-cp313-manylinux_2_28_x86_64.whl -> torchcodec-0.15.0-cp313.whl.zip ) python_targets_python3_14? ( https://files.pythonhosted.org/packages/28/57/4bab825dbb8aff755c87ff040fd91e6dbc1bb7c51a9bd5b2fdd61fda0437/torchcodec-0.15.0-cp314-cp314-manylinux_2_28_x86_64.whl -> torchcodec-0.15.0-cp314.whl.zip ) python_targets_python3_15? ( https://files.pythonhosted.org/packages/28/57/4bab825dbb8aff755c87ff040fd91e6dbc1bb7c51a9bd5b2fdd61fda0437/torchcodec-0.15.0-cp314-cp314-manylinux_2_28_x86_64.whl -> torchcodec-0.15.0-cp315.whl.zip )
+_eclasses_=distutils-r1	fa417e51408bf16a2c13f1730b404226	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	flag-o-matic	fd3558f73f6503093adee69adf41020d	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	python-r1	5fdca77e34fc9af7d6eb47689f33f6bf	python-utils-r1	3ce55b5ac9c0a92cc4aeb1f88010d707	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=4d60c10874265cec046aa7f9c630bca0

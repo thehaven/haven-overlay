@@ -1,12 +1,14 @@
 BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
-DEFINED_PHASES=compile install postinst
+DEFINED_PHASES=compile install
 DESCRIPTION=OpenCode plugin that prevents agents from reading sensitive .env files
 EAPI=8
 HOMEPAGE=https://github.com/boxpositron/envsitter-guard
+INHERIT=bun
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
 RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/boxpositron/envsitter-guard/archive/refs/heads/main.tar.gz -> envsitter-guard-9999.tar.gz
-_md5_=0661ed026d2298ed635822eaba0ceac8
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=4ddc74373d6ee5e85a108590516b731e

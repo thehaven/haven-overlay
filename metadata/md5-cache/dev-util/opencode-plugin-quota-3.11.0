@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=OpenCode plugin for quota tracking
+EAPI=8
+HOMEPAGE=https://github.com/slkiser/opencode-quota
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@slkiser/opencode-quota/-/opencode-quota-3.11.0.tgz -> opencode-plugin-quota-3.11.0.tgz
+_md5_=54c88dfa7c86af8e443e6b7cda6baf02

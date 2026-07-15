@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-20[npm]
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=PLUR MCP server — persistent memory tools for any AI agent
+EAPI=8
+HOMEPAGE=https://github.com/plur-ai/plur
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/nodejs-20 dev-db/sqlite
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@plur-ai/mcp/-/mcp-0.11.0.tgz -> plur-mcp-0.11.0.tgz
+_md5_=cd13ea6884a234a778b12153b1759e95

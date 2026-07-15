@@ -1,12 +1,14 @@
 BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
-DEFINED_PHASES=compile install postinst
+DEFINED_PHASES=compile install
 DESCRIPTION=OpenCode plugin for multi-agent task dispatch
 EAPI=8
 HOMEPAGE=https://github.com/derekbar90/opencode-conductor
+INHERIT=bun
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
 RDEPEND=dev-util/opencode
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/derekbar90/opencode-conductor/archive/refs/tags/v1.21.1.tar.gz -> opencode-plugin-conductor-1.21.1.tar.gz
-_md5_=227d5d0e1c22db2a093d6f8e6322df08
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=99696a3f2738b5e87fe61b611744e178

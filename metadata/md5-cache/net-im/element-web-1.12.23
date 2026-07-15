@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=A glossy Matrix collaboration client for the web
+EAPI=8
+HOMEPAGE=https://element.io/
+KEYWORDS=~amd64 ~arm64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=https://github.com/element-hq/element-web/releases/download/v1.12.23/element-v1.12.23.tar.gz -> element-web-1.12.23.tar.gz
+_md5_=b68ebbe284150caf53f81ec512ae7e99

@@ -1,11 +1,13 @@
 BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
-DEFINED_PHASES=compile install postinst
+DEFINED_PHASES=compile install
 DESCRIPTION=OpenCode plugin for exporting telemetry via OpenTelemetry
 EAPI=8
 HOMEPAGE=https://github.com/DEVtheOPS/opencode-plugin-otel
+INHERIT=bun
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
 RDEPEND=dev-util/opencode
 SLOT=0
 SRC_URI=https://github.com/DEVtheOPS/opencode-plugin-otel/archive/refs/tags/v1.0.0.tar.gz -> opencode-plugin-otel-1.0.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-plugin-otel-node_modules-1.0.0.tar.xz
-_md5_=107e57dc49c340936631d5555b32bb03
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=9bf94ff14cf523f5612adf199901c6a8

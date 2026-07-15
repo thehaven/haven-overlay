@@ -1,0 +1,13 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install prepare
+DESCRIPTION=Self-hosted audiobook library management system with Plex integration
+EAPI=8
+HOMEPAGE=https://github.com/readmeabook/readmeabook
+INHERIT=bun
+KEYWORDS=~amd64
+LICENSE=AGPL-3
+RDEPEND=>=dev-db/postgresql-15 >=dev-db/redis-7.0
+SLOT=0
+SRC_URI=https://github.com/readmeabook/readmeabook/archive/refs/tags/v1.2.1.tar.gz -> readmeabook-1.2.1.tar.gz https://artifactory.delivery.haven.pw/gentoo-distfiles/readmeabook-node_modules-1.2.1.tar.xz https://artifactory.delivery.haven.pw/gentoo-distfiles/readmeabook-fonts-1.2.1.tar.xz
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=7ea6ab3cfd92be9345e63d3b46ebb549

@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DEPEND=>=virtual/jre-21
+DESCRIPTION=Open Source Identity and Access Management
+EAPI=8
+HOMEPAGE=https://www.keycloak.org/
+KEYWORDS=-* ~amd64
+LICENSE=Apache-2.0
+RDEPEND=>=virtual/jre-21
+SLOT=0
+SRC_URI=https://github.com/keycloak/keycloak/releases/download/26.7.0/keycloak-26.7.0.tar.gz -> keycloak-bin-26.7.0.tar.gz
+_md5_=b3524bba82794441cef1222034f6f9c7

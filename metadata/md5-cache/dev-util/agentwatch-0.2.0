@@ -1,0 +1,14 @@
+BDEPEND=net-libs/nodejs || ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Local-only observability dashboard for AI coding agents
+EAPI=8
+HOMEPAGE=https://github.com/mishanefedov/agentwatch
+INHERIT=bun
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=net-libs/nodejs
+RESTRICT=network-sandbox test strip
+SLOT=0
+SRC_URI=https://github.com/mishanefedov/agentwatch/archive/refs/tags/v0.2.0.tar.gz -> agentwatch-0.2.0.tar.gz
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=2eca8bde27b97b2851726ca692b1ce6c
