@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@alman.dev</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pyannote-audio</remote-id>
+		<remote-id type="github">pyannote/pyannote-audio</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		pyannote-audio is an open-source toolkit for speaker diarization
+		based on PyTorch. It is the heavy diarization backend used by
+		dev-python/speaches when USE=diarization is enabled. Source-built
+		via hatchling; runtime brings in pyannote-{core,database,metrics},
+		torch, torchaudio, and lightning.
+	</longdescription>
+</pkgmetadata>
