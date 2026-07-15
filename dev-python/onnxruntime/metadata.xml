@@ -2,8 +2,15 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@thehavennet.org.uk</email>
+		<email>it@git.gentoo.or</email>
 		<name>Simon Alman</name>
 	</maintainer>
-	<upstream><remote-id type="pypi">onnxruntime</remote-id></upstream>
+	<upstream>
+		<remote-id type="pypi">onnxruntime</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		ONNX Runtime is a cross-platform inference accelerator for ONNX
+		models. Wheels are prebuilt per architecture with bundled shared
+		libraries; QA flags are ignored because no local compilation occurs.
+	</longdescription>
 </pkgmetadata>
