@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>herve.niderb@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pyannote-metrics</remote-id>
+		<remote-id type="github">pyannote/pyannote-metrics</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		pyannote-metrics provides a toolkit for reproducible evaluation,
+		diagnostic analysis and error breakdown of speaker diarization
+		systems — including Diarization Error Rate (DER), Jaccard index,
+		and purity/coverage metrics.
+	</longdescription>
+</pkgmetadata>

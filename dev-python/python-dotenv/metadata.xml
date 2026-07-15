@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		python-dotenv reads key-value pairs from a .env file and adds them to
+		process environment variables. It is widely used to manage development,
+		test and production configuration without leaking secrets into code.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">theskumar/python-dotenv</remote-id>
+		<remote-id type="pypi">python-dotenv</remote-id>
+	</upstream>
+</pkgmetadata>

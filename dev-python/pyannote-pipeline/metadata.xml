@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>herve.niderb@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pyannote-pipeline</remote-id>
+		<remote-id type="github">pyannote/pyannote-pipeline</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		pyannote-pipeline provides tunable pipelines that orchestrate
+		multi-stage speaker diarization and audio processing workflows
+		with Optuna-backed hyperparameter optimization. In pyannote-audio
+		4.x it is integrated as a library dependency rather than a
+		standalone CLI; this ebuild tracks the upstream PyPI package.
+	</longdescription>
+</pkgmetadata>

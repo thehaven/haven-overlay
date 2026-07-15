@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@gentoo.org</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		SpeechRecognition is a Python library that bundles several speech
+		recognition engines and APIs (online and offline). It exposes a single
+		recognize_*() interface and supports CMU Sphinx, Google, Wit, Microsoft
+		and other backends.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Uberi/speech_recognition</remote-id>
+		<remote-id type="pypi">SpeechRecognition</remote-id>
+	</upstream>
+</pkgmetadata>

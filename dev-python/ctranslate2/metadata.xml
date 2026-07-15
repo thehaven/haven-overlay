@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">ctranslate2</remote-id>
+		<remote-id type="github">OpenNMT/CTranslate2</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		CTranslate2 is a C++ and Python library for efficient inference
+		with Transformer models, used as the runtime backend for
+		faster-whisper. Wheels are prebuilt per architecture; no local
+		compilation is performed.
+	</longdescription>
+</pkgmetadata>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>arogozhnikov@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">einops</remote-id>
+		<remote-id type="github">arogozhnikov/einops</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		einops is a tensor operation library with a minimalist, readable
+		API for deep-learning tensor reshaping, reduction and broadcasting.
+		It supports NumPy, PyTorch, TensorFlow, JAX and other frameworks,
+		and has zero runtime dependencies of its own.
+	</longdescription>
+</pkgmetadata>

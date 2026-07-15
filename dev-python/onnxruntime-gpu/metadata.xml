@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@alman.dev</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">onnxruntime-gpu</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		onnxruntime-gpu is the CUDA-enabled build of ONNX Runtime. The
+		wheels are prebuilt per (python_target, x86_64) and bundle the
+		CUDA / TensorRT / cuDNN execution providers; no local
+		compilation occurs. Pairs with dev-python/nvidia-cublas-cu12
+		and dev-python/nvidia-cudnn-cu12 for the GPU runtime.
+	</longdescription>
+</pkgmetadata>

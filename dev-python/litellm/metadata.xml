@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		Python SDK and proxy for calling 100+ LLM APIs (OpenAI, Anthropic, Vertex,
+		Bedrock, etc.) using a single OpenAI-compatible interface, with optional
+		spend tracking, retries, and routing.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">BerriAI/litellm</remote-id>
+		<remote-id type="pypi">litellm</remote-id>
+	</upstream>
+</pkgmetadata>

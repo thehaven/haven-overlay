@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		mutagen is a Python module to handle audio metadata. It supports ASF,
+		FLAC, MP4, Ogg, AIFF, WAV and many other formats, and reads and writes
+		ID3v1, ID3v2, APEv2, FLAC and other tag formats.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">quodlibet/mutagen</remote-id>
+		<remote-id type="pypi">mutagen</remote-id>
+	</upstream>
+</pkgmetadata>

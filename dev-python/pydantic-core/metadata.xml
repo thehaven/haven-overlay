@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		Rust-powered validation and serialisation core for pydantic v2.
+		Exposes the C-level binding that pydantic itself depends on; required
+		by pydantic-2.12.5 in this overlay.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">pydantic/pydantic-core</remote-id>
+		<remote-id type="pypi">pydantic-core</remote-id>
+	</upstream>
+</pkgmetadata>

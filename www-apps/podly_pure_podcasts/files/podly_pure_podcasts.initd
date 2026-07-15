@@ -1,0 +1,120 @@
+#!/sbin/openrc-run
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Podly Pure Podcasts ad-free RSS feed generator"
+description_writer="Podly writer IPC service"
+description_web="Podly waitress web server"
+
+# Two-process supervision mirroring upstream scripts/start_services.sh:
+#  1. spawn the writer process (multiprocessing.QueueManager on
+#     127.0.0.1:50001)
+#  2. poll the IPC port until the writer is ready
+#  3. openrc then spawns the waitress web server on ${PODLY_PORT}
+#     (default 5001) via the inherited command / command_args
+#
+# Both PIDs are tracked; if either dies, openrc marks the service
+# failed and restarts the whole supervised unit (matches upstream's
+# `wait -n` semantics where exiting the writer kills the supervisor).
+
+: "${PODLY_USER:=podly_pure_podcasts}"
+: "${PODLY_GROUP:=podly_pure_podcasts}"
+: "${PODLY_PORT:=5001}"
+: "${PODLY_HOME:=/usr/lib/podly_pure_podcasts}"
+: "${PODLY_LOGDIR:=/var/log/podly_pure_podcasts}"
+: "${PODLY_DATADIR:=/var/lib/podly_pure_podcasts}"
+
+WRITER_PIDFILE="/run/podly_pure_podcasts.writer.pid"
+WEB_PIDFILE="/run/podly_pure_podcasts.web.pid"
+WRITER_LOG="${PODLY_LOGDIR}/writer.log"
+WEB_LOG="${PODLY_LOGDIR}/web.log"
+IPC_HOST="127.0.0.1"
+IPC_PORT="50001"
+IPC_WAIT_SECONDS=120
+
+# `command` is what openrc tracks via $pidfile; that's the web process.
+command="/usr/bin/python3"
+command_args="-u src/main.py"
+command_user="${PODLY_USER}:${PODLY_GROUP}"
+command_background="yes"
+pidfile="${WEB_PIDFILE}"
+output_log="${WEB_LOG}"
+error_log="${WEB_LOG}"
+
+export PYTHONPATH="${PODLY_HOME}/src${PYTHONPATH:+:$PYTHONPATH}"
+export PORT="${PODLY_PORT}"
+export SERVER_THREADS="${SERVER_THREADS:-1}"
+export PODLY_DATA_DIR="${PODLY_DATADIR}"
+export PODLY_LOG_DIR="${PODLY_LOGDIR}"
+export GROQ_API_KEY="${GROQ_API_KEY:-}"
+export OPENAI_API_KEY="${OPENAI_API_KEY:-}"
+export PODLY_SECRET_KEY="${PODLY_SECRET_KEY:-}"
+export PODLY_IPC_AUTHKEY="${PODLY_IPC_AUTHKEY:-podly_secret}"
+
+depend() {
+    need net
+    after net.lo
+}
+
+start_pre() {
+    mkdir -p "${PODLY_LOGDIR}" "${PODLY_DATADIR}" \
+        "$(dirname "${WRITER_PIDFILE}")" \
+        "$(dirname "${WEB_PIDFILE}")" \
+        || die "preparing runtime directories"
+
+    chown "${PODLY_USER}:${PODLY_GROUP}" \
+        "${PODLY_LOGDIR}" "${PODLY_DATADIR}" \
+        || die "chown log/data directories"
+
+    ebegin "Starting podly writer process"
+    start-stop-daemon --start \
+        --background \
+        --user "${PODLY_USER}:${PODLY_GROUP}" \
+        --pidfile "${WRITER_PIDFILE}" \
+        --make-pidfile \
+        --stdout "${WRITER_LOG}" \
+        --stderr "${WRITER_LOG}" \
+        --exec /usr/bin/python3 -- -u -m app.writer
+    eend $?
+
+    ebegin "Waiting for writer IPC at ${IPC_HOST}:${IPC_PORT}"
+    local i
+    for (( i = 0; i < IPC_WAIT_SECONDS; i++ )); do
+        if /usr/bin/python3 - "${IPC_HOST}" "${IPC_PORT}" <<'PY'
+import socket, sys
+host, port = sys.argv[1], int(sys.argv[2])
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(0.5)
+try:
+    s.connect((host, port))
+except OSError:
+    sys.exit(1)
+finally:
+    try:
+        s.close()
+    except Exception:
+        pass
+sys.exit(0)
+PY
+        then
+            eend 0
+            return 0
+        fi
+        sleep 1
+    done
+    eend 1 "writer IPC did not become ready in ${IPC_WAIT_SECONDS}s"
+    # Bail; openrc will see start_pre failed and abort.
+    return 1
+}
+
+stop_post() {
+    # Stop the writer process we manage ourselves, even though openrc
+    # only knew about the web PID.
+    if [[ -f "${WRITER_PIDFILE}" ]]; then
+        ebegin "Stopping podly writer process"
+        start-stop-daemon --stop \
+            --pidfile "${WRITER_PIDFILE}" \
+            --retry=TERM/30/KILL/5
+        eend $?
+    fi
+}

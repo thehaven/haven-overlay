@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>herve.niderb@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pyannote-database</remote-id>
+		<remote-id type="github">pyannote/pyannote-database</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		pyannote-database defines a uniform interface to multimedia
+		databases and experimental protocols used for speaker
+		diarization research, with pluggable file loaders for RTTM,
+		UEM, MAP, LAB, STM and CTM annotation formats.
+	</longdescription>
+</pkgmetadata>

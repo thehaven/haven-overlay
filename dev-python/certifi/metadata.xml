@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		certifi is a Python package that ships Mozilla's CA certificate bundle,
+		carefully curated for interoperability. Most Python TLS clients use it
+		as a default trust store.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">certifi/python-certifi</remote-id>
+		<remote-id type="pypi">certifi</remote-id>
+	</upstream>
+</pkgmetadata>

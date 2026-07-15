@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">faster-whisper</remote-id>
+		<remote-id type="github">SYSTRAN/faster-whisper</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		Faster-whisper is a reimplementation of OpenAI Whisper using
+		CTranslate2, providing up to 4x faster than openai/whisper on
+		CPU with lower memory footprint.
+	</longdescription>
+</pkgmetadata>

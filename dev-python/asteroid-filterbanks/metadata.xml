@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>manuel.pariente@loria.fr</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">asteroid-filterbanks</remote-id>
+		<remote-id type="github">asteroid-team/asteroid-filterbanks</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		asteroid-filterbanks provides parametric filterbank implementations
+		(STFT, Mel, gammatone, sinc, free analytic) used as building blocks
+		for PyTorch audio source separation models in the Asteroid toolkit.
+	</longdescription>
+</pkgmetadata>

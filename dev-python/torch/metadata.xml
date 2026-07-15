@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>cncf-opentelemetry-contributors@lists.cncf.io</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		Tensors and dynamic neural networks in Python with strong GPU
+		acceleration. PyTorch is the runtime backend for many Python ML
+		packages (openai-whisper, pyannote-audio, etc.) and ships here as
+		prebuilt manylinux x86_64 wheels pulled from PyPI per CPython
+		impl; no local compilation occurs.
+	</longdescription>
+	<use>
+		<flag name="cuda">Enable CUDA 12.6 GPU acceleration (requires operator to pre-stage CUDA wheels at https://artifactory.delivery.haven.pw/gentoo-distfiles/ from download.pytorch.org; geo-fence blocks direct fetch from most build hosts)</flag>
+	</use>
+	<upstream>
+		<remote-id type="pypi">torch</remote-id>
+		<remote-id type="github">pytorch/pytorch</remote-id>
+	</upstream>
+</pkgmetadata>

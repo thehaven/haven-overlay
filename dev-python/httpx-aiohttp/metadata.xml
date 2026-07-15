@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">httpx-aiohttp</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		httpx-aiohttp provides an aiohttp transport implementation for the HTTPX client library, allowing HTTPX to use aiohttp as its underlying HTTP backend for async I/O.
+	</longdescription>
+</pkgmetadata>

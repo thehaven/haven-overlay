@@ -1,0 +1,27 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Speaches OpenAI-API-compatible STT/TTS server"
+description_reload="Reload Speaches configuration"
+
+command="/usr/bin/uvicorn"
+command_args="speaches.main:create_app --host 0.0.0.0 --port 8000 --workers 1"
+command_user="speaches:speaches"
+command_background=1
+
+directory="/var/lib/speaches"
+
+pidfile="/run/speaches/speaches.pid"
+output_log="/var/log/speaches/speaches.log"
+error_log="/var/log/speaches/speaches.log"
+
+depend() {
+	need net
+}
+
+start_pre() {
+	checkpath -d -m 755 -o speaches:speaches /run/speaches
+	checkpath -d -m 755 -o speaches:speaches /var/lib/speaches
+	checkpath -d -m 755 -o speaches:speaches /var/log/speaches
+}

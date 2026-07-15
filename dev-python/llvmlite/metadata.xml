@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">llvmlite</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		llvmlite provides a Python binding to the LLVM compiler
+		infrastructure, focused on the subset of features needed by
+		Numba to JIT-compile NumPy-oriented Python code.
+	</longdescription>
+</pkgmetadata>

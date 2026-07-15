@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@gentoo.org</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		NumPy is the fundamental package for scientific computing with Python.
+		It provides an N-dimensional array object, broadcasting functions, tools
+		for integrating C/C++ code and linear algebra, Fourier transform and
+		random-number primitives.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">numpy</remote-id>
+	</upstream>
+	<use>
+		<flag name="fortran">Build with gfortran support for legacy Fortran extensions (requires virtual/fortran)</flag>
+	</use>
+</pkgmetadata>

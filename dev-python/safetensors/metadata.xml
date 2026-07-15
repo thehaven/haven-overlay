@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>nicolas.patry@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">safetensors</remote-id>
+		<remote-id type="github">huggingface/safetensors</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		safetensors is a simple, safe (zero-copy) file format for
+		serializing tensors, used by HuggingFace transformers, diffusers
+		and many other model loaders. The Python wheel is built with
+		maturin; the build fetches Rust crate dependencies from
+		crates.io (RESTRICT="network-sandbox").
+	</longdescription>
+</pkgmetadata>

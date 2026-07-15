@@ -1,0 +1,13 @@
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+# User and group the daemon runs as.
+SPEACHES_USER="speaches"
+SPEACHES_GROUP="speaches"
+
+# uvicorn bind interface and port.
+SPEACHES_HOST="0.0.0.0"
+SPEACHES_PORT="8000"
+
+# Number of worker processes.
+SPEACHES_WORKERS="1"

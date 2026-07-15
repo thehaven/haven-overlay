@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		pyPodcastParser is a lightweight Python library for parsing podcast RSS
+		feeds. It exposes episode metadata in a simple, easy-to-consume format
+		without requiring a full XML stack.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">mr-rigden/pyPodcastParser</remote-id>
+		<remote-id type="pypi">pyPodcastParser</remote-id>
+	</upstream>
+</pkgmetadata>

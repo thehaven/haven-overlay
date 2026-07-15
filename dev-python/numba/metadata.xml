@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">numba</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		Numba is a just-in-time compiler for Python that translates a
+		subset of Python and NumPy code into fast machine code via LLVM,
+		accelerating numerical workloads.
+	</longdescription>
+</pkgmetadata>

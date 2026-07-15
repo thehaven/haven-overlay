@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		Date-stamped snapshot of OpenAI's Whisper speech-recognition model and
+		Python CLI. Note: dev-python/whisper in the main tree is the unrelated
+		Graphite fixed-size database library; this package is a separate slot.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">openai-whisper</remote-id>
+	</upstream>
+</pkgmetadata>

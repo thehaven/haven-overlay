@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">werkzeug</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		Werkzeug is a comprehensive WSGI web application library. It provides utilities for routing, debugging, request and response handling, and more.
+	</longdescription>
+</pkgmetadata>

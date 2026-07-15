@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@alman.dev</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">nvidia-cublas-cu12</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		nvidia-cublas-cu12 ships the NVIDIA cuBLAS / cuBLASLt shared
+		libraries and headers as a Python wheel. It is a build/runtime
+		dependency of dev-python/torch and other CUDA 12.x stacks. The
+		wheel is python-version-agnostic and contains a single
+		manylinux x86_64 binary payload; no compilation occurs locally.
+		Licensed under the NVIDIA CUDA EULA; not redistributable via
+		Gentoo mirrors.
+	</longdescription>
+</pkgmetadata>

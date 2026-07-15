@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">huggingface-hub</remote-id>
+		<remote-id type="github">huggingface/huggingface_hub</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		The official Python client for the Hugging Face Hub, providing
+		downloads, uploads, model metadata, and inference API access
+		for huggingface.co.
+	</longdescription>
+</pkgmetadata>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		aiohttp is an asynchronous HTTP client/server framework built on top of
+		asyncio. It provides both client and server WebSocket support, middleware
+		and a pluggable routing system for high-performance HTTP services.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">aio-libs/aiohttp</remote-id>
+		<remote-id type="pypi">aiohttp</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>developer@lightning.ai</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">lightning</remote-id>
+		<remote-id type="github">Lightning-AI/pytorch-lightning</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		PyTorch Lightning is the deep-learning framework for training,
+		deploying and shipping AI products. The lightning meta-package
+		aggregates lightning.pytorch (Trainer, LightningModule) and
+		lightning.fabric (low-level control flow) into a single import.
+	</longdescription>
+</pkgmetadata>

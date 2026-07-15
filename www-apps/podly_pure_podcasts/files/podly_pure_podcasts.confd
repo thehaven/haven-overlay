@@ -1,0 +1,25 @@
+# /etc/conf.d/podly_pure_podcasts
+#
+# Sourced by OpenRC before the initd runs.
+
+# User/group to run the writer and web processes as.
+: "${PODLY_PUID:=podly_pure_podcasts}"
+: "${PODLY_PGID:=podly_pure_podcasts}"
+
+# Web server port (waitress bind).
+PODLY_PORT=5001
+
+# Waitress worker threads (matches upstream SERVER_THREADS env var).
+: "${SERVER_THREADS:=1}"
+
+# LLM provider keys. Set these to use the corresponding backend.
+#: "${GROQ_API_KEY:=}"
+#: "${OPENAI_API_KEY:=}"
+
+# Flask secret key. Generate with:
+#   python -c 'import secrets; print(secrets.token_hex(32))'
+#: "${PODLY_SECRET_KEY:=}"
+
+# Multiprocessing IPC auth key between writer and web. The default
+# matches upstream ("podly_secret") - override if you want isolation.
+#: "${PODLY_IPC_AUTHKEY:=podly_secret}"

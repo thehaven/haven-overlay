@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		The Stripe Python library provides convenient access to the Stripe API
+		from applications written in the Python language. It includes
+		pre-generated type definitions and supports modern Python idioms.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">stripe/stripe-python</remote-id>
+		<remote-id type="pypi">stripe</remote-id>
+	</upstream>
+</pkgmetadata>

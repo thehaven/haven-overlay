@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		The official Python client library for the Groq API, providing convenient
+		access to Groq's ultra-fast LPU inference endpoints for LLM workloads.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">groq/groq-python</remote-id>
+		<remote-id type="pypi">groq</remote-id>
+	</upstream>
+</pkgmetadata>

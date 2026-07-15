@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>support@groq.com</email>
+		<name>Simon</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">podly-pure-podcasts/podly_pure_podcasts</remote-id>
+		<bugs-to>https://github.com/podly-pure-podcasts/podly_pure_podcasts/issues</bugs-to>
+	</upstream>
+	<longdescription>
+		Podly Pure Podcasts is a self-hosted ad-free podcast RSS feed
+		generator with LLM-based ad detection. It runs locally against
+		LLM providers (OpenAI, Groq, LiteLLM), strips ads and other
+		unwanted segments from podcast audio, and produces clean RSS
+		feeds for personal listening apps.
+	</longdescription>
+</pkgmetadata>

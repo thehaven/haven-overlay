@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		Pinned pydantic 2.12.5 — required by podly_pure_podcasts 2.5.0 and
+		other tools in this overlay that have not yet migrated to 2.13.x.
+		Pairs with =pydantic-core-2.41.5.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">pydantic</remote-id>
+	</upstream>
+</pkgmetadata>

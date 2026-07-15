@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>herve.niderb@gmail.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pyannote-core</remote-id>
+		<remote-id type="github">pyannote/pyannote-core</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		pyannote-core provides advanced data structures (Segment,
+		Timeline, Annotation) for handling temporal segments with
+		attached labels — the foundation library of the pyannote
+		speaker-diarization ecosystem.
+	</longdescription>
+</pkgmetadata>

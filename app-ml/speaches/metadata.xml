@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>it@git.gentoo.or</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<use>
+		<flag name="cuda">Enable CUDA acceleration via nvidia cublas/cudnn and onnxruntime-gpu (requires packaging dev-python/{nvidia-cublas-cu12,nvidia-cudnn-cu12,onnxruntime-gpu} and dev-python/pyannote-audio first)</flag>
+		<flag name="diarization">Enable speaker diarization via dev-python/pyannote-audio (requires packaging dev-python/pyannote-audio first)</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">speaches-ai/speaches</remote-id>
+		<remote-id type="pypi">speaches</remote-id>
+	</upstream>
+	<longdescription lang="en">
+		Speaches (formerly faster-whisper-server) is an OpenAI-API-compatible
+		server for speech-to-text and text-to-speech powered by faster-whisper
+		and CTranslate2. NOTE: upstream renamed the project from
+		fedirz/faster-whisper-server to speaches-ai/speaches at v0.6.0
+		(2025-01-13); the deployed container image at /storage/docker/whisper
+		retains the old image name and must be replaced in place when
+		migrating to the new upstream name.
+	</longdescription>
+</pkgmetadata>
