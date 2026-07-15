@@ -2,10 +2,16 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@example.com</email>
-		<name>Haven</name>
+		<email>simon@haven.local</email>
+		<name>Simon</name>
 	</maintainer>
+	<longdescription>
+		Pinned openai 2.20.0 Python client — required by litellm and other
+		LLM-adjacent tools in this overlay. Locked at 2.20.0 to avoid the
+		breakage seen in 2.15+ for downstream consumers.
+	</longdescription>
 	<upstream>
 		<remote-id type="github">openai/openai-python</remote-id>
+		<remote-id type="pypi">openai</remote-id>
 	</upstream>
 </pkgmetadata>
