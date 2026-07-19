@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		oslex provides platform-independent shell quoting, splitting, and
+		joining by delegating to shlex on POSIX systems and mslex on Windows.
+		It mirrors the pattern of os.path (posixpath vs ntpath) for shell
+		command-line parsing.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">petamas/oslex</remote-id>
+		<remote-id type="pypi">oslex</remote-id>
+	</upstream>
+</pkgmetadata>

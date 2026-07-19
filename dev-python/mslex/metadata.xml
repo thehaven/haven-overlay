@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription lang="en">
+		mslex provides split, quote, and join functions for Windows-style
+		command-line argument parsing, matching the behaviour of the
+		Microsoft C runtime (msvcrt.dll) and the Universal C Runtime (UCRT).
+		It is the Windows counterpart to Python's standard shlex module.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">smoofra/mslex</remote-id>
+		<remote-id type="pypi">mslex</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -27,6 +27,7 @@ RDEPEND="
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/lsprotocol[${PYTHON_USEDEP}]
 	dev-python/mcp[${PYTHON_USEDEP}]
+	dev-python/oslex[${PYTHON_USEDEP}]
 	dev-python/overrides[${PYTHON_USEDEP}]
 	dev-python/pathspec[${PYTHON_USEDEP}]
 	dev-python/psutil[${PYTHON_USEDEP}]
