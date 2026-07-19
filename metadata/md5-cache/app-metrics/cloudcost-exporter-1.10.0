@@ -1,0 +1,9 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Prometheus exporter for cloud provider cost metrics (AWS, GCP, Azure)
+EAPI=8
+HOMEPAGE=https://github.com/grafana/cloudcost-exporter
+KEYWORDS=-* ~amd64
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=https://github.com/grafana/cloudcost-exporter/releases/download/v1.10.0/cloudcost-explorer_Linux_x86_64.tar.gz
+_md5_=80919af3f74214f590b3936c2c82efb2

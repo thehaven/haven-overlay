@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_12 python_single_target_python3_1
 RESTRICT=network-sandbox test strip
 SLOT=0
 SRC_URI=!cuda? ( amd64? ( https://github.com/vllm-project/vllm/releases/download/v0.19.0/vllm-0.19.0+cpu-cp38-abi3-manylinux_2_35_x86_64.whl -> vllm-0.19.0-cpu-amd64.whl ) arm64? ( https://github.com/vllm-project/vllm/releases/download/v0.19.0/vllm-0.19.0+cpu-cp38-abi3-manylinux_2_35_aarch64.whl -> vllm-0.19.0-cpu-arm64.whl ) ) cuda? ( amd64? ( https://github.com/vllm-project/vllm/releases/download/v0.19.0/vllm-0.19.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl -> vllm-0.19.0-cuda-amd64.whl ) arm64? ( https://github.com/vllm-project/vllm/releases/download/v0.19.0/vllm-0.19.0+cu130-cp38-abi3-manylinux_2_35_aarch64.whl -> vllm-0.19.0-cuda-arm64.whl ) )
-_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57	python-utils-r1	3ce55b5ac9c0a92cc4aeb1f88010d707	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57	python-utils-r1	5fd9a75ca55021d3276ce969f8e28391	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=db8ed70b884b597644c0624f68610f49

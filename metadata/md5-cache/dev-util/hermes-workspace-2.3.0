@@ -11,5 +11,5 @@ RDEPEND=>=net-libs/nodejs-22 acct-user/hermes-workspace acct-group/hermes-worksp
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/outsourc-e/hermes-workspace/archive/refs/tags/v2.3.0.tar.gz -> hermes-workspace-2.3.0.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/hermes-workspace-node_modules-2.3.0.tar.xz
-_eclasses_=optfeature	538bce96e5589935b57e178e8635f301	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861
+_eclasses_=optfeature	58cc13bdc4e9a204077e1e7c9a1d7988	systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
 _md5_=121f8a2efda3aa923947854857db0928

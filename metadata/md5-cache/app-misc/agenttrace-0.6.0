@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Local-first TUI/CLI for post-run agent session audits
+EAPI=8
+HOMEPAGE=https://github.com/luoyuctl/agenttrace
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/luoyuctl/agenttrace/releases/download/v0.6.0/agenttrace-linux-amd64 -> agenttrace-0.6.0
+_md5_=eb869cb2a51a36b0e2dda326232b3525
