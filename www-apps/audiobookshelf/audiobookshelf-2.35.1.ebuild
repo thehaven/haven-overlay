@@ -13,10 +13,10 @@ SRC_URI="
 	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/audiobookshelf-server-node_modules-${PV}.tar.xz
 "
 
+S="${WORKDIR}/${P}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 RDEPEND="
 	acct-group/audiobookshelf
@@ -28,8 +28,6 @@ DEPEND="${RDEPEND}"
 BDEPEND="
 	net-libs/nodejs
 "
-
-S="${WORKDIR}/${P}"
 
 src_unpack() {
 	# Extract source
@@ -48,18 +46,29 @@ src_unpack() {
 src_prepare() {
 	default
 	# Prepend shebang to index.js to allow running it directly
-	sed -i "1i#!/usr/bin/env node" index.js || die "failed to add shebang to index.js"
+	sed -i "1i#!/usr/bin/env node" index.js \
+		|| die "failed to add shebang to index.js"
+
+	# Fix buffer-equal-constant-time for Node.js v26+ which removed SlowBuffer.
+	# Affects both the node_modules copy and the upstream-vendored copy.
+	local p="s/var SlowBuffer = require('buffer').SlowBuffer;"
+	p+="/var SlowBuffer = require('buffer').SlowBuffer || { prototype: {} };/"
+	sed -i "$p" \
+		node_modules/buffer-equal-constant-time/index.js \
+		server/libs/jwa/buffer-equal-constant-time/index.js \
+		|| die "failed to patch buffer-equal-constant-time"
 }
 
 src_compile() {
 	cd "${S}" || die
-	
+
 	# Fix sqlite3 bindings path for the current node ABI
 	# The sqlite3 binary is pre-built in the vendor tarball
 	local node_abi="node-v$(node -p process.versions.modules)-linux-x64"
 	local sqlite3_binding="node_modules/sqlite3/lib/binding/${node_abi}/node_sqlite3.node"
 	mkdir -p "$(dirname "${sqlite3_binding}")" || die
-	cp node_modules/sqlite3/build/Release/node_sqlite3.node "${sqlite3_binding}" || die "failed to copy sqlite3 binding"
+	cp node_modules/sqlite3/build/Release/node_sqlite3.node "${sqlite3_binding}" \
+		|| die "failed to copy sqlite3 binding"
 
 	cd "${S}/client" || die
 	npm run generate || die "failed to generate client static files"
@@ -71,24 +80,25 @@ src_install() {
 	doins index.js prod.js package.json
 	doins -r server
 	doins -r node_modules
-	
+
 	# Install compiled client static assets
 	insinto "${mod_dir}/client"
 	doins -r client/dist
-	
+
 	# Install systemd service and configuration files
 	insinto /etc
 	doins "${FILESDIR}/audiobookshelf.conf"
 	systemd_dounit "${FILESDIR}/audiobookshelf.service"
-	
+
 	# Install entry binary symlink
 	fperms +x "${mod_dir}/index.js"
-	dosym "../../$(get_libdir)/node_modules/audiobookshelf/index.js" "/usr/bin/audiobookshelf"
-	
+	dosym "../../$(get_libdir)/node_modules/audiobookshelf/index.js" \
+		"/usr/bin/audiobookshelf"
+
 	# Create state, config, metadata directories with correct ownership
 	keepdir /var/lib/audiobookshelf
 	keepdir /var/log/audiobookshelf
-	
+
 	fowners -R audiobookshelf:audiobookshelf /var/lib/audiobookshelf
 	fowners -R audiobookshelf:audiobookshelf /var/log/audiobookshelf
 }
