@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Performance audit, auto-tuning, and validation suite for Gentoo
+		hypervisors and Linux host systems. Audits ZFS, Docker, libvirt, network,
+		kernel sysctl, NFS, block devices, NVIDIA GPUs, K8s, and more via
+		pluggable validator modules. Supports Prometheus metrics export,
+		persistent fixes with dry-run preview, and Do-No-Harm auto-validate
+		via Welch's t-test statistical regression detection.
+	</longdescription>
+	<upstream>
+		<remote-id type="gitlab">thehavennet/gentoo/performance-validator</remote-id>
+	</upstream>
+</pkgmetadata>
