@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ark%2Fschema@0.56.2.patch</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		signal-cli provides a command-line interface for the Signal
+		messenger. It supports registering, managing groups, sending
+		and receiving messages. Uses a GraalVM native-image build
+		for the client variant (no JRE required at runtime).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">AsamK/signal-cli</remote-id>
+	</upstream>
+</pkgmetadata>

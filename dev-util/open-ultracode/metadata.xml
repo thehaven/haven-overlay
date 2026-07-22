@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ark%2Fschema@0.56.2.patch</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		OpenUltraCode is an OpenCode extension that provides
+		multi-agent ultra-high-effort coding via a constellation of
+		specialised agents. Includes a fusion panel, adversarial
+		reviewer, planner, verifier, and reconciler — plus commands
+		for spec audit, research, and debug workflows.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">norandom/OpenUltraCode</remote-id>
+	</upstream>
+</pkgmetadata>

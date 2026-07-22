@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ark%2Fschema@0.56.2.patch</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		OpenSpec is an OpenCode plugin that enforces spec-driven
+		development discipline: write a spec, get it reviewed, then
+		implement. Supports OpenSpec format for structured change
+		proposals, reviews, and archiving.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Octane0411/opencode-plugin-openspec</remote-id>
+	</upstream>
+</pkgmetadata>

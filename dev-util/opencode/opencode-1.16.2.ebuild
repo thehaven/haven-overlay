@@ -3,11 +3,12 @@
 
 EAPI=8
 
+inherit bun
+
 DESCRIPTION="The open source AI coding agent"
 HOMEPAGE="https://opencode.ai https://github.com/anomalyco/opencode"
 SRC_URI="
 	https://github.com/anomalyco/opencode/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-node_modules-${PV}.tar.xz
 	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/opencode-models-${PV}.json
 "
 
@@ -16,9 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig"
 
-RESTRICT="test strip"
+RESTRICT="network-sandbox test strip"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 RDEPEND="
 	dev-vcs/git
 	clang?     ( llvm-core/clang )
@@ -38,27 +38,21 @@ RDEPEND="
 
 QA_PREBUILT="usr/bin/opencode"
 
-src_unpack() {
-	unpack ${P}.tar.gz
-	cd "${S}" || die
-	unpack opencode-node_modules-${PV}.tar.xz
-}
-
 src_compile() {
-	cd "${WORKDIR}/${P}" || die
+	einfo "Installing dependencies with bun..."
+	bun install --ignore-scripts || die "bun install failed"
 
 	einfo "Building opencode binary (this compiles a standalone executable)..."
-	cd packages/opencode || die
 	OPENCODE_VERSION="${PV}" \
 	OPENCODE_CHANNEL="stable" \
 	MODELS_DEV_API_JSON="${DISTDIR}/opencode-models-${PV}.json" \
-		bun run script/build.ts --single --skip-install || die "build failed"
+		bun run packages/opencode/script/build.ts --single --skip-install || die "build failed"
 }
 
 src_install() {
-	cd "${WORKDIR}/${P}/packages/opencode" || die
+	cd "${S}"/packages/opencode || die
 
-	# Find the compiled binary
+	# Find and install the compiled binary
 	local bin
 	bin=$(find dist -name opencode -type f -executable | head -n 1)
 	[[ -n "${bin}" ]] || die "compiled binary not found in dist/"
