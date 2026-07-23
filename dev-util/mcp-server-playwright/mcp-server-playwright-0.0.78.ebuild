@@ -18,6 +18,11 @@ RDEPEND="
 	>=www-client/google-chrome-148
 "
 
+src_install() {
+	npm_src_install
+	npm_install_bin cli.js playwright-mcp
+}
+
 pkg_postinst() {
 	einfo "Playwright MCP server installed."
 	einfo "Browsers are managed via >=www-client/google-chrome-148."
@@ -27,20 +32,20 @@ pkg_postinst() {
 	einfo "  OpenCode (~/.config/opencode/opencode.json):"
 	einfo "    \"mcp-server-playwright\": {"
 	einfo "      \"type\": \"local\","
-	einfo "      \"command\": [\"/usr/lib64/node_modules/@playwright/mcp/cli.js\"],"
+	einfo "      \"command\": [\"/usr/bin/playwright-mcp\"],"
 	einfo "      \"env\": { \"PLAYWRIGHT_BROWSERS_PATH\": \"/usr/share/playwright-browsers\" },"
 	einfo "      \"enabled\": true"
 	einfo "    }"
 	einfo ""
 	einfo "  Gemini CLI (~/.gemini/settings.json):"
 	einfo "    \"mcp-server-playwright\": {"
-	einfo "      \"command\": \"/usr/lib64/node_modules/@playwright/mcp/cli.js\","
+	einfo "      \"command\": \"/usr/bin/playwright-mcp\","
 	einfo "      \"env\": { \"PLAYWRIGHT_BROWSERS_PATH\": \"/usr/share/playwright-browsers\" }"
 	einfo "    }"
 	einfo ""
 	einfo "  Claude Code (~/.claude/settings.json):"
 	einfo "    \"mcp-server-playwright\": {"
-	einfo "      \"command\": \"/usr/lib64/node_modules/@playwright/mcp/cli.js\","
+	einfo "      \"command\": \"/usr/bin/playwright-mcp\","
 	einfo "      \"env\": { \"PLAYWRIGHT_BROWSERS_PATH\": \"/usr/share/playwright-browsers\" }"
 	einfo "    }"
 }
