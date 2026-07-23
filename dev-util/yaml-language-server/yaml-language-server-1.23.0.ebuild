@@ -25,7 +25,6 @@ src_unpack() {
 }
 
 src_test() {
-	# LSP smoke test: starts, waits for stdio, killed by timeout
 	einfo "Testing yaml-language-server LSP startup"
 	timeout 5 node "${S}/bin/yaml-language-server" --stdio < /dev/null 2>&1 &
 	local pid=$!
@@ -41,8 +40,10 @@ src_install() {
 		insinto "${mod_dir}"
 		doins -r "${WORKDIR}/node_modules"
 	fi
+	npm_install_bin bin/yaml-language-server
 }
 
 pkg_postinst() {
 	einfo "yaml-language-server ${PV}: LSP server for YAML — works with OpenCode"
+	einfo "Binary: /usr/bin/yaml-language-server"
 }

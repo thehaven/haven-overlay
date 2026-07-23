@@ -18,8 +18,15 @@ RDEPEND="
 	dev-nodejs/jsonc-parser
 "
 
+src_install() {
+	npm_src_install
+	npm_install_bin scripts/install-opencode-codex-auth.js opencode-openai-codex-auth
+}
+
 pkg_postinst() {
 	einfo "OpenCode Codex Auth plugin installed."
-	einfo "To enable, add to opencode.json:"
+	einfo "Binary: /usr/bin/opencode-openai-codex-auth"
+	einfo ""
+	einfo "To enable in opencode.json:"
 	einfo "  \"/usr/$(get_libdir)/node_modules/opencode-openai-codex-auth/dist/index.js\""
 }

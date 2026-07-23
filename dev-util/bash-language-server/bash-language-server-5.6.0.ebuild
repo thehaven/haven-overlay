@@ -25,7 +25,6 @@ src_unpack() {
 }
 
 src_test() {
-	# LSP smoke test: starts, waits for stdio, killed by timeout
 	einfo "Testing bash-language-server LSP startup"
 	timeout 5 node "${S}/out/cli.js" start < /dev/null 2>&1 &
 	local pid=$!
@@ -41,8 +40,10 @@ src_install() {
 		insinto "${mod_dir}"
 		doins -r "${WORKDIR}/node_modules"
 	fi
+	npm_install_bin out/cli.js bash-language-server
 }
 
 pkg_postinst() {
 	einfo "bash-language-server ${PV}: LSP server for shell scripts — works with OpenCode"
+	einfo "Binary: /usr/bin/bash-language-server"
 }
