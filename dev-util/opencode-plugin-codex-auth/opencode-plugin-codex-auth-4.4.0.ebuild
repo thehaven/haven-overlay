@@ -3,6 +3,7 @@
 
 EAPI=8
 
+NPM_AUTO_BIN=1
 NPM_MODULE="opencode-openai-codex-auth"
 inherit npm
 
@@ -17,11 +18,6 @@ RDEPEND="
 	dev-nodejs/opencode-ai-plugin
 	dev-nodejs/jsonc-parser
 "
-
-src_install() {
-	npm_src_install
-	npm_install_bin scripts/install-opencode-codex-auth.js opencode-openai-codex-auth
-}
 
 pkg_postinst() {
 	einfo "OpenCode Codex Auth plugin installed."

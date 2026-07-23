@@ -3,6 +3,7 @@
 
 EAPI=8
 
+NPM_AUTO_BIN=1
 NPM_MODULE="typescript-language-server"
 inherit npm
 
@@ -14,11 +15,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
 RDEPEND="net-libs/nodejs"
-
-src_install() {
-	npm_src_install
-	npm_install_bin lib/cli.mjs typescript-language-server
-}
 
 pkg_postinst() {
 	einfo "typescript-language-server ${PV}: LSP server for TypeScript/JS — works with OpenCode"

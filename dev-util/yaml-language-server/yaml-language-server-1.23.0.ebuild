@@ -3,6 +3,7 @@
 
 EAPI=8
 
+NPM_AUTO_BIN=1
 MY_NODE_D="${PN}-node_modules-${PV}"
 NPM_MODULE="yaml-language-server"
 inherit npm
@@ -40,7 +41,6 @@ src_install() {
 		insinto "${mod_dir}"
 		doins -r "${WORKDIR}/node_modules"
 	fi
-	npm_install_bin bin/yaml-language-server
 }
 
 pkg_postinst() {

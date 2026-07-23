@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # verify-npm-bin.sh — audit all inherit-npm ebuilds for missing npm_install_bin
-# Fail the script if any ebuild's package.json declares a bin that has no symlink.
+# Recognises both explicit npm_install_bin calls and NPM_AUTO_BIN (eclass auto-bin).
+# Fail the script if any ebuild's package.json declares a bin with no symlink coverage.
 set -euo pipefail
 
 overlay="${1:-/var/db/repos/haven-overlay}"
 errors=0
 checked=0
 
-echo "=== npm_install_bin audit ==="
+echo "=== npm_install_bin / NPM_AUTO_BIN audit ==="
 
 for ebuild in $(find "${overlay}" -name '*.ebuild' -type f | sort); do
 	grep -q 'inherit npm' "${ebuild}" 2>/dev/null || continue
@@ -23,15 +24,16 @@ for ebuild in $(find "${overlay}" -name '*.ebuild' -type f | sort); do
 
 	checked=$((checked + 1))
 
-	if grep -q 'npm_install_bin' "${ebuild}" 2>/dev/null; then
-		echo "  OK   ${ebuild##*/repos/haven-overlay/}  (bin: ${bin})"
+	if grep -qE 'npm_install_bin|NPM_AUTO_BIN' "${ebuild}" 2>/dev/null; then
+		method=$(grep -q 'NPM_AUTO_BIN' "${ebuild}" 2>/dev/null && echo "auto-bin" || echo "explicit")
+		echo "  OK   ${ebuild##*/repos/haven-overlay/}  (bin: ${bin}, via: ${method})"
 	else
-		echo "  FAIL ${ebuild##*/repos/haven-overlay/}  (bin: ${bin}) — MISSING npm_install_bin"
+		echo "  FAIL ${ebuild##*/repos/haven-overlay/}  (bin: ${bin}) — MISSING npm_install_bin / NPM_AUTO_BIN"
 		errors=$((errors + 1))
 	fi
 done
 
 echo ""
 echo "Checked: ${checked} ebuilds, Errors: ${errors}"
-[[ ${errors} -eq 0 ]] && echo "PASS: all npm_install_bin calls present" || echo "FAIL: ${errors} ebuild(s) missing npm_install_bin"
+[[ ${errors} -eq 0 ]] && echo "PASS: all npm_install_bin or NPM_AUTO_BIN present" || echo "FAIL: ${errors} ebuild(s) missing bin symlink coverage"
 exit ${errors}

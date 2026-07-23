@@ -3,6 +3,7 @@
 
 EAPI=8
 
+NPM_AUTO_BIN=1
 NPM_MODULE="@sentry/mcp-server"
 inherit npm
 
@@ -12,8 +13,3 @@ HOMEPAGE="https://github.com/getsentry/sentry-mcp-server"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-
-src_install() {
-	npm_src_install
-	npm_install_bin dist/index.js sentry-mcp
-}

@@ -20,6 +20,17 @@ inherit multilib
 : "${NPM_FILES:=.}"
 : "${NPM_DOCS:=README* LICENSE* HISTORY* CHANGELOG*}"
 
+# @ECLASS-VARIABLE: NPM_AUTO_BIN
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+#   If set to a non-empty value, npm_src_install() will automatically parse
+#   package.json's "bin" field and create /usr/bin symlinks via npm_install_bin
+#   for every declared binary. Set in ebuild globals before inherit:
+#     NPM_AUTO_BIN=1
+#     inherit npm
+#   When set, ebuilds can omit src_install() and npm_install_bin calls
+#   entirely unless they need custom bin aliases or extra install logic.
+
 HOMEPAGE="https://www.npmjs.com/package/${PN}"
 
 # NPM versions use - instead of _ and often have dots in pre-release parts
@@ -62,6 +73,41 @@ npm_src_install() {
 	while IFS= read -r -d "" file; do
 		[[ -s "${file}" ]] && dodoc -r "${file}"
 	done < <(find "${S}" -maxdepth 1 \( -name "README*" -o -name "LICENSE*" -o -name "HISTORY*" -o -name "CHANGELOG*" \) -print0 2>/dev/null)
+
+	# Auto-bin: if NPM_AUTO_BIN is set, parse package.json "bin" and symlink
+	if [[ -n ${NPM_AUTO_BIN} ]]; then
+		local pkg_json="${S}/package.json"
+		if [[ -f ${pkg_json} ]]; then
+			local bin_field
+			bin_field=$(python3 -c "
+import json, sys
+with open('${pkg_json}') as f:
+    d = json.load(f)
+b = d.get('bin')
+if isinstance(b, str):
+    # String form: bin name = module name (last segment after /)
+    name = '${NPM_MODULE}'.rsplit('/', 1)[-1]
+    print(json.dumps({name: b}))
+elif isinstance(b, dict):
+    print(json.dumps(b))
+else:
+    print('{}')
+" 2>/dev/null) || true
+
+			# Iterate the resolved bin dict and create symlinks
+			if [[ -n ${bin_field} ]]; then
+				local entry alias script_path
+				while IFS='=' read -r alias script_path; do
+					[[ -z ${alias} || -z ${script_path} ]] && continue
+					npm_install_bin "${script_path}" "${alias}"
+				done < <(python3 -c "
+import json, sys
+for k, v in json.loads(sys.stdin.read()).items():
+    print(f'{k}={v}')
+" <<< "${bin_field}" 2>/dev/null)
+			fi
+		fi
+	fi
 }
 
 npm_install_bin() {
