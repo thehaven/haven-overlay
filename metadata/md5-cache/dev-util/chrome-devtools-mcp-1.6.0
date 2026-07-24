@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=MCP server for Chrome DevTools Protocol — inspect and interact with Chrome
+EAPI=8
+HOMEPAGE=https://github.com/ChromeDevTools/chrome-devtools-mcp
+INHERIT=npm
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=>=net-libs/nodejs-20
+SLOT=0
+SRC_URI=https://registry.npmjs.org/chrome-devtools-mcp/-/chrome-devtools-mcp-1.6.0.tgz -> chrome-devtools-mcp-1.6.0.tgz
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=bef19ec5fbf52c7f721443a4c7de27a8

@@ -9,6 +9,7 @@ dev-util/mcp-meta:analyzer - Pull in analyzer MCP
 dev-util/mcp-meta:atlassian - Pull in atlassian MCP (virtual)
 dev-util/mcp-meta:aws - Pull in aws MCP
 dev-util/mcp-meta:brave-search - Pull in brave-search MCP
+dev-util/mcp-meta:chrome-devtools-mcp - Pull in chrome-devtools-mcp MCP
 dev-util/mcp-meta:context7 - Pull in context7 MCP
 dev-util/mcp-meta:desktop-commander - Pull in desktop-commander MCP
 dev-util/mcp-meta:docfork - Pull in docfork MCP
@@ -38,6 +39,7 @@ dev-util/mcp-meta:pytest - Pull in pytest MCP
 dev-util/mcp-meta:ripgrep - Pull in ripgrep MCP
 dev-util/mcp-meta:sentry - Pull in sentry MCP
 dev-util/mcp-meta:sequential-thinking - Pull in sequential-thinking MCP
+dev-util/mcp-meta:serena - Pull in serena MCP
 dev-util/mcp-meta:task-manager - Pull in task-manager MCP
 dev-util/mcp-meta:tree-sitter - Pull in tree-sitter MCP
 dev-util/mcp-meta:wcgw - Pull in wcgw MCP
