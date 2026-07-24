@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 DISTUTILS_USE_PEP517=hatchling
 
 inherit distutils-r1 optfeature
@@ -25,7 +25,7 @@ RDEPEND="
 		>=dev-python/imagehash-4.3[${PYTHON_USEDEP}]
 		>=dev-python/pillow-10.0[${PYTHON_USEDEP}]
 		>=dev-python/rapidfuzz-3.0[${PYTHON_USEDEP}]
-		>=dev-python/httpx-0.27[${PYTHON_USEDEP}]
+		>=dev-python/httpx-0.28[${PYTHON_USEDEP}]
 		>=dev-python/pydantic-2.0[${PYTHON_USEDEP}]
 		>=dev-python/httpx-retries-0.5.0[${PYTHON_USEDEP}]
 	')

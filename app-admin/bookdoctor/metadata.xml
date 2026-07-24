@@ -2,19 +2,14 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@haven.local</email>
+		<email>simon@thehavennet.org.uk</email>
 		<name>Haven</name>
 	</maintainer>
 	<longdescription>
 		bookdoctor is a quality-gate CLI for Calibre ebook libraries.
-		It fingerprints, validates, and repairs metadata for large
-		libraries using a multi-signal confidence-scoring pipeline
-		(sources include Open Library, Google Books, Wikidata, VIAF,
-		and the Open Library editions dump). The two-pass workflow
-		score -> apply -> promote ensures the live library is never
-		touched without an explicit user action. The per-add flow
-		(bookdoctor check) integrates with Calibre via a FileTypePlugin
-		to gate every new book at intake.
+		Renamed and relocated to app-misc/book-doctor; this slot-0 ebuild
+		exists only to trigger the package.move replacement for live
+		installed instances.
 	</longdescription>
 	<upstream>
 		<remote-id type="github">haven/bookdoctor</remote-id>
