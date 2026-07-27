@@ -10,37 +10,37 @@ inherit distutils-r1 git-r3 systemd
 DESCRIPTION="Dynamic MCP gateway: just-in-time tool mounting and policy-aware proxy"
 HOMEPAGE="https://github.com/haven/mcp-mesh"
 EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp-mesh"
+EGIT_COMMIT="v0.19.1"
 
 LICENSE="MIT"
 SLOT="0"
-# v0.19.1: 9999 is opt-in only. Operators must explicitly accept keywords
-# (echo "=app-admin/mcp-mesh-9999 **" >> /etc/portage/package.accept_keywords)
-# to install the live-source build. Stable tags remain the supported path.
-KEYWORDS=""
+KEYWORDS="~amd64"
 RESTRICT="network-sandbox"
 
 python_test() {
 	# Auto-generated import check
 	local mod candidates
+	# Normalize PN by replacing - with _
 	local norm_pn="${PN//-/_}"
+	# Strip mcp-server- and mcp- prefixes
 	local suffix="${PN#mcp-server-}"
 	suffix="${suffix#mcp-}"
 	local norm_suffix="${suffix//-/_}"
-
+	
 	candidates=(
 		"${norm_pn}"
 		"mcp_server_${norm_suffix}"
 		"${norm_suffix}"
 	)
-
+	
 	for mod in "${candidates[@]}"; do
 		einfo "Checking import of ${mod}..."
 		if ${EPYTHON} -c "import ${mod}" 2>/dev/null; then
-			einfo "Import successful: ${mod}"
+			einfo "✅ Import successful: ${mod}"
 			return 0
 		fi
 	done
-	die "Import test failed: none of (${candidates[*]}) could be imported"
+	die "❌ Import test failed: none of the candidates (${candidates[*]}) could be imported"
 }
 
 RDEPEND="
@@ -68,29 +68,25 @@ RDEPEND="
 python_install_all() {
 	distutils-r1_python_install_all
 
-	# --- systemd unit + confd (from contrib/systemd/) ---
-	systemd_dounit "${S}/contrib/systemd/mcp-mesh.service"
-	newconfd "${S}/contrib/systemd/mcp-mesh.confd" mcp-mesh
+	# systemd unit + confd (from contrib/systemd/ in source repo)
+	systemd_dounit "${S}"/contrib/systemd/mcp-mesh.service
+	newconfd "${S}"/contrib/systemd/mcp-mesh.confd mcp-mesh
 
-	# --- Fleet-shared registry template (from contrib/mcp-forge/) ---
-	# Installed to /etc/mcp-forge/registry.yaml.example; operators opt in
-	# by copying it to /etc/mcp-forge/registry.yaml. Ships with
-	# `servers: []` so the service starts cleanly even if nothing is
-	# activated.
+	# Fleet-shared registry template (from contrib/mcp-forge/)
 	insinto /etc/mcp-forge
-	newins "${S}/contrib/mcp-forge/registry.yaml.example" registry.yaml.example
+	newins "${S}"/contrib/mcp-forge/registry.yaml.example registry.yaml.example
 
-	# --- Operator documentation (from contrib/) ---
+	# Operator documentation
 	docinto contrib
-	dodoc "${S}/contrib/README.md"
+	dodoc "${S}"/contrib/README.md
 }
 
 distutils_enable_tests pytest
 
 pkg_postinst() {
-	elog "mcp-mesh has been installed. Operator opt-in steps:"
+	elog "mcp-mesh 0.19.1 has been installed. Operator opt-in steps:"
 	elog ""
-	elog "  1. Enable and start the daemon (Gentoo):"
+	elog "  1. Enable and start the daemon:"
 	elog "       systemctl daemon-reload"
 	elog "       systemctl enable --now mcp-mesh"
 	elog "       systemctl status mcp-mesh"
@@ -113,11 +109,10 @@ pkg_postinst() {
 	elog ""
 	elog "Full guide: /usr/share/doc/${PF}/contrib/README.md"
 	elog ""
-	elog "v0.19.1 hardening note: the systemd unit uses a deny-list"
-	elog "seccomp filter (~@cpu-emulation @debug @module @mount"
-	elog "@obsolete @raw-io @reboot @swap @clock) because Python 3.14"
-	elog "+ cryptography + uvicorn triggered SIGSYS under the previous"
-	elog "~@system-service allow-list. See FINDINGS.md for details."
+	elog "Hardening note: the systemd unit uses a deny-list seccomp filter"
+	elog "(chronyd-style) because Python 3.14 + cryptography + uvicorn"
+	elog "triggered SIGSYS under the previous ~@system-service allow-list."
+	elog "See FINDINGS.md for details."
 }
 
 pkg_postrm() {
