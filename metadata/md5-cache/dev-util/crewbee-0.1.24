@@ -1,0 +1,11 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=CrewBee: open-source AI Agent Team framework and asset layer for OpenCode
+EAPI=8
+HOMEPAGE=https://github.com/CrewBeeLab/CrewBee
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+SLOT=0
+SRC_URI=https://github.com/CrewBeeLab/CrewBee/archive/refs/tags/v0.1.24.tar.gz -> crewbee-0.1.24.tar.gz https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/crewbee-node_modules-0.1.24.tar.xz
+_md5_=3dae3a0da0225a4a333df6dc72b79811
