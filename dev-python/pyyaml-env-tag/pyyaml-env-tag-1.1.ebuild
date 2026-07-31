@@ -1,0 +1,31 @@
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{12..14} )
+
+inherit distutils-r1 pypi
+
+DESCRIPTION="A custom YAML tag for referencing environment variables in YAML files."
+HOMEPAGE="
+	https://github.com/waylan/pyyaml-env-tag
+	https://pypi.org/project/pyyaml-env-tag/
+"
+S="${WORKDIR}/pyyaml_env_tag-${PV}"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+
+RDEPEND="
+	>=dev-python/pyyaml-5.1[${PYTHON_USEDEP}]
+"
+IUSE="test"
+RESTRICT="!test? ( test )"
+
+python_test() {
+	cd "${S}" || die
+	python -m unittest discover -v -s tests || die "Tests failed with ${EPYTHON}"
+}
