@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Provider-agnostic agentic coworker runtime (CLI + server +
+		connectors) by Andrew Ng. Supports OpenAI, Anthropic, Google
+		GenAI, Vertex AI, and AWS Bedrock. The PyPI project name is
+		"coworker" while the source repo is "openworker"; this ebuild
+		uses the repo name.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">andrewyng/openworker</remote-id>
+		<remote-id type="pypi">coworker</remote-id>
+	</upstream>
+	<use>
+		<flag name="messaging">
+			Install inbound messaging connectors (Telegram, Slack).
+		</flag>
+		<flag name="browser">
+			Install Playwright integration for the Cowork browser.
+		</flag>
+		<flag name="bedrock">
+			Install AWS Bedrock provider via boto3.
+		</flag>
+	</use>
+</pkgmetadata>
