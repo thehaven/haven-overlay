@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Metasearch library aggregating multiple web search engines
+		(DuckDuckGo, Google, Brave, Mojeek, etc.). Used by openworker
+		as the keyless default web-search provider.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">ddgs</remote-id>
+		<remote-id type="github">deedy5/ddgs</remote-id>
+	</upstream>
+</pkgmetadata>
