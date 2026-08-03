@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Asynchronous Python client library for the Telegram Bot API.
+		Used by openworker's optional messaging extra to receive
+		Telegram messages. Dual-licensed LGPL-3.0 or GPL-2+.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">python-telegram-bot</remote-id>
+		<remote-id type="github">python-telegram-bot/python-telegram-bot</remote-id>
+	</upstream>
+</pkgmetadata>
