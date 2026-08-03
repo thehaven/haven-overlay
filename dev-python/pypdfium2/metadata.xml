@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Python bindings for the PDFium rendering library (pure-Python
+		over ctypes; no Rust/Cython). Used by openworker's PDF
+		attachment pipeline for models without native PDF support.
+		Source-based build requires dev-util/cmake, sys-devel/gcc,
+		and network access to fetch prebuilt pdfium binaries.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">pypdfium2</remote-id>
+		<remote-id type="github">pypdfium2-team/pypdfium2</remote-id>
+	</upstream>
+</pkgmetadata>
