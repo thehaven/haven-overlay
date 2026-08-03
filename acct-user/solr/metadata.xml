@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		System user and group for the Apache Solr search platform.
+		UID/GID 8983 mirror the upstream Docker image so volumes shared
+		between Docker and overlay deployments keep consistent ownership.
+	</longdescription>
+</pkgmetadata>
