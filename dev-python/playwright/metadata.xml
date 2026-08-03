@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		High-level Python API to automate Chromium, Firefox, and WebKit
+		via the Microsoft Playwright project. Used by openworker's
+		optional browser automation extra. Browser drivers are not
+		bundled — they are downloaded by `playwright install` after
+		package install.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">microsoft/playwright-python</remote-id>
+	</upstream>
+</pkgmetadata>
