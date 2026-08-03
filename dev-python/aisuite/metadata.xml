@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ng@deeplearning.ai</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Uniform Python access layer for multiple LLM providers (Anthropic,
+		OpenAI, Google, AWS Bedrock, Groq, Mistral, etc.). This overlay
+		build is pinned to the commit required by openworker; once aisuite
+		releases a tag matching that pin, switch to the PyPI sdist.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">andrewyng/aisuite</remote-id>
+	</upstream>
+</pkgmetadata>
