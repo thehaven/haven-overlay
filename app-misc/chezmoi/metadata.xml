@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		chezmoi is a dotfile manager that lets you manage your personal
+		home-directory configuration across multiple machines, with
+		support for templating, encryption (age / gpg), and secret
+		vaults (1Password / Bitwarden / Vault / LastPass). It is
+		written in Go and ships as a single static binary with shell
+		completions for bash / zsh / fish.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">twpayne/chezmoi</remote-id>
+	</upstream>
+</pkgmetadata>
