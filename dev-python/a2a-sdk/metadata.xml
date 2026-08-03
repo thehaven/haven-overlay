@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Official Python SDK for the Agent2Agent (A2A) protocol
+		specified by Google. Used by opencode-a2a and any A2A
+		conformant agent client / server.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">a2a-sdk</remote-id>
+		<remote-id type="github">a2a-mcp/a2a-python</remote-id>
+	</upstream>
+</pkgmetadata>
