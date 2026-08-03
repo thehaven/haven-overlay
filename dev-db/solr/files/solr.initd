@@ -1,0 +1,47 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+# OpenRC init script for Apache Solr 9.5.0.
+# Pinned to match /storage/docker/solr/start.sh which runs solr:9.5.0
+# inside the haven-overlay production cluster.
+#
+# Configuration:
+#   /etc/solr/solr.in.sh            - environment overrides (sourced by solr)
+#   /var/solr/data                  - SOLR_HOME (cores, configs)
+#   /var/solr/logs                  - SOLR_LOGS_DIR
+#
+# Usage:
+#   rc-service solr start
+#   rc-service solr stop
+#   rc-service solr status
+
+name="Apache Solr"
+description="Apache Solr 9.5.0 search platform"
+
+: ${SOLR_USER:=solr}
+: ${SOLR_GROUP:=solr}
+: ${SOLR_HOME:=/var/solr/data}
+: ${SOLR_LOGS_DIR:=/var/solr/logs}
+: ${SOLR_PID_DIR:=/var/solr}
+: ${SOLR_PORT:=8983}
+
+command=/usr/share/solr/bin/solr
+command_args="start -p ${SOLR_PORT}"
+command_user="${SOLR_USER}:${SOLR_GROUP}"
+command_background=true
+pidfile="${SOLR_PID_DIR}/solr-${SOLR_PORT}.pid"
+start_stop_daemon_args="--background --user ${SOLR_USER}:${SOLR_GROUP}"
+
+# upstream bin/solr takes ~30s to settle; wait long enough to see the pidfile
+retry="${SOLR_START_WAIT:-30}"
+
+depend() {
+    need net
+    use logger
+}
+
+start_pre() {
+    checkpath -d -m 0750 -o "${SOLR_USER}:${SOLR_GROUP}" \
+        "${SOLR_HOME}" "${SOLR_LOGS_DIR}" "${SOLR_PID_DIR}"
+}

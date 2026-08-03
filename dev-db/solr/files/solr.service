@@ -1,0 +1,26 @@
+[Unit]
+Description=Apache Solr 9.5.0 search platform
+Documentation=https://solr.apache.org/guide/
+After=network.target
+
+[Service]
+Type=forking
+User=solr
+Group=solr
+Environment=SOLR_INCLUDE=/etc/solr/solr.in.sh
+Environment=SOLR_HOME=/var/solr/data
+Environment=SOLR_PID_DIR=/var/solr
+Environment=SOLR_LOGS_DIR=/var/solr/logs
+Environment=LOG4J_PROPS=/var/solr/log4j2.xml
+Environment=SOLR_PORT=8983
+PIDFile=/var/solr/solr-8983.pid
+ExecStart=/usr/share/solr/bin/solr start -p 8983
+ExecStop=/usr/share/solr/bin/solr stop -p 8983
+ExecReload=/usr/share/solr/bin/solr restart -p 8983
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65536
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Apache Solr is the popular, blazing-fast, open source search
+		platform built on Apache Lucene. This ebuild installs the
+		upstream binary distribution (the same artifact the official
+		Apache Solr Docker image uses) under /usr/share/solr, with
+		OpenRC and systemd integration.
+	</longdescription>
+
+	<use>
+		<flag name="systemd">
+			Install a systemd service unit for solr. Requires
+			sys-apps/systemd on the host.
+		</flag>
+	</use>
+</pkgmetadata>
