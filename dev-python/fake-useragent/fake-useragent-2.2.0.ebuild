@@ -1,0 +1,25 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{12..15} )
+
+inherit distutils-r1 pypi
+
+DESCRIPTION="Up-to-date simple useragent faker with real-world database"
+HOMEPAGE="https://github.com/fake-useragent/fake-useragent"
+SRC_URI="https://files.pythonhosted.org/packages/source/f/fake-useragent/fake_useragent-${PV}.tar.gz"
+S="${WORKDIR}/fake_useragent-${PV}"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+
+# Upstream pyproject.toml declares no runtime deps.
+# python_version < 3.10 is gated to importlib-resources, but our PYTHON_COMPAT
+# starts at 3.12 so that branch is unreachable.
+
+EPYTEST_PLUGINS=()
+distutils_enable_tests pytest

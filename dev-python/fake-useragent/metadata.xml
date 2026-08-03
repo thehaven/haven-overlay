@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Up-to-date simple useragent faker with a real-world database.
+		Used by ddgs (metasearch library) and openworker's web-search
+		provider as a transitive dependency.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">fake-useragent</remote-id>
+		<remote-id type="github">fake-useragent/fake-useragent</remote-id>
+	</upstream>
+</pkgmetadata>
