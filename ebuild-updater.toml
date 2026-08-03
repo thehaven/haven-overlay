@@ -1,0 +1,33 @@
+# ebuild-updater configuration for haven-overlay.
+#
+# This file lives at the overlay root so the hold policy travels
+# with the overlay git tree (ADR-002: hold is operator intent,
+# version-controlled alongside the overlay).
+#
+# Discovery: ebuild-updater's DEFAULT_CONFIG_PATHS resolves
+# Path("ebuild-updater.toml") against the current working directory.
+# Operators must therefore invoke ebuild-updater from
+# /var/db/repos/haven-overlay (or pass it via the appropriate
+# wrapper). The /etc/ebuild-updater/config.toml and
+# ~/.config/ebuild-updater/config.toml paths are checked first and
+# override this file when present.
+#
+# Compatibility: ebuild-updater's [repos.<name>] form is the v2.x
+# multi-repo shape (see docs/project/spec_multirepo.md). This is
+# exactly equivalent to the legacy top-level [overlay] form for the
+# canonical haven-overlay repo.
+
+[repos.haven]
+path    = "/var/db/repos/haven-overlay"
+enabled = true
+
+# Pin dev-db/solr at 9.5.0 (matches /storage/docker/solr/start.sh).
+# ebuild-updater will surface newer upstream versions in `status`
+# (so we still see them) but the bump stage will never rewrite
+# solr-9.5.0.ebuild or add a higher version.
+#
+# Atom syntax is category/package (not version-pinned); the matching
+# code is `cp in cfg.pipeline.hold` at pipeline.py:378. To pin
+# multiple atoms, append: hold = ["dev-db/solr", "dev-java/openjdk-bin"]
+[repos.haven.pipeline]
+hold = ["dev-db/solr"]
