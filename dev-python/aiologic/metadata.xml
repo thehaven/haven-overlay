@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Used transitively by dev-python/a2a-sdk (and therefore
+		dev-python/opencode-a2a) on Python 3.12. Stdlib has the
+		required primitives on Python 3.13+.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">aiologic</remote-id>
+		<remote-id type="github">x42005e1f/aiologic</remote-id>
+	</upstream>
+</pkgmetadata>
