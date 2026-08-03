@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Expose OpenCode through Agent2Agent (A2A) protocol with an
+		inbound HTTP/SSE server surface and an embedded outbound
+		client. Apache-2.0 licensed.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Intelligent-Internet/opencode-a2a</remote-id>
+	</upstream>
+</pkgmetadata>
