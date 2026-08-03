@@ -21,9 +21,13 @@ LICENSE="ISC"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-# culsans has no required runtime deps; only typing-extensions
-# (python<3.13) and aiologic are referenced via [dependency-groups]
-# and optional extras, not core deps.
+# Hard runtime dependencies from upstream [project] dependencies.
+# aiologic is unconditional; typing-extensions is gated to python < 3.13.
+RDEPEND="
+	>=dev-python/aiologic-0.16.0[${PYTHON_USEDEP}]
+	<dev-python/aiologic-0.18.0[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '>=dev-python/typing-extensions-4.10.0[${PYTHON_USEDEP}]' python3_12)
+"
 
 BDEPEND="
 	dev-python/hatch-vcs
