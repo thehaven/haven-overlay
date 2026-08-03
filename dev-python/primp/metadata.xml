@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		HTTP client that can impersonate web browsers (Chrome / Edge / Safari / OkHttp / Firefox fingerprints). Used as a transitive dependency by ddgs (DuckDuckGo metasearch).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">primp</remote-id>
+		<remote-id type="github">deedy5/primp</remote-id>
+	</upstream>
+</pkgmetadata>
