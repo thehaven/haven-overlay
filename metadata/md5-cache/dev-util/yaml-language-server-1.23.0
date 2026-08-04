@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=net-libs/nodejs
 SLOT=0
 SRC_URI=https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.23.0.tgz -> yaml-language-server-1.23.0.tgz https://gitlab-ee.thehavennet.org.uk/haven/gentoo-distfiles/-/raw/main/yaml-language-server-node_modules-1.23.0.tar.xz
-_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
-_md5_=25df2103910e224d2bb160606e1bcd72
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34
+_md5_=05707df2182fff040f8843a790239b95

@@ -1,0 +1,14 @@
+BDEPEND=|| ( dev-lang/bun-bin dev-lang/bun )
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=OpenCode package manager
+EAPI=8
+HOMEPAGE=https://github.com/kdcokenny/ocx
+INHERIT=bun
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=dev-util/opencode
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/kdcokenny/ocx/archive/refs/tags/v2.0.14.tar.gz -> ocx-2.0.14.tar.gz
+_eclasses_=bun	15da7c4804cccbab03f837d7ef5cea4e
+_md5_=e3c6e0a3cf4eb5a053fefc56df40a49e

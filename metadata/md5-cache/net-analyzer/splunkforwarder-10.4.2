@@ -1,0 +1,12 @@
+DEFINED_PHASES=install nofetch postinst
+DESCRIPTION=Splunk Universal Forwarder - lightweight remote data collector
+EAPI=8
+HOMEPAGE=https://www.splunk.com
+IUSE=systemd
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=splunk-eula
+RDEPEND=acct-group/splunkfwd acct-user/splunkfwd
+RESTRICT=bindist mirror fetch
+SLOT=0
+SRC_URI=amd64? ( https://download.splunk.com/products/universalforwarder/releases/10.4.2/linux/splunkforwarder-10.4.2-33c3bf42cd73-linux-amd64.tgz ) arm64? ( https://download.splunk.com/products/universalforwarder/releases/10.4.2/linux/splunkforwarder-10.4.2-33c3bf42cd73-linux-arm64.tgz )
+_md5_=8b38d1414a79a9e32b51e2f7413bfe6b

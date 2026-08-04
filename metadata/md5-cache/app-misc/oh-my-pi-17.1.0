@@ -1,0 +1,9 @@
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=Oh My Pi: Agentic hardware hacking assistant
+EAPI=8
+HOMEPAGE=https://github.com/can1357/oh-my-pi
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=MIT
+SLOT=0
+SRC_URI=amd64? ( https://github.com/can1357/oh-my-pi/releases/download/v17.1.0/omp-linux-x64 -> omp-17.1.0-linux-x64 ) arm64? ( https://github.com/can1357/oh-my-pi/releases/download/v17.1.0/omp-linux-arm64 -> omp-17.1.0-linux-arm64 )
+_md5_=fc7824f071974a1722829dc1b2c8e8b9

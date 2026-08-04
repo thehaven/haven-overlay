@@ -1,0 +1,16 @@
+BDEPEND=
+DEFINED_PHASES=configure setup
+DEPEND=
+DESCRIPTION=This is the Cockpit user interface for virtual machines
+EAPI=8
+HOMEPAGE=http://cockpit-project.org/
+INHERIT=python-single-r1
+IUSE=python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14
+KEYWORDS=~amd64
+LICENSE=LGPL-2.1
+RDEPEND=>=app-admin/cockpit-355 app-emulation/libvirt-dbus app-emulation/libvirt[firewalld,policykit] app-emulation/virt-manager[policykit] python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_14? ( dev-lang/python:3.14 )
+REQUIRED_USE=^^ ( python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14 )
+SLOT=0
+SRC_URI=https://github.com/cockpit-project/cockpit-machines/releases/download/355/cockpit-machines-355.tar.xz
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	python-utils-r1	5fd9a75ca55021d3276ce969f8e28391	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57
+_md5_=3f501cb4868777126c89a3a2c204298c

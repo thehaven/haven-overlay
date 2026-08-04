@@ -10,4 +10,4 @@ RDEPEND=>=net-libs/nodejs-20
 RESTRICT=network-sandbox
 SLOT=0
 SRC_URI=https://github.com/Fission-AI/OpenSpec/archive/refs/tags/v1.2.0.tar.gz -> openspec-1.2.0.tar.gz
-_md5_=54b137cf5e68dd9ea65a12ec2f03a65b
+_md5_=f345be43178906c10e7ba038129fc116

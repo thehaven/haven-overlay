@@ -8,5 +8,5 @@ LICENSE=MIT
 RDEPEND=dev-nodejs/opencode-ai-plugin dev-nodejs/jsonc-parser
 SLOT=0
 SRC_URI=https://registry.npmjs.org/opencode-openai-codex-auth/-/opencode-openai-codex-auth-4.4.0.tgz -> opencode-plugin-codex-auth-4.4.0.tgz
-_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	b9ef5199d729ba854835deae6f04d8d4	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
-_md5_=a233b5d96423af8b482c33f9e984a7d9
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34
+_md5_=f1ce21337f6c42943b5b279fe4f3e114
