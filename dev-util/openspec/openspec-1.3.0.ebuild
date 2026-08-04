@@ -23,17 +23,22 @@ BDEPEND="
 "
 
 src_compile() {
-	# Use pnpm via npx to install dependencies and build
-	npx --yes pnpm install --dangerously-allow-all-builds || die "pnpm install failed"
-	npx --yes pnpm run build || die "pnpm build failed"
+	# Pin to upstream's declared packageManager (pnpm@9.15.9, lockfileVersion
+	# 9.0). An unpinned `npx --yes pnpm` drifts to latest, which dropped the
+	# --dangerously-allow-all-builds flag (Unknown option error) and no longer
+	# matches the shipped lockfile. pnpm 9 runs build scripts by default, so
+	# the flag is neither needed nor supported here.
+	npx --yes pnpm@9.15.9 install || die "pnpm install failed"
+	npx --yes pnpm@9.15.9 run build || die "pnpm build failed"
 }
 
 src_install() {
 	local appdir="/opt/${PN}"
 	dodir "${appdir}"
 
-	# Copy built assets
-	cp -r bin dist schemas scripts package.json package-lock.json pnpm-lock.yaml node_modules "${ED}${appdir}/" || die
+	# Copy built assets. package-lock.json does not exist: this is a pnpm
+	# project, the lockfile is pnpm-lock.yaml.
+	cp -r bin dist schemas scripts package.json pnpm-lock.yaml node_modules "${ED}${appdir}/" || die
 
 	# Create a wrapper script in /usr/bin
 	dodir /usr/bin

@@ -18,6 +18,20 @@ inherit bun
 
 RDEPEND="net-libs/nodejs"
 
+src_compile() {
+	# Upstream ships a pnpm-10 lockfile (compact patchedDependencies format)
+	# that installed bun cannot migrate (InvalidPnpmLockfile). All direct
+	# dependencies are exact-pinned in package.json, so drop the upstream
+	# lockfile and let bun resolve the deterministic graph from the manifest.
+	# The upstream gray-matter patch is unneeded here: under bun, gray-matter
+	# resolves js-yaml ^3.13.1 (safeLoad still present), not the patched
+	# js-yaml 4.x resolution upstream hit under pnpm.
+	rm -f pnpm-lock.yaml || die
+
+	bun install --ignore-scripts || die "bun install failed"
+	bun run build || die "bun run build failed"
+}
+
 src_install() {
 	local module_dir="/usr/$(get_libdir)/node_modules/${PN}"
 
