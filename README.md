@@ -2,9 +2,9 @@
 
 A personal Gentoo **layman overlay** for Simon Alman.
 
-- Primary: `https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay` (SSH push: `ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`)
-- Mirror: `https://github.com/thehaven/haven-overlay`
-- Default branch: `master` (commits land directly; no PRs)
+- Primary: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay) (SSH push: [`ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay))
+- Mirror: [`https://github.com/thehaven/haven-overlay`](https://github.com/thehaven/haven-overlay)
+- Default branch: [`master`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/-/tree/master) (commits land directly; no PRs)
 - License: [GNU Affero GPL v3](LICENSE)
 
 This overlay contains custom ebuilds, a handful of local eclasses, and
@@ -28,34 +28,34 @@ load the `gentoo-ebuild` skill — AGENTS.md points to it.
 | | |
 | --- | --- |
 | Ebuilds | ~2,450 |
-| Categories claimed | 57 (see `profiles/categories`) |
-| Local eclasses | `bun`, `npm`, `go-module-offline`, plus Go/Lua/eutils extensions — see `eclass/` |
-| Helper scripts | `scripts/npm2ebuild.py`, `scripts/verify-mcp.sh`, `scripts/verify-npm-bin.sh` |
-| Tests | `scripts/tests/test_{grafonnet,headroom_ai,litellm}_ebuild.py` (`pytest scripts/tests/`) |
-| Operator config | `ebuild-updater.toml` (hold list, repo path) |
-| Layman metadata | `haven-overlay.xml` |
+| Categories claimed | 57 (see [`profiles/categories`](profiles/categories)) |
+| Local eclasses | `bun`, `npm`, `go-module-offline`, plus Go/Lua/eutils extensions — see [`eclass/`](eclass/) |
+| Helper scripts | [`scripts/npm2ebuild.py`](scripts/npm2ebuild.py), [`scripts/verify-mcp.sh`](scripts/verify-mcp.sh), [`scripts/verify-npm-bin.sh`](scripts/verify-npm-bin.sh) |
+| Tests | [`scripts/tests/test_{grafonnet,headroom_ai,litellm}_ebuild.py`](scripts/tests/) (`pytest scripts/tests/`) |
+| Operator config | [`ebuild-updater.toml`](ebuild-updater.toml) (hold list, repo path) |
+| Layman metadata | [`haven-overlay.xml`](haven-overlay.xml) |
 
 ## Categories — what's here
 
 The full list lives in [`profiles/categories`](profiles/categories). Most
 follow stock Gentoo; the overlay also claims three categories that are
-not in the main tree (`dev-nodejs`, `www-nginx`, `www-servers`) and one
-overlay-local category (`app-vuln`).
+not in the main tree ([`dev-nodejs`](dev-nodejs/), [`www-nginx`](profiles/categories), [`www-servers`](profiles/categories)) and one
+overlay-local category ([`app-vuln`](app-vuln/)).
 
 The heaviest packages, by ebuild count:
 
 | Category | Ebuilds | Notes |
 | --- | ---: | --- |
-| `dev-python` | ~770 | Python tooling, ML client libs |
-| `dev-util` | ~470 | MCP servers (`mcp-meta` virtual), LSP servers, CLI tools |
-| `app-misc` | ~350 | Personal utilities |
-| `app-admin` | ~140 | Argo CD/Workflows/Rollouts/Events CLI suite, `app-admin/harbor` (meta) |
-| `acct-user` / `acct-group` | ~70 each | Service-account definitions |
-| `net-nntp` | ~55 | Sonarr, SABnzbd, NZBGet |
-| `net-im` | ~35 | Synapse, Element |
-| `www-apps` | ~35 | Audiobookshelf, readmeabook |
-| `dev-ml` | ~25 | litellm (CRATES regenerator lives at `net-im/synapse/update_ebuild.py`) |
-| `sys-cluster` | ~45 | Kubernetes, Argo |
+| [`dev-python`](dev-python/) | ~770 | Python tooling, ML client libs |
+| [`dev-util`](dev-util/) | ~470 | MCP servers (`mcp-meta` virtual), LSP servers, CLI tools |
+| [`app-misc`](app-misc/) | ~350 | Personal utilities |
+| [`app-admin`](app-admin/) | ~140 | Argo CD/Workflows/Rollouts/Events CLI suite, [`app-admin/harbor`](app-admin/harbor/) (meta) |
+| [`acct-user`](acct-user/) / [`acct-group`](acct-group/) | ~70 each | Service-account definitions |
+| [`net-nntp`](net-nntp/) | ~55 | Sonarr, SABnzbd, NZBGet |
+| [`net-im`](net-im/) | ~35 | Synapse, Element |
+| [`www-apps`](www-apps/) | ~35 | Audiobookshelf, readmeabook |
+| [`dev-ml`](dev-ml/) | ~25 | litellm (CRATES regenerator lives at [`net-im/synapse/update_ebuild.py`](net-im/synapse/update_ebuild.py)) |
+| [`sys-cluster`](sys-cluster/) | ~45 | Kubernetes, Argo |
 
 Counts are an approximate snapshot. Run
 `find /var/db/repos/haven-overlay -name '*.ebuild' | wc -l` for the
@@ -79,7 +79,7 @@ pytest /var/db/repos/haven-overlay/scripts/tests/
 
 ## Dead / unreachable upstream
 
-`profiles/package.mask` lists packages whose source tarballs are no
+[`profiles/package.mask`](profiles/package.mask) lists packages whose source tarballs are no
 longer reachable. Add to it rather than deleting the ebuild, so
 `ebuild-updater` stops trying to refresh them.
 

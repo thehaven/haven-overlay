@@ -4,10 +4,10 @@ This is a personal Gentoo layman overlay for Simon Alman. It packages
 custom ebuilds, ships a few local eclasses, and holds repo-level config
 for [`ebuild-updater`](https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater) and per-package bump/discover hooks.
 
-- Primary remote: `ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`
-  (browse: `https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`).
-- GitHub mirror: `https://github.com/thehaven/haven-overlay` (read-only).
-- Default branch: `master`. Commits land directly on master; no PRs.
+- Primary remote: [`ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay)
+  (browse: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay)).
+- GitHub mirror: [`https://github.com/thehaven/haven-overlay`](https://github.com/thehaven/haven-overlay) (read-only).
+- Default branch: [`master`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/-/tree/master). Commits land directly on master; no PRs.
 - Source of truth for **how** to write an ebuild: the `gentoo-ebuild` skill
   (`~/.claude/skills/gentoo-ebuild/SKILL.md`). This file only documents
   what is *unusual* about this overlay on top of that skill.
@@ -31,31 +31,31 @@ for [`ebuild-updater`](https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-update
 
 ## Overlay layout — what's here
 
-- `profiles/repo_name` = `haven-overlay`. There is **no** `profiles/layout.conf`
+- [`profiles/repo_name`](profiles/repo_name) = `haven-overlay`. There is **no** `profiles/layout.conf`
   (this is a layman repo, not a master repo). The gentoo master lives at
-  `/usr/portage` and is wired up in `metadata/layout.conf`:
+  `/usr/portage` and is wired up in [`metadata/layout.conf`](metadata/layout.conf):
   `masters = gentoo`, `auto-sync = false`, `thin-manifests = true`,
   `sign-manifests = false`.
-- `profiles/categories` lists every category this overlay claims, including
-  three not in stock gentoo: `dev-nodejs` (npm registry packages),
-  `www-nginx`, `www-servers`, plus overlay-local `app-vuln`. New categories
+- [`profiles/categories`](profiles/categories) lists every category this overlay claims, including
+  three not in stock gentoo: [`dev-nodejs`](dev-nodejs/) (npm registry packages),
+  [`www-nginx`](profiles/categories), [`www-servers`](profiles/categories), plus overlay-local [`app-vuln`](app-vuln/). New categories
   must be added here before they can host packages.
-- `profiles/package.mask` records dead-upstream packages whose source
+- [`profiles/package.mask`](profiles/package.mask) records dead-upstream packages whose source
   tarballs are no longer reachable. Add to it rather than deleting the
   ebuild, so `ebuild-updater` stops trying to refresh them.
-- `eclass/` ships local eclasses only — `bun.eclass`, `npm.eclass`,
-  `go-module-offline.eclass`, plus copies/extensions of upstream eclasses.
+- [`eclass/`](eclass/) ships local eclasses only — [`bun.eclass`](eclass/bun.eclass), [`npm.eclass`](eclass/npm.eclass),
+  [`go-module-offline.eclass`](eclass/go-module-offline.eclass), plus copies/extensions of upstream eclasses.
   See "Eclass choice" below.
-- `scripts/` holds helper scripts and pytest-based ebuild tests.
-  `scripts/tests/test_grafonnet_ebuild.py`, `test_headroom_ai_ebuild.py`,
-  and `test_litellm_ebuild.py` each validate one package's ebuild against
+- [`scripts/`](scripts/) holds helper scripts and pytest-based ebuild tests.
+  [`scripts/tests/test_grafonnet_ebuild.py`](scripts/tests/test_grafonnet_ebuild.py), [`test_headroom_ai_ebuild.py`](scripts/tests/test_headroom_ai_ebuild.py),
+  and [`test_litellm_ebuild.py`](scripts/tests/test_litellm_ebuild.py) each validate one package's ebuild against
   upstream metadata. Run with
   `pytest /var/db/repos/haven-overlay/scripts/tests/`.
 - `metadata/md5-cache/`, `metadata/bump-hooks/`, `metadata/discover-hooks/`
   are `ebuild-updater` artefacts — the operator config lives at the repo
-  root in `ebuild-updater.toml` (hold policy travels with the git tree).
-- `haven-overlay.xml` is the layman metadata (description, owner, source URL).
-- `net-im/synapse/update_ebuild.py` is an in-tree one-off regenerator for
+  root in [`ebuild-updater.toml`](ebuild-updater.toml) (hold policy travels with the git tree).
+- [`haven-overlay.xml`](haven-overlay.xml) is the layman metadata (description, owner, source URL).
+- [`net-im/synapse/update_ebuild.py`](net-im/synapse/update_ebuild.py) is an in-tree one-off regenerator for
   Synapse's CRATES block. Read it before running — it expects
   `crates_new.txt` in the cwd.
 
@@ -69,10 +69,10 @@ applies specifically here:
   `RESTRICT="network-sandbox"` is required so the build fails if anything
   tries to reach the network.
 - For Bun-built upstream projects, use `inherit bun` (the overlay's local
-  `eclass/bun.eclass`). Its default `bun_src_compile` runs
+  [`eclass/bun.eclass`](eclass/bun.eclass)). Its default `bun_src_compile` runs
   `bun install --frozen-lockfile --ignore-scripts` followed by
   `bun run build`.
-- For pure-npm-registry packages, use `inherit npm` (`eclass/npm.eclass`).
+- For pure-npm-registry packages, use `inherit npm` ([`eclass/npm.eclass`](eclass/npm.eclass)).
   Set `NPM_AUTO_BIN=1` to auto-symlink `package.json`'s `bin` field, or
   call `npm_install_bin <script_path> [alias]` from `src_install`.
 - See `scripts/npm2ebuild.py --package <name>@<ver>` for the generator
@@ -81,7 +81,7 @@ applies specifically here:
 ### Pre-bundled node_modules tarballs are FORBIDDEN
 
 A handful of ebuilds in the tree (e.g. `bash-language-server`,
-`opencode-plugin-canvas`, `composio-mcp`, `www-apps/audiobookshelf`)
+`opencode-plugin-canvas`, `composio-mcp`, [`www-apps/audiobookshelf`](www-apps/audiobookshelf/))
 still ship `MY_NODE_D="…-node_modules-…"` pre-built tarballs from a
 private mirror (host redacted from this public repo). **These are technical debt, not the
 standard pattern.** The migration direction (see git history: the
@@ -111,10 +111,10 @@ the build host's actual Python versions. Check the eclass's
   cache is stale. Fix the primary ebuild error first, then
   `emaint sync -r haven-overlay` and
   `rm -rf /var/cache/edb/dep/*/haven-overlay` to clear the cache.
-- **`dev-util/mcp-meta` is the virtual.** Individual MCP servers
-  (`dev-util/opencode-snippets`, `dev-util/chrome-devtools-mcp`, etc.) are
+- **[`dev-util/mcp-meta`](dev-util/mcp-meta/) is the virtual.** Individual MCP servers
+  ([`dev-util/opencode-snippets`](dev-util/opencode-snippets/), [`dev-util/chrome-devtools-mcp`](dev-util/chrome-devtools-mcp/), etc.) are
   pulled in as USE-flag-gated deps via `profiles/use.local.desc`.
-  `scripts/verify-mcp.sh` is the smoke-test runner for the binary list
+  [`scripts/verify-mcp.sh`](scripts/verify-mcp.sh) is the smoke-test runner for the binary list
   it documents at the top.
 
 ## External infra this overlay depends on
@@ -124,11 +124,11 @@ the build host's actual Python versions. Check the eclass's
   fetch to work without credentials.
 - [`antigravity-cli-auto-updater-….us-central1.run.app`](https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/)
   — upstream manifest source for `app-util/antigravity-cli-bin`
-  (see `metadata/bump-hooks/dev-util/antigravity-cli-bin`).
+  (see [`metadata/bump-hooks/dev-util/antigravity-cli-bin`](metadata/bump-hooks/dev-util/antigravity-cli-bin)).
 
 ## [`ebuild-updater`](https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater) integration
 
-- Config: `ebuild-updater.toml` at the repo root. The hold list pins
+- Config: [`ebuild-updater.toml`](ebuild-updater.toml) at the repo root. The hold list pins
   `dev-db/solr` to match `/storage/docker/solr/start.sh` — newer upstream
   versions show up in `status` but the bump stage will not rewrite them.
 - Operator must invoke `ebuild-updater` from `/var/db/repos/haven-overlay`
@@ -168,7 +168,7 @@ pytest /var/db/repos/haven-overlay/scripts/tests/
   being rsync'd; `emerge --sync` does not update it. Defensive edits
   (capping `PYTHON_COMPAT`, etc.) are required for any ebuild that
   targets both dev and webhost.
-- **Harbor** (`app-admin/harbor`). Swagger code generation is upstream
+- **Harbor** ([`app-admin/harbor`](app-admin/harbor/)). Swagger code generation is upstream
   container-only; cannot be packaged from source.
 
 ## Out of scope
