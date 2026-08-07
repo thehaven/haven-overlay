@@ -4,30 +4,25 @@ This is a personal Gentoo layman overlay for Simon Alman. It packages
 custom ebuilds, ships a few local eclasses, and holds repo-level config
 for [`ebuild-updater`](https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater) and per-package bump/discover hooks.
 
-- Primary remote: [`ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay)
-  (browse: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay)).
-- GitHub mirror: [`https://github.com/thehaven/haven-overlay`](https://github.com/thehaven/haven-overlay) (read-only).
+- Browse: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay).
+- Mirror: [`https://github.com/thehaven/haven-overlay`](https://github.com/thehaven/haven-overlay) (read-only).
 - Default branch: [`master`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/-/tree/master). Commits land directly on master; no PRs.
-- Source of truth for **how** to write an ebuild: the `gentoo-ebuild` skill
-  (`~/.claude/skills/gentoo-ebuild/SKILL.md`). This file only documents
-  what is *unusual* about this overlay on top of that skill.
 
-## Working rules (mandatory)
+## How to write an ebuild here
 
-- `sudo -n` for every shell command in this repo (`sudo -n git …`,
-  `sudo -n ebuild …`, `sudo -n chown …`, `sudo -n chmod …`).
-- After any write, restore ownership:
-  `sudo -n chown -R portage:portage <path>`. The `edit` and `write` tools
-  cannot touch portage-owned files — for those, use
-  `sudo -n bash -c 'tee … > /dev/null'`, `sudo -n sed -i …`, or
-  `sudo -n python3 -c …`.
-- Only commit when the user explicitly approves. Conventional-commit style:
-  `<category>/<pkg>: <verb> <object>` (e.g. `dev-util/spec-kit: bump to 0.12.4`,
+Start with [`docs/gentoo-ebuild-cheatsheet.md`](docs/gentoo-ebuild-cheatsheet.md) —
+it covers overlay layout, permissions, manifest generation, the
+`emerge` `=`-atom quoting rule, common Portage failures, and the
+`DISTUTILS_USE_PEP517` mapping. That doc is a curated subset of the
+private `gentoo-ebuild` skill, kept in-repo so an agent can work offline;
+load the skill itself for full coverage.
+
+## Working rules (overlay-specific)
+
+- **Commit-on-approval.** Only commit when the user explicitly approves.
+  Conventional-commit style: `<category>/<pkg>: <verb> <object>`
+  (e.g. `dev-util/spec-kit: bump to 0.12.4`,
   `retention: prune old versions (10 removed)`).
-- For everything else (EAPI choice, KEYWORDS rules, eclass selection, QA
-  flags, manifest commands, shell quoting for `=` atoms, `S="${WORKDIR}"`
-  flat-archive pattern, Go module cache, Rust CRATES), defer to the
-  `gentoo-ebuild` skill rather than duplicating it here.
 
 ## Overlay layout — what's here
 
@@ -173,8 +168,5 @@ pytest /var/db/repos/haven-overlay/scripts/tests/
 
 ## Out of scope
 
-Planning, design, ADR-style decisions, and personal notes belong in the
-Obsidian second-brain vault at `~/.obsidian/Proofpoint/` (PARA structure),
-not in this repo. Skill edits are developed under
-`/storage/home/haven/projects/personal/salman-skills` and synced with
-`make install all`.
+Planning, design, and ADR-style decisions don't belong in this repo.
+Skills and tooling live in a separate, private repository.

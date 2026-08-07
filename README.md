@@ -2,7 +2,7 @@
 
 A personal Gentoo **layman overlay** for Simon Alman.
 
-- Primary: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay) (SSH push: [`ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay.git`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay))
+- Browse: [`https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay).
 - Mirror: [`https://github.com/thehaven/haven-overlay`](https://github.com/thehaven/haven-overlay)
 - Default branch: [`master`](https://gitlab-ee.thehavennet.org.uk/gentoo/haven-overlay/-/tree/master) (commits land directly; no PRs)
 - License: [GNU Affero GPL v3](LICENSE)
@@ -19,9 +19,7 @@ Start with **[AGENTS.md](AGENTS.md)** — it documents the overlay's
 mandatory working rules (sudo, ownership, portage-owned files), how the
 overlay is laid out (profiles, eclasses, scripts), the strict source-based
 Node.js/Bun policy, the `ebuild-updater` integration, and the verified
-gotchas an agent would otherwise hit. For general ebuild conventions
-(EAPI, KEYWORDS, QA flags, manifest commands, Go/Rust/Binary patterns),
-load the `gentoo-ebuild` skill — AGENTS.md points to it.
+gotchas an agent would otherwise hit. For general ebuild conventions (EAPI, KEYWORDS, QA flags, manifest commands, Go/Rust/Binary patterns), see [`docs/gentoo-ebuild-cheatsheet.md`](docs/gentoo-ebuild-cheatsheet.md).
 
 ## Repo at a glance
 
@@ -85,8 +83,5 @@ longer reachable. Add to it rather than deleting the ebuild, so
 
 ## Out of scope
 
-Planning, design, ADRs, and personal notes live in the Obsidian
-second-brain vault at `~/.obsidian/Proofpoint/` (PARA structure), not in
-this repo. Skill edits are developed under
-`/storage/home/haven/projects/personal/salman-skills` and synced with
-`make install all`.
+Planning, design, and ADR-style decisions don't belong in this repo.
+Skills and tooling live in a separate, private repository.
