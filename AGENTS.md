@@ -10,12 +10,11 @@ for [`ebuild-updater`](https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-update
 
 ## How to write an ebuild here
 
-Start with [`docs/gentoo-ebuild-cheatsheet.md`](docs/gentoo-ebuild-cheatsheet.md) —
-it covers overlay layout, permissions, manifest generation, the
-`emerge` `=`-atom quoting rule, common Portage failures, and the
-`DISTUTILS_USE_PEP517` mapping. That doc is a curated subset of the
-private `gentoo-ebuild` skill, kept in-repo so an agent can work offline;
-load the skill itself for full coverage.
+Start with [`docs/gentoo-ebuild-cheatsheet.md`](docs/gentoo-ebuild-cheatsheet.md).
+It covers overlay layout, permissions, manifest generation, the `emerge`
+`=`-atom quoting rule, common Portage failures, and the
+`DISTUTILS_USE_PEP517` mapping — everything an agent needs to work in
+this overlay without external context.
 
 ## Working rules (overlay-specific)
 

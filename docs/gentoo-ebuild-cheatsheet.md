@@ -1,11 +1,8 @@
 # gentoo-ebuild cheatsheet
 
-A subset of the `gentoo-ebuild` skill, included in-repo so an agent can
-work on this overlay offline. For full coverage (every package type, every
-QA pattern, the in-repo vs overlay decision tree), load the skill at
-`~/.claude/skills/gentoo-ebuild/SKILL.md` on a host where it is
-installed. This file is canonical for **what an agent working in this
-overlay needs most often**.
+The minimum an agent needs to write, maintain, and debug ebuilds in this
+overlay. Self-contained — every command, rule, and lookup table in this
+file works without any external tool or installed skill.
 
 ## Overlay layout
 
@@ -113,10 +110,3 @@ build-backend` exactly. Never guess.
 | `pdm.backend` | `pdm` | `dev-python/pdm` |
 | `maturin` | `maturin` | `dev-util/maturin` |
 
-## Where the full skill lives
-
-The `gentoo-ebuild` skill (`~/.claude/skills/gentoo-ebuild/SKILL.md`,
-~1,170 lines) is the source of truth for everything not covered here —
-Go/Rust/Python/binary ebuild patterns, EAPI differences, QA flags,
-shell-quoting canon, the in-repo vs overlay decision tree, etc. Load
-that skill for full coverage.
