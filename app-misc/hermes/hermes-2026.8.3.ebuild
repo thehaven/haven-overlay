@@ -158,6 +158,36 @@ src_prepare() {
 			pyproject.toml || die
 	done
 
+	# 2.5. Fix _ra() in hermes_agent/agent_init.py: the import-rewrite sed
+	#      (step 2) only matches `from run_agent` / `import run_agent`, so
+	#      _ra()'s bare `return run_agent` is left dangling and NameErrors
+	#      on first call. Mirror the rename to the return site.
+	#      Class-shaped: matches any version where _ra() returns the
+	#      module by its bare (now-renamed) name.
+	# Multiple hermes_agent/*.py files have the same _ra() lazy-reference
+	# pattern (system_prompt.py, chat_completion_helpers.py,
+	# agent_runtime_helpers.py, conversation_loop.py, tool_executor.py,
+	# and any future module that adds one). Class-shaped: covers all
+	# of them in a single sed. The bare `return run_agent` statement
+	# only appears inside these helpers — safe to match across the
+	# whole hermes_agent package.
+	find "${S}"/hermes_agent -name '*.py' -exec sed -i \
+		's/^    return run_agent$/    return hermes_run_agent/' {} + || die
+
+	# 2.6. Patch hermes_cli/plugins.py fake-namespace injection. The
+	#      loader's _load_directory_module injects a synthetic
+	#      hermes_plugins with __path__=[] into sys.modules whenever
+	#      the real namespace package isn't imported yet, which
+	#      shadows the real package and breaks sibling plugin
+	#      imports (e.g. hermes_plugins.browser.browserbase.provider
+	#      from browser_tool.py:168) whenever any user-installed
+	#      plugin (e.g. ~/.hermes/plugins/<name>/) triggers discovery
+	#      before the real namespace is imported. The patcher imports
+	#      the real namespace first (with ImportError fallback).
+	#      Class-shaped: idempotent marker check.
+	python3 "${FILESDIR}/patch-plugin-loader.py" \
+		"${S}/hermes_cli/plugins.py" || die
+
 	# 3. Suppress venv entry point check in doctor.py for Gentoo system-wide install
 	if [[ -f hermes_cli/doctor.py ]]; then
 		sed -i 's/if sys.platform != "win32":/if False:/' hermes_cli/doctor.py || die
@@ -172,6 +202,26 @@ src_prepare() {
 	#    Fix: move the module file into the package.
 	if [[ -f hermes_cli.py && -d hermes_cli ]]; then
 		mv hermes_cli.py hermes_cli/chat_runner.py || die
+		cat << 'EOF' >> hermes_cli/__init__.py
+
+def __getattr__(name: str):
+    # The upstream monolith cli.py is moved into this package as
+    # chat_runner.py (step 4 above), and every `from cli import X` was
+    # rewritten to `from hermes_cli import X`. Proxy all names to
+    # chat_runner so the monolith's module-level names (ChatConsole,
+    # _cprint, logger, AIAgent, CLI_CONFIG, ...) keep resolving at call
+    # time — this is how upstream package modules import them.
+    # NOTE: importlib.import_module, NOT `import ... as` — the latter
+    # binds via getattr() on the parent, which recurses into __getattr__
+    # while chat_runner is still mid-import (its module-level
+    # load_cli_config() call imports submodules from this package).
+    import importlib
+    chat_runner = importlib.import_module("hermes_cli.chat_runner")
+    try:
+        return getattr(chat_runner, name)
+    except AttributeError:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}") from None
+EOF
 		find . -name "*.py" -exec sed -i \
 			-e 's/\bfrom hermes_cli import main\b/from hermes_cli.chat_runner import main/g' \
 			{} + || die
