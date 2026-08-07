@@ -107,7 +107,17 @@ RDEPEND="
 	)
 "
 
-BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
+
+# ebuild-side regression test for the hermes_tools/mcp_tool.py
+# t.cancel() / closed-loop crash. The upstream tarball ships
+# tests/ with 180+ heavy tests that need a running MCP server, a
+# hermes config, network access, etc. We only want to run our focused
+# guard test, so we override python_test() to copy the ebuild's
+# test file and run only it. See files/test_mcp_cancel_guard.py
+# for the assertions.
+distutils_enable_tests pytest
 
 src_prepare() {
 	distutils-r1_src_prepare
@@ -124,6 +134,15 @@ src_prepare() {
 
 	# We also need to fix the dynamic string in registry.py that was breaking tool discovery
 	sed -i 's/f"tools\./f"hermes_tools\./g' hermes_tools/registry.py || die
+
+	# 1.5. Patch hermes_tools/mcp_tool.py: wrap every `t.cancel()` in a
+	#      try/except RuntimeError so the python-3.14 stricter Task.cancel
+	#      semantics don't raise "Event loop is closed" during shutdown.
+	#      Upstream bug is in _wait_for_reconnect_or_shutdown and the keepalive
+	#      finally block -- both have the same `if not t.done(): t.cancel()` shape.
+	#      Idempotent: sed only matches the unpatched form.
+	sed -i -z -E 's|if not t\.done\(\):\n                    t\.cancel\(\)\n|if not t.done():\n                    try:\n                        t.cancel()\n                    except RuntimeError:\n                        # Python 3.14: Task.cancel() raises RuntimeError("Event loop is closed")\n                        # when the loop has already been torn down. The task is unreachable\n                        # so skip the await.\n                        continue\n|g' \
+		hermes_tools/mcp_tool.py || die
 
 	# 2. Update imports in all python files.
 	# We process file by file to ensure robust boundary matching
@@ -157,6 +176,41 @@ src_prepare() {
 			-e 's/\bfrom hermes_cli import main\b/from hermes_cli.chat_runner import main/g' \
 			{} + || die
 	fi
+
+	# 5. Drop the ebuild's regression test into the upstream tests/
+	#    tree so the default `epytest` (or our custom `python_test`)
+	#    can pick it up. The upstream tests/ dir already exists at
+	#    this point and contains conftest.py / fixtures, so we just
+	#    add our file alongside. Without USE=test this is a no-op
+	#    in terms of runtime cost; the file is still copied in case
+	#    a future ebuild drops the python_test override below.
+	if [[ -d tests ]]; then
+		cp "${FILESDIR}/test_mcp_cancel_guard.py" \
+			"tests/test_mcp_cancel_guard.py" || die
+	else
+		mkdir -p tests || die
+		cp "${FILESDIR}/test_mcp_cancel_guard.py" \
+			"tests/test_mcp_cancel_guard.py" || die
+	fi
+}
+
+# Run ONLY the focused regression test, not the full upstream suite.
+# The upstream tests/ directory has 180+ tests that require a running
+# MCP server, hermes config dir, network access, and a clean HOME.
+# This override is what `FEATURES=test emerge app-misc/hermes` will
+# execute; everything else in tests/ is intentionally skipped.
+python_test() {
+	epytest -p no:hydra_pytest tests/test_mcp_cancel_guard.py
+}
+
+# Upstream setup.py (2026.8.x) overrides bdist_wheel/sdist to refuse
+# wheel builds unless HERMES_NIX_BUILD=1 -- the only supported PEP 517
+# path is their Nix derivation. The guard is a pure env-var check that
+# then proceeds with a normal wheel build, so exporting it for the
+# compile phase is the minimal Gentoo fix. (7.7.2 and earlier had no
+# guard; this was introduced upstream between 7.7.2 and 8.3.)
+src_compile() {
+	HERMES_NIX_BUILD=1 distutils-r1_src_compile
 }
 
 src_install() {
