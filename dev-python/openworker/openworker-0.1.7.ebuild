@@ -4,22 +4,21 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
-# openworker is the upstream repo name; the PyPI / install package is
-# "coworker". The pyproject.toml ships version="0.0.0" as a placeholder
-# (the project is developed as a moving git checkout), so we override PV
-# from the GitHub tag and pin S to the openworker-{PV} extract dir.
+# openworker is the upstream repo name; the pyproject.toml project name
+# is "coworker", but the project is not published to PyPI (that name is
+# taken by an unrelated package). pyproject.toml ships version="0.0.0"
+# as a placeholder (the project is developed as a moving git checkout),
+# so we override PV from the GitHub tag and pin S to the openworker-{PV}
+# extract dir.
 MY_PN="openworker"
 MY_P="${MY_PN}-${PV}"
 
 inherit distutils-r1 optfeature
 
 DESCRIPTION="Agent coworker platform — provider-agnostic agentic coworker runtime"
-HOMEPAGE="
-	https://github.com/andrewyng/openworker
-	https://pypi.org/project/coworker/
-"
+HOMEPAGE="https://github.com/andrewyng/openworker"
 SRC_URI="https://github.com/andrewyng/${MY_PN}/archive/refs/tags/v${PV}.tar.gz
 	-> ${MY_P}.gh.tar.gz"
 S="${WORKDIR}/${MY_P}"
@@ -28,7 +27,6 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 IUSE="messaging browser bedrock test"
-RESTRICT="!test? ( test )"
 
 # Core runtime deps from upstream pyproject.toml.
 # Git-pinned aisuite is satisfied by dev-python/aisuite-0.1.14_p20260721

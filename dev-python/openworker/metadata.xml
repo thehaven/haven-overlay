@@ -8,13 +8,13 @@
 	<longdescription>
 		Provider-agnostic agentic coworker runtime (CLI + server +
 		connectors) by Andrew Ng. Supports OpenAI, Anthropic, Google
-		GenAI, Vertex AI, and AWS Bedrock. The PyPI project name is
-		"coworker" while the source repo is "openworker"; this ebuild
-		uses the repo name.
+		GenAI, Vertex AI, and AWS Bedrock. The pyproject.toml project
+		name is "coworker" but the project is not published to PyPI
+		(that name is taken by an unrelated package); this ebuild uses
+		the repo name.
 	</longdescription>
 	<upstream>
 		<remote-id type="github">andrewyng/openworker</remote-id>
-		<remote-id type="pypi">coworker</remote-id>
 	</upstream>
 	<use>
 		<flag name="messaging">
