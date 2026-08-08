@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 # Pinned to upstream openworker commit 1b4bbf303ec21968230b1ec869a144d054e9b3c4
 # via https://github.com/andrewyng/aisuite/commit/1b4bbf3
@@ -17,7 +17,7 @@ inherit distutils-r1 optfeature
 DESCRIPTION="Uniform access layer for multiple LLM providers"
 HOMEPAGE="https://github.com/andrewyng/aisuite"
 SRC_URI="https://github.com/andrewyng/${PN}/archive/${AISUITE_COMMIT}.tar.gz -> ${MY_P}.gh.tar.gz"
-S="\${WORKDIR}/\${MY_P}"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="MIT"
 SLOT="0"

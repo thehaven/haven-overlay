@@ -17,7 +17,7 @@ inherit distutils-r1 optfeature
 DESCRIPTION="Uniform access layer for multiple LLM providers"
 HOMEPAGE="https://github.com/andrewyng/aisuite"
 SRC_URI="https://github.com/andrewyng/${PN}/archive/${AISUITE_COMMIT}.tar.gz -> ${MY_P}.gh.tar.gz"
-S="\${WORKDIR}/\${MY_P}"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="MIT"
 SLOT="0"
