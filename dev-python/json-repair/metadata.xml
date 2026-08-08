@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Repairs malformed JSON strings produced by LLMs (truncated output, trailing commas, unquoted keys, markdown fences). Used by DSPy for output parsing.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">mangiucugna/json_repair</remote-id>
+	</upstream>
+</pkgmetadata>
