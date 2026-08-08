@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>Unprivileged user for the Navidrome music streaming server. The service runs as this user, with home directory /var/lib/navidrome, and needs read access to the music library and write access to its data, cache and log locations.</longdescription>
+</pkgmetadata>
