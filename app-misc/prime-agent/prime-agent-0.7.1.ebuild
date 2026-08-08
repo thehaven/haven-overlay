@@ -14,7 +14,9 @@ SRC_URI="https://github.com/PrimeIntellect-ai/prime-agent/archive/refs/tags/v${P
 
 S="${WORKDIR}/prime-agent-${PV}"
 
-LICENSE="MIT"
+# Bundled npm dependency tree licenses (chalk/zeromq/diff/pi-* etc.);
+# upstream itself is MIT.
+LICENSE="MIT Apache-2.0 ISC BSD MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
@@ -31,7 +33,12 @@ RESTRICT="network-sandbox test"
 QA_PREBUILT="*"
 
 # package.json engines: node >=22.8.0; npm is needed for ci/build scripts
-RDEPEND=">=net-libs/nodejs-22.8.0"
+# The agent bootstraps its IPython kernel via uv; a system uv skips the
+# astral.sh one-time installer on first run.
+RDEPEND="
+	>=net-libs/nodejs-22.8.0
+	dev-python/uv
+"
 BDEPEND=">=net-libs/nodejs-22.8.0[npm]"
 
 src_compile() {
