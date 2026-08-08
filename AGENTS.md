@@ -16,6 +16,26 @@ It covers overlay layout, permissions, manifest generation, the `emerge`
 `DISTUTILS_USE_PEP517` mapping — everything an agent needs to work in
 this overlay without external context.
 
+### ⛔ Duplicate pre-flight (before adding ANY new package)
+
+Search THIS overlay first — not just ::gentoo or Zugaina. `eix` is stale on
+this host and third-party indexes miss committed packages. A same-upstream
+package added twice in different categories diverges and collides on file
+paths (prime-agent was packaged in both `app-misc/` and `dev-util/` on
+2026-08-08 because neither author checked).
+
+```bash
+# 1. Same-name package directories anywhere in this overlay
+ls -d /var/db/repos/haven-overlay/*/<name> 2>/dev/null
+# 2. Upstream identity across every ebuild in this overlay
+grep -rl "<owner>/<repo>" /var/db/repos/haven-overlay --include="*.ebuild"
+# 3. Hooks/config referencing the package
+grep -rl "<name>" /var/db/repos/haven-overlay/metadata 2>/dev/null
+```
+
+If an ebuild for the same upstream exists (any category/version), extend or
+bump it; never add a second one.
+
 ## Working rules (overlay-specific)
 
 - **Commit-on-approval.** Only commit when the user explicitly approves.
@@ -96,6 +116,28 @@ bumping.
 
 Do not add new pre-bundled node_modules tarballs. Do not define new
 `MY_NODE_D`. Do not introduce `vendor/` symlinks.
+
+### Node CLI / agent monorepo template (determinism contract)
+
+For npm-workspaces monorepo CLIs (bundled `dist/` that still imports external
+runtime packages like zeromq/chalk), this is the canonical build so any two
+packagings converge:
+
+1. Build from the repo tag tarball with the repo's OWN lockfile:
+   `npm ci --ignore-scripts --no-audit --no-fund` (or `bun install
+   --frozen-lockfile --ignore-scripts` ONLY if the project is bun-native;
+   bun 1.3.x cannot migrate npm lockfiles and its stash layout breaks tsgo on
+   non-hoisted transitive deps — verified on prime-agent).
+2. `npm run build`, then reinstall production-only:
+   `rm -rf node_modules && npm ci --omit=dev --ignore-scripts --no-audit --no-fund`.
+3. Install `dist/` + `package.json` + `node_modules/` together; keep workspace
+   symlinks valid by installing the referenced `packages/*` alongside.
+4. Prune foreign-platform native addons (koffi/zeromq etc. ship all OS/arch
+   builds); keep linux-x64 glibc only. Declare `QA_PREBUILT="*"`.
+5. LICENSE lists the bundled dependency licenses, not just upstream's.
+6. Bin: direct symlink `dosym ... /usr/bin/<name>` + `fperms +x` on the target.
+7. `RESTRICT="network-sandbox"` (OPENS network — `npm ci` fetches the registry)
+   with an explanatory comment; `RESTRICT+=" test"` when tests are skipped.
 
 ## Python ebuild conventions
 
