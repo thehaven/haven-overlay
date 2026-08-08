@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Evolutionary self-improvement toolkit for Hermes Agent: optimizes skills, tool descriptions, system prompts and code using DSPy + GEPA, with constraint gates and PR-based delivery.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">NousResearch/hermes-agent-self-evolution</remote-id>
+	</upstream>
+</pkgmetadata>
