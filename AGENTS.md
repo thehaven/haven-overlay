@@ -120,6 +120,13 @@ the build host's actual Python versions. Check the eclass's
   [`scripts/verify-mcp.sh`](scripts/verify-mcp.sh) is the smoke-test runner for the binary list
   it documents at the top.
 
+- **`\$` in ebuild variable assignments is a literal, not a variable.** An
+  ebuild with `S="\${WORKDIR}/\${MY_P}"` (backslash before `$`) assigns the
+  literal string and dies in the prepare phase with "The source directory
+  '${WORKDIR}/${MY_P}' doesn't exist". This hit both `dev-python/aisuite`
+  ebuilds (fixed 2026-08-08); grep for `\$` in `S=` / `SRC_URI=` when an
+  ebuild fails with a literal-variable path.
+
 ## External infra this overlay depends on
 
 - `https://gitlab-ee.thehavennet.org.uk` — overlay remote, and source
