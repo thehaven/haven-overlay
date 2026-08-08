@@ -26,7 +26,7 @@ src_configure() {
 	mkdir -p "${CARGO_HOME}" || die
 	cat > "${CARGO_HOME}/config.toml" <<- EOF || die
 	[build]
-	jobs = $(makeopts_jobs)
+	jobs = $(get_makeopts_jobs $(($(get_nproc) + 1)))
 	incremental = false
 
 	[term]
