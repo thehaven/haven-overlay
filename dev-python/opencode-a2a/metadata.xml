@@ -2,15 +2,18 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@haven.local</email>
-		<name>Haven</name>
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
 	</maintainer>
 	<longdescription>
-		Expose OpenCode through Agent2Agent (A2A) protocol with an
-		inbound HTTP/SSE server surface and an embedded outbound
-		client. Apache-2.0 licensed.
+		OpenCode A2A runtime: exposes a running OpenCode instance through the
+		Agent2Agent (A2A) protocol via an inbound server surface, and embeds an
+		outbound A2A client for peer-to-peer agent calls. Depends on the
+		official a2a-sdk and an upstream opencode serve instance.
 	</longdescription>
 	<upstream>
 		<remote-id type="github">Intelligent-Internet/opencode-a2a</remote-id>
+		<remote-id type="pypi">opencode-a2a</remote-id>
+		<bugs-to>https://github.com/Intelligent-Internet/opencode-a2a/issues</bugs-to>
 	</upstream>
 </pkgmetadata>
