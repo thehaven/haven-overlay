@@ -1,0 +1,8 @@
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+NAVIDROME_USER=navidrome
+NAVIDROME_GROUP=navidrome
+
+# Options passed to navidrome
+NAVIDROME_OPTIONS="-c /etc/navidrome/navidrome.toml"

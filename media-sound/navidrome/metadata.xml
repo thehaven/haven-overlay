@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Navidrome is a modern, self-hosted music streaming server.
+		It is compatible with the Subsonic API, so most Subsonic
+		clients work with it out of the box.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">navidrome/navidrome</remote-id>
+		<bugs-to>https://github.com/navidrome/navidrome/issues</bugs-to>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,23 @@
+# Navidrome configuration — copy to /etc/navidrome/navidrome.toml and adjust.
+# Full option reference: https://www.navidrome.org/docs/usage/configuration-options/
+
+# Folder where your music is stored
+MusicFolder = "/var/lib/navidrome/music"
+
+# Folder to store application data (database), needs write access
+DataFolder = "/var/lib/navidrome"
+
+# Folder to store cache data (transcoding, images, ...), needs write access
+CacheFolder = "/var/lib/navidrome/cache"
+
+# Address to bind the HTTP server to
+Address = "0.0.0.0"
+
+# HTTP port Navidrome will listen on
+Port = 4533
+
+# Base URL to use when generating URLs (e.g. when behind a reverse proxy)
+# BaseUrl = "https://music.example.com"
+
+# Log level: error, info, debug, trace
+LogLevel = "info"

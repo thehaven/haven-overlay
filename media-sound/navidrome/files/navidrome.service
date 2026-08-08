@@ -1,0 +1,23 @@
+[Unit]
+Description=Navidrome music server
+After=network.target
+
+[Service]
+Type=simple
+User=navidrome
+Group=navidrome
+WorkingDirectory=/var/lib/navidrome
+ExecStart=/usr/bin/navidrome -c /etc/navidrome/navidrome.toml
+Restart=on-failure
+RestartSec=5
+
+# Security hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/navidrome
+RuntimeDirectory=navidrome
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+BDEPEND=>=dev-lang/go-1.26 >=net-libs/nodejs-24[npm] >=dev-lang/go-1.24.11:= app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=compile install postinst unpack
+DEPEND=acct-group/navidrome acct-user/navidrome
+DESCRIPTION=Modern, self-hosted music streaming server (Subsonic-compatible)
+EAPI=8
+HOMEPAGE=https://www.navidrome.org https://github.com/navidrome/navidrome
+INHERIT=go-module systemd tmpfiles
+KEYWORDS=~amd64
+LICENSE=GPL-3 MIT BSD BSD-2 Apache-2.0 ISC MPL-2.0
+RDEPEND=acct-group/navidrome acct-user/navidrome virtual/tmpfiles
+RESTRICT=network-sandbox
+SLOT=0
+SRC_URI=https://github.com/navidrome/navidrome/archive/v0.63.2.tar.gz -> navidrome-0.63.2.tar.gz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	sysroot	4c36abaf94ebd3ab32f8abea9a444121	go-env	fca4e820393c2eac25a944be8bdf6a3a	go-module	3d4b6f3f29b3ebdeb708785b3cb1743b	systemd	a964c0cbe818b5729da1dbfcee5be861	tmpfiles	e0b49bcd7a0daea941c0fbe4cb35ff4e
+_md5_=8a30013580021ad897f6258d479d0238
