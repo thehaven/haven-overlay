@@ -74,7 +74,7 @@ This applies to every emerge flag combination: `--ask`, `-1`,
 |---|---|---|
 | `Permission denied` on `ebuild`/write | Overlay under `/var/db/repos/` owned by `root:root` | `sudo`, or join `portage` group |
 | `ebuild manifest` fails | SRC_URI wrong, distfiles unreachable | Verify each URL, regenerate Manifest |
-| `go mod: network required` | Build fetches Go modules at compile | Add vendor tarball, or `RESTRICT="network-sandbox"` |
+| `go mod: network required` | Build fetches Go modules at compile | Add vendor tarball, or `RESTRICT="network-sandbox"` (note: this *allows* network for the build — it disables the default sandbox, it does not block anything) |
 | `QA Notice: EGO_SUM is deprecated` | Old Go ebuild pattern | Migrate to vendor tarball approach |
 | `file collision` | Two packages install the same path | Check `SLOT`; add `RDEPEND` blocker |
 | `sandbox violation` | Code writes outside `${D}` | Fix install paths |

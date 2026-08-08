@@ -60,8 +60,17 @@ applies specifically here:
 
 - **Strict source-based.** Never invoke `npm install` or `bun install`
   against the live registry during ebuild phases.
-  `RESTRICT="network-sandbox"` is required so the build fails if anything
-  tries to reach the network.
+- **`RESTRICT="network-sandbox"` OPENS network — it never blocks it.**
+  `FEATURES=network-sandbox` is on by default in current Portage, so build
+  phases run with networking disabled. An ebuild that must download at
+  build time (Go modules without a vendor tarball, `bun install` inside
+  `bun_src_compile`) therefore **must** declare
+  `RESTRICT="network-sandbox"` — per `man 5 ebuild` it "Disables the
+  network namespace for specific packages", i.e. network is then allowed in
+  every phase except `depend` (see `net-vpn/tailscale`, `net-misc/ntfy`,
+  `dev-util/rulesync`). The "build fails if it touches the network"
+  guarantee is automatic: ebuilds that **omit** the value build fully
+  offline, and any network attempt dies in the default sandbox.
 - For Bun-built upstream projects, use `inherit bun` (the overlay's local
   [`eclass/bun.eclass`](eclass/bun.eclass)). Its default `bun_src_compile` runs
   `bun install --frozen-lockfile --ignore-scripts` followed by
