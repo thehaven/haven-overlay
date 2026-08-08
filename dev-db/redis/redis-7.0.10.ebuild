@@ -117,7 +117,7 @@ src_compile() {
 
 src_test() {
 	local runtestargs=(
-		--clients "$(makeopts_jobs)" # see bug #649868
+		--clients "$(get_makeopts_jobs $(($(get_nproc) + 1)))" # see bug #649868
 
 		--skiptest "Active defrag eval scripts" # see bug #851654
 	)
