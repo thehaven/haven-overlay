@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		GEPA is a framework for optimizing textual system components (AI
+		prompts, code snippets, etc.) using LLM-based reflection and
+		Pareto-efficient evolutionary search. The core library is
+		dependency-free; the full/confidence/langchain USE flags enable the
+		optional adapters and tracking backends.
+	</longdescription>
+	<use>
+		<flag name="full">Install the practical subset of the upstream `full` extra: litellm, tqdm and cloudpickle. datasets/mlflow/wandb are not yet packaged in ::gentoo.</flag>
+		<flag name="confidence">Enable the confidence adapter via llm-structured-confidence.</flag>
+		<flag name="langchain">Enable the langchain adapter via langchain and langchain-core.</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">gepa-ai/gepa</remote-id>
+		<remote-id type="pypi">gepa</remote-id>
+	</upstream>
+</pkgmetadata>
