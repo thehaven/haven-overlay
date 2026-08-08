@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		DSPy is a framework for programming language models rather than prompting them. It provides declarative modules, optimizers (including GEPA and MIPROv2), and evaluation tooling for building reliable LLM pipelines.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">stanfordnlp/dspy</remote-id>
+	</upstream>
+</pkgmetadata>
