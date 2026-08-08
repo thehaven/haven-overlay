@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Kernel-side runtime shim for Prime Agent recursion. Installs the
+		importable "rlm" package (RLM harness entry, MCP integration, skills)
+		used by the persistent IPython kernel of Prime Agent
+		(app-misc/prime-agent).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">PrimeIntellect-ai/prime-agent</remote-id>
+	</upstream>
+</pkgmetadata>

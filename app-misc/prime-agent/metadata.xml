@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Prime Agent is an open-source coding and research agent for general
+		and long-running work, built around the Recursive Language Model (RLM):
+		a persistent IPython kernel as the built-in model tool, recursive
+		subagents, and a continual harness that persists durable session
+		state (memories, skills, subagent specs) across chat windows.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">PrimeIntellect-ai/prime-agent</remote-id>
+	</upstream>
+</pkgmetadata>

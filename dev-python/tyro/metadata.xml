@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		tyro generates command-line interfaces and configuration objects from
+		Python type hints, using docstrings for help text. Required by
+		dev-python/prime-agent-runtime.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">brentyi/tyro</remote-id>
+		<remote-id type="pypi">tyro</remote-id>
+	</upstream>
+</pkgmetadata>
