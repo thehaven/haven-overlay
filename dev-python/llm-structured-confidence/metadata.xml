@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@haven.local</email>
+		<name>Simon</name>
+	</maintainer>
+	<longdescription>
+		Extracts per-token logprobs from structured LLM responses and computes
+		confidence scores over fields and paths, using a lark-based grammar
+		parser. Provides the confidence scoring backend used by
+		dev-python/gepa's confidence adapter.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">llm-structured-confidence</remote-id>
+	</upstream>
+</pkgmetadata>
