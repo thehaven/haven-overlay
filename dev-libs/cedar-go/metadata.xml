@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>user@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Golang implementation of the Cedar Policy Language. This is a library —
+		Go programs import `github.com/cedar-policy/cedar-go` to author and
+		evaluate Cedar policies from Go services.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">cedar-policy/cedar-go</remote-id>
+	</upstream>
+</pkgmetadata>

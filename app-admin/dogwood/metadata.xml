@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>user@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Dogwood is a governance language designed for AI agents and their tools.
+		It extends Cedar with temporal conditions (`since`, `formerly`, `once`,
+		windowed aggregations) over an agent's recent events. This package ships
+		the `dogwood` CLI: a reference interpreter for checking, validating,
+		lowering, and replaying Dogwood policies. NOT intended for production
+		use; see the upstream README for limitations.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">dogwood-policy/dogwood</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,13 @@
+BDEPEND=|| ( >=dev-lang/rust-bin-1.74.1:* >=dev-lang/rust-1.74.1:* ) >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install setup test unpack
+DESCRIPTION=Reference interpreter for the Dogwood policy language (Cedar + temporal)
+EAPI=8
+HOMEPAGE=https://dogwood-policy.github.io/dogwood/
+INHERIT=cargo git-r3
+IUSE=debug
+LICENSE=Apache-2.0 Apache-2.0 Apache-2.0-with-LLVM-exceptions CC0-1.0 ISC MIT MPL-2.0 Unicode-3.0
+PROPERTIES=live
+RESTRICT=network-sandbox
+SLOT=0
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	rust	e2200a3d90348a53accc2f8c2e80f10c	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	cargo	c18ade5e10cfd39155908ca389968d65	git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_md5_=ab3e8b503b3ccae4f76a94d455634a75

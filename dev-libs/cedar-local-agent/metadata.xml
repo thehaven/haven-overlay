@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>user@example.com</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Foundational library for building asynchronous Cedar authorizers.
+		Provides a `simple::Authorizer` that can either cache all policies and
+		entity data locally, or stream from external providers. Includes sample
+		file-system policy set and entity providers.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">cedar-policy/cedar-local-agent</remote-id>
+	</upstream>
+</pkgmetadata>
