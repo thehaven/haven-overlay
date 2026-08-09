@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>rust@gentoo.org</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		AtomicParsley reads, parses and sets iTunes-style metadata
+		(cover art, chapters, tags) in MPEG-4 (.m4a/.m4b) files. This
+		package is the wez fork, resurrected from ::gentoo after
+		treeclean; it is required at runtime by media-sound/audiobook-forge.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">wez/atomicparsley</remote-id>
+	</upstream>
+</pkgmetadata>
