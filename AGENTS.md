@@ -157,7 +157,7 @@ the build host's actual Python versions. Check the eclass's
   `emaint sync -r haven-overlay` and
   `rm -rf /var/cache/edb/dep/*/haven-overlay` to clear the cache.
 - **[`dev-util/mcp-meta`](dev-util/mcp-meta/) is the virtual.** Individual MCP servers
-  ([`dev-util/opencode-snippets`](dev-util/opencode-snippets/), [`dev-util/chrome-devtools-mcp`](dev-util/chrome-devtools-mcp/), etc.) are
+  ([`dev-util/opencode-plugin-snippets`](dev-util/opencode-plugin-snippets/), [`dev-util/chrome-devtools-mcp`](dev-util/chrome-devtools-mcp/), etc.) are
   pulled in as USE-flag-gated deps via `profiles/use.local.desc`.
   [`scripts/verify-mcp.sh`](scripts/verify-mcp.sh) is the smoke-test runner for the binary list
   it documents at the top.

@@ -22,5 +22,5 @@ RDEPEND="
 	redis? ( dev-db/redis )
 	postgres? ( dev-db/postgresql )
 	nginx? ( www-servers/nginx )
-	trivy? ( app-admin/trivy )
+	trivy? ( app-vuln/trivy )
 "

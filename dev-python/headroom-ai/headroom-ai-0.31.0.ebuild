@@ -48,14 +48,16 @@ RDEPEND="
                 >=dev-python/rich-13.0.0[${PYTHON_USEDEP}]
                 >=dev-python/opentelemetry-api-1.24.0[${PYTHON_USEDEP}]
                 >=dev-python/ast-grep-cli-0.31.0[${PYTHON_USEDEP}]
+                >=dev-python/litellm-1.83.3[${PYTHON_USEDEP}]
         ')
-        >=dev-ml/litellm-1.83.3[${PYTHON_SINGLE_USEDEP}]
 "
 
 # Proxy extra: HTTP proxy, MCP server, content detection, ML compression
 RDEPEND+="
         proxy? (
-                >=dev-ml/litellm-1.83.3[${PYTHON_SINGLE_USEDEP}]
+                $(python_gen_cond_dep '
+                        >=dev-python/litellm-1.83.3[${PYTHON_USEDEP}]
+                ')
                 >=sci-ml/transformers-4.30.0[${PYTHON_SINGLE_USEDEP}]
                 $(python_gen_cond_dep '
                         >=dev-python/fastapi-0.100.0[${PYTHON_USEDEP}]

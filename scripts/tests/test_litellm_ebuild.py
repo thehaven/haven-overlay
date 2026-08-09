@@ -12,7 +12,7 @@ import pytest
 
 OVERLAY_ROOT = Path(__file__).resolve().parent.parent.parent
 LITELLM_EBUILDS = sorted(
-    (OVERLAY_ROOT / "dev-ml" / "litellm").glob("litellm-*.ebuild")
+    (OVERLAY_ROOT / "dev-python" / "litellm").glob("litellm-*.ebuild")
 )
 
 
