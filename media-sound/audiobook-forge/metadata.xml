@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>rust@gentoo.org</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Audiobook Forge converts audiobook directories to a single M4B
+		file with chapter markers and embedded metadata. It orchestrates
+		FFmpeg (audio processing), MP4Box from media-video/gpac (chapter
+		injection) and AtomicParsley from media-video/atomicparsley-wez
+		(metadata injection), and can pull chapter data from CUE sheets,
+		EPUB files or the Audnex API.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">juanra/audiobook-forge</remote-id>
+	</upstream>
+</pkgmetadata>
