@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		bonob implements the Sonos SMAPI (SOAP/WSDL) integration that lets a
+		Sonos speaker fetch and play tracks from a Subsonic-API-compatible
+		music server (Navidrome, Funkwhale, Airsonic, Jellyfin with the
+		Subsonic plugin, etc.). It exposes a Subsonic-compatible library to
+		the Sonos controller and proxies audio through an embedded HTTP
+		server. Built with Node.js and TypeScript; sharp is used for
+		server-side image processing of cover art (requires libvips).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">simojenki/bonob</remote-id>
+	</upstream>
+</pkgmetadata>

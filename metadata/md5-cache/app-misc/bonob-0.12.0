@@ -1,0 +1,12 @@
+BDEPEND=>=net-libs/nodejs-22[npm]
+DEFINED_PHASES=compile install postinst
+DESCRIPTION=Sonos SMAPI bridge for Subsonic-API music servers (Node/TypeScript)
+EAPI=8
+HOMEPAGE=https://github.com/simojenki/bonob
+KEYWORDS=~amd64
+LICENSE=GPL-3
+RDEPEND=>=net-libs/nodejs-22 media-gfx/libvips
+RESTRICT=network-sandbox test
+SLOT=0
+SRC_URI=https://github.com/simojenki/bonob/archive/refs/tags/v0.12.0.tar.gz -> bonob-0.12.0.tar.gz
+_md5_=4c0696d87bb1745ec6487a459003cf63
