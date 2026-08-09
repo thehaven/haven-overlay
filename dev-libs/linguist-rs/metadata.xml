@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@haven.local</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		linguist-rs is a Rust library that detects programming languages from
+		text blobs. It exposes a `linguist` crate (lib name) that downstream
+		Rust projects can depend on; the optional `github-linguist-yaml`
+		feature mirrors the GitHub-maintained YAML grammar definitions.
+		Upstream has no tagged release at the time of packaging; this ebuild
+		is pinned to a specific main-branch commit.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">adiepenbrock/linguist-rs</remote-id>
+	</upstream>
+</pkgmetadata>
