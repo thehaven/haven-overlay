@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-background-agents"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="Claude Code-style background agents with async delegation for OpenCode"

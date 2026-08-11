@@ -3,6 +3,7 @@
 
 EAPI=8
 
+NPM_AUTO_BIN=1
 inherit npm
 
 NPM_MODULE="renovate"

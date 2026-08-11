@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-direnv"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="OpenCode plugin that integrates direnv environment loading into shell commands"

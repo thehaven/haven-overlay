@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-gemini-auth"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="Authenticate OpenCode with your Google Gemini plan"

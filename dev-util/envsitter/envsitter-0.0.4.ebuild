@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="envsitter"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="Safely inspect and match .env secrets without exposing values"

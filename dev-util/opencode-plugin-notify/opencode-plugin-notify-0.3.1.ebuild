@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-notify"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="Native OS notifications for OpenCode — know when tasks complete"

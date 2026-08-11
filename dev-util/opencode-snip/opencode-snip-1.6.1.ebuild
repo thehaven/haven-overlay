@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-snip"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="OpenCode plugin that prefixes shell commands with snip for token reduction"

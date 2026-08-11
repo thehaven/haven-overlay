@@ -4,6 +4,7 @@
 EAPI=8
 
 NPM_MODULE="opencode-ntfy.sh"
+NPM_AUTO_BIN=1
 inherit npm
 
 DESCRIPTION="OpenCode plugin that sends push notifications via ntfy.sh"
