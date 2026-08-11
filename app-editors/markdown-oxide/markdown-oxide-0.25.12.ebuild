@@ -11,6 +11,11 @@ CRATES="
 	allocator-api2@0.2.21
 	android-tzdata@0.1.1
 	android_system_properties@0.1.5
+	anstream@0.6.21
+	anstyle-parse@0.2.7
+	anstyle-query@1.1.5
+	anstyle-wincon@3.0.11
+	anstyle@1.0.13
 	anyhow@1.0.97
 	arraydeque@0.5.1
 	async-trait@0.1.88
@@ -26,9 +31,14 @@ CRATES="
 	cc@1.2.16
 	cfg-if@1.0.0
 	chrono@0.4.40
+	clap@4.5.53
+	clap_builder@4.5.53
+	clap_derive@4.5.49
+	clap_lex@0.7.6
+	colorchoice@1.0.4
 	config@0.14.1
-	const-random@0.1.18
 	const-random-macro@0.1.16
+	const-random@0.1.18
 	convert_case@0.6.0
 	core-foundation-sys@0.8.7
 	cpufeatures@0.2.17
@@ -39,8 +49,8 @@ CRATES="
 	crypto-common@0.1.6
 	dashmap@5.5.3
 	digest@0.10.7
-	dirs@5.0.1
 	dirs-sys@0.4.1
+	dirs@5.0.1
 	displaydoc@0.2.5
 	dlv-list@0.5.2
 	do-notation@0.1.3
@@ -48,7 +58,6 @@ CRATES="
 	encoding_rs@0.8.35
 	equivalent@1.0.2
 	form_urlencoded@1.2.1
-	futures@0.3.31
 	futures-channel@0.3.31
 	futures-core@0.3.31
 	futures-io@0.3.31
@@ -56,16 +65,18 @@ CRATES="
 	futures-sink@0.3.31
 	futures-task@0.3.31
 	futures-util@0.3.31
-	fuzzydate@0.2.3
+	futures@0.3.31
+	fuzzydate@0.4.0
 	generic-array@0.14.7
 	getrandom@0.2.15
 	gimli@0.31.1
 	hashbrown@0.14.5
 	hashbrown@0.15.2
 	hashlink@0.8.4
+	heck@0.5.0
 	httparse@1.10.1
-	iana-time-zone@0.1.61
 	iana-time-zone-haiku@0.1.2
+	iana-time-zone@0.1.61
 	icu_collections@1.5.0
 	icu_locid@1.5.0
 	icu_locid_transform@1.5.0
@@ -79,6 +90,7 @@ CRATES="
 	idna@1.0.3
 	idna_adapter@1.2.0
 	indexmap@2.8.0
+	is_terminal_polyfill@1.70.2
 	itertools@0.13.0
 	itoa@1.0.15
 	js-sys@0.3.77
@@ -100,6 +112,7 @@ CRATES="
 	num-traits@0.2.19
 	object@0.36.7
 	once_cell@1.21.1
+	once_cell_polyfill@1.70.2
 	option-ext@0.2.0
 	ordered-multimap@0.7.3
 	parking_lot@0.12.3
@@ -110,9 +123,9 @@ CRATES="
 	pest_derive@2.7.15
 	pest_generator@2.7.15
 	pest_meta@2.7.15
-	pin-project@1.1.10
 	pin-project-internal@1.1.10
 	pin-project-lite@0.2.16
+	pin-project@1.1.10
 	pin-utils@0.1.0
 	ppv-lite86@0.2.21
 	proc-macro2@1.0.94
@@ -120,13 +133,13 @@ CRATES="
 	rand@0.8.5
 	rand_chacha@0.3.1
 	rand_core@0.6.4
-	rayon@1.10.0
 	rayon-core@1.12.1
+	rayon@1.10.0
 	redox_syscall@0.5.10
 	redox_users@0.4.6
-	regex@1.11.1
 	regex-automata@0.4.9
 	regex-syntax@0.8.5
+	regex@1.11.1
 	ron@0.8.1
 	ropey@1.6.1
 	rust-ini@0.20.0
@@ -150,26 +163,27 @@ CRATES="
 	socket2@0.5.8
 	stable_deref_trait@1.2.0
 	str_indices@0.4.4
+	strsim@0.11.1
 	syn@2.0.100
 	synstructure@0.13.1
-	thiserror@1.0.69
-	thiserror@2.0.12
 	thiserror-impl@1.0.69
 	thiserror-impl@2.0.12
+	thiserror@1.0.69
+	thiserror@2.0.12
 	tiny-keccak@2.0.2
 	tinystr@0.7.6
-	tokio@1.44.1
 	tokio-macros@2.5.0
 	tokio-util@0.7.14
+	tokio@1.44.1
 	toml@0.8.20
 	toml_datetime@0.6.8
 	toml_edit@0.22.24
-	tower@0.4.13
 	tower-layer@0.3.3
 	tower-service@0.3.3
-	tracing@0.1.41
+	tower@0.4.13
 	tracing-attributes@0.1.28
 	tracing-core@0.1.33
+	tracing@0.1.41
 	typenum@1.18.0
 	ucd-trie@0.1.7
 	unicode-ident@1.0.18
@@ -179,20 +193,23 @@ CRATES="
 	urlencoding@2.1.3
 	utf16_iter@1.0.5
 	utf8_iter@1.0.4
+	utf8parse@0.2.2
 	version_check@0.9.5
 	walkdir@2.5.0
 	wasi@0.11.0+wasi-snapshot-preview1
-	wasm-bindgen@0.2.100
 	wasm-bindgen-backend@0.2.100
-	wasm-bindgen-macro@0.2.100
 	wasm-bindgen-macro-support@0.2.100
+	wasm-bindgen-macro@0.2.100
 	wasm-bindgen-shared@0.2.100
+	wasm-bindgen@0.2.100
 	winapi-util@0.1.9
 	windows-core@0.52.0
 	windows-link@0.1.0
+	windows-link@0.2.1
 	windows-sys@0.48.0
 	windows-sys@0.52.0
 	windows-sys@0.59.0
+	windows-sys@0.61.2
 	windows-targets@0.48.5
 	windows-targets@0.52.6
 	windows_aarch64_gnullvm@0.48.5
@@ -214,20 +231,21 @@ CRATES="
 	write16@1.0.0
 	writeable@0.5.5
 	yaml-rust2@0.8.1
-	yoke@0.7.5
 	yoke-derive@0.7.5
-	zerocopy@0.7.35
-	zerocopy@0.8.23
+	yoke@0.7.5
 	zerocopy-derive@0.7.35
 	zerocopy-derive@0.8.23
-	zerofrom@0.1.6
+	zerocopy@0.7.35
+	zerocopy@0.8.23
 	zerofrom-derive@0.1.6
-	zerovec@0.10.4
+	zerofrom@0.1.6
 	zerovec-derive@0.10.3
+	zerovec@0.10.4
 "
 
 declare -A GIT_CRATES=(
-	[tower-lsp]="https://github.com/Feel-ix-343/tower-lsp;a27868bf5c6b5bb6a106cfbb41c0624ce7bb6f42"
+	[tower-lsp-macros]='https://github.com/Feel-ix-343/tower-lsp;a27868bf5c6b5bb6a106cfbb41c0624ce7bb6f42;tower-lsp-%commit%/tower-lsp-macros'
+	[tower-lsp]='https://github.com/Feel-ix-343/tower-lsp;a27868bf5c6b5bb6a106cfbb41c0624ce7bb6f42;tower-lsp-%commit%'
 )
 
 inherit cargo

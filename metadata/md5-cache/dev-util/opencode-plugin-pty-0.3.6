@@ -1,10 +1,12 @@
-DEFINED_PHASES=install postinst
+BDEPEND=net-libs/nodejs[npm]
+DEFINED_PHASES=compile install postinst
 DESCRIPTION=OpenCode PTY plugin for live interactive pseudoterminals
 EAPI=8
 HOMEPAGE=https://github.com/shekohex/opencode-pty
 KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
-RDEPEND=>=net-libs/nodejs-20
+RDEPEND=net-libs/nodejs
+RESTRICT=network-sandbox
 SLOT=0
-SRC_URI=https://registry.npmjs.org/opencode-pty/-/opencode-pty-0.3.6.tgz
-_md5_=2a32ff46f5dde7f36873a2198d224672
+SRC_URI=https://registry.npmjs.org/opencode-pty/-/opencode-pty-0.3.6.tgz -> opencode-plugin-pty-0.3.6.tgz
+_md5_=0ec580a892eff87e09d7fe56f4467ac0

@@ -3,24 +3,40 @@
 
 EAPI=8
 
+NPM_PKG="opencode-pty"
+
 DESCRIPTION="OpenCode PTY plugin for live interactive pseudoterminals"
 HOMEPAGE="https://github.com/shekohex/opencode-pty"
-SRC_URI="https://registry.npmjs.org/opencode-pty/-/opencode-pty-0.3.6.tgz "
+SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz -> ${P}.tgz"
 S="${WORKDIR}/package"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-RDEPEND=">=net-libs/nodejs-20"
+RESTRICT="network-sandbox"
+
+BDEPEND="net-libs/nodejs[npm]"
+RDEPEND="net-libs/nodejs"
+
+src_compile() { :; }
 
 src_install() {
-	insinto /usr/$(get_libdir)/node_modules/${PN}
-	doins -r dist package.json
+	npm install --audit false --global --omit dev \
+		--prefix "${ED}/usr" "${DISTDIR}/${P}.tgz" || die
+
+	# Smoke test: verify runtime deps installed (catches extract-only
+	# ebuilds that skip npm install and ship zero deps — the original
+	# "Cannot find package 'open'" error)
+	local depdir="${ED}/usr/$(get_libdir)/node_modules/${NPM_PKG}/node_modules"
+	for dep in open bun-pty @opencode-ai/sdk @opencode-ai/plugin; do
+		[[ -d "${depdir}/${dep}" ]] || \
+			die "Plugin ${NPM_PKG} missing dep: ${dep}"
+	done
 }
 
 pkg_postinst() {
-	einfo "opencode-plugin-pty installed."
-	einfo "To use this plugin, add it to your opencode.json:"
-	einfo "  \"/usr/$(get_libdir)/node_modules/${PN}/dist/index.js\""
+	einfo "OpenCode PTY plugin installed."
+	einfo "To use this plugin, add to your opencode.json:"
+	einfo "  \"/usr/$(get_libdir)/node_modules/${NPM_PKG}/dist/index.js\""
 }

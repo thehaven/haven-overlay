@@ -1,12 +1,12 @@
-DEFINED_PHASES=compile install postinst unpack
+BDEPEND=net-libs/nodejs[npm]
+DEFINED_PHASES=compile install postinst
 DESCRIPTION=Google Antigravity models for OpenCode — free Gemini/Anthropic access
 EAPI=8
 HOMEPAGE=https://github.com/NoeFabris/opencode-antigravity-auth
-INHERIT=npm
 KEYWORDS=~amd64
 LICENSE=MIT
-RDEPEND=dev-nodejs/opencode-ai-plugin dev-nodejs/zod
+RDEPEND=net-libs/nodejs
+RESTRICT=network-sandbox
 SLOT=0
 SRC_URI=https://registry.npmjs.org/opencode-antigravity-auth/-/opencode-antigravity-auth-1.6.0.tgz -> opencode-plugin-antigravity-auth-1.6.0.tgz
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34
-_md5_=e9d032e2f6197972caecdf9e9b9f062c
+_md5_=207c72969ed74303a626b076c1156ae8

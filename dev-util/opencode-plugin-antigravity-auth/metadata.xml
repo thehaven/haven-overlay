@@ -5,4 +5,7 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">NoeFabris/opencode-antigravity-auth</remote-id>
+	</upstream>
 </pkgmetadata>
