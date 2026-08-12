@@ -24,7 +24,7 @@ DEPEND="
 	media-libs/mutagen
 	cdda? ( >=media-libs/libdiscid-0.1.1 )
 	ffmpeg? (
-		virtual/ffmpeg
+		media-video/ffmpeg
 		>=media-libs/libofa-0.9.2
 	)
 "

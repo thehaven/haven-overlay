@@ -25,7 +25,7 @@ DEPEND="
 	>=dev-python/sqlalchemy-1.0.9[${PYTHON_USEDEP}]
 	<dev-python/sqlalchemy-1.999[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
-	>=dev-python/beautifulsoup4[${PYTHON_USEDEP}]
+	dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 	>=dev-python/html5lib-0.11[${PYTHON_USEDEP}]
 	dev-python/pyrss2gen[${PYTHON_USEDEP}]
 	dev-python/pynzb[${PYTHON_USEDEP}]
