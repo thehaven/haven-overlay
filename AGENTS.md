@@ -118,9 +118,12 @@ bumping.
 `yaml-language-server` converted to the `npm install --global` pattern
 (pure-registry, prebuilt output); `crewbee` converted to `inherit bun`
 with the npm-lockfile drop (`rm -f package-lock.json; bun install
---ignore-scripts; bun run build`). Remaining holds (bun-source-built or
-monorepo CLIs, convert on next touch): `opencode-plugin-canvas`,
-`opencode-plugin-otel`, `opencode-plugin-tmux`, `opencode-plugin-safety-net`,
+--ignore-scripts; bun run build`); `opencode-plugin-safety-net`
+converted to `inherit bun` with a native `bun.lock` (`bun install
+--frozen-lockfile --ignore-scripts; bun run build`; deps installed
+under the module root so `shell-quote` resolves at runtime). Remaining
+holds (bun-source-built or monorepo CLIs, convert on next touch):
+`opencode-plugin-canvas`, `opencode-plugin-otel`, `opencode-plugin-tmux`,
 `opencode-plugin-morph-fast-apply`, `composio-mcp`, `semantic-release`,
 `minions`, `tokscale`, `oh-my-openagent`, `oh-my-opencode-slim`,
 `hermes-workspace`, `www-apps/audiobookshelf`, and
