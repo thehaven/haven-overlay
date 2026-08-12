@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon.alman@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		REST API wrapper around signal-cli, the unofficial Signal Messenger
+		command-line client. Provides send/receive endpoints, attachment
+		handling, group management and a web UI. Requires the signal-cli
+		binary at runtime (normal or json-rpc mode).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">bbernhard/signal-cli-rest-api</remote-id>
+	</upstream>
+</pkgmetadata>
