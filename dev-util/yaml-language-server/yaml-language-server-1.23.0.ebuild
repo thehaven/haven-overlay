@@ -3,44 +3,36 @@
 
 EAPI=8
 
-NPM_AUTO_BIN=1
-MY_NODE_D="${PN}-node_modules-${PV}"
-NPM_MODULE="yaml-language-server"
-inherit npm
+NPM_PKG="yaml-language-server"
 
 DESCRIPTION="YAML language server"
 HOMEPAGE="https://www.npmjs.com/package/yaml-language-server"
-SRC_URI+=" https://gitlab-ee.thehavennet.org.uk/haven/gentoo-distfiles/-/raw/main/${MY_NODE_D}.tar.xz"
+SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz -> ${P}.tgz"
+S="${WORKDIR}/package"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
+RESTRICT="network-sandbox"
+
+BDEPEND="net-libs/nodejs[npm]"
 RDEPEND="net-libs/nodejs"
 
-src_unpack() {
-	unpack ${A}
-	if [[ -d "${WORKDIR}/package" ]]; then
-		mv "${WORKDIR}/package" "${S}" || die
-	fi
-}
-
-src_test() {
-	einfo "Testing yaml-language-server LSP startup"
-	timeout 5 node "${S}/bin/yaml-language-server" --stdio < /dev/null 2>&1 &
-	local pid=$!
-	sleep 2
-	kill "${pid}" 2>/dev/null || true
-	wait "${pid}" 2>/dev/null
-}
+src_compile() { :; }
 
 src_install() {
-	npm_src_install
-	local mod_dir="/usr/$(get_libdir)/node_modules/${NPM_MODULE}"
-	if [[ -d "${WORKDIR}/node_modules" ]]; then
-		insinto "${mod_dir}"
-		doins -r "${WORKDIR}/node_modules"
-	fi
+	npm install --audit false --global --omit dev \
+		--prefix "${ED}/usr" "${DISTDIR}/${P}.tgz" || die
+
+	# Smoke test: verify the bin symlink exists and its target is executable
+	# (catches the pre-bundled MY_NODE_D anti-pattern regression — npm's
+	# global install resolves the 12 runtime deps itself)
+	local bindir="${ED}/usr/bin"
+	[[ -L "${bindir}/yaml-language-server" ]] || \
+		die "npm install did not create /usr/bin/yaml-language-server"
+	[[ -x $(realpath "${bindir}/yaml-language-server") ]] || \
+		die "/usr/bin/yaml-language-server target is not executable"
 }
 
 pkg_postinst() {

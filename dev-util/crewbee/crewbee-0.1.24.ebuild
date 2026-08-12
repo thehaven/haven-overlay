@@ -3,31 +3,33 @@
 
 EAPI=8
 
-MY_NODE_D="crewbee-node_modules-${PV}"
+inherit bun
 
 DESCRIPTION="CrewBee: open-source AI Agent Team framework and asset layer for OpenCode"
 HOMEPAGE="https://github.com/CrewBeeLab/CrewBee"
-SRC_URI="
-	https://github.com/CrewBeeLab/CrewBee/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/CrewBeeLab/CrewBee/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/CrewBee-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+RESTRICT="network-sandbox"
+
 RDEPEND="
 	dev-util/opencode
 	net-libs/nodejs
 "
 
-# CrewBee ships package-lock.json (npm format) rather than bun.lock, so
-# `bun install --frozen-lockfile` (used by bun.eclass) cannot be applied
-# directly. The node_modules/ tree required for the build is provided via
-# the MY_NODE_D vendor tarball and resolved by bun's normal module walk.
+# CrewBee ships package-lock.json (npm format) rather than bun.lock.
+# bun 1.3.x cannot migrate npm lockfiles (verified 2026-08-04 on
+# rulesync/openspec; the stash layout breaks non-hoisted transitive
+# deps), so drop the lockfile and let bun resolve fresh. This replaces
+# the former MY_NODE_D pre-bundled node_modules tarball — source-based
+# dependency resolution per overlay policy.
 src_compile() {
+	rm -f package-lock.json || die
+	bun install --ignore-scripts || die "bun install failed"
 	bun run build || die
 }
 
@@ -38,20 +40,18 @@ src_install() {
 	# bin/    : upstream CLI wrapper carrying the node shebang.
 	# dist/   : compiled plugin loaded by OpenCode (entry = dist/opencode-plugin.mjs).
 	# package.json : module manifest read by the OpenCode plugin loader.
-	doins -r bin dist package.json
+	# node_modules : resolved by bun install in src_compile — re-homed under
+	#                the package root so CLI/node resolution walks up to it.
+	doins -r bin dist package.json node_modules
 
-	# The MY_NODE_D vendor tarball extracted ${WORKDIR}/node_modules/ —
-	# a sibling of ${S} so bun's walk finds it during src_compile.
-	# Re-home it under the package install root for CLI runtime so node
-	# module resolution from bin/crewbee.js → dist/src/cli/... walks up
-	# and locates deps like 'yaml'.
-	doins -r "${WORKDIR}/node_modules"
-
-	# bin/crewbee.js: top-level CLI entry. It require()s dist/src/cli/index.js
-	# and the resulting chain resolves node_modules/ via the standard walk.
 	fperms +x "/usr/${libdir}/node_modules/${PN}/bin/crewbee.js"
 	dosym "../${libdir}/node_modules/${PN}/bin/crewbee.js" \
 		"/usr/bin/crewbee"
+
+	# Smoke test: bin symlink + executable target
+	[[ -L "${ED}/usr/bin/crewbee" ]] || die "/usr/bin/crewbee missing"
+	[[ -x $(realpath "${ED}/usr/bin/crewbee") ]] || \
+		die "/usr/bin/crewbee target is not executable"
 }
 
 pkg_postinst() {
