@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="Tensors and dynamic neural networks in Python with strong GPU acceleration"
@@ -43,10 +43,6 @@ SRC_URI="
 			https://files.pythonhosted.org/packages/5e/cd/4b95ef7f293b927c283db0b136c42be91c8ec6845c44de0238c8c23bdc80/torch-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
 			-> ${P}-cp314.whl.zip
 		)
-		python_targets_python3_15? (
-			https://files.pythonhosted.org/packages/5e/cd/4b95ef7f293b927c283db0b136c42be91c8ec6845c44de0238c8c23bdc80/torch-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
-			-> ${P}-cp315.whl.zip
-		)
 	)
 	cuda? (
 		python_targets_python3_12? (
@@ -60,12 +56,6 @@ SRC_URI="
 		python_targets_python3_14? (
 			https://artifactory.delivery.haven.pw/gentoo-distfiles/torch-${PV}+cu126-cp314-cp314-linux_x86_64.whl
 			-> ${P}+cu126-cp314.whl.zip
-		)
-		python_targets_python3_15? (
-			# cp315 reuses the cp314 CUDA wheel: ABI-compatible forward, and
-			# PyTorch 2.10.0 does not publish a cp315 CUDA build.
-			https://artifactory.delivery.haven.pw/gentoo-distfiles/torch-${PV}+cu126-cp314-cp314-linux_x86_64.whl
-			-> ${P}+cu126-cp315.whl.zip
 		)
 	)
 "
@@ -119,11 +109,6 @@ src_unpack() {
 			cd "${WORKDIR}/python3.14" || die
 			unpack "${P}+cu126-cp314.whl.zip"
 		fi
-		if use python_targets_python3_15; then
-			mkdir -p "${WORKDIR}/python3.15" || die
-			cd "${WORKDIR}/python3.15" || die
-			unpack "${P}+cu126-cp315.whl.zip"
-		fi
 	else
 		if use python_targets_python3_12; then
 			mkdir -p "${WORKDIR}/python3.12" || die
@@ -139,11 +124,6 @@ src_unpack() {
 			mkdir -p "${WORKDIR}/python3.14" || die
 			cd "${WORKDIR}/python3.14" || die
 			unpack "${P}-cp314.whl.zip"
-		fi
-		if use python_targets_python3_15; then
-			mkdir -p "${WORKDIR}/python3.15" || die
-			cd "${WORKDIR}/python3.15" || die
-			unpack "${P}-cp315.whl.zip"
 		fi
 	fi
 }

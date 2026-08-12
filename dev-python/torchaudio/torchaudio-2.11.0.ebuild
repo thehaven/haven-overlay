@@ -18,7 +18,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="Audio signal processing for PyTorch"
@@ -36,10 +36,6 @@ SRC_URI="
 	python_targets_python3_14? (
 		https://files.pythonhosted.org/packages/a8/a8/bf2e1f6ce24c990192400ae49b4acc1a0d0295b6c6a06bceecdc46ce08de/torchaudio-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
 		-> ${P}-cp314.whl.zip
-	)
-	python_targets_python3_15? (
-		https://files.pythonhosted.org/packages/a8/a8/bf2e1f6ce24c990192400ae49b4acc1a0d0295b6c6a06bceecdc46ce08de/torchaudio-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
-		-> ${P}-cp315.whl.zip
 	)
 "
 
@@ -80,11 +76,6 @@ src_unpack() {
 		mkdir -p "${WORKDIR}/python3.14" || die
 		cd "${WORKDIR}/python3.14" || die
 		unpack "${P}-cp314.whl.zip"
-	fi
-	if use python_targets_python3_15; then
-		mkdir -p "${WORKDIR}/python3.15" || die
-		cd "${WORKDIR}/python3.15" || die
-		unpack "${P}-cp315.whl.zip"
 	fi
 }
 

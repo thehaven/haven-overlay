@@ -18,7 +18,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="Cross-platform, high performance ONNX Model Runner (GPU wheel)"
@@ -29,7 +29,6 @@ SRC_URI="
 	python_targets_python3_12? ( https://files.pythonhosted.org/packages/d0/2c/5b3fd4748cf7ed291eae541a37e426efc20ea04cb6e6a05768304ab0aa41/onnxruntime_gpu-${PV}-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp312.whl.zip )
 	python_targets_python3_13? ( https://files.pythonhosted.org/packages/be/4e/56d11203d7a35e7d6a5ea735f5fecb8673537038c07323e8d3090a896547/onnxruntime_gpu-${PV}-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp313.whl.zip )
 	python_targets_python3_14? ( https://files.pythonhosted.org/packages/3e/5b/82b27f766b64f97c9a98b772dc07b608e900bd2faafdfa176b86d20be7f8/onnxruntime_gpu-${PV}-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp314.whl.zip )
-	python_targets_python3_15? ( https://files.pythonhosted.org/packages/3e/5b/82b27f766b64f97c9a98b772dc07b608e900bd2faafdfa176b86d20be7f8/onnxruntime_gpu-${PV}-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp315.whl.zip )
 "
 
 S="${WORKDIR}"
@@ -56,11 +55,6 @@ src_unpack() {
 		mkdir -p "${WORKDIR}/python3.14" || die
 		cd "${WORKDIR}/python3.14" || die
 		unpack onnxruntime-gpu-1.24.4-cp314.whl.zip
-	fi
-	if use python_targets_python3_15; then
-		mkdir -p "${WORKDIR}/python3.15" || die
-		cd "${WORKDIR}/python3.15" || die
-		unpack onnxruntime-gpu-1.24.4-cp315.whl.zip
 	fi
 }
 
