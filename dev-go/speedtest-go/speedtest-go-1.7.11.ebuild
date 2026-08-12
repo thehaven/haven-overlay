@@ -19,7 +19,13 @@ KEYWORDS="~amd64 ~arm64"
 RESTRICT="network-sandbox"
 
 src_compile() {
-	ego build -ldflags "-s -w -X main.version=${PV}" -o "${PN}" . || die
+	# Upstream's goreleaser injects main.commit (short git hash) and
+	# main.date (build time); version is a hardcoded constant in the
+	# speedtest package and cannot be overridden. The source tarball has
+	# no git metadata, so commit falls back to the PV and date to the
+	# build timestamp.
+	ego build -ldflags "-s -w -X main.commit=${PV} -X main.date=$(date -u +%Y%m%d)" \
+		-o "${PN}" . || die
 }
 
 src_install() {
