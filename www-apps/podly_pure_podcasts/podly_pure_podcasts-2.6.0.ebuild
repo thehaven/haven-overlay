@@ -21,7 +21,7 @@ DISTUTILS_USE_PEP517=setuptools
 #   1. Installing python3_11 system-wide so the host eclass is updated /
 #      a binary is available, OR
 #   2. Upstream widening its Python support to include 3.12+.
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit distutils-r1
 

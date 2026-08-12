@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 # pypdfium2 5.x sdist build downloads prebuilt pdfium binaries from the
 # pypdfium2-team/pdfium-binaries release at build time (via the `gh` CLI

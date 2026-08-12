@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 # PyPI stores asteroid-filterbanks under the hyphenated project path
 # (not the PEP 503 normalized underscore path). Disable the eclass

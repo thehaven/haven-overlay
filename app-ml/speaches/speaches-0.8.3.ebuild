@@ -8,7 +8,7 @@ DISTUTILS_USE_PEP517=hatchling
 # `failed REQUIRED_USE: python_targets_python3_12` on the host's default/linux/amd64
 # profile — the profile enables python_targets_python3_{12,13,14} and pkgcheck's
 # REQUIRED_USE evaluation expects at least one PYTHON_COMPAT entry to match.
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1
 
 DESCRIPTION="OpenAI-API-compatible server for STT/TTS powered by faster-whisper"

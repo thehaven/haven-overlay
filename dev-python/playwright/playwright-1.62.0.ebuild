@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 # PyPI does not publish a sdist for this version; use the GitHub source
 # tarball. The PyPI metadata.name is "playwright" but the source dir is

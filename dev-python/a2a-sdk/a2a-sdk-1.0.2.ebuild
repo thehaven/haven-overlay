@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{12..15} )
+PYTHON_COMPAT=( python3_{12..14} )
 PYPI_PN="a2a-sdk"
 
 # a2a-sdk is the official Python SDK for the Agent2Agent protocol.
