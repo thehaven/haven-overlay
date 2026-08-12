@@ -18,7 +18,7 @@ IUSE=""
 
 RDEPEND="|| ( media-video/mplayer
               media-video/mpv )
-		virtual/ffmpeg
+		media-video/ffmpeg
 		media-sound/lame
 		media-video/flvstreamer
 		dev-perl/libwww-perl

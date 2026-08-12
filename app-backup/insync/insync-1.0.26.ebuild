@@ -20,7 +20,7 @@ KEYWORDS="-* ~x86 ~amd64"
 DEPEND=""
 RDEPEND="${DEPEND}
 	nautilus? ( dev-python/nautilus-python )
-	dolphin? ( kde-base/dolphin )
+	dolphin? ( kde-apps/dolphin )
 	thunar? ( dev-python/thunarx-python )"
 IUSE="nautilus dolphin thunar"
 

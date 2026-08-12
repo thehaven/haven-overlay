@@ -16,12 +16,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 # sharp (image processing, runtime dep) needs libvips. The canonical Gentoo atom is
-# media-libs/libvips (this host's pruned ::gentoo tree may not carry it; see packages.gentoo.org).
+# media-libs/vips (this host's pruned ::gentoo tree may not carry it; see packages.gentoo.org).
 # No declared
 # `engines` in package.json; CI runs Node 22 — that is the floor.
 RDEPEND="
 	>=net-libs/nodejs-22
-	media-libs/libvips
+	media-libs/vips
 "
 BDEPEND=">=net-libs/nodejs-22[npm]"
 

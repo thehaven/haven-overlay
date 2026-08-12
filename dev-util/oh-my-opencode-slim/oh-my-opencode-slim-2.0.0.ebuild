@@ -17,14 +17,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-        dev-nodejs/jsdom
-        dev-nodejs/opencode-ai-plugin
-        dev-nodejs/opencode-ai-sdk
-        dev-nodejs/opentui-core
-        dev-nodejs/opentui-solid
         dev-util/zod
         net-libs/nodejs
 "
+# Runtime deps (jsdom, @opencode-ai/*, opentui-*) come from the MY_NODE_D
+# vendor tarball, resolved by bun's module walk. The former dev-nodejs/*
+# RDEPEND atoms point at packages that do not exist in this overlay.
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
 S="${WORKDIR}/${PN}-${PV/_beta/-beta.}"

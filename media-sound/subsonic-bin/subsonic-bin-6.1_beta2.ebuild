@@ -22,7 +22,7 @@ DEPEND="	acct-user/subsonic-bin
 "
 RDEPEND="virtual/jre
 	lame? ( media-sound/lame )
-	ffmpeg? ( virtual/ffmpeg )
+	ffmpeg? ( media-video/ffmpeg )
     systemd? ( sys-apps/systemd )
 	xmp? ( media-sound/xmp )"
 

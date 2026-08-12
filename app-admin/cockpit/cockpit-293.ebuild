@@ -37,7 +37,7 @@ DEPEND="
 		net-misc/networkmanager[policykit,systemd]
 	)
 	pcp? (
-		app-metrics/pcp
+		sys-apps/pcp
 	)
 	sys-apps/accountsservice[systemd]
 	udisks? (

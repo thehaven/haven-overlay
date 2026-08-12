@@ -44,7 +44,7 @@ RDEPEND="
 	x11-libs/libxcb
 	x11-libs/libxkbcommon
 	x11-libs/pango
-	appindicator? ( dev-libs/libappindicator:3 )
+	appindicator? ( dev-libs/libayatana-appindicator )
 "
 
 S="${WORKDIR}/${PN}-${PV}"
