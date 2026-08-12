@@ -114,6 +114,17 @@ to convert them on touch. When editing one of these, convert it to
 `inherit bun` (or `inherit npm` for a pure-registry package) before
 bumping.
 
+**Conversion status (2026-08-12):** `bash-language-server` and
+`yaml-language-server` converted to the `npm install --global` pattern
+(pure-registry, prebuilt output); `crewbee` converted to `inherit bun`
+with the npm-lockfile drop (`rm -f package-lock.json; bun install
+--ignore-scripts; bun run build`). Remaining holds (bun-source-built or
+monorepo CLIs, convert on next touch): `opencode-plugin-canvas`,
+`opencode-plugin-otel`, `opencode-plugin-tmux`, `opencode-plugin-safety-net`,
+`opencode-plugin-morph-fast-apply`, `composio-mcp`, `semantic-release`,
+`minions`, `tokscale`, `oh-my-openagent`, `oh-my-opencode-slim`,
+`hermes-workspace`, and `www-apps/audiobookshelf`.
+
 Do not add new pre-bundled node_modules tarballs. Do not define new
 `MY_NODE_D`. Do not introduce `vendor/` symlinks.
 
