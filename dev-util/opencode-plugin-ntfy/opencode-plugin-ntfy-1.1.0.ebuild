@@ -1,21 +1,33 @@
-# Copyright 1999-2026 Gentoo Authors
+# Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-NPM_MODULE="opencode-ntfy.sh"
-NPM_AUTO_BIN=1
-inherit npm
+NPM_PKG="opencode-ntfy.sh"
 
-DESCRIPTION="OpenCode plugin that sends push notifications via ntfy.sh"
+DESCRIPTION="ntfy.sh push notifications for OpenCode"
 HOMEPAGE="https://github.com/lannuttia/opencode-ntfy.sh#readme"
+SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz -> ${P}.tgz"
+S="${WORKDIR}/package"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND="
-	dev-nodejs/iso8601-duration
-	dev-nodejs/opencode-notification-sdk
-"
-BDEPEND="${RDEPEND}"
+RESTRICT="network-sandbox"
+
+BDEPEND="net-libs/nodejs[npm]"
+RDEPEND="net-libs/nodejs"
+
+src_compile() { :; }
+
+src_install() {
+	npm install --audit false --global --omit dev \
+		--prefix "${ED}/usr" "${DISTDIR}/${P}.tgz" || die
+	# Smoke test: plugin entry present with resolved deps
+	# (catches the extract-only anti-pattern — deps must come from npm,
+	# not bogus dev-nodejs/* atoms)
+	local mod="/usr/$(get_libdir)/node_modules/${NPM_PKG}"
+	[[ -f "${ED}${mod}/dist/index.js" ]] || die "plugin entry dist/index.js missing"
+}
+
