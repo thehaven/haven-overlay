@@ -5,8 +5,8 @@ EAPI=8
 HOMEPAGE=https://github.com/simojenki/bonob
 KEYWORDS=~amd64
 LICENSE=GPL-3
-RDEPEND=>=net-libs/nodejs-22 media-gfx/libvips
+RDEPEND=>=net-libs/nodejs-22 media-libs/libvips
 RESTRICT=network-sandbox test
 SLOT=0
 SRC_URI=https://github.com/simojenki/bonob/archive/refs/tags/v0.12.0.tar.gz -> bonob-0.12.0.tar.gz
-_md5_=4c0696d87bb1745ec6487a459003cf63
+_md5_=12519eab83a509432d3720c38fdc8462

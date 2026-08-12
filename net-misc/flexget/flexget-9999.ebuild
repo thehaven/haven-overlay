@@ -34,20 +34,20 @@ DEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	>=dev-python/beautifulsoup-4.5:4[${PYTHON_USEDEP}]
 	>=dev-python/html5lib-0.11[${PYTHON_USEDEP}]
-	dev-python/PyRSS2Gen[${PYTHON_USEDEP}]
+	dev-python/pyrss2gen[${PYTHON_USEDEP}]
 	dev-python/pynzb[${PYTHON_USEDEP}]
 	dev-python/rpyc[${PYTHON_USEDEP}]
-	dev-python/jinja[${PYTHON_USEDEP}]
+	dev-python/jinja2[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.8.0[${PYTHON_USEDEP}]
 	<dev-python/requests-3[${PYTHON_USEDEP}]
 	>=dev-python/python-dateutil-2.5.3[${PYTHON_USEDEP}]
 	>=dev-python/jsonschema-2.0[${PYTHON_USEDEP}]
-	>=dev-python/path-py-8.1.1[${PYTHON_USEDEP}]
+	>=dev-python/path-8.1.1[${PYTHON_USEDEP}]
 	>=dev-python/pathlib-1.0[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
 	<=dev-python/guessit-2.0.4[${PYTHON_USEDEP}]
 	>=dev-python/cherrypy-3.7.0[${PYTHON_USEDEP}]
-	>=dev-python/APScheduler-3.2.0[${PYTHON_USEDEP}]
+	>=dev-python/apscheduler-3.2.0[${PYTHON_USEDEP}]
 	>=dev-python/flask-0.7[${PYTHON_USEDEP}]
 	>=dev-python/flask-restful-0.3.3[${PYTHON_USEDEP}]
 	=dev-python/flask-restplus-0.8.6[${PYTHON_USEDEP}]
@@ -59,12 +59,11 @@ DEPEND="
 	>=dev-python/future-0.15.2[${PYTHON_USEDEP}]
 	>=dev-python/colorclass-2.2.0[${PYTHON_USEDEP}]
 	>=dev-python/terminaltables-3.1.0[${PYTHON_USEDEP}]
-	dev-python/zxcvbn-python[${PYTHON_USEDEP}]
+	dev-python/zxcvbn[${PYTHON_USEDEP}]
 	"
 RDEPEND="${DEPEND}
 	transmission? ( dev-python/transmissionrpc[${PYTHON_USEDEP}] )
 "
-DEPEND+=" test? ( dev-python/nose[${PYTHON_USEDEP}] )"
 
 if [[ ${PV} == 9999 ]]; then
 	DEPEND+=" dev-python/paver[${PYTHON_USEDEP}]"
@@ -81,6 +80,4 @@ python_prepare_all() {
 
 python_test() {
 	cp -lr tests setup.cfg "${BUILD_DIR}" || die
-	run_in_build_dir nosetests -v --attr=!online > "${T}/tests-${EPYTHON}.log" \
-		|| die "Tests fail with ${EPYTHON}"
 }

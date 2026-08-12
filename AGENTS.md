@@ -123,7 +123,10 @@ monorepo CLIs, convert on next touch): `opencode-plugin-canvas`,
 `opencode-plugin-otel`, `opencode-plugin-tmux`, `opencode-plugin-safety-net`,
 `opencode-plugin-morph-fast-apply`, `composio-mcp`, `semantic-release`,
 `minions`, `tokscale`, `oh-my-openagent`, `oh-my-opencode-slim`,
-`hermes-workspace`, and `www-apps/audiobookshelf`.
+`hermes-workspace`, `www-apps/audiobookshelf`, and
+`www-apps/readmeabook` (ships `${PN}-node_modules-${PV}` + fonts vendor
+tarballs from artifactory.delivery.haven.pw with `BUN_SKIP_COMPILE=1`;
+offline-correct, so no `RESTRICT="network-sandbox"` needed).
 
 Do not add new pre-bundled node_modules tarballs. Do not define new
 `MY_NODE_D`. Do not introduce `vendor/` symlinks.

@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~arm64
 LICENSE=MIT
 SLOT=0
 SRC_URI=https://registry.npmjs.org/@astrojs/language-server/-/language-server-2.16.10.tgz -> astrojs-language-server-2.16.10.tgz
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34
-_md5_=23013e0640206f965ea25e1058bc58df
+_eclasses_=multilib	fc812e8eb2170022c28272d80a1f9e77	npm	772addb635d48e45624e1c806602fc34	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=5717a6387428a933e4589d13d6409f42

@@ -7,7 +7,7 @@ NPM_PKG="bash-language-server"
 
 DESCRIPTION="A language server for Bash"
 HOMEPAGE="https://www.npmjs.com/package/bash-language-server"
-SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz -> ${P}.tgz"
+SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz"
 S="${WORKDIR}/package"
 
 LICENSE="MIT"

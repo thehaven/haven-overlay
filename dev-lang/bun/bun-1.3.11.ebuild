@@ -39,7 +39,7 @@ BDEPEND="
 	dev-lang/rust
 	dev-ruby/rubygems
 	dev-util/pkgconf
-	sys-devel/automake
+	dev-build/automake
 	sys-libs/libunwind
 "
 RDEPEND="

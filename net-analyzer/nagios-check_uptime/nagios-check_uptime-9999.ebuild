@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sys-devel/autoconf"
+DEPEND="dev-build/autoconf"
 RDEPEND="${DEPEND}"
 
 src_configure() {

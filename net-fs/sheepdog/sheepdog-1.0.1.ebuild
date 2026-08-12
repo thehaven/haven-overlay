@@ -17,7 +17,7 @@ IUSE=""
 RDEPEND="sys-cluster/corosync
 	|| ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 pkg_postinst() {
 	elog "Make sure that the storage path (default: '/var/lib/sheepdog')"

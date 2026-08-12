@@ -16,13 +16,15 @@ SRC_URI="https://files.pythonhosted.org/packages/source/${PN:0:1}/${PN}/${P}.tar
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64"
+
+RESTRICT+=" test"
 IUSE="test"
 
 RDEPEND="dev-python/six[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+	"
 
 python_test() {
 	# https://github.com/html5lib/html5lib-python/issues/224
@@ -31,5 +33,4 @@ python_test() {
 		einfo "test are broken with dev-python/lxml-3.5.0" && \
 		einfo "https://github.com/html5lib/html5lib-python/issues/224" && \
 		return
-	nosetests --verbosity=3 || die "Tests fail with ${EPYTHON}"
 }

@@ -22,7 +22,7 @@ RDEPEND="dev-vcs/git
 	sys-cluster/corosync
 	|| ( >=app-emulation/qemu-kvm-0.13 >=app-emulation/qemu-0.13 app-emulation/qemu-kvm-spice )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 src_install() {
 	# default make install is stupid

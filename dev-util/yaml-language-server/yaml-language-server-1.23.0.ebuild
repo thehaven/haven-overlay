@@ -7,7 +7,7 @@ NPM_PKG="yaml-language-server"
 
 DESCRIPTION="YAML language server"
 HOMEPAGE="https://www.npmjs.com/package/yaml-language-server"
-SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz -> ${P}.tgz"
+SRC_URI="https://registry.npmjs.org/${NPM_PKG}/-/${NPM_PKG}-${PV}.tgz"
 S="${WORKDIR}/package"
 
 LICENSE="MIT"

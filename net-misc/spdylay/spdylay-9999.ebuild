@@ -16,7 +16,7 @@ KEYWORDS="-* ~amd64"
 IUSE=""
 
 DEPEND="
-		>=sys-devel/autoconf-2.68
+		>=dev-build/autoconf-2.68
 		>=dev-libs/openssl-1.0.1e-r1
 		>=dev-util/cunit-2.1
 		>=dev-libs/libxml2-2.7.7

@@ -1,13 +1,13 @@
 BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install postinst unpack
-DEPEND=>=sys-devel/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3
+DEPEND=>=dev-build/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3
 DESCRIPTION=The experimental SPDY protocol version 2 and 3 implementation in C
 EAPI=8
 HOMEPAGE=http://spdylay.sourceforge.net/
 INHERIT=git-r3
 KEYWORDS=amd64
 PROPERTIES=live
-RDEPEND=>=sys-devel/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3
+RDEPEND=>=dev-build/autoconf-2.68 >=dev-libs/openssl-1.0.1e-r1 >=dev-util/cunit-2.1 >=dev-libs/libxml2-2.7.7 >=dev-libs/libevent-2.0.8 >=sys-libs/zlib-1.2.3
 SLOT=0
 _eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
-_md5_=04e027fae139e40e6a7f40615e6afe87
+_md5_=acdf943f34cf38f1affb352f798a0f2f

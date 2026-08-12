@@ -22,7 +22,6 @@ HOMEPAGE="
 	https://pypi.org/project/pypdfium2/
 "
 SRC_URI="https://files.pythonhosted.org/packages/source/p/pypdfium2/pypdfium2-${PV}.tar.gz"
-S="\${WORKDIR}/\${P}"
 
 LICENSE="Apache-2.0 BSD"
 SLOT="0"

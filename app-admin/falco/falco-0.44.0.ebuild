@@ -23,8 +23,8 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	>=dev-util/cmake-3.20
-	sys-devel/clang
+	>=dev-build/cmake-3.20
+	llvm-core/clang
 "
 
 src_configure() {

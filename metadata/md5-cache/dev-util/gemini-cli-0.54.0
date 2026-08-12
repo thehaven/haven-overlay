@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile install postinst unpack
+DESCRIPTION=Gemini CLI - a command-line AI workflow tool by Google
+EAPI=8
+HOMEPAGE=https://github.com/google-gemini/gemini-cli
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0
+RDEPEND=>=net-libs/nodejs-20
+SLOT=0
+SRC_URI=https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.54.0.tgz
+_md5_=d646ca88d5c02ab1d01f2f2f9c9d5ad1
