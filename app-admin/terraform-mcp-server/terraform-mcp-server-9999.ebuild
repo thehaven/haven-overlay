@@ -7,7 +7,7 @@ inherit go-module git-r3
 
 DESCRIPTION="MCP server for Terraform operations"
 HOMEPAGE="https://github.com/hashicorp/terraform-mcp-server"
-EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp/terraform-mcp-server"
+EGIT_REPO_URI="https://github.com/hashicorp/terraform-mcp-server.git"
 
 LICENSE="Apache-2.0"
 SLOT="0"

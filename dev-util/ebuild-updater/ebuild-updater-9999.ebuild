@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Orchestration layer for Gentoo overlay ebuild lifecycle management"
-HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater"
-EGIT_REPO_URI="file:///storage/home/haven/projects/ebuild-updater"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/ebuild-updater.git"
 EGIT_COMMIT="master"
 
 LICENSE="GPL-2"

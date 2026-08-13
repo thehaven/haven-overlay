@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Codex — terminal assistant for your personal knowledge base"
-HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/better-brain"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/better-brain"
 EGIT_REPO_URI="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/better-brain.git"
 
 LICENSE="Proprietary"

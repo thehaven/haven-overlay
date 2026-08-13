@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Unified security scanner orchestrator for Gentoo"
-HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/vuln-scanner"
-EGIT_REPO_URI="file:///storage/home/haven/projects/vuln-scanner"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/haven/vuln-scanner"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/haven/vuln-scanner.git"
 EGIT_COMMIT="v${PV}"
 
 LICENSE="GPL-2"

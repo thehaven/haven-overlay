@@ -9,7 +9,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Deterministic multi-format content conversion tool"
 HOMEPAGE="https://github.com/haven/stele"
-EGIT_REPO_URI="file:///storage/home/haven/projects/personal/stele"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/stele.git"
 
 LICENSE="MIT"
 SLOT="0"

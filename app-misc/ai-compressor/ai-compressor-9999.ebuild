@@ -9,8 +9,8 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Context & Safety Proxy for LLM requests"
-HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/ai-compressor"
-EGIT_REPO_URI="file:///storage/home/haven/projects/ai-compressor"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/ai-compressor"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/ai-compressor.git"
 
 KEYWORDS="~amd64"
 LICENSE="Proprietary"

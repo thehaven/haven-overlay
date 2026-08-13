@@ -9,7 +9,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Universal MCP package manager and profile orchestrator"
 HOMEPAGE="https://github.com/haven/mcp-forge"
-EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp-forge"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mcp-forge.git"
 
 LICENSE="MIT"
 SLOT="0"

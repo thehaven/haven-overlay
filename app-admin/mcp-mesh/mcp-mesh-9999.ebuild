@@ -9,7 +9,7 @@ inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Dynamic MCP gateway: just-in-time tool mounting and policy-aware proxy"
 HOMEPAGE="https://github.com/haven/mcp-mesh"
-EGIT_REPO_URI="file:///storage/home/haven/projects/personal/mcp-mesh"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mcp-mesh.git"
 
 LICENSE="MIT"
 SLOT="0"
