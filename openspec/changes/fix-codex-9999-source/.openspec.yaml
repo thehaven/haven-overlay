@@ -1,0 +1,4 @@
+schema: fix
+skip_specs: true
+created: 2026-08-13
+goal: Point codex-9999 at a real repo or mask it

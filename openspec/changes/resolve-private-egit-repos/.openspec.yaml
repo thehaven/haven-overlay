@@ -1,0 +1,4 @@
+schema: fix
+skip_specs: true
+created: 2026-08-13
+goal: Restore fetchability of cortex, librarian, docker-updater ebuilds
