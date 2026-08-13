@@ -2,17 +2,18 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>simon@alman.dev</email>
+		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="pypi">onnxruntime-gpu</remote-id>
+		<remote-id type="pypi">pyannote-audio</remote-id>
+		<remote-id type="github">pyannote/pyannote-audio</remote-id>
 	</upstream>
 	<longdescription lang="en">
-		onnxruntime-gpu is the CUDA-enabled build of ONNX Runtime. The
-		wheels are prebuilt per (python_target, x86_64) and bundle the
-		CUDA / TensorRT / cuDNN execution providers; no local
-		compilation occurs. Pairs with dev-python/nvidia-cublas-cu12
-		and dev-python/nvidia-cudnn-cu12 for the GPU runtime.
+		pyannote-audio is an open-source toolkit for speaker diarization
+		based on PyTorch. It is the heavy diarization backend used by
+		dev-python/speaches when USE=diarization is enabled. Source-built
+		via hatchling; runtime brings in pyannote-{core,database,metrics},
+		torch, torchaudio, and lightning.
 	</longdescription>
 </pkgmetadata>
