@@ -186,6 +186,20 @@ the build host's actual Python versions. Check the eclass's
   ebuilds (fixed 2026-08-08); grep for `\$` in `S=` / `SRC_URI=` when an
   ebuild fails with a literal-variable path.
 
+
+- **`EGIT_REPO_URI` must be a public https URL — never `file://` under the
+  operator's home.** Builds run as the `portage` user (`FEATURES=userpriv`);
+  `/storage/home/haven` is mode 700, so `file:///storage/home/haven/...`
+  URIs pass every root-based gate (`sudo ebuild clean install`, `ebuild
+  manifest` — which is a no-op for git-r3 anyway) and then die mid-batch in
+  `src_unpack` with "does not appear to be a git repository" (2026-08-13:
+  mcp-mesh-0.19.1, mcp-forge-9999, better-brain-9999; 34 ebuilds migrated
+  back to `https://gitlab-ee.thehavennet.org.uk/...` in one commit). Same
+  class: `ssh://` and scp-style URIs (portage has no credentials) and dead
+  `git://` (GitHub disabled it in 2022). Run
+  [`scripts/verify-git-uris.sh`](scripts/verify-git-uris.sh) after any
+  change that touches `EGIT_REPO_URI` — it probes every URI as the portage
+  user, the only context that matches a real build.
 ## External infra this overlay depends on
 
 - `https://gitlab-ee.thehavennet.org.uk` — overlay remote, and source
@@ -223,6 +237,10 @@ sudo -n egencache --repo=haven-overlay --update
 
 # Audit every inherit-npm ebuild for missing /usr/bin symlinks
 sudo /var/db/repos/haven-overlay/scripts/verify-npm-bin.sh
+
+# Verify every EGIT_REPO_URI in the tree is fetchable by the portage user
+# (catches file:///ssh:///git:// URIs that root-based gates cannot see)
+sudo /var/db/repos/haven-overlay/scripts/verify-git-uris.sh
 
 # Smoke test MCP binaries after a packaging change
 sudo /var/db/repos/haven-overlay/scripts/verify-mcp.sh
