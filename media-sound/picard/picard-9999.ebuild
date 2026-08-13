@@ -11,7 +11,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="An improved rewrite/port of the Picard Tagger using Qt"
 HOMEPAGE="http://musicbrainz.org/doc/PicardQt"
-EGIT_REPO_URI="git://github.com/musicbrainz/picard.git"
+EGIT_REPO_URI="https://github.com/musicbrainz/picard.git"
 SRC_URI="coverart? ( http://dev.gentoo.org/~radhermit/distfiles/${PN}-0.15.1-coverart.py.gz )"
 
 LICENSE="GPL-2"

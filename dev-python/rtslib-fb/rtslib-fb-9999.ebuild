@@ -5,7 +5,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{12..14} )
-EGIT_REPO_URI="git://github.com/agrover/rtslib-fb.git"
+EGIT_REPO_URI="https://github.com/agrover/rtslib-fb.git"
 
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 git-r3 python-r1

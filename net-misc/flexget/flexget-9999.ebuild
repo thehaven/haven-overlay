@@ -15,7 +15,7 @@ if [[ ${PV} != 9999 ]]; then
 	KEYWORDS="~amd64 ~x86"
 else
 	inherit git-r3
-	EGIT_REPO_URI="git://github.com/Flexget/Flexget.git
+	EGIT_REPO_URI="https://github.com/Flexget/Flexget.git
 		https://github.com/Flexget/Flexget.git"
 fi
 

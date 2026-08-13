@@ -6,7 +6,7 @@ EAPI=8
 
 inherit git-r3 linux-mod
 
-EGIT_REPO_URI="git://github.com/facebook/flashcache.git"
+EGIT_REPO_URI="https://github.com/facebook/flashcache.git"
 KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="FlashCache provides a way to use a SSD as a cache for slower disks"

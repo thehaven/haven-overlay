@@ -6,7 +6,7 @@ EAPI=8
 
 inherit git-r3
 
-EGIT_REPO_URI="git://github.com/jordansissel/lumberjack.git"
+EGIT_REPO_URI="https://github.com/jordansissel/lumberjack.git"
 if [[ ${PV} != *9999* ]] ; then
 	EGIT_COMMIT="tags/$(echo ${PV//_/-} | tr '[:lower:]' '[:upper:]' )"
 fi

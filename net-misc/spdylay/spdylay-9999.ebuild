@@ -8,7 +8,7 @@ inherit git-r3
 
 DESCRIPTION="The experimental SPDY protocol version 2 and 3 implementation in C"
 HOMEPAGE="http://spdylay.sourceforge.net/"
-EGIT_REPO_URI="git://github.com/tatsuhiro-t/spdylay.git"
+EGIT_REPO_URI="https://github.com/tatsuhiro-t/spdylay.git"
 
 LICENSE=""
 SLOT="0"
