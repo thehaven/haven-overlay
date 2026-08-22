@@ -1,0 +1,33 @@
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{12..14} )
+
+inherit distutils-r1
+
+MY_P=antlr4-${PV}
+DESCRIPTION="Python 3 runtime for ANTLR"
+HOMEPAGE="
+	https://www.antlr.org/
+	https://github.com/antlr/antlr4/
+	https://pypi.org/project/antlr4-python3-runtime/
+"
+SRC_URI="
+	https://github.com/antlr/antlr4/archive/${PV}.tar.gz
+		-> ${MY_P}.gh.tar.gz
+"
+S="${WORKDIR}/${MY_P}/runtime/Python3"
+
+LICENSE="BSD"
+SLOT="0"
+KEYWORDS="~amd64"
+
+# Pinned to 4.9.x because omegaconf 2.3.1 ships an ATN-v3 grammar that
+# newer runtimes (4.13+, ATN v4) refuse to deserialize. Keep in lockstep
+# with dev-python/omegaconf's RDEPEND.
+python_test() {
+	"${EPYTHON}" tests/run.py -v || die "Tests failed with ${EPYTHON}"
+}

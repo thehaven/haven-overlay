@@ -14,3 +14,11 @@ HOMEPAGE="https://github.com/omry/omegaconf"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+
+# Upstream pins antlr4-python3-runtime==4.9.* — its generated grammar is
+# ATN-v3 and newer runtimes (4.13+, ATN v4) refuse to deserialize it.
+# The 4.9.3 ebuild lives in this overlay (::gentoo only ships 4.13.2).
+RDEPEND="
+	=dev-python/antlr4-python3-runtime-4.9.3*
+	dev-python/pyyaml
+"
