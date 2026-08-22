@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Static linter for AI agent configs and prompts with HERM scoring"
-HOMEPAGE="https://github.com/roli-lpci/lintlang"
+HOMEPAGE="https://github.com/hermes-labs-ai/lintlang"
 
 LICENSE="Apache-2.0"
 SLOT="0"
