@@ -4,7 +4,8 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=uv-build
-PYTHON_COMPAT=( python3_{12..14} )
+# litellm 1.91.4 requires Python <3.14,>=3.10 (PyPI requires_python)
+PYTHON_COMPAT=( python3_{12..13} )
 PYPI_PN="litellm"
 inherit distutils-r1 pypi
 
