@@ -187,6 +187,38 @@ the build host's actual Python versions. Check the eclass's
   ebuild fails with a literal-variable path.
 
 
+- **`dev-python/omegaconf` pins `antlr4-python3-runtime` 4.9.3 — never bump
+  antlr4 independently.** omegaconf 2.3.1 (latest stable) ships an ATN-v3
+  grammar; antlr4 runtimes >=4.13 (ATN v4) refuse to deserialize it, so every
+  `import omegaconf` dies with "Could not deserialize ATN with version 3
+  (expected 4)". Because hydra-core registers a pytest11 plugin, the whole
+  pytest suite then fails at collection with an unrelated-looking traceback.
+  ::gentoo only ships 4.13.2, so the 4.9.3 ebuild lives in this overlay
+  (`dev-python/antlr4-python3-runtime/`). Diagnostic:
+  `grep SERIALIZED_VERSION /usr/lib/python3.14/site-packages/antlr4/atn/ATNDeserializer.py`
+  (3 = compatible, 4 = broken for omegaconf). Hit 2026-08-22; fixed by
+  pinning `=dev-python/antlr4-python3-runtime-4.9.3*` in omegaconf's RDEPEND.
+
+- **`metadata/md5-cache/` is not maintained per-commit.** Recent commits
+  (bumps, prunes) do not touch it; the webhost regenerates it in bulk
+  (`emaint sync -r haven-overlay` + `egencache --repo=haven-overlay --update`).
+  If you run egencache locally it rewrites hundreds of stale entries — revert
+  with `git checkout -- metadata/md5-cache/` and delete untracked entries
+  before committing.
+
+- **Untracked files in this overlay are not safe.** Automated overnight
+  processes (retention prunes etc.) remove untracked files — the
+  `dev-util/agent-skill-finder` ebuild was lost this way on 2026-08-22.
+  Commit approved work promptly; never leave a finished ebuild uncommitted
+  overnight.
+
+- **metadata.xml maintainer email: copy from
+  `dev-util/opencode-snip/metadata.xml`.** Several older files
+  (`dev-python/omegaconf`, `dev-python/hydra-core`) carry a
+  `haven@example.com` placeholder; the real address is
+  `haven@thehavennet.org.uk`. When creating metadata.xml, copy an existing
+  file and change the remote-id rather than typing the email.
+
 - **`EGIT_REPO_URI` must be a public https URL — never `file://` under the
   operator's home.** Builds run as the `portage` user (`FEATURES=userpriv`);
   `/storage/home/haven` is mode 700, so `file:///storage/home/haven/...`
