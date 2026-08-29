@@ -79,9 +79,22 @@ QA_FLAGS_IGNORED=".*"
 
 RDEPEND="
 	cuda? (
-		>=dev-python/nvidia-cublas-cu12-12.6
-		>=dev-python/nvidia-cudnn-cu12-9.6
 		>=x11-drivers/nvidia-drivers-555
+		=dev-python/nvidia-cublas-cu12-12.6.4.1
+		=dev-python/nvidia-cudnn-cu12-9.10.2.21
+		=dev-python/nvidia-cuda-nvrtc-cu12-12.6.77
+		=dev-python/nvidia-cuda-runtime-cu12-12.6.77
+		=dev-python/nvidia-cuda-cupti-cu12-12.6.80
+		=dev-python/nvidia-cufft-cu12-11.3.0.4
+		=dev-python/nvidia-curand-cu12-10.3.7.77
+		=dev-python/nvidia-cusolver-cu12-11.7.1.2
+		=dev-python/nvidia-cusparse-cu12-12.5.4.2
+		=dev-python/nvidia-cusparselt-cu12-0.7.1
+		=dev-python/nvidia-nccl-cu12-2.27.5
+		=dev-python/nvidia-nvshmem-cu12-3.4.5
+		=dev-python/nvidia-nvtx-cu12-12.6.77
+		=dev-python/nvidia-nvjitlink-cu12-12.6.85
+		=dev-python/nvidia-cufile-cu12-1.11.1.6
 	)
 "
 
@@ -126,12 +139,20 @@ src_compile() {
 }
 
 python_install() {
-	local sitedir
+	local sitedir distinfo
 	sitedir=$(python_get_sitedir)
 	insinto "${sitedir}"
 	cd "${WORKDIR}/${EPYTHON}" || die
 	doins -r torch
-	doins -r "${P}.dist-info"
+	# The wheel also ships top-level torchgen/ and functorch/ packages
+	# (torch imports both at runtime); install them alongside torch.
+	doins -r torchgen
+	doins -r functorch
+	# The cu126 wheel's dist-info carries the local version
+	# (torch-2.10.0+cu126.dist-info); the PyPI wheel does not.
+	distinfo="torch-${PV}.dist-info"
+	use cuda && distinfo="torch-${PV}+cu126.dist-info"
+	doins -r "${distinfo}"
 }
 
 src_install() {

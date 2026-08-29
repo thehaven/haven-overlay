@@ -6,6 +6,6 @@
 		<name>Simon Alman</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="pypi">nvidia-cudnn-cu12</remote-id>
+		<remote-id type="pypi">nvidia-nvjitlink-cu12</remote-id>
 	</upstream>
 </pkgmetadata>
