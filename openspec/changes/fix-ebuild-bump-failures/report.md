@@ -54,3 +54,40 @@ combination of (a) reliance on a mirror that only serves official Gentoo
 distfiles, (b) pre-bundled vendor tarballs that no longer exist anywhere,
 (c) URL/discovery derivation bugs, and (d) missing bump hooks for
 hash-pinned PyPI URLs.
+## Resolution (2026-08-29)
+
+All planned tasks completed and verified:
+
+- **opencode 1.18.25** bumped; dead mirror models JSON dropped from SRC_URI
+  (build fetches models.dev at compile time under `RESTRICT="network-sandbox"`).
+- **9 mirror-tarball packages** (minions, oh-my-openagent,
+  oh-my-opencode-slim, opencode-plugin-morph-fast-apply, opencode-plugin-otel,
+  opencode-plugin-tmux, semantic-release, tokscale, audiobookshelf) migrated
+  to `inherit bun`/`inherit npm` source-based builds.
+- **URL derivation fixes**: yq (v-prefix, bumped 4.53.6), openclaw (dash
+  version), inquirer (correct upstream); new packages editor/runs/xmod for
+  inquirer's dep chain.
+- **torch USE=cuda**: wheels now from `download.pytorch.org/whl/cu126/`;
+  14 `nvidia-*-cu12` runtime packages added (13 new + cudnn 9.10.2.21) with
+  PyPI hash-path bump hooks; torch RDEPEND pinned to the wheel's exact
+  versions; bundled torchgen/functorch installed. Verified: `import torch`
+  → 2.10.0+cu126, `cuda available: True`, matmul + cuDNN 9.10.2 on GPU.
+- **Vendor-tarball migrations**: nats-server, mattermost-server, chezmoi
+  (and dive) now build from source via go-module + `RESTRICT="network-sandbox"`.
+  mattermost required three extra fixes: `S` (unpacks to mattermost-${PV}/),
+  `src_unpack` (go.mod lives in server/), and a `replace` directive for an
+  upstream import cycle in the published `server/public` module; plus a new
+  `files/` dir (initd/confd/service/tmpfiles) that never existed.
+- **Bump hooks**: PyPI hash-path family (onnxruntime, torchcodec,
+  nvidia-*-cu12, grafana-dashboard-manager, pyannote-audio), GitHub asset
+  renames (pnzbhydra2, pnpm-bin), mcp-* npm discovery, pyright tag sorting.
+- **Holds/masks**: ebuild-updater.toml holds dead-asset packages;
+  jellyfin-bin masked (repo.jellyfin.org 410).
+- **Regression guard**: `scripts/tests/test_src_uri_fetchable.py` HEAD-checks
+  every SRC_URI distfile; green after all fixes.
+- **gentoo-factory**: discovery current (2.4.0 = latest tag; no phantom
+  2.5.0), archive URL live, CLI smoke OK.
+
+Remaining known failures (documented, not fixable in-tree): litellm Python
+compat (pre-existing), chromadb-bin/tabby/vllm (upstream ships no release
+assets), cockpit-file-sharing/cdktf-hcl2json (invalid upstream versions).

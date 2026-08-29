@@ -59,47 +59,47 @@
 
 ## 4. Bump hooks for PyPI hash-path family + GitHub asset-name fixes
 
-- [ ] 4.1 Add bump hooks (`metadata/bump-hooks/<cat>/<pkg>`) for onnxruntime,
+- [x] 4.1 Add bump hooks (`metadata/bump-hooks/<cat>/<pkg>`) for onnxruntime,
       onnxruntime-gpu, torchcodec, nvidia-cublas-cu12, nvidia-cudnn-cu12,
       grafana-dashboard-manager, pyannote-audio — print the per-version
       hash-path KEY=VALUE consumed by the bump stage [unit]
       [investigation: evidence 6]
-- [ ] 4.2 Fix GitHub asset names: pnpm-bin (`pnpm-linux-x64.tar.gz`),
+- [x] 4.2 Fix GitHub asset names: pnpm-bin (`pnpm-linux-x64.tar.gz`),
       nzbhydra2 (`-generic.zip`), tabby (`tabby_x86_64-manylinux_2_28.tar.gz`),
       tinymist (Myriad-Dreamin repo, -rc release assets), readarr
       (`Readarr.develop.*`), obsidian-bin (pin ≤1.13.6 or new asset),
       jellyfin-bin (repo.jellyfin.org 410 — investigate), chromadb-bin
       (no assets — investigate), vllm (0.28.0 final) [unit]
       [investigation: evidence 7]
-- [ ] 4.3 `dev-python/torch`: switch USE=cuda wheel source to
+- [x] 4.3 `dev-python/torch`: switch USE=cuda wheel source to
       `download.pytorch.org/whl/cu126/` (or stage on the private mirror)
       [unit] [investigation: evidence 9]
-- [ ] 4.4 Build + smoke affected packages [smoke] [investigation: evidence 7]
+- [x] 4.4 Build + smoke affected packages [smoke] [investigation: evidence 7]
 
 ## 5. Migrate nats-server / mattermost-server / chezmoi away from vendor tarballs
 
-- [ ] 5.1 `dev-db/nats-server`: migrate to source-based build (go-module
+- [x] 5.1 `dev-db/nats-server`: migrate to source-based build (go-module
       with network-sandbox), drop `dev.gentoo.org/~haven` vendor tarball
       [unit] [investigation: evidence 2]
-- [ ] 5.2 `net-im/mattermost-server`: migrate to source-based build, drop
+- [x] 5.2 `net-im/mattermost-server`: migrate to source-based build, drop
       vendor tarball [unit] [investigation: evidence 2]
-- [ ] 5.3 `app-misc/chezmoi`: migrate to source-based build (go-module),
+- [x] 5.3 `app-misc/chezmoi`: migrate to source-based build (go-module),
       drop `-deps.tar.xz` [unit] [investigation: evidence 3]
-- [ ] 5.4 Build + smoke each (emerge, binary present) [smoke]
+- [x] 5.4 Build + smoke each (emerge, binary present) [smoke]
       [investigation: evidence 2]
 
 ## 6. Final verification
 
-- [ ] 6.1 Run the full pytest suite (`pytest /var/db/repos/haven-overlay/scripts/tests/`)
+- [x] 6.1 Run the full pytest suite (`pytest /var/db/repos/haven-overlay/scripts/tests/`)
       — no other tests broken [unit] [investigation: blast radius]
-- [ ] 6.2 Run `ebuild-updater status` — confirm the fixed packages no longer
+- [x] 6.2 Run `ebuild-updater status` — confirm the fixed packages no longer
       appear in failures [smoke] [investigation: blast radius]
-- [ ] 6.3 Verify the 22 packages that currently bump OK are unaffected
+- [x] 6.3 Verify the 22 packages that currently bump OK are unaffected
       [smoke] [investigation: blast radius]
 ## 7. gentoo-factory ebuild-updater verification
 
-- [ ] 7.1 Run ebuild-updater against gentoo-factory — confirm the 2.5.0 tag
+- [x] 7.1 Run ebuild-updater against gentoo-factory — confirm the 2.5.0 tag
       is detected and the bump succeeds (previously failed on the v9999
       archive URL) [smoke]
-- [ ] 7.2 Full smoke tests: emerge gentoo-factory, run the CLI, verify
+- [x] 7.2 Full smoke tests: emerge gentoo-factory, run the CLI, verify
       version output [smoke]
