@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription lang="en">
+		Docker network plugin providing host bridge DHCP networking for containers
+		with deterministic reboot recovery, MAC address pinning, and L2 ARP collision prevention.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">thehaven/docker-net-dhcp</remote-id>
+		<bugs-to>https://github.com/thehaven/docker-net-dhcp/issues</bugs-to>
+	</upstream>
+</pkgmetadata>

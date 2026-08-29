@@ -1,0 +1,17 @@
+[Unit]
+Description=Docker Host Bridge DHCP Network Plugin Daemon
+Documentation=https://github.com/thehaven/docker-net-dhcp
+Before=docker.service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker-net-dhcp -sock /run/docker/plugins/net-dhcp.sock -log info -logfile /var/log/docker-net-dhcp.log
+Restart=always
+RestartSec=3s
+TimeoutStopSec=15s
+RuntimeDirectory=docker/plugins
+RuntimeDirectoryMode=0755
+
+[Install]
+WantedBy=multi-user.target
