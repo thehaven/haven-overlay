@@ -30,4 +30,18 @@ enabled = true
 # code is `cp in cfg.pipeline.hold` at pipeline.py:378. To pin
 # multiple atoms, append: hold = ["dev-db/solr", "dev-java/openjdk-bin"]
 [repos.haven.pipeline]
-hold = ["dev-db/solr"]
+hold = [
+    "dev-db/solr",
+    # Upstream ships -rc-only releases (no release object for plain
+    # tags, e.g. v0.15.4); bump manually when a proper release appears.
+    "dev-util/tinymist",
+    # v2.0.0.x tags exist but carry no release assets; v0.4.18.x is
+    # the active release line.
+    "net-nntp/readarr",
+    # v1.13.8+ desktop assets missing upstream (only .apk shipped);
+    # remove the hold when desktop builds return.
+    "app-editors/obsidian-bin",
+    # Server tarballs removed from repo.jellyfin.org (410) and GitHub
+    # releases ship no assets; masked in profiles/package.mask.
+    "media-tv/jellyfin-bin",
+]

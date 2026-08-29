@@ -31,3 +31,7 @@ sys-cluster/kube-discovery
 sys-cluster/kubefed
 www-client/phantomjs
 www-servers/yaws
+
+# Dead upstream: jellyfin server tarballs removed from repo.jellyfin.org
+# (410 Gone) and GitHub releases ship no assets (verified 2026-08-29).
+media-tv/jellyfin-bin
