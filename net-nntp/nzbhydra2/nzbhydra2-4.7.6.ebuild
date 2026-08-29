@@ -6,7 +6,10 @@ EAPI=8
 
 inherit systemd
 
-SRC_URI="https://github.com/theotherp/${PN}/releases/download/v${PV}/${PN}-${PV}-linux.zip -> ${P}.zip"
+# Zip asset name resolved per version by metadata/bump-hooks/net-nntp/nzbhydra2
+# (naming changed between v4.x -linux.zip and v8.x -amd64-linux.zip).
+NZBHYDRA2_ZIP="nzbhydra2-4.7.6-linux.zip"
+SRC_URI="https://github.com/theotherp/${PN}/releases/download/v${PV}/${NZBHYDRA2_ZIP} -> ${P}.zip"
 
 DESCRIPTION="Usenet meta search"
 HOMEPAGE="https://github.com/theotherp/nzbhydra2"

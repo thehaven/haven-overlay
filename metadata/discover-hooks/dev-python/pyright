@@ -1,4 +1,6 @@
 _schema = 1
-source = "github"
-github = "microsoft/pyright"
-use_max_tag = true
+source = "regex"
+url = "https://github.com/microsoft/pyright/tags"
+# pyright also carries ancient date tags (2019.03.23) that sort above the
+# 1.x semver line under portage comparison; restrict to the 1.x series.
+regex = "releases/tag/(1\\.[\\d\\.]+)"
