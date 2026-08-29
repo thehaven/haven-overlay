@@ -3,30 +3,30 @@
 
 EAPI=8
 
-MY_NODE_D="minions-node_modules-0.1.15"
+inherit bun
 
 DESCRIPTION="Mission Control — AI agent orchestration dashboard with fleet management"
 HOMEPAGE="https://github.com/Agent-3-7/minions"
-SRC_URI="
-	https://github.com/Agent-3-7/minions/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/Agent-3-7/minions/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-BDEPEND=">=net-libs/nodejs-18[npm]"
+RESTRICT="network-sandbox test strip"
 
 S="${WORKDIR}/minions-${PV}"
 
 src_compile() {
-	npm run build || die
+	# Source-based deps (replaces the former MY_NODE_D mirror tarball).
+	rm -f package-lock.json
+	bun install --ignore-scripts || die "bun install failed"
+	bun run build || die "bun run build failed"
 }
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
-	doins -r dist package.json
+	doins -r dist package.json node_modules
 }
 
 pkg_postinst() {

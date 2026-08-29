@@ -3,31 +3,32 @@
 
 EAPI=8
 
-MY_NODE_D="oh-my-openagent-node_modules-4.4.0"
+inherit bun
 
 DESCRIPTION="omo; the best agent harness for OpenCode"
 HOMEPAGE="https://github.com/code-yeongyu/oh-my-openagent"
-SRC_URI="
-	https://github.com/code-yeongyu/oh-my-openagent/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/code-yeongyu/oh-my-openagent/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+RESTRICT="network-sandbox test strip"
+
 RDEPEND="dev-util/opencode"
 
 S="${WORKDIR}/oh-my-openagent-${PV}"
 
 src_compile() {
-	bun run build || die
+	# Source-based deps (replaces the former MY_NODE_D mirror tarball).
+	rm -f package-lock.json
+	bun install --ignore-scripts || die "bun install failed"
+	bun run build || die "bun run build failed"
 }
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
-	doins -r dist package.json
+	doins -r dist package.json node_modules
 }
 
 pkg_postinst() {

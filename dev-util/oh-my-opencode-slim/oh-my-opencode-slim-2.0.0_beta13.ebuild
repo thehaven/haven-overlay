@@ -3,33 +3,32 @@
 
 EAPI=8
 
-MY_NODE_D="oh-my-opencode-slim-node_modules-2.0.0-beta.13"
+inherit bun
 
 DESCRIPTION="Slim agent harness for OpenCode with TUI and CLI"
 HOMEPAGE="https://github.com/alvinunreal/oh-my-opencode-slim"
-SRC_URI="
-        https://github.com/alvinunreal/${PN}/archive/refs/tags/v${PV/_beta/-beta.}.tar.gz -> ${P}.tar.gz
-        https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/alvinunreal/${PN}/archive/refs/tags/v${PV/_beta/-beta.}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+RESTRICT="network-sandbox test strip"
+
 RDEPEND="
         dev-util/zod
         net-libs/nodejs
 "
-# Runtime deps (jsdom, @opencode-ai/*, opentui-*) come from the MY_NODE_D
-# vendor tarball, resolved by bun's module walk. The former dev-nodejs/*
-# RDEPEND atoms point at packages that do not exist in this overlay.
+# Runtime deps (jsdom, @opencode-ai/*, opentui-*) come from bun install
+# in src_compile (source-based resolution).
 BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
 
 S="${WORKDIR}/${PN}-${PV/_beta/-beta.}"
 
 src_compile() {
-        # node_modules/ is at ${WORKDIR}/node_modules/ — Bun resolves by
-        # walking up the directory tree from ${S} (per Node resolution algorithm)
+        # Source-based deps (replaces the former MY_NODE_D mirror tarball).
+        rm -f package-lock.json
+        bun install --ignore-scripts || die "bun install failed"
         bun run build || die
 }
 
@@ -43,7 +42,7 @@ src_test() {
 src_install() {
         local libdir="$(get_libdir)"
         insinto "/usr/${libdir}/node_modules/${PN}"
-        doins -r dist package.json
+        doins -r dist package.json node_modules
 
         # CLI entry point
         fperms +x "/usr/${libdir}/node_modules/${PN}/dist/cli/index.js"

@@ -3,26 +3,29 @@
 
 EAPI=8
 
-MY_NODE_D="${PN}-node_modules-${PV}"
-
 DESCRIPTION="Automated semantic versioning and changelog generation"
 HOMEPAGE="https://github.com/semantic-release/semantic-release"
-SRC_URI="
-	https://github.com/semantic-release/semantic-release/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://registry.npmjs.org/semantic-release/-/semantic-release-${PV}.tgz"
+S="${WORKDIR}/package"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=">=net-libs/nodejs-20"
+RESTRICT="network-sandbox"
 
-S="${WORKDIR}/${PN}-${PV}"
+BDEPEND=">=net-libs/nodejs-20[npm]"
+RDEPEND="
+	>=net-libs/nodejs-20
+	!dev-python/python-semantic-release
+"
+
+src_compile() { :; }
 
 src_install() {
-	insinto /usr/lib/node_modules/${PN}
-	doins -r lib package.json
-	dobin "${FILESDIR}"/semantic-release
+	# npm install --global pulls the package AND its runtime deps from the
+	# registry (network-sandbox opens network), replacing the former
+	# MY_NODE_D mirror tarball and the FILESDIR wrapper script.
+	npm install --global --prefix "${ED}/usr" "${DISTDIR}/${A}" || die
 	einstalldocs
 }

@@ -3,36 +3,33 @@
 
 EAPI=8
 
-MY_NODE_D="${PN}-node_modules-${PV}"
+inherit bun
+
 DESCRIPTION="Integrates Morph's Fast Apply API for 10,500+ tokens/sec code editing"
 HOMEPAGE="https://github.com/JRedeker/opencode-morph-fast-apply"
-SRC_URI="
-	https://github.com/JRedeker/opencode-morph-fast-apply/archive/0625507c07ac73443ec8780a674778287a4a0c4e.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/JRedeker/opencode-morph-fast-apply/archive/0625507c07ac73443ec8780a674778287a4a0c4e.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/opencode-morph-fast-apply-1.9.0"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+RESTRICT="network-sandbox test strip"
 
 src_compile() {
-	einfo "Source-only plugin. No build required."
+	# Source-only plugin: install deps (replaces the MY_NODE_D tarball),
+	# no build step required.
+	rm -f package-lock.json
+	bun install --ignore-scripts || die "bun install failed"
 }
 
 src_install() {
 	local libdir=$(get_libdir)
 	local module_dir="/usr/${libdir}/node_modules/${PN}"
-	
+
 	insinto "${module_dir}"
-	# Install everything in the root
+	# Everything in the root, including bun-installed node_modules
 	doins -r .
-	
-	einfo "Installing vendor node_modules..."
-	mkdir -p "${ED}/${module_dir}" || die
-	cp -a "${WORKDIR}/node_modules" "${ED}/${module_dir}/" || die
 }
 
 pkg_postinst() {

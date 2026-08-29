@@ -3,30 +3,29 @@
 
 EAPI=8
 
-MY_NODE_D="${PN}-node_modules-${PV}"
+inherit bun
+
 DESCRIPTION="OpenCode tmux integration: automatically opens subagent panes"
 HOMEPAGE="https://github.com/AnganSamadder/opentmux"
-SRC_URI="
-	https://github.com/AnganSamadder/opentmux/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://artifactory.thehavennet.org.uk/artifactory/gentoo-mirror/distfiles/${MY_NODE_D}.tar.xz
-"
+SRC_URI="https://github.com/AnganSamadder/opentmux/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/opentmux-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-BDEPEND="|| ( dev-lang/bun-bin dev-lang/bun )"
+RESTRICT="network-sandbox test strip"
 
 src_compile() {
-	# Vendor tarball gives us the node_modules
-	ln -s "${WORKDIR}/node_modules" node_modules || die
-	bun run build || die
+	# Source-based deps (replaces the former MY_NODE_D mirror tarball).
+	rm -f package-lock.json
+	bun install --ignore-scripts || die "bun install failed"
+	bun run build || die "bun run build failed"
 }
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
-	doins -r dist package.json
+	doins -r dist package.json node_modules
 }
 
 pkg_postinst() {
