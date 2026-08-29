@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+# Copyright 1999-2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="Mattermost Server"
+description="Open source Slack-alternative in Golang and React"
+
+command=/opt/mattermost/bin/mattermost
+command_args="${MATTERMOST_OPTS} -config ${MATTERMOST_CONFIG}"
+command_user="mattermost:mattermost"
+command_background=true
+pidfile=/run/mattermost/mattermost.pid
+
+depend() {
+	need net
+	use dns logger
+}
+
+start_pre() {
+	checkpath -d -m 0755 -o mattermost:mattermost /run/mattermost
+}

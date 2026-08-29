@@ -1,0 +1,4 @@
+# Config file for /etc/init.d/mattermost-server
+
+MATTERMOST_CONFIG="/etc/mattermost/config.json"
+MATTERMOST_OPTS=""

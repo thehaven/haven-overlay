@@ -8,8 +8,7 @@ inherit go-module shell-completion
 DESCRIPTION="Manage your dotfiles across multiple diverse machines, securely"
 HOMEPAGE="https://chezmoi.io/"
 SRC_URI="https://github.com/twpayne/chezmoi/archive/refs/tags/v${PV}.tar.gz
-	-> ${P}.tar.gz
-	https://github.com/twpayne/chezmoi/releases/download/v${PV}/${P}-deps.tar.xz"
+	-> ${P}.tar.gz"
 S="${WORKDIR}/${P}"
 
 LICENSE="MIT"
@@ -18,6 +17,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 IUSE="test"
 RESTRICT="!test? ( test )"
+# We must bypass network sandbox because we compile without vendor tarball
+# (upstream never attaches -deps.tar.xz release assets; the former URL 404s).
+RESTRICT+=" network-sandbox"
 
 # chezmoi v2.70.0 declares go 1.25.7 in its go.mod; the Gentoo
 # go-module.eclass defaults to >=go-1.20, so override to the actual

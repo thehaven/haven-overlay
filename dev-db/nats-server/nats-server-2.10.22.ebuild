@@ -3,12 +3,11 @@
 
 EAPI=8
 
-inherit go-module-offline systemd tmpfiles
+inherit go-module systemd tmpfiles
 
 DESCRIPTION="High-Performance server for NATS"
 HOMEPAGE="https://nats.io/"
 SRC_URI="https://github.com/nats-io/nats-server/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI+=" https://dev.gentoo.org/~haven/${PN}/${P}-vendor.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -18,6 +17,10 @@ IUSE=""
 DEPEND="acct-user/nats acct-group/nats"
 RDEPEND="${DEPEND}"
 BDEPEND=">=dev-lang/go-1.22"
+
+# We must bypass network sandbox because we compile without vendor tarball
+# (overlay pragmatic; the former dev.gentoo.org/~haven vendor tarball 404s).
+RESTRICT="network-sandbox"
 
 src_compile() {
 	ego build -ldflags "-s -w -X github.com/nats-io/nats-server/v2/server.gitCommit=v${PV}" -o ${PN} .
@@ -30,7 +33,7 @@ src_install() {
 	newinitd "${FILESDIR}"/${PN}.initd ${PN}
 	newconfd "${FILESDIR}"/${PN}.confd ${PN}
 	systemd_dounit "${FILESDIR}"/${PN}.service
-	dotmpfiles "${FILESDIR}"/${PN}.tmpfiles
+	dotmpfiles "${FILESDIR}"/${PN}.tmpfiles.conf
 
 	insinto /etc/nats
 	doins docker/nats-server.conf
