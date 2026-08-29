@@ -21,17 +21,20 @@ inherit distutils-r1
 DESCRIPTION="PyTorch native video decoder"
 HOMEPAGE="https://github.com/pytorch/torchcodec"
 
+PY312_URL="https://files.pythonhosted.org/packages/d0/05/b7ba7ae04db4afeb1fd32d30ec6290d511c374adc464afe191c8fc8d4e22/torchcodec-${PV}-cp312-cp312-manylinux_2_28_x86_64.whl"
+PY313_URL="https://files.pythonhosted.org/packages/70/ff/f0e5795100bdf11f6e73a2fcc5197e9010e45030c1ee7f6b3ee32cffefe4/torchcodec-${PV}-cp313-cp313-manylinux_2_28_x86_64.whl"
+PY314_URL="https://files.pythonhosted.org/packages/28/57/4bab825dbb8aff755c87ff040fd91e6dbc1bb7c51a9bd5b2fdd61fda0437/torchcodec-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl"
 SRC_URI="
 	python_targets_python3_12? (
-		https://files.pythonhosted.org/packages/d0/05/b7ba7ae04db4afeb1fd32d30ec6290d511c374adc464afe191c8fc8d4e22/torchcodec-${PV}-cp312-cp312-manylinux_2_28_x86_64.whl
+		${PY312_URL}
 		-> ${P}-cp312.whl.zip
 	)
 	python_targets_python3_13? (
-		https://files.pythonhosted.org/packages/70/ff/f0e5795100bdf11f6e73a2fcc5197e9010e45030c1ee7f6b3ee32cffefe4/torchcodec-${PV}-cp313-cp313-manylinux_2_28_x86_64.whl
+		${PY313_URL}
 		-> ${P}-cp313.whl.zip
 	)
 	python_targets_python3_14? (
-		https://files.pythonhosted.org/packages/28/57/4bab825dbb8aff755c87ff040fd91e6dbc1bb7c51a9bd5b2fdd61fda0437/torchcodec-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
+		${PY314_URL}
 		-> ${P}-cp314.whl.zip
 	)
 "

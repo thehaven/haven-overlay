@@ -9,7 +9,8 @@ inherit distutils-r1
 
 DESCRIPTION="CLI utility to save and restore Grafana dashboards via HTTP API"
 HOMEPAGE="https://github.com/Beam-Connectivity/grafana-dashboard-manager"
-SRC_URI="https://files.pythonhosted.org/packages/dd/cc/fe7da0411b44b12530e263a85fbda585c8299665b9d6312b8db07dd6bb06/grafana_dashboard_manager-0.2.9.92468794901.tar.gz"
+SDIST_URL="https://files.pythonhosted.org/packages/dd/cc/fe7da0411b44b12530e263a85fbda585c8299665b9d6312b8db07dd6bb06/grafana_dashboard_manager-0.2.9.92468794901.tar.gz"
+SRC_URI="${SDIST_URL}"
 S="${WORKDIR}/grafana_dashboard_manager-0.2.9.92468794901"
 
 LICENSE="MIT"

@@ -22,7 +22,8 @@ inherit distutils-r1
 
 DESCRIPTION="NVIDIA CUDA cuBLAS runtime libraries (Python wheel)"
 HOMEPAGE="https://pypi.org/project/nvidia-cublas-cu12/"
-SRC_URI="https://files.pythonhosted.org/packages/af/eb/ff4b8c503fa1f1796679dce648854d58751982426e4e4b37d6fce49d259c/nvidia_cublas_cu12-${PV}-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl -> ${P}.x86_64.whl.zip"
+WHEEL_URL="https://files.pythonhosted.org/packages/af/eb/ff4b8c503fa1f1796679dce648854d58751982426e4e4b37d6fce49d259c/nvidia_cublas_cu12-${PV}-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+SRC_URI="${WHEEL_URL} -> ${P}.x86_64.whl.zip"
 
 S="${WORKDIR}"
 

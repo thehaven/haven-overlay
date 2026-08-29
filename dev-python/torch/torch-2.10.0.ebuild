@@ -16,16 +16,9 @@ HOMEPAGE="https://pytorch.org https://pypi.org/project/torch/"
 # requires a pinned CUDA/cuDNN/NCCL toolchain for GPU builds).
 #
 # USE=cuda (off by default): pulls CPU wheels from PyPI.
-# USE=cuda (on): pulls CUDA 12.6 wheels from the operator's internal
-# artifactory mirror at https://artifactory.delivery.haven.pw/gentoo-distfiles/.
-# PyPI does NOT host torch CUDA wheels, and download.pytorch.org (the
-# canonical host) is geo-fenced from most build hosts (HTTP 403). To enable
-# USE=cuda, the operator MUST pre-stage the upstream CUDA wheels into the
-# artifactory mirror before emerging. The wheel filenames follow the
-# PyTorch CUDA distribution convention, e.g.
-#   torch-${PV}+cu126-cp312-cp312-linux_x86_64.whl
-# upstream-hostable at
-#   https://download.pytorch.org/whl/cu126/torch-${PV}+cu126-cp312-cp312-linux_x86_64.whl
+# USE=cuda (on): pulls CUDA 12.6 wheels from download.pytorch.org/whl/cu126/
+# (the canonical host). The '+' in the local version must be URL-encoded as
+# %2B (a raw '+' returns 403). Wheel tags are manylinux_2_28_x86_64.
 #
 # cp315 reuses the cp314 wheel: ABI-compatible forward, and PyTorch 2.10.0
 # does not publish a cp315 build (first cp315 wheel is torch 2.13.0).
@@ -46,15 +39,15 @@ SRC_URI="
 	)
 	cuda? (
 		python_targets_python3_12? (
-			https://artifactory.delivery.haven.pw/gentoo-distfiles/torch-${PV}+cu126-cp312-cp312-linux_x86_64.whl
+			https://download.pytorch.org/whl/cu126/torch-${PV}%2Bcu126-cp312-cp312-manylinux_2_28_x86_64.whl
 			-> ${P}+cu126-cp312.whl.zip
 		)
 		python_targets_python3_13? (
-			https://artifactory.delivery.haven.pw/gentoo-distfiles/torch-${PV}+cu126-cp313-cp313-linux_x86_64.whl
+			https://download.pytorch.org/whl/cu126/torch-${PV}%2Bcu126-cp313-cp313-manylinux_2_28_x86_64.whl
 			-> ${P}+cu126-cp313.whl.zip
 		)
 		python_targets_python3_14? (
-			https://artifactory.delivery.haven.pw/gentoo-distfiles/torch-${PV}+cu126-cp314-cp314-linux_x86_64.whl
+			https://download.pytorch.org/whl/cu126/torch-${PV}%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl
 			-> ${P}+cu126-cp314.whl.zip
 		)
 	)

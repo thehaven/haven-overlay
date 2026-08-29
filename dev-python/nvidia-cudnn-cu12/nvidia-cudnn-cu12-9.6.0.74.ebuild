@@ -22,7 +22,8 @@ inherit distutils-r1
 
 DESCRIPTION="NVIDIA CUDA cuDNN runtime libraries (Python wheel)"
 HOMEPAGE="https://pypi.org/project/nvidia-cudnn-cu12/"
-SRC_URI="https://files.pythonhosted.org/packages/67/4c/0f18ddce75f2c17cf028d16e067c07f11c421c981b8c2a45c99bc6169af6/nvidia_cudnn_cu12-${PV}-py3-none-manylinux_2_27_x86_64.whl -> ${P}.x86_64.whl.zip"
+WHEEL_URL="https://files.pythonhosted.org/packages/67/4c/0f18ddce75f2c17cf028d16e067c07f11c421c981b8c2a45c99bc6169af6/nvidia_cudnn_cu12-${PV}-py3-none-manylinux_2_27_x86_64.whl"
+SRC_URI="${WHEEL_URL} -> ${P}.x86_64.whl.zip"
 
 S="${WORKDIR}"
 

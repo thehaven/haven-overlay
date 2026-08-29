@@ -10,10 +10,13 @@ inherit distutils-r1
 DESCRIPTION="Cross-platform, high performance ONNX Model Runner (binary wheel)"
 HOMEPAGE="https://onnxruntime.ai"
 
+PY312_URL="https://files.pythonhosted.org/packages/6d/ab/5b68110e0460d73fad814d5bd11c7b1ddcce5c37b10177eb264d6a36e331/${P}-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+PY313_URL="https://files.pythonhosted.org/packages/7f/72/105ec27a78c5aa0154a7c0cd8c41c19a97799c3b12fc30392928997e3be3/${P}-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+PY314_URL="https://files.pythonhosted.org/packages/5f/ba/4699cde04a52cece66cbebc85bd8335a0d3b9ad485abc9a2e15946a1349d/${P}-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
 SRC_URI="
-	python_targets_python3_12? ( https://files.pythonhosted.org/packages/6d/ab/5b68110e0460d73fad814d5bd11c7b1ddcce5c37b10177eb264d6a36e331/${P}-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp312.whl.zip )
-	python_targets_python3_13? ( https://files.pythonhosted.org/packages/7f/72/105ec27a78c5aa0154a7c0cd8c41c19a97799c3b12fc30392928997e3be3/${P}-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp313.whl.zip )
-	python_targets_python3_14? ( https://files.pythonhosted.org/packages/5f/ba/4699cde04a52cece66cbebc85bd8335a0d3b9ad485abc9a2e15946a1349d/${P}-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl -> ${P}-cp314.whl.zip )
+	python_targets_python3_12? ( ${PY312_URL} -> ${P}-cp312.whl.zip )
+	python_targets_python3_13? ( ${PY313_URL} -> ${P}-cp313.whl.zip )
+	python_targets_python3_14? ( ${PY314_URL} -> ${P}-cp314.whl.zip )
 "
 
 S="${WORKDIR}"

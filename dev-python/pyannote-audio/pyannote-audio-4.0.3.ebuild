@@ -38,7 +38,8 @@ inherit distutils-r1
 
 DESCRIPTION="State-of-the-art speaker diarization toolkit"
 HOMEPAGE="https://github.com/pyannote/pyannote-audio"
-SRC_URI="https://files.pythonhosted.org/packages/41/ee/ce292efdb0d0637b8adc1fbb5834f9f1e5d5ca574f1ed943b9d4f8927196/pyannote_audio-${PV}.tar.gz"
+SDIST_URL="https://files.pythonhosted.org/packages/41/ee/ce292efdb0d0637b8adc1fbb5834f9f1e5d5ca574f1ed943b9d4f8927196/pyannote_audio-${PV}.tar.gz"
+SRC_URI="${SDIST_URL}"
 
 LICENSE="MIT"
 SLOT="0"
