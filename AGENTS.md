@@ -168,6 +168,21 @@ the build host's actual Python versions. Check the eclass's
 
 ## Verified gotchas (overlay-specific)
 
+- **`artifactory.thehavennet.org.uk/artifactory/gentoo-mirror` only mirrors
+  the three official Gentoo distfile sources** (`distfiles.gentoo.org`,
+  `mirror.bytemark.co.uk/gentoo`, `mirrorservice.org/sites/distfiles.gentoo.org`).
+  If a file does not live in one of those upstream repositories it will NOT
+  be made available there — it is for official Gentoo ebuilds, not
+  third-party artefacts. Do NOT rely on it for custom vendor tarballs
+  (`*-node_modules-*.tar.xz`, models JSON, `*-deps.tar.xz`): they 404
+  (verified 2026-08-29 — cache cleaned, gone permanently). The failure mode
+  is silent: `ebuild manifest` aborts on the missing file and
+  `ebuild-updater`'s bump stage rolls back, so the package stops updating
+  with no operator-visible error. Use source-based builds
+  (`inherit bun`/`npm` + `RESTRICT="network-sandbox"`), upstream release
+  assets, or operator-hosted files on `dev.gentoo.org/~haven` (uploaded per
+  version before the bump runs).
+
 - **`masked by: corruption` is secondary.** It appears when portage fails
   to load an ebuild and falls back to other versions; the local metadata
   cache is stale. Fix the primary ebuild error first, then
