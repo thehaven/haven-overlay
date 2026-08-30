@@ -6,8 +6,8 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import axios from "axios";
 
-const API_KEY = process.env.OBSIDIAN_API_KEY;
-const API_HOST = process.env.OBSIDIAN_API_HOST || "http://localhost:27124";
+const API_KEY = process.env.OBSIDIAN_API_KEY || "";
+const API_HOST = process.env.OBSIDIAN_BASE_URL || process.env.OBSIDIAN_API_HOST || "http://localhost:27124";
 
 const client = axios.create({
   baseURL: API_HOST,

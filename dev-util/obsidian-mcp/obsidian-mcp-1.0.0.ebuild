@@ -13,6 +13,9 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+# npm needs the registry at build time to vendor deps
+RESTRICT="network-sandbox"
+
 RDEPEND="
 	>=net-libs/nodejs-18
 "
@@ -20,21 +23,25 @@ RDEPEND="
 S="${WORKDIR}"
 
 src_install() {
+	# Vendor npm deps at build time (the old wrapper's runtime `npm install`
+	# was fragile and failed silently under --silent).
+	cp "${FILESDIR}/index.js" "${S}/index.js" || die
+	pushd "${S}" >/dev/null || die
+	npm install --no-audit --no-fund @modelcontextprotocol/sdk axios || die
+	popd >/dev/null || die
+
 	insinto /opt/obsidian-mcp
-	doins "${FILESDIR}/index.js"
-	
+	doins "${S}/index.js"
+	doins -r "${S}/node_modules"
+
 	systemd_dounit "${FILESDIR}/obsidian-mcp@.service"
-	
-	# Create a wrapper script
+
+	# Create a wrapper script (no runtime install)
 	cat <<-'INNER_EOF' > obsidian-mcp
 		#!/bin/bash
-		cd /opt/obsidian-mcp
-		if [ ! -d "node_modules" ]; then
-			npm install @modelcontextprotocol/sdk axios --silent
-		fi
-		exec node index.js "$@"
+		exec node /opt/obsidian-mcp/index.js "$@"
 	INNER_EOF
-	
+
 	dobin obsidian-mcp
 }
 

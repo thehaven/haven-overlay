@@ -26,20 +26,29 @@ src_prepare() {
 	default
 
 	# Upstream ships slide_layout_templates.json at the project root and lists
-	# it in [tool.hatch.build.targets.wheel] only-include. utils/template_utils.py
-	# (lines 197, 495) looks it up via os.path.join(dirname(__file__), ...), so
-	# the runtime path is site-packages/utils/slide_layout_templates.json.
-	# The pyproject.toml list also includes enhanced_slide_templates.json which
-	# is not actually shipped in the tarball (hatch warns at build time).
-	# Move the file to its expected runtime location, then prune both stale
-	# entries from only-include (the existing "utils/" glob picks up the move).
+	# it in [tool.hatch.build.targets.wheel] only-include. Installed
+	# utils/template_utils.py (lines 197, 495) resolves it via
+	# dirname(dirname(__file__)) -> site-packages ROOT. Move the file into
+	# utils/ (so the wheel installs it under the package, passing the
+	# distutils-r1 stray-file guard) and copy it to the root in
+	# python_install() below. enhanced_slide_templates.json is listed in
+	# only-include but is not shipped in the tarball (hatch warns at build
+	# time) - prune it.
 	mv slide_layout_templates.json utils/slide_layout_templates.json || die
 	sed -i \
 		-e 's/, "slide_layout_templates.json"//g' \
 		-e 's/, "enhanced_slide_templates.json"//g' \
 		pyproject.toml || die
+
+	# Installed utils/template_utils.py resolves the template via
+	# dirname(dirname(__file__)) -> site-packages ROOT, but the file lives in
+	# utils/. Point the lookup at dirname(__file__) so it finds the file the
+	# wheel actually installs.
+	sed -i \
+		-e 's|os\.path\.dirname(os\.path\.dirname(os\.path\.abspath(__file__)))|os.path.dirname(os.path.abspath(__file__))|g' \
+		utils/template_utils.py || die
 }
 
-src_install() {
-	distutils-r1_src_install
+python_install() {
+	distutils-r1_python_install
 }

@@ -23,6 +23,7 @@ RDEPEND="
 	dev-python/markdown-it-py[${PYTHON_USEDEP}]
 	dev-python/httpx[${PYTHON_USEDEP}]
 	dev-python/curl-cffi[${PYTHON_USEDEP}]
+	dev-python/defusedxml[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
 	dev-python/prometheus-client[${PYTHON_USEDEP}]
 	mcp? ( dev-python/mcp[${PYTHON_USEDEP}] )
