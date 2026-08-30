@@ -1,0 +1,9 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Official GitHub MCP server (Go)
+EAPI=8
+HOMEPAGE=https://github.com/github/github-mcp-server
+KEYWORDS=~amd64
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/github/github-mcp-server/releases/download/v1.11.0/github-mcp-server_Linux_x86_64.tar.gz
+_md5_=318c2939e4b2d5f2622cc4fcfd179409
