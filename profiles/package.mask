@@ -35,3 +35,19 @@ www-servers/yaws
 # Dead upstream: jellyfin server tarballs removed from repo.jellyfin.org
 # (410 Gone) and GitHub releases ship no assets (verified 2026-08-29).
 media-tv/jellyfin-bin
+
+# Hold mcp at 1.28.x: mcp-server-time and fastmcp in this overlay both
+# declare <dev-python/mcp-2, and there is no upstream release that lifts
+# this ceiling yet. Re-evaluate when those dependents bump their mcp floor.
+>=dev-python/mcp-2.0.0
+
+# Hold protobuf at 6.x: mem0ai (latest upstream 2.0.19) still pins
+# <dev-python/protobuf-7.0.0 in its pyproject.toml. Re-evaluate when
+# mem0ai lifts the ceiling upstream.
+>=dev-python/protobuf-7.0.0
+
+# Hold edk2-bin at 202408: app-emulation/qemu 10.2.3-r1 declares
+# EDK2_OVMF_VERSION="202408" with the ~ version operator, and the gentoo
+# 202411/202511/202605 binaries don't match. Re-evaluate when qemu bumps
+# EDK2_OVMF_VERSION.
+>sys-firmware/edk2-bin-202408
