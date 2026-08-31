@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		OpenMemory Node.js SDK + server (Apache-2.0). The LongMemory framework
+		(CaviraOSS/LongMemory) ships a Python server and a Node.js SDK; this
+		package is the Node side. Installs the prebuilt dist + bundled
+		node_modules so the server can run without an extra fetch step.
+	</longdescription>
+	<upstream>
+		<remote-id type="npm">openmemory-js</remote-id>
+		<remote-id type="github">CaviraOSS/LongMemory</remote-id>
+	</upstream>
+</pkgmetadata>
