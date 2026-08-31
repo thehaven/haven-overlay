@@ -44,4 +44,21 @@ hold = [
     # Server tarballs removed from repo.jellyfin.org (410) and GitHub
     # releases ship no assets; masked in profiles/package.mask.
     "media-tv/jellyfin-bin",
+    # Phantom-crate class (2026-08-31 field finding): the bumped
+    # ebuild's cargo lockfile references crate versions that don't
+    # exist on static.crates.io (S3 AccessDenied for missing objects).
+    # Holds until upstream Cargo.lock is regenerated against versions
+    # that actually exist. Probe evidence (UA Mozilla/5.0):
+    #   ast-serialize                 → heck-0.8.0 (real max 0.5.0)
+    #   jsonschema-rs                 → windows-sys-0.52.1 (missing)
+    #   tirith                        → deranged-0.4.01 (missing)
+    #   syntax-checker                → regex-automata-0.4.24 (missing)
+    #   tree-sitter-language-pack     → ext-php-rs-clang-sys-1.15.8 (missing)
+    #   agnix                         → aws-lc-sys-0.52.1 (missing)
+    "dev-python/ast-serialize",
+    "dev-python/jsonschema-rs",
+    "app-misc/tirith",
+    "dev-python/syntax-checker",
+    "dev-python/tree-sitter-language-pack",
+    "dev-util/agnix",
 ]
