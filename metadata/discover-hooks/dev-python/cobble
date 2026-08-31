@@ -1,0 +1,4 @@
+_schema = 1
+source = "jq"
+url = "https://pypi.org/pypi/cobble/json"
+filter = ".info.version"
