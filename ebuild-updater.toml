@@ -61,4 +61,12 @@ hold = [
     "dev-python/syntax-checker",
     "dev-python/tree-sitter-language-pack",
     "dev-util/agnix",
+    # mcp 2.x breaks mcp-server-time and fastmcp in this overlay (both
+    # declare <dev-python/mcp-2). Re-evaluate when those dependents
+    # bump their mcp floor.
+    "dev-python/mcp",
+    # mem0ai 2.0.19 (latest upstream) still pins '<dev-python/protobuf-7.0.0>' in pyproject.toml.. Re-evaluate when mem0ai lifts the ceiling upstream.
+    # System-level /etc/portage/package.mask also blocks >=protobuf-7.0.0
+    # for @world until then.
+    "dev-python/mem0ai",
 ]
