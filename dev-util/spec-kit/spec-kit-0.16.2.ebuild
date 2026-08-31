@@ -20,7 +20,7 @@ RDEPEND="
 	>=dev-python/click-8.1[${PYTHON_USEDEP}]
 	>=dev-python/httpx-0.20.0[${PYTHON_USEDEP}]
 	dev-python/httpx-socks[${PYTHON_USEDEP}]
-	>=dev-python/json5-0.16.2[${PYTHON_USEDEP}]
+	>=dev-python/json5-0.13.0[${PYTHON_USEDEP}]
 	>=dev-python/packaging-23.0[${PYTHON_USEDEP}]
 	>=dev-python/pathspec-0.12.0[${PYTHON_USEDEP}]
 	dev-python/platformdirs[${PYTHON_USEDEP}]
