@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Microsoft Authentication Library (MSAL) for Python. Pulled into
+		the overlay to satisfy openmemory-py's msal&gt;=1.0 dependency
+		(not in ::gentoo).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">msal</remote-id>
+		<remote-id type="github">AzureAD/microsoft-authentication-library-for-python</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Convert Word documents (.docx files) to HTML and Markdown.
+		Pulled into the overlay to satisfy openmemory-py's
+		mammoth&gt;=1.6 dependency (not in ::gentoo).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">mammoth</remote-id>
+		<remote-id type="github">mwilliamson/python-mammoth</remote-id>
+	</upstream>
+</pkgmetadata>

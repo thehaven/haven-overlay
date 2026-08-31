@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Tiny helper library for building data objects with explicit fields.
+		Pulled into the overlay to satisfy mammoth's cobble&lt;0.2,&gt;=0.1.3
+		dependency (not in ::gentoo).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">cobble</remote-id>
+		<remote-id type="github">mwilliamson/python-cobble</remote-id>
+	</upstream>
+</pkgmetadata>
