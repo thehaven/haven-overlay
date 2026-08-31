@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexxy@gentoo.org</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Base SDK for OpenCode plugins (Plugin type, tool schema, TUI
+		helpers). Shipped separately from the opencode CLI because
+		plugins under /usr/lib64/node_modules need to resolve it as
+		an external npm dep — the opencode CLI bundles its own copy
+		inside the single-file binary.
+	</longdescription>
+	<upstream>
+		<remote-id type="npm">@opencode-ai/plugin</remote-id>
+		<remote-id type="github">anomalyco/opencode</remote-id>
+	</upstream>
+</pkgmetadata>
