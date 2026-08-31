@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		CodeWeaver walks a project tree and emits a single Markdown document
+		containing the directory layout plus the contents of every source
+		file. The output is intended for prompt engineering and codebase
+		review workflows where a single navigable artefact is more useful
+		than a directory of separate files.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">tesserato/CodeWeaver</remote-id>
+	</upstream>
+</pkgmetadata>
