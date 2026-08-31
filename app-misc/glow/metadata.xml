@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Glow is a stylish, opinionated terminal-based markdown reader that
+		renders local markdown files (or files served by a Tailscale node)
+		inside the terminal. It uses Glamour under the hood and supports
+		pagers, a stash for pinned documents, and a multi-document browser.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">charmbracelet/glow</remote-id>
+	</upstream>
+</pkgmetadata>
