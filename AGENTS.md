@@ -247,6 +247,84 @@ the build host's actual Python versions. Check the eclass's
   [`scripts/verify-git-uris.sh`](scripts/verify-git-uris.sh) after any
   change that touches `EGIT_REPO_URI` — it probes every URI as the portage
   user, the only context that matches a real build.
+## Retention rename workflow
+
+When a commit renames a package in this overlay (e.g. the
+`2d581104 retention: remove 14 duplicate packages` commit that moved
+`dev-util/rtk` to `app-misc/rtk`), the commit itself can only redirect
+*internal* ebuild dependents. The operator's `/var/lib/portage/world`
+and any installed instances of the old atom are out of the commit's reach.
+
+**Required steps in the commit message.** Every rename-bearing commit must
+spell out the operator workflow that follows it; otherwise the operator
+runs the obvious-but-wrong four-step transition and ends up with the old
+atom unmerged and the new one not installed. The wrong sequence:
+
+```bash
+emerge --deselect <old>            # edits world
+emerge --select <new>               # edits world
+emerge <new>                        # FAILS at pkg_preinst (file collision
+                                    #   against the still-installed old)
+emerge --unmerge <old>              # succeeds — too late, <new> never installed
+```
+
+Net effect (verified incident 2026-09-01): `/usr/bin/rtk` and
+`/usr/lib64/node_modules/opencode-antigravity-auth/` were gone, neither
+replacement installed, no recovery until `emerge app-misc/rtk` was run
+explicitly.
+
+### Right sequence
+
+```bash
+# 1. Unmerge the old atom first (clears /var/db/pkg/<old> and owned files)
+emerge --unmerge <old>
+# 2. Then --deselect / --select / emerge
+emerge --deselect <old>
+emerge --select <new>
+emerge <new>
+```
+
+Or run the bundled helper which does all four steps in the correct order
+and skips ones that no longer apply (idempotent):
+
+```bash
+sudo scripts/retention-rename.sh [--dry-run|--pretend] <old-atom> <new-atom> [<old> <new> ...]
+```
+
+`--dry-run` prints what would happen. `--pretend` invokes `emerge
+--pretend` for the install step (real dep solver, no filesystem writes) but
+still dry-runs unmerge/deselect/select. Use `--pretend` as the smoke test
+before committing to a real run.
+
+### Checklist for the commit message
+
+If the commit renames atoms, the body must include:
+
+```text
+## Operator follow-up
+
+This commit renames the following packages:
+  <old-cat>/<old-pkg>  ->  <new-cat>/<new-pkg>
+
+To complete the transition on each host that has <old-cat>/<old-pkg>
+installed, run:
+
+  sudo scripts/retention-rename.sh <old-cat>/<old-pkg> <new-cat>/<new-pkg>
+
+Or manually:
+  emerge --unmerge <old-cat>/<old-pkg>
+  emerge --deselect <old-cat>/<old-pkg>
+  emerge --select    <new-cat>/<new-pkg>
+  emerge             <new-cat>/<new-pkg>
+
+Hosts without <old-cat>/<old-pkg> installed (fresh installs, future
+operators) need only the last `emerge <new>` step.
+```
+
+Without this block, the operator either guesses and gets the wrong order,
+or doesn't notice the rename at all (until the next `emerge --pretend
+@world` shows `<old-cat>/<old-pkg>: no ebuilds to satisfy`).
+
 ## External infra this overlay depends on
 
 - `https://gitlab-ee.thehavennet.org.uk` — overlay remote, and source
@@ -291,6 +369,11 @@ sudo /var/db/repos/haven-overlay/scripts/verify-git-uris.sh
 
 # Smoke test MCP binaries after a packaging change
 sudo /var/db/repos/haven-overlay/scripts/verify-mcp.sh
+
+# Apply a retention rename (old -> new atom pairs) on this host. Idempotent;
+# run --dry-run first to see what would happen, --pretend to also invoke
+# `emerge --pretend` for the install step without filesystem writes.
+sudo /var/db/repos/haven-overlay/scripts/retention-rename.sh [--dry-run|--pretend] <old> <new> ...
 
 # Run ebuild metadata tests
 pytest /var/db/repos/haven-overlay/scripts/tests/
