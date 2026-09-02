@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=hatchling
+DISTUTILS_USE_PEP517=uv-build
 PYPI_PN="pagerduty"
 PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 pypi
@@ -21,8 +21,3 @@ RDEPEND="
 
 distutils_enable_tests pytest
 
-src_prepare() {
-	distutils-r1_src_prepare
-	# Patch uv_build to hatchling.build
-	sed -i 's/build-backend = "uv_build"/build-backend = "hatchling.build"/' pyproject.toml || die
-}
