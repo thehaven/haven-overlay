@@ -247,6 +247,32 @@ the build host's actual Python versions. Check the eclass's
   [`scripts/verify-git-uris.sh`](scripts/verify-git-uris.sh) after any
   change that touches `EGIT_REPO_URI` — it probes every URI as the portage
   user, the only context that matches a real build.
+
+- **`DISTUTILS_USE_PEP517` must match upstream `pyproject.toml` `build-backend`.
+  Always verify per-version — never assume sibling ebuilds share a build
+  backend.** Upstream Python projects change build backends between minor
+  versions (setuptools → hatchling, poetry → maturin, hatchling → uv-build,
+  etc.); `ebuild-updater bump` copies the LATEST ebuild as the new-version
+  template, so the stale value propagates to every future bump until
+  someone notices. Symptom is a hard die in `src_compile`:
+  `DISTUTILS_UPSTREAM_PEP517 does not match pyproject.toml! ... DISTUTILS_USE_PEP517 value incorrect`.
+  Verified 2026-09-02 across **47 ebuilds in 11 packages** (face, stripe,
+  b2sdk, copier, httpx-retries, langfuse, litellm, pagerduty,
+  phx-class-registry, pyacoustid, solana). The trigger case was
+  `face-26.0.1`; an audit found 46 more. Anti-pattern: a sibling fix
+  assumed `face-26.0.0` shared the backend with 26.0.1 — it didn't
+  (`26.0.0` is `setuptools.build_meta`, `26.0.1` is `flit_core.buildapi`).
+  Same class on `phx-class-registry`: 5.1.1 uses poetry, 5.2.1/5.2.2 use
+  hatchling. **Always extract `pyproject.toml` from the specific
+  tarball** and grep `build-backend`. Detection: an audit script
+  (`/tmp/opencode/pep517-audit/audit.py`, to be promoted to
+  `scripts/audit_pep517_backend_drift.py` per
+  [`openspec/changes/add-pep517-backend-drift-scan/`](openspec/changes/add-pep517-backend-drift-scan/))
+  scans every `dev-python/*/*.ebuild`, compares against the cached tarball
+  in `/usr/portage-distfiles/`, and reports the canonical
+  `DISTUTILS_USE_PEP517` value via the skill mapping table. `ebuild-updater
+  cleanup scan` should also pick this up (openspec filed).
+
 ## Retention rename workflow
 
 When a commit renames a package in this overlay (e.g. the
