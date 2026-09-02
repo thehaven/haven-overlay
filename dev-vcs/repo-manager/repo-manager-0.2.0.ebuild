@@ -19,6 +19,7 @@ BDEPEND=">=dev-lang/go-1.25.0"
 
 src_unpack() {
 	git-r3_src_unpack
+	cd "${S}" || die
 	ego mod download
 }
 
