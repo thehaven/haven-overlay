@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription lang="en">
+		Manage all your git repositories with a local SQLite metadata store.
+		Features hardened git clones, frecency-ranked navigation with interactive
+		fzf disambiguation, offline Layer-0 heuristic classification, repository
+		adoption, and store-filesystem drift reconciliation.
+	</longdescription>
+	<upstream>
+		<remote-id type="gitlab">haven/repo-manager</remote-id>
+	</upstream>
+</pkgmetadata>
