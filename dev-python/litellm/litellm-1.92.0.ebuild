@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=poetry
+DISTUTILS_USE_PEP517=maturin
 # litellm 1.92.0 requires Python <3.14,>=3.10 (PyPI requires_python)
 PYTHON_COMPAT=( python3_{12..15} )
 PYPI_PN="litellm"
