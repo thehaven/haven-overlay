@@ -45,11 +45,10 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.1.1-add-utils-c.patch
 	"${FILESDIR}"/${PN}-1.1.1-add-utils-h.patch
 	"${FILESDIR}"/${PN}-1.7.0-fix-git.patch
-	"${FILESDIR}"/${PN}-1.8.0-fix-makefile.patch
+	"${FILESDIR}"/${PN}-1.20.0-fix-makefile.patch
 	"${FILESDIR}"/${PN}-1.1.1-fix-nvc.patch
 	"${FILESDIR}"/${PN}-1.3.0-fix-nvc-info.patch
 	"${FILESDIR}"/${PN}-1.3.0-fix-nvc-mount.patch
 	"${FILESDIR}"/${PN}-1.3.0-fix-modprobe-utils-c.patch
 	"${FILESDIR}"/${PN}-1.3.0-fix-modprobe-utils-h.patch
-	"${FILESDIR}"/${PN}-1.8.0-fix-nvcgomk.patch
 )
