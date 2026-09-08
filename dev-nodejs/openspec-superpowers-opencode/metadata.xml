@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		openspec-superpowers-opencode (oso) is a pure Node.js CLI that bridges
+		Superpowers + OpenSpec workflows into OpenCode with enforced git-worktree
+		isolation. It provides one-command init, per-change isolated worktrees, a
+		13-command OPSX lifecycle, and SHA-256-verified skill deployment. Zero
+		runtime npm dependencies; it shells out to the openspec CLI, opencode,
+		and git at runtime.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">moyaspace/openspec-superpowers-opencode</remote-id>
+	</upstream>
+</pkgmetadata>
