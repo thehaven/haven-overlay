@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription lang="en">
+		Control, inspect, test, and record real shell sessions and full-screen
+		terminal apps on Windows, Linux, and macOS. The CLI exposes the same
+		terminal actions as the Rust, Python, and JavaScript libraries, and
+		also runs an optional per-session daemon for AI agents that need
+		structured access to terminal state. The Rust library and CLI use
+		ghostty, rio, and xterm.js virtual terminals, and can record sessions
+		to APNG/GIF/MP4 with the bundled JetBrains Mono font.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">microsoft/tui-test</remote-id>
+	</upstream>
+</pkgmetadata>
