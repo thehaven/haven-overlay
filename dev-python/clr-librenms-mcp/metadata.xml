@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		MCP (Model Context Protocol) server for LibreNMS network
+		monitoring. Exposes read/write tools for devices, alerts,
+		sensors, ports, ARP/FDB lookups, inventory and IPAM against
+		the LibreNMS REST API v0, with X-Auth-Token authentication.
+		Built on FastMCP; stdio transport by default, HTTP optional.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">clearminds/clr-librenms-mcp</remote-id>
+		<remote-id type="pypi">clr-librenms-mcp</remote-id>
+	</upstream>
+</pkgmetadata>

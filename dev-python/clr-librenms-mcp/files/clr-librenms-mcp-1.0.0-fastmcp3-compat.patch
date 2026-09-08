@@ -1,0 +1,76 @@
+# Drop the ToolValidationMiddleware (fastmcp 2.x-only API).
+#
+# clr-librenms-mcp 1.0.0 imports fastmcp.server.middleware.Middleware and
+# fastmcp.exceptions.ToolError unconditionally. Those modules only exist in
+# fastmcp 2.x; fastmcp 3.x/4.x removed them, so the server dies with an
+# ImportError at startup against the overlay's fastmcp (3.4.2+). The
+# middleware only prettifies Pydantic argument-validation error messages;
+# removing it loses that cosmetic formatting and nothing else. This lets the
+# package coexist with the overlay's fastmcp 3.x/4.x (15 other ebuilds
+# require >=3.0.0, so pinning fastmcp 2.14.x is not an option).
+--- a/src/clr_librenms_mcp/server.py
++++ b/src/clr_librenms_mcp/server.py
+@@ -11,10 +11,8 @@
+ 
+ from clr_librenms_mcp.config import Settings
+ from clr_librenms_mcp.librenms_client import LibreNMSClient
+-from clr_librenms_mcp.middleware import ToolValidationMiddleware
+ 
+ mcp = FastMCP("LibreNMS")
+-mcp.add_middleware(ToolValidationMiddleware())
+ _client: LibreNMSClient | None = None
+ 
+ # Imported here (not at the top) on purpose: annotations.py needs ``mcp`` from
+--- a/src/clr_librenms_mcp/middleware.py
++++ /dev/null
+@@ -1,50 +0,0 @@
+-"""Middleware for friendlier tool validation errors."""
+-
+-from __future__ import annotations
+-
+-from typing import Any
+-
+-from pydantic import ValidationError
+-
+-from fastmcp.exceptions import ToolError
+-from fastmcp.server.middleware import Middleware
+-
+-
+-class ToolValidationMiddleware(Middleware):
+-    """Catch Pydantic validation errors and return clear, actionable messages."""
+-
+-    async def on_call_tool(self, context: Any, call_next: Any) -> Any:
+-        try:
+-            return await call_next(context)
+-        except ValidationError as exc:
+-            tool_name = context.message.name
+-            provided = context.message.arguments or {}
+-
+-            missing: list[str] = []
+-            unexpected: list[str] = []
+-            other: list[str] = []
+-
+-            for err in exc.errors():
+-                field = str(err["loc"][0]) if err["loc"] else "?"
+-                err_type = err["type"]
+-                if err_type == "missing" or err_type == "missing_argument":
+-                    missing.append(field)
+-                elif err_type in ("unexpected_keyword_argument", "extra_forbidden"):
+-                    unexpected.append(field)
+-                else:
+-                    other.append(f"  {field}: {err['msg']}")
+-
+-            parts = [f"Wrong arguments for '{tool_name}'."]
+-            if missing:
+-                parts.append(f"Required: {', '.join(missing)}")
+-            if unexpected:
+-                parts.append(f"Unexpected: {', '.join(unexpected)}")
+-            if missing and unexpected and len(missing) == 1 and len(unexpected) == 1:
+-                parts.append(
+-                    f"Hint: use '{missing[0]}' instead of '{unexpected[0]}'."
+-                )
+-            if other:
+-                parts.extend(other)
+-            parts.append(f"You provided: {sorted(provided.keys())}")
+-
+-            raise ToolError("\n".join(parts)) from exc
