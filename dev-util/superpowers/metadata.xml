@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Superpowers is an agentic skills framework by Jesse Vincent (obra),
+		originally built for Claude Code and now supporting OpenCode and other
+		AI harnesses. It ships a collection of Markdown skills plus a small
+		per-harness plugin. For OpenCode, the plugin auto-registers the skills
+		directory via a config hook and injects bootstrap context into the
+		first user message of each session.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">obra/superpowers</remote-id>
+	</upstream>
+</pkgmetadata>
