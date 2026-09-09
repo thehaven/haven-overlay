@@ -1,0 +1,24 @@
+--- a/mcp_server_time/server.py	2020-02-02 00:00:00.000000000 +0000
++++ b/mcp_server_time/server.py	2026-09-08 23:15:32.256603715 +0100
+@@ -9,7 +9,10 @@
+ from mcp.server import Server
+ from mcp.server.stdio import stdio_server
+ from mcp.types import Tool, ToolAnnotations, TextContent, ImageContent, EmbeddedResource, ErrorData, INVALID_PARAMS
+-from mcp.shared.exceptions import McpError
++try:
++    from mcp.shared.exceptions import MCPError
++except ImportError:
++    from mcp.shared.exceptions import McpError
+ 
+ from pydantic import BaseModel
+ 
+@@ -54,7 +57,7 @@
+     try:
+         return ZoneInfo(timezone_name)
+     except Exception as e:
+-        raise McpError(ErrorData(code=INVALID_PARAMS, message=f"Invalid timezone: {str(e)}"))
++        raise MCPError(ErrorData(code=INVALID_PARAMS, message=f"Invalid timezone: {str(e)}"))
+ 
+ 
+ class TimeServer:
+

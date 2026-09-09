@@ -11,6 +11,8 @@ HOMEPAGE="https://github.com/modelcontextprotocol/servers/tree/main/src/time"
 SRC_URI="https://files.pythonhosted.org/packages/ad/d9/fcc7f85f0cdcfa8da9c650439128dd72be21855a126b745f17cf43f24b11/mcp_server_time-${PV}-py3-none-any.whl"
 S="${WORKDIR}"
 
+PATCHES=( "${FILESDIR}/mcp-server-time-2026.8.18-mcp2-compat.patch" )
+
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -20,7 +22,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
-		<dev-python/mcp-2[${PYTHON_USEDEP}]
+		<dev-python/mcp-3[${PYTHON_USEDEP}]
 		>=dev-python/pydantic-2.0.0[${PYTHON_USEDEP}]
 		>=dev-python/tzdata-2024.2[${PYTHON_USEDEP}]
 		>=dev-python/tzlocal-5.3.1[${PYTHON_USEDEP}]
@@ -32,6 +34,10 @@ BDEPEND="app-arch/unzip"
 
 src_unpack() {
 	unzip -q "${DISTDIR}/${A}" -d "${S}" || die
+}
+
+src_prepare() {
+	default
 }
 
 src_install() {
