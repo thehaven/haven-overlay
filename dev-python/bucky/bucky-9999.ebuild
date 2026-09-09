@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/cloudant/bucky.git"
 
 LICENSE="BSD-4"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="runit"
 
 DEPEND=""

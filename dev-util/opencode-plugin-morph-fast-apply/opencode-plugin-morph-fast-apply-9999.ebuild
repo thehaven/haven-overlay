@@ -9,7 +9,7 @@ SRC_URI="https://github.com/JRedeker/opencode-morph-fast-apply/archive/refs/head
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS=""
 
 RESTRICT="network-sandbox test"
 

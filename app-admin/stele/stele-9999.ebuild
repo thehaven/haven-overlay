@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/stele.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 RESTRICT="network-sandbox"
 
 IUSE="mcp pdf"

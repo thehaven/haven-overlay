@@ -13,7 +13,7 @@ EGIT_REPO_URI="file:///storage/home/haven/projects/services/librarian"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 RESTRICT="network-sandbox"
 
 RDEPEND="dev-vcs/git"

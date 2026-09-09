@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 RDEPEND="
 	acct-group/cortex

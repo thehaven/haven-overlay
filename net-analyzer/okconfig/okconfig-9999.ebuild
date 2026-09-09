@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/opinkerfi/okconfig.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-python/paramiko
