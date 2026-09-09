@@ -17,7 +17,7 @@
 # exactly equivalent to the legacy top-level [overlay] form for the
 # canonical haven-overlay repo.
 
-[repos.haven]
+[repos.haven-overlay]
 path    = "/var/db/repos/haven-overlay"
 enabled = true
 
@@ -29,7 +29,7 @@ enabled = true
 # Atom syntax is category/package (not version-pinned); the matching
 # code is `cp in cfg.pipeline.hold` at pipeline.py:378. To pin
 # multiple atoms, append: hold = ["dev-db/solr", "dev-java/openjdk-bin"]
-[repos.haven.pipeline]
+[repos.haven-overlay.pipeline]
 hold = [
     "dev-db/solr",
     # Upstream ships -rc-only releases (no release object for plain
