@@ -10,11 +10,11 @@ inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Vault knowledge agent — search, RAG, and ingestion for Obsidian"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
-EGIT_REPO_URI="file:///storage/home/haven/projects/services/cortex"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex.git"
 
-KEYWORDS="~amd64"
-LICENSE="Proprietary"
+LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	acct-group/cortex
@@ -37,9 +37,9 @@ distutils_enable_tests pytest
 
 src_install() {
 	distutils-r1_src_install
-	
+
 	systemd_dounit "${FILESDIR}/cortex.service"
-	
+
 	if [[ -f docs/cortex.1 ]]; then
 		doman docs/cortex.1
 	fi
@@ -59,7 +59,6 @@ pkg_config() {
 		chmod 0600 "${env_file}"
 	fi
 }
-
 
 pkg_postinst() {
 	elog "To add this MCP server to your AI clients:"

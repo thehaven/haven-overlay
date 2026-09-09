@@ -9,55 +9,55 @@ PYTHON_COMPAT=( python3_{12..14} )
 inherit distutils-r1 git-r3 systemd
 
 DESCRIPTION="Vault knowledge agent — search, RAG, and ingestion for Obsidian"
-HOMEPAGE="ssh://git@gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
-EGIT_REPO_URI="file:///storage/home/haven/projects/services/cortex"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex.git"
 
-KEYWORDS="**"
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64"
 
 RDEPEND="
-        acct-group/cortex
-        acct-user/cortex
-        dev-python/pydantic[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/pydantic-settings[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/typer[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/rich[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/pyyaml[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/tiktoken[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/httpx[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/mcp[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/structlog[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/sqlite-vec[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/networkx[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/watchfiles[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
-        dev-python/psutil[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?]
+	acct-group/cortex
+	acct-user/cortex
+	dev-python/pydantic[${PYTHON_USEDEP}]
+	dev-python/pydantic-settings[${PYTHON_USEDEP}]
+	dev-python/typer[${PYTHON_USEDEP}]
+	dev-python/rich[${PYTHON_USEDEP}]
+	dev-python/pyyaml[${PYTHON_USEDEP}]
+	dev-python/tiktoken[${PYTHON_USEDEP}]
+	dev-python/httpx[${PYTHON_USEDEP}]
+	dev-python/mcp[${PYTHON_USEDEP}]
+	dev-python/structlog[${PYTHON_USEDEP}]
+	dev-python/sqlite-vec[${PYTHON_USEDEP}]
+	dev-python/networkx[${PYTHON_USEDEP}]
+	dev-python/watchfiles[${PYTHON_USEDEP}]
+	dev-python/psutil[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
 
 src_install() {
-        distutils-r1_src_install
-        insinto /etc/cortex
-        doins "${FILESDIR}/cortex.yaml"
-        systemd_dounit "${FILESDIR}/cortex.service"
-        if [[ -f docs/cortex.1 ]]; then
-                doman docs/cortex.1
-        fi
+	distutils-r1_src_install
+	insinto /etc/cortex
+	doins "${FILESDIR}/cortex.yaml"
+	systemd_dounit "${FILESDIR}/cortex.service"
+	if [[ -f docs/cortex.1 ]]; then
+		doman docs/cortex.1
+	fi
 }
 
 pkg_postinst() {
-        elog "To add this MCP server to your AI clients:"
-        elog ""
-        elog "  Gemini CLI (~/.gemini/settings.json):"
-        elog "    \"${PN}\": {"
-        elog "      \"command\": \"/usr/bin/cortex\","
-        elog "      \"args\": [\"mcp\"]"
-        elog "    }"
-        elog ""
-        elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
-        elog "    \"${PN}\": {"
-        elog "      \"command\": \"/usr/bin/cortex\","
-        elog "      \"args\": [\"mcp\"]"
-        elog "    }"
+	elog "To add this MCP server to your AI clients:"
+	elog ""
+	elog "  Gemini CLI (~/.gemini/settings.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/cortex\","
+	elog "      \"args\": [\"mcp\"]"
+	elog "    }"
+	elog ""
+	elog "  Claude Desktop (~/.config/Claude/claude_desktop_config.json):"
+	elog "    \"${PN}\": {"
+	elog "      \"command\": \"/usr/bin/cortex\","
+	elog "      \"args\": [\"mcp\"]"
+	elog "    }"
 }
