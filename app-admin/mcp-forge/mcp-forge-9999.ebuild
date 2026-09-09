@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/ai-ml/mcp-forge.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 RESTRICT="network-sandbox"
 
 python_test() {
