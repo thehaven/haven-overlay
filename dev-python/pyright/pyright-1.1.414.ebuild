@@ -1,0 +1,37 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DESCRIPTION="Static type checker and LSP server for Python"
+HOMEPAGE="https://github.com/microsoft/pyright"
+SRC_URI="https://github.com/microsoft/pyright/releases/download/${PV}/${PN}.tgz -> ${P}.tgz"
+S="${WORKDIR}"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+
+RDEPEND="net-libs/nodejs"
+BDEPEND="net-libs/nodejs[npm]"
+
+src_install() {
+	local mynpmargs=(
+		--audit false
+		--color false
+		--foreground-scripts
+		--global
+		--offline
+		--omit dev
+		--prefix "${ED}/usr"
+		--progress false
+		--save false
+		--verbose
+	)
+
+	npm "${mynpmargs[@]}" install "${DISTDIR}/${P}.tgz" || die "npm install failed"
+}
+
+pkg_postinst() {
+	elog "pyright ${PV}: LSP server at /usr/$(get_libdir)/node_modules/pyright/langserver.index.js"
+}
