@@ -1,0 +1,4 @@
+schema: fix
+skip_specs: true
+created: 2026-09-16
+goal: Pin dev-python/mcp below 2.x for every ebuild that imports mcp.server.fastmcp (removed in mcp 2.x)
