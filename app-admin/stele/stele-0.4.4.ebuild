@@ -18,6 +18,8 @@ RESTRICT="network-sandbox"
 
 IUSE="mcp pdf"
 
+# mcp 2.x removed mcp.server.fastmcp (FastMCP moved to
+# mcp.server.mcpserver); 1.29.x is not packaged in this overlay.
 RDEPEND="
 	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/markdown-it-py[${PYTHON_USEDEP}]
@@ -25,7 +27,10 @@ RDEPEND="
 	dev-python/curl-cffi[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
 	dev-python/prometheus-client[${PYTHON_USEDEP}]
-	mcp? ( dev-python/mcp[${PYTHON_USEDEP}] )
+	mcp? (
+		>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
+		<dev-python/mcp-2[${PYTHON_USEDEP}]
+	)
 	pdf? ( dev-python/marker-pdf[${PYTHON_USEDEP}] )
 "
 
