@@ -38,6 +38,18 @@ def _parse_var(text: str, name: str) -> str:
     return m.group(1) if m else ""
 
 
+def _pv_key(name: str) -> tuple[int, ...]:
+    """Numeric sort key for an ebuild filename (handles 0.9.10 > 0.9.5)."""
+    pv = name[: -len(".ebuild")].rsplit("-", 1)[1]
+    return tuple(int(x) for x in pv.split("."))
+
+
+def _newest_ebuild() -> Path:
+    ebuilds = _prime_agent_ebuilds()
+    assert ebuilds, "no prime-agent ebuild found"
+    return max(ebuilds, key=lambda e: _pv_key(e.name))
+
+
 def _latest_upstream_tag() -> str:
     with urlopen(
         f"https://api.github.com/repos/{UPSTREAM}/releases/latest", timeout=15
@@ -45,15 +57,20 @@ def _latest_upstream_tag() -> str:
         return json.load(resp)["tag_name"]
 
 
-def test_single_prime_agent_ebuild():
-    """The duplicate tripwire: exactly one ebuild, in app-misc only."""
+def test_prime_agent_in_app_misc_only():
+    """The duplicate tripwire: prime-agent must live in app-misc only.
+
+    Multiple versions in one category are normal (ebuild-updater accumulates
+    them); the regression this guards against is a SECOND category (dev-util/,
+    removed 2026-08-08) that diverged and collided on file paths.
+    """
     ebuilds = _prime_agent_ebuilds()
-    assert len(ebuilds) == 1, (
-        f"expected exactly one prime-agent ebuild, found {len(ebuilds)}: "
+    assert ebuilds, "no prime-agent ebuild found"
+    assert all(
+        e.parent.parent.name == "app-misc" for e in ebuilds
+    ), (
+        "prime-agent must live in app-misc only, found: "
         f"{[str(e) for e in ebuilds]}"
-    )
-    assert ebuilds[0].parent.parent.name == "app-misc", (
-        f"prime-agent must live in app-misc, found {ebuilds[0]}"
     )
 
 
@@ -70,12 +87,13 @@ def test_no_duplicate_upstream_reference():
 
 
 def test_version_matches_upstream():
-    for ebuild in _prime_agent_ebuilds():
-        pv = ebuild.name[: -len(".ebuild")].rsplit("-", 1)[1]
-        tag = _latest_upstream_tag()
-        assert tag == f"v{pv}", (
-            f"{ebuild.name}: ebuild PV {pv} != latest upstream tag {tag}"
-        )
+    """The newest prime-agent ebuild must match the latest upstream tag."""
+    newest = _newest_ebuild()
+    pv = newest.name[: -len(".ebuild")].rsplit("-", 1)[1]
+    tag = _latest_upstream_tag()
+    assert tag == f"v{pv}", (
+        f"{newest.name}: ebuild PV {pv} != latest upstream tag {tag}"
+    )
 
 
 def test_node_floor_matches_engines():
