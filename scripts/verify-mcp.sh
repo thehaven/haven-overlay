@@ -23,6 +23,9 @@ BINARIES=(
     "/usr/bin/wcgw"
     "/usr/bin/wcgw_local"
     "/usr/bin/wcgw_mcp"
+    "/usr/bin/clr-librenms-mcp"
+    "/usr/bin/skillspector"
+    "/usr/bin/stele-mcp"
 )
 
 failed=0

@@ -1,0 +1,4 @@
+schema: fix
+skip_specs: true
+created: 2026-09-16
+goal: Wire skillspector/stele/librenms MCP servers into mcp-meta and pin mcp below 2.x
