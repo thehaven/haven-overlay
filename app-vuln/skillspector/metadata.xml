@@ -5,6 +5,9 @@
 		<email>haven@thehavennet.org.uk</email>
 		<name>Haven</name>
 	</maintainer>
+	<use>
+		<flag name="mcp">Install the MCP server extra (skillspector mcp subcommand)</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">NVIDIA/SkillSpector</remote-id>
 	</upstream>
