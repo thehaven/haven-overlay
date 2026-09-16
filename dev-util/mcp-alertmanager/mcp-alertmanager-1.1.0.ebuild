@@ -42,6 +42,7 @@ python_test() {
 	die "❌ Import test failed: none of the candidates (${candidates[*]}) could be imported"
 }
 
+# mcp dep uses low-level mcp.server.Server (2.x-safe, verified 2026-09-16); re-verify on bump
 RDEPEND="
 	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/mcp[${PYTHON_USEDEP}]
