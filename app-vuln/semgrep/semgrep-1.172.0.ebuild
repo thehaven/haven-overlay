@@ -16,6 +16,7 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
 
+# mcp 2.x removed mcp.server.fastmcp; pin below 2 (overlay ships 1.28.1, no 1.29.x)
 RDEPEND="
 	dev-python/attrs[${PYTHON_USEDEP}]
 	dev-python/boltons[${PYTHON_USEDEP}]
@@ -24,7 +25,8 @@ RDEPEND="
 	dev-python/colorama[${PYTHON_USEDEP}]
 	dev-python/glom[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
-	dev-python/mcp[${PYTHON_USEDEP}]
+	>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
+	<dev-python/mcp-2[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/peewee[${PYTHON_USEDEP}]
 	dev-python/pyjwt[${PYTHON_USEDEP}]
@@ -50,3 +52,4 @@ pkg_postinst() {
 	elog "To run a scan:"
 	elog "  semgrep scan --config auto"
 }
+
