@@ -19,6 +19,7 @@ KEYWORDS="**"
 IUSE="build-test +cron doc mcp notifications qa test"
 RESTRICT="!test? ( test )"
 
+# mcp 2.x removed mcp.server.fastmcp; pin below 2 (overlay ships 1.28.1, no 1.29.x)
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/rich[${PYTHON_USEDEP}]
@@ -33,7 +34,10 @@ RDEPEND="
 		dev-util/pkgdev
 	)
 	build-test? ( app-portage/ebuildtester )
-	mcp? ( dev-python/mcp[${PYTHON_USEDEP}] )
+	mcp? (
+		>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
+		<dev-python/mcp-2[${PYTHON_USEDEP}]
+	)
 "
 BDEPEND="
 	doc? (
@@ -98,3 +102,4 @@ pkg_postinst() {
 		elog "Enable the 'cron' USE flag to install a daily update script."
 	fi
 }
+
