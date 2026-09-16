@@ -42,9 +42,11 @@ python_test() {
 	die "❌ Import test failed: none of the candidates (${candidates[*]}) could be imported"
 }
 
+# mcp 2.x removed mcp.server.fastmcp; pin below 2 (overlay ships 1.28.1, no 1.29.x)
 RDEPEND="
 	dev-python/pagerduty[${PYTHON_USEDEP}]
-	dev-python/mcp[${PYTHON_USEDEP}]
+	>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
+	<dev-python/mcp-2[${PYTHON_USEDEP}]
 	dev-python/typer[${PYTHON_USEDEP}]
 "
 
@@ -64,3 +66,4 @@ python_compile() {
 	find "${BUILD_DIR}"/install -name "tests" -type d -exec rm -rf {} + || :
 	find "${BUILD_DIR}"/install -name "scripts" -type d -exec rm -rf {} + || :
 }
+

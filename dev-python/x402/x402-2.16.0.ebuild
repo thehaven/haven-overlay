@@ -15,6 +15,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+# mcp 2.x removed mcp.server.fastmcp; pin below 2 (overlay ships 1.28.1, no 1.29.x)
 RDEPEND="
 	dev-python/nest-asyncio[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
@@ -28,7 +29,8 @@ RDEPEND="
 	dev-python/httpx[${PYTHON_USEDEP}]
 	dev-python/idna[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
-	dev-python/mcp[${PYTHON_USEDEP}]
+	>=dev-python/mcp-1.28.1[${PYTHON_USEDEP}]
+	<dev-python/mcp-2[${PYTHON_USEDEP}]
 	dev-python/pynacl[${PYTHON_USEDEP}]
 	dev-python/pytoniq-core[${PYTHON_USEDEP}]
 	dev-python/pytoniq[${PYTHON_USEDEP}]
@@ -45,3 +47,4 @@ RDEPEND="
 	dev-python/solana[${PYTHON_USEDEP}]
 	dev-python/solders[${PYTHON_USEDEP}]
 "
+
