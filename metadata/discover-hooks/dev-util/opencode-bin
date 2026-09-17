@@ -1,3 +1,8 @@
-source = "regex"
-url = "https://github.com/anomalyco/opencode/tags"
-regex = 'releases/tag/v([\d\.]+)'
+_schema = 1
+# Same policy as dev-util/opencode: v1.x ships release assets, v2.x is
+# tags-only beta (packaged as dev-util/opencode2). use_latest_release
+# keeps this package on the stable v1 releases.
+source = "github"
+github = "anomalyco/opencode"
+use_latest_release = true
+prefix = "v"

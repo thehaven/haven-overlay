@@ -1,0 +1,9 @@
+_schema = 1
+# v2 is a tags-only beta line (no GitHub releases yet). Exclude the
+# vscode-* tags and prerelease-suffixed tags; v1.x tags are allowed
+# through but sort below the v2 line, so the max tag stays on v2.
+source = "github"
+github = "anomalyco/opencode"
+use_max_tag = true
+prefix = "v"
+exclude_regex = 'vscode-.*|.*-(alpha|beta|rc|dev|preview|nightly|canary|snapshot).*'
