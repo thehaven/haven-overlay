@@ -16,11 +16,13 @@ KEYWORDS="~amd64"
 RESTRICT="network-sandbox test strip"
 
 RDEPEND="
+	dev-util/opencode2
 	dev-util/zod
 	net-libs/nodejs
 "
 # Runtime deps (jsdom, @opencode-ai/*, opentui-*) come from bun install in
 # src_compile (source-based resolution, replacing the MY_NODE_D tarball).
+# >=2.2.11 targets the OpenCode v2 plugin API, hence opencode2 (not opencode).
 
 S="${WORKDIR}/${PN}-${PV/_beta/-beta.}"
 
