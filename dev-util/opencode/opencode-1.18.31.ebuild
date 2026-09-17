@@ -3,6 +3,8 @@
 
 EAPI=8
 
+BUN_SLOT="1.3"
+
 inherit bun
 
 DESCRIPTION="The open source AI coding agent"
@@ -38,6 +40,8 @@ RDEPEND="
 QA_PREBUILT="usr/bin/opencode"
 
 src_compile() {
+	bun_setup
+
 	einfo "Installing dependencies with bun..."
 	bun install --ignore-scripts || die "bun install failed"
 

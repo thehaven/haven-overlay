@@ -28,7 +28,7 @@ SRC_URI="
 S="${WORKDIR}"
 
 LICENSE="MIT LGPL-2"
-SLOT="0"
+SLOT="$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm64"
 
 IUSE="cpu_flags_x86_avx2"
@@ -36,8 +36,9 @@ IUSE="cpu_flags_x86_avx2"
 RESTRICT="mirror strip"
 
 BDEPEND="app-arch/unzip"
+PDEPEND="app-eselect/eselect-bun"
 
-QA_PREBUILT="usr/bin/bun"
+QA_PREBUILT="usr/bin/bun*"
 
 src_install() {
 	# Find the extracted bun binary (directory name varies by variant)
@@ -45,18 +46,14 @@ src_install() {
 	bin=$(find "${S}" -maxdepth 2 -name bun -type f | head -n 1)
 	[[ -n "${bin}" ]] || die "bun binary not found in workdir"
 
-	dobin "${bin}"
-
-	# bunx is a symlink to bun
-	dosym bun /usr/bin/bunx
+	newbin "${bin}" "bun-${SLOT}"
+	dosym "bun-${SLOT}" "/usr/bin/bunx-${SLOT}"
 }
 
 pkg_postinst() {
-	einfo "Bun ${PV} installed."
-	einfo ""
-	einfo "  bun init        -- scaffold a new project"
-	einfo "  bun install     -- install dependencies"
-	einfo "  bun run <file>  -- execute TypeScript/JavaScript"
-	einfo "  bun build       -- bundle for production"
-	einfo "  bunx <pkg>      -- execute a package (like npx)"
+	eselect bun update ifunset
+}
+
+pkg_postrm() {
+	eselect bun update ifunset
 }

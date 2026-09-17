@@ -9,11 +9,20 @@
 #   Provides default src_compile and src_install phases for packages
 #   that use Bun as their build tool. Supports two dependency strategies:
 #   vendor tarballs (preferred) and bun install --ignore-scripts.
+#   Provides hermetic toolchain isolation for slotted dev-lang/bun-bin.
 
 case ${EAPI} in
 	8) ;;
 	*) die "${ECLASS}: EAPI 8 only" ;;
 esac
+
+# @ECLASS-VARIABLE: BUN_SLOT
+# @PRE_INHERIT
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Bun slot required by this package (e.g. "1.3" or "1.4").
+# Defaults to "1.3" for broad ecosystem stability.
+: "${BUN_SLOT:=1.3}"
 
 # @ECLASS-VARIABLE: BUN_MODULE_DIR
 #: Installation target directory for the Node.js module.
@@ -41,13 +50,49 @@ esac
 #: Useful for pre-built vendor tarballs that only need installation.
 : "${BUN_SKIP_COMPILE:=}"
 
-BDEPEND+=" || ( dev-lang/bun-bin dev-lang/bun )"
+BDEPEND+=" dev-lang/bun-bin:${BUN_SLOT}"
+
+# @FUNCTION: bun_setup
+# @DESCRIPTION:
+#   Creates an isolated toolchain directory in ${T}/bun-bin pointing to the
+#   requested BUN_SLOT and prepends it to PATH. This guarantees builds are
+#   hermetic and immune to interactive system-wide eselect defaults.
+bun_setup() {
+	if [[ -d "${T}/bun-bin" && "${BUN_SETUP_DONE}" == "${BUN_SLOT}" ]]; then
+		return 0
+	fi
+
+	local bun_target="${EPREFIX}/usr/bin/bun-${BUN_SLOT}"
+	local bunx_target="${EPREFIX}/usr/bin/bunx-${BUN_SLOT}"
+
+	# Fallback to unslotted /usr/bin/bun if slotted binary is not present
+	if [[ ! -x "${bun_target}" ]]; then
+		bun_target="${EPREFIX}/usr/bin/bun"
+		bunx_target="${EPREFIX}/usr/bin/bunx"
+	fi
+
+	mkdir -p "${T}/bun-bin" || die
+	ln -sf "${bun_target}" "${T}/bun-bin/bun" || die
+	ln -sf "${bunx_target}" "${T}/bun-bin/bunx" || die
+
+	export PATH="${T}/bun-bin:${PATH}"
+	BUN_SETUP_DONE="${BUN_SLOT}"
+}
+
+# @FUNCTION: bun_pkg_setup
+# @DESCRIPTION:
+#   Prepares the hermetic toolchain wrapper for all build phases.
+bun_pkg_setup() {
+	bun_setup
+}
 
 # @FUNCTION: bun_src_compile
 # @DESCRIPTION:
 #   Default src_compile: runs bun install --frozen-lockfile --ignore-scripts
 #   then bun run build. Override in ebuild if using vendor tarballs.
 bun_src_compile() {
+	bun_setup
+
 	if [[ -n ${BUN_SKIP_COMPILE} ]]; then
 		return 0
 	fi
@@ -73,6 +118,8 @@ _bun_get_module_dir() {
 #   Default src_install: copies all files to BUN_MODULE_DIR, sets up
 #   binary symlinks via BUN_INSTALL_BINS and BUN_INSTALL_WRAPPER.
 bun_src_install() {
+	bun_setup
+
 	local module_dir
 	module_dir=$(_bun_get_module_dir)
 
@@ -133,4 +180,4 @@ bun_einstalldocs() {
 	fi
 }
 
-EXPORT_FUNCTIONS src_compile src_install
+EXPORT_FUNCTIONS pkg_setup src_compile src_install
