@@ -46,8 +46,12 @@ src_compile() {
 	bun install --ignore-scripts || die "bun install failed"
 
 	einfo "Building opencode v2 binary (this compiles a standalone executable)..."
+	# Channel MUST be "v2" (not "stable") so opencode2 isolates its database
+	# and background service (~/.local/share/opencode/opencode-v2.db and
+	# ~/.local/state/opencode/service-v2.json) and never applies v2 migrations
+	# to v1's opencode-stable.db.
 	OPENCODE_VERSION="${PV}" \
-	OPENCODE_CHANNEL="stable" \
+	OPENCODE_CHANNEL="v2" \
 		bun run packages/cli/script/build.ts --single --skip-install || die "build failed"
 }
 
@@ -69,6 +73,8 @@ pkg_postinst() {
 	einfo ""
 	einfo "This is the OpenCode v2 beta; it shares ~/.config/opencode with"
 	einfo "the v1 dev-util/opencode package and installs alongside it."
+	einfo "State and database are isolated under OPENCODE_CHANNEL=v2"
+	einfo "(~/.local/share/opencode/opencode-v2.db, service-v2.json)."
 	einfo ""
 	einfo "Quick start:"
 	einfo "  cd /your/project && opencode2"
