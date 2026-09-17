@@ -69,4 +69,12 @@ hold = [
     # System-level /etc/portage/package.mask also blocks >=protobuf-7.0.0
     # for @world until then.
     "dev-python/mem0ai",
+    # Local metapackages (no sources) whose versions were bumped from
+    # opencode repo tags by default discovery. The v2 tag line is not
+    # applicable: they aggregate v1 tooling and RDEPEND on
+    # dev-util/opencode (v1). Held 2026-09-17 during the v1/v2 split;
+    # unhold deliberately if v2 metapackages are introduced.
+    "dev-util/lsp-meta",
+    "dev-util/opencode-plugins",
+    "dev-util/opencode-themes",
 ]
