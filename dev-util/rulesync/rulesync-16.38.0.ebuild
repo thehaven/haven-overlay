@@ -17,6 +17,9 @@ RESTRICT="network-sandbox test strip"
 inherit bun
 
 RDEPEND="net-libs/nodejs"
+PATCHES=(
+	"${FILESDIR}/rulesync-opencode2-plugin-export.patch"
+)
 
 src_compile() {
 	# Upstream ships a pnpm-10 lockfile (compact patchedDependencies format)

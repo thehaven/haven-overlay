@@ -1,0 +1,15 @@
+--- a/src/features/hooks/opencode-style-generator.ts
++++ b/src/features/hooks/opencode-style-generator.ts
+@@ -230,6 +230,12 @@ function wrapInExportShape({
+     lines.push(...bodyLines);
+     lines.push("  };");
+     lines.push("};");
++    lines.push("");
++    lines.push("export default {");
++    lines.push('  id: "rulesync-hooks",');
++    lines.push("  setup: async (ctx) => {},");
++    lines.push("  server: RulesyncHooksPlugin,");
++    lines.push("};");
+   }
+   lines.push("");
+   return lines;
