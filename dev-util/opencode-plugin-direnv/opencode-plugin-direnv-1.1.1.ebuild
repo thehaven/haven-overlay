@@ -4,7 +4,7 @@
 EAPI=8
 
 DESCRIPTION="OpenCode plugin for direnv loading"
-HOMEPAGE="https://github.com/simonwjackson/opencode-direnv"
+HOMEPAGE="https://github.com/dan-online/opencode-direnv"
 SRC_URI="https://registry.npmjs.org/opencode-direnv/-/opencode-direnv-1.1.1.tgz "
 S="${WORKDIR}/package"
 
