@@ -14,6 +14,11 @@
 #   file:// or bare path -> sudo -u portage git -C <path> rev-parse HEAD
 #   ssh://  -> SKIP (credentials; must be migrated to https or masked)
 #
+# Packages recorded in profiles/package.mask are skipped and reported as
+# SKIP without failing the gate: masking is the documented resolution for
+# packages with no fetchable upstream (e.g. the codex-9999 mask fallback).
+# An unmasked package sharing the same URI is still probed.
+#
 # ${PN} templates are expanded from the package directory, and commented
 # EGIT_REPO_URI lines are ignored, so only real build-time URIs are probed.
 #
@@ -22,6 +27,30 @@
 
 set -u
 OVERLAY="${1:-/var/db/repos/haven-overlay}"
+
+# Build the set of masked category/package atoms once. Versioned atoms are
+# resolved against the tree so "=cat/pkg-1.2" reduces to the package dir.
+masked_cps=""
+if [ -f "$OVERLAY/profiles/package.mask" ]; then
+	while IFS= read -r line; do
+		case "$line" in '' | '#'*) continue ;; esac
+		atom="${line%%[[:space:]]*}"
+		atom="${atom#[<>=~!]}"
+		while [ -n "$atom" ] && [ ! -d "$OVERLAY/$atom" ]; do
+			stripped="${atom%-*}"
+			[ "$stripped" = "$atom" ] && { atom=""; break; }
+			atom="$stripped"
+		done
+		[ -n "$atom" ] && masked_cps+=" $atom"
+	done < "$OVERLAY/profiles/package.mask"
+fi
+
+is_masked() {
+	case " $masked_cps " in
+	*" $1 "*) return 0 ;;
+	esac
+	return 1
+}
 
 probe_https() {
 	local uri="$1"
@@ -43,48 +72,71 @@ probe_local() {
 	return 1
 }
 
-uris=$(grep -rnE '^[[:space:]]*EGIT_REPO_URI="[^"]+"' "$OVERLAY" --include='*.ebuild' |
-	sed -E 's/^([^:]+):[0-9]+:[[:space:]]*EGIT_REPO_URI="([^"]+)"/\2/' |
-	while IFS= read -r u; do
-		pn=$(basename "$(dirname "$(grep -rl "EGIT_REPO_URI=\"${u}\"" "$OVERLAY" --include='*.ebuild' | head -1)")")
-		[ -n "$pn" ] && u="${u//\$\{PN\}/$pn}"
-		printf '%s\n' "$u"
+	rows=$(grep -rnE '^[[:space:]]*EGIT_REPO_URI="[^"]+"' "$OVERLAY" --include='*.ebuild' |
+	while IFS= read -r line; do
+		file=$(sed -E 's/^([^:]+):[0-9]+:.*$/\1/' <<<"$line")
+		uri=$(sed -E 's/^[^:]+:[0-9]+:[[:space:]]*EGIT_REPO_URI="([^"]+)".*$/\1/' <<<"$line")
+		pkgdir=$(dirname "$file")
+		pn=$(basename "$pkgdir")
+		cp="${pkgdir#"$OVERLAY"/}"
+		uri="${uri//\$\{PN\}/$pn}"
+		printf '%s\t%s\n' "$cp" "$uri"
 	done | sort -u)
 
-[ -z "$uris" ] && {
+unmasked_uris=$(printf '%s\n' "$rows" |
+	while IFS=$'\t' read -r cp uri; do
+		is_masked "$cp" || printf '%s\n' "$uri"
+	done | sort -u)
+masked_only_uris=$(comm -23 \
+	<(printf '%s\n' "$rows" | cut -f2 | sort -u) \
+	<(printf '%s\n' "$unmasked_uris"))
+
+if [ -z "$unmasked_uris" ] && [ -z "$masked_only_uris" ]; then
 	echo "no EGIT_REPO_URI found under $OVERLAY"
 	exit 1
-}
+fi
 
 fail=0
-while IFS= read -r uri; do
-	case "$uri" in
-	https://* | http://*)
-		probe_https "$uri" || fail=1
-		;;
-	git://*)
-		printf 'FAIL %s (git:// protocol dead; migrate to https or mask)\n' "$uri"
-		fail=1
-		;;
-	ssh://* | *@*:*)
-		printf 'SKIP %s (ssh:// requires credentials — portage cannot fetch; migrate or mask)\n' "$uri"
-		fail=1
-		;;
-	file://*)
-		probe_local "${uri#file://}" || fail=1
-		;;
-	/*)
-		probe_local "$uri" || fail=1
-		;;
-	*)
-		printf 'SKIP %s (unknown scheme — manual review)\n' "$uri"
-		fail=1
-		;;
-	esac
-done <<<"$uris"
+
+if [ -n "$masked_only_uris" ]; then
+	while IFS= read -r uri; do
+		[ -n "$uri" ] || continue
+		printf 'SKIP %s (package masked — see profiles/package.mask)\n' "$uri"
+	done <<<"$masked_only_uris"
+fi
+
+if [ -n "$unmasked_uris" ]; then
+	while IFS= read -r uri; do
+		[ -n "$uri" ] || continue
+		case "$uri" in
+		https://* | http://*)
+			probe_https "$uri" || fail=1
+			;;
+		git://*)
+			printf 'FAIL %s (git:// protocol dead; migrate to https or mask)\n' "$uri"
+			fail=1
+			;;
+		ssh://* | *@*:*)
+			printf 'SKIP %s (ssh:// requires credentials — portage cannot fetch; migrate or mask)\n' "$uri"
+			fail=1
+			;;
+		file://*)
+			probe_local "${uri#file://}" || fail=1
+			;;
+		/*)
+			probe_local "$uri" || fail=1
+			;;
+		*)
+			printf 'SKIP %s (unknown scheme — manual review)\n' "$uri"
+			fail=1
+			;;
+		esac
+	done <<<"$unmasked_uris"
+fi
 
 if [ "$fail" -ne 0 ]; then
 	echo "verify-git-uris: FAILURES FOUND (see above)" >&2
 	exit 1
 fi
-echo "verify-git-uris: all $(printf '%s\n' "$uris" | wc -l) unique EGIT_REPO_URI values fetchable by portage user"
+count=$(printf '%s\n' "$unmasked_uris" | grep -c . || true)
+echo "verify-git-uris: all $count unique EGIT_REPO_URI values fetchable by portage user"

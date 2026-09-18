@@ -35,3 +35,8 @@ www-servers/yaws
 # Dead upstream: jellyfin server tarballs removed from repo.jellyfin.org
 # (410 Gone) and GitHub releases ship no assets (verified 2026-08-29).
 media-tv/jellyfin-bin
+
+# No public upstream: codex-9999 references a non-existent ai-ml/codex
+# project; the public openai/codex is a Rust CLI and does not match this
+# Python ebuild. Masked by the 2026-09-18 duplicate audit.
+app-misc/codex
