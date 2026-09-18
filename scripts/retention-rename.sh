@@ -124,7 +124,7 @@ atom_installed() {
 
 # atom_in_repo <atom> — available in any configured repo
 atom_in_repo() {
-    portageq has_version / "$1" >/dev/null 2>&1
+    portageq best_visible / "$1" >/dev/null 2>&1
 }
 
 failed=0
