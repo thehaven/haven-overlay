@@ -23,10 +23,10 @@ IUSE="torch"
 RESTRICT="test" # Need network, too long to execute
 
 RDEPEND="
-	>=dev-python/huggingface-hub-1.5.0[${PYTHON_SINGLE_USEDEP}]
 	<dev-python/huggingface-hub-2
 	=sci-ml/tokenizers-0.22*[${PYTHON_SINGLE_USEDEP}]
 	$(python_gen_cond_dep '
+		>=dev-python/huggingface-hub-1.5.0[${PYTHON_USEDEP}]
 		dev-python/filelock[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 		dev-python/packaging[${PYTHON_USEDEP}]
