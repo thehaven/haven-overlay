@@ -2,7 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>haven@example.com</email>
+		<email>haven@thehavennet.org.uk</email>
 		<name>Haven</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="gitlab">ai-ml/stele</remote-id>
+	</upstream>
 </pkgmetadata>
