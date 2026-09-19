@@ -1,0 +1,12 @@
+# Discover hook for app-admin/mcp-forge
+# mcp-forge is hosted on the internal GitLab instance; the ebuild's
+# HOMEPAGE points at a GitHub mirror (github.com/haven/mcp-forge, 404) so
+# discover init cannot infer the upstream source automatically. This hook
+# points nvchecker at the canonical origin remote so version tags are
+# detected.
+source = "gitlab"
+gitlab = "ai-ml/mcp-forge"
+host = "gitlab-ee.thehavennet.org.uk"
+use_max_tag = true
+prefix = "v"
+exclude_regex = ".*-(alpha|beta|rc|dev|preview|nightly|canary|snapshot).*|.*\\+.*|.*\\.dev\\d*"
