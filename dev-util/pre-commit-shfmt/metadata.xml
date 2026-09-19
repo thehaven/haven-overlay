@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		shfmt pre-commit hook definitions for the pre-commit and prek
+		frameworks. The upstream Python wrapper exists only to deliver the
+		.pre-commit-hooks.yaml file; Gentoo consumes the shfmt binary
+		directly via dev-util/shfmt, so only the hooks.yaml is shipped.
+		Hook config: /usr/share/pre-commit-shfmt/hooks.yaml.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">scop/pre-commit-shfmt</remote-id>
+	</upstream>
+</pkgmetadata>

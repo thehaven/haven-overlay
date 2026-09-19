@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		Python wrapper that downloads and exposes the koalaman/shellcheck
+		prebuilt binary as a pip-installable distribution. Intended for
+		consumers that integrate shellcheck via the pre-commit framework or
+		any Python tooling that resolves the `shellcheck` console entry point
+		through distutils-installed data scripts. The package itself ships no
+		Python module — the wheel produced by setuptools-download contains
+		`shellcheck_py-${PV}.data/scripts/shellcheck`.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">shellcheck-py/shellcheck-py</remote-id>
+		<remote-id type="pypi">shellcheck-py</remote-id>
+	</upstream>
+</pkgmetadata>
