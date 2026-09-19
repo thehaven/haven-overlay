@@ -16,7 +16,9 @@ if [[ ${PV} != 9999 ]]; then
 	EGIT_COMMIT="v${PV}"
 	KEYWORDS="~amd64 ~arm64"
 else
-	KEYWORDS="~amd64"
+	# Live ebuild is opt-in only: requires =app-misc/better-brain-9999 **
+	# in package.accept_keywords; stable tags are the supported path.
+	KEYWORDS=""
 fi
 
 LICENSE="Proprietary"
