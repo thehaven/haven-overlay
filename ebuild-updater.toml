@@ -71,6 +71,11 @@ hold = [
     # declare <dev-python/mcp-2). Re-evaluate when those dependents
     # bump their mcp floor.
     "dev-python/mcp",
+    # Both declare <dev-python/mcp-2; mcp 2.x is masked system-wide
+    # until the gateway package upgrades. Re-evaluate when fastmcp
+    # or caio lifts its ceiling upstream.
+    "dev-python/fastmcp",
+    "dev-python/caio",
     # mem0ai 2.0.19 (latest upstream) still pins '<dev-python/protobuf-7.0.0>' in pyproject.toml.. Re-evaluate when mem0ai lifts the ceiling upstream.
     # System-level /etc/portage/package.mask also blocks >=protobuf-7.0.0
     # for @world until then.
