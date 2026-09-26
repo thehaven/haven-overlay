@@ -61,6 +61,12 @@ hold = [
     "dev-python/syntax-checker",
     "dev-python/tree-sitter-language-pack",
     "dev-util/agnix",
+    # Cargo.lock pins base64 = "^0.23" to 0.23.1 (missing on
+    # static.crates.io); bumped 2026.9.14 reinstalls fail offline with
+    # "failed to select a version for the requirement `base64 = "^0.23"`
+    # (locked to 0.23.1)". Holds until upstream regenerates Cargo.lock
+    # against existing versions.
+    "dev-util/mise",
     # mcp 2.x breaks mcp-server-time and fastmcp in this overlay (both
     # declare <dev-python/mcp-2). Re-evaluate when those dependents
     # bump their mcp floor.
