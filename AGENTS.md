@@ -273,6 +273,21 @@ the build host's actual Python versions. Check the eclass's
   `DISTUTILS_USE_PEP517` value via the skill mapping table. `ebuild-updater
   cleanup scan` should also pick this up (openspec filed).
 
+- **LSP server portage convention (`opencode.jsonc`).** All language servers
+  used by OpenCode must be packaged in this overlay (under `dev-util/<lsp>`) and
+  explicitly wired via `lsp.<id>` in
+  `/storage/home/haven/.config/opencode/opencode.jsonc`. Key rules:
+  1. The config key MUST match OpenCode's **built-in id** (e.g. `rust`,
+     `terraform`, `zls`, `lua-ls`, `vue`, `astro`, `dockerfile`, `prisma`,
+     `ruby-lsp`, `csharp`, `php intelephense`), NOT the package name. A mismatch
+     causes duplicate server spawns or triggers auto-download paths.
+  2. `command` MUST be a `String[]` array (e.g. `["/usr/bin/terraform-ls", "serve"]`
+     or `["/usr/bin/vue-language-server", "--stdio"]`), never a bare string.
+  3. Redundant or unsupported servers are cleanly suppressed with
+     `lsp.<id>: { "disabled": true }` (e.g. `eslint`, `oxlint`, `biome`, `nixd`).
+  4. Auto-downloads are hard-gated host-wide via `OPENCODE_DISABLE_LSP_DOWNLOAD=1`
+     in `~/.config/opencode/.env`.
+
 ## Retention rename workflow
 
 When a commit renames a package in this overlay (e.g. the
