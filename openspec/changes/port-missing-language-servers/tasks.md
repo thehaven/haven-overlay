@@ -15,7 +15,7 @@
 - [x] 1.7 dev-util/astro-language-server ebuild + opencode.jsonc wiring (override key `astro`, npm; bin path `astro-ls`/`nodeServer.js`) [smoke]
 - [x] 1.8 dev-util/lua-language-server ebuild + opencode.jsonc wiring (override key `lua-ls`, prebuilt tarball) [smoke]
 - [ ] 1.9 dev-util/omnisharp-roslyn ebuild + opencode.jsonc wiring (override key `csharp`, 48-MiB tarball — CONDITIONAL on size) [smoke]
-- [ ] 1.10 dev-util/docker-langserver ebuild + opencode.jsonc wiring (override key `dockerfile`, npm; 224 Dockerfile variants) [smoke]
+- [x] 1.10 dev-util/docker-langserver ebuild + opencode.jsonc wiring (override key `dockerfile`, npm; 224 Dockerfile variants) [smoke]
 
 ## 2. Tier 2 batch
 
