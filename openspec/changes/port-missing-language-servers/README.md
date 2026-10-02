@@ -1,0 +1,3 @@
+# port-missing-language-servers
+
+Add ebuilds for LSP servers referenced by opencode that have no portage equivalent: terraform-ls, ruby-lsp, zls, nixd, phpactor, vue-language-server, astro-language-server, lua-language-server, omnisharp-roslyn. Plus a comprehensive inventory of all built-in LSPs opencode can auto-download. Eliminates the silent auto-download path so OPENCODE_DISABLE_LSP_DOWNLOAD=1 can be enabled safely.

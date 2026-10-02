@@ -1,0 +1,4 @@
+schema: fix
+created: 2026-10-01
+skip_specs: true
+goal: Eliminate silent auto-download of LSP binaries by opencode by portaging all missing language servers referenced by opencode's built-in downloader list that touch file types in our work area.
