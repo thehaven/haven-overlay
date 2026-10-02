@@ -2,18 +2,18 @@
 
 ## 0. Pre-existing bug fix
 
-- [ ] 0.1 opencode.jsonc: rename `rust-analyzer` → `rust` (close built-in double-spawn on .rs files) [smoke]
+- [x] 0.1 opencode.jsonc: rename `rust-analyzer` → `rust` (close built-in double-spawn on .rs files) [smoke]
 
 ## 1. Tier 1 ebuilds (user-approved)
 
-- [ ] 1.1 dev-util/terraform-ls ebuild + opencode.jsonc wiring (override key `terraform`, HashiCorp CDN SRC_URI) [smoke]
+- [x] 1.1 dev-util/terraform-ls ebuild + opencode.jsonc wiring (override key `terraform`, HashiCorp CDN SRC_URI) [smoke]
 - [ ] 1.2 dev-util/ruby-lsp ebuild + opencode.jsonc wiring (override key `ruby-lsp`, gem-based) [smoke]
-- [ ] 1.3 dev-util/zls ebuild + opencode.jsonc wiring (override key `zls`, prebuilt tarball) [smoke]
+- [x] 1.3 dev-util/zls ebuild + opencode.jsonc wiring (override key `zls`, prebuilt tarball) [smoke]
 - [ ] 1.4 dev-util/nixd ebuild + opencode.jsonc wiring (override key `nixd`, source build — CONDITIONAL on CI cost) [smoke]
 - [ ] 1.5 dev-util/phpactor ebuild + opencode.jsonc wiring (override key `php`, composer install) [smoke]
-- [ ] 1.6 dev-util/vue-language-server ebuild + opencode.jsonc wiring (override key `vue`, npm) [smoke]
+- [x] 1.6 dev-util/vue-language-server ebuild + opencode.jsonc wiring (override key `vue`, npm) [smoke]
 - [ ] 1.7 dev-util/astro-language-server ebuild + opencode.jsonc wiring (override key `astro`, npm; bin path `astro-ls`/`nodeServer.js`) [smoke]
-- [ ] 1.8 dev-util/lua-language-server ebuild + opencode.jsonc wiring (override key `lua-ls`, prebuilt tarball) [smoke]
+- [x] 1.8 dev-util/lua-language-server ebuild + opencode.jsonc wiring (override key `lua-ls`, prebuilt tarball) [smoke]
 - [ ] 1.9 dev-util/omnisharp-roslyn ebuild + opencode.jsonc wiring (override key `csharp`, 48-MiB tarball — CONDITIONAL on size) [smoke]
 - [ ] 1.10 dev-util/docker-langserver ebuild + opencode.jsonc wiring (override key `dockerfile`, npm; 224 Dockerfile variants) [smoke]
 
