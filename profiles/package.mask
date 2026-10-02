@@ -40,3 +40,8 @@ media-tv/jellyfin-bin
 # project; the public openai/codex is a Rust CLI and does not match this
 # Python ebuild. Masked by the 2026-09-18 duplicate audit.
 app-misc/codex
+
+# Ecosystem hold: mcp 2.x removed mcp.server.fastmcp, breaking mcp-mesh,
+# ebuild-updater, and ~10 MCP servers. fastmcp 4.x hard-requires mcp 2.x.
+>=dev-python/mcp-2.0.0
+>=dev-python/fastmcp-4.0.0
