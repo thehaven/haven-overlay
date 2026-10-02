@@ -10,7 +10,7 @@ inherit distutils-r1 systemd git-r3
 
 DESCRIPTION="Webhook listener for ZFS-aware Docker Compose updates"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater"
-EGIT_REPO_URI="file:///storage/home/haven/projects/docker-updater"
+EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/docker-updater.git"
 EGIT_COMMIT="v0.3.0"
 
 LICENSE="MIT"
