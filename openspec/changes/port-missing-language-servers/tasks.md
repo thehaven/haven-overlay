@@ -19,7 +19,7 @@
 
 ## 2. Tier 2 batch
 
-- [ ] 2.1 dev-util/prisma-language-server ebuild + opencode.jsonc wiring (override key `prisma`, npm) [smoke]
+- [x] 2.1 dev-util/prisma-language-server ebuild + opencode.jsonc wiring (override key `prisma`, npm) [smoke]
 
 ## 3. Final gate (disable linter LSPs + flag enable)
 
