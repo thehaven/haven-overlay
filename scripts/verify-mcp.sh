@@ -11,7 +11,6 @@ BINARIES=(
     "/usr/bin/mcp-server-docker"
     "/usr/bin/mcp-server-github"
     "/usr/bin/mcp-server-kubernetes"
-    "/usr/bin/mcp-server-memory"
     "/usr/bin/mcp-server-opentofu"
     "/usr/bin/mcp-server-pass"
     "/usr/bin/mcp-server-postgres"

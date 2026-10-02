@@ -34,7 +34,6 @@ dev-util/mcp-meta:linkedin - Pull in linkedin MCP
 dev-util/mcp-meta:markdownlint - Pull in markdownlint MCP
 dev-util/mcp-meta:mediawiki - Pull in mediawiki MCP
 dev-util/mcp-meta:mem0 - Pull in mem0 MCP
-dev-util/mcp-meta:memory - Pull in memory MCP
 dev-util/mcp-meta:mesh - Pull in mesh MCP
 dev-util/mcp-meta:network-tools - Pull in network-tools MCP
 dev-util/mcp-meta:obsidian - Pull in obsidian MCP
