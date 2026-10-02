@@ -10,7 +10,7 @@
 - [ ] 1.2 dev-util/ruby-lsp ebuild + opencode.jsonc wiring (override key `ruby-lsp`, gem-based) [smoke]
 - [x] 1.3 dev-util/zls ebuild + opencode.jsonc wiring (override key `zls`, prebuilt tarball) [smoke]
 - [ ] 1.4 dev-util/nixd ebuild + opencode.jsonc wiring (override key `nixd`, source build — CONDITIONAL on CI cost) [smoke]
-- [ ] 1.5 dev-util/phpactor ebuild + opencode.jsonc wiring (override key `php`, composer install) [smoke]
+- [x] 1.5 dev-util/phpactor ebuild + opencode.jsonc wiring (override key `php`, composer install) [smoke]
 - [x] 1.6 dev-util/vue-language-server ebuild + opencode.jsonc wiring (override key `vue`, npm) [smoke]
 - [x] 1.7 dev-util/astro-language-server ebuild + opencode.jsonc wiring (override key `astro`, npm; bin path `astro-ls`/`nodeServer.js`) [smoke]
 - [x] 1.8 dev-util/lua-language-server ebuild + opencode.jsonc wiring (override key `lua-ls`, prebuilt tarball) [smoke]
