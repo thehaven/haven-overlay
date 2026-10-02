@@ -45,3 +45,10 @@ app-misc/codex
 # ebuild-updater, and ~10 MCP servers. fastmcp 4.x hard-requires mcp 2.x.
 >=dev-python/mcp-2.0.0
 >=dev-python/fastmcp-4.0.0
+
+# Dead upstream: git://sheepdog.git.sf.net defunct (2026-10-02)
+net-fs/sheepdog
+
+# Dead upstream: bitbucket.org/piotrkarbowski/bbcp removed (2026-10-02)
+net-misc/bbcp
+
