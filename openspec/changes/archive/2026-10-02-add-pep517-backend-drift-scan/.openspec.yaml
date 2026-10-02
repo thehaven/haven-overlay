@@ -1,0 +1,4 @@
+schema: fix
+skip_specs: true
+created: 2026-09-02
+goal: Add whole-overlay PEP517 build-backend drift detection audit, pytest regression guard, and verified gotcha documentation
