@@ -7,7 +7,7 @@
 ## 1. Tier 1 ebuilds (user-approved)
 
 - [x] 1.1 dev-util/terraform-ls ebuild + opencode.jsonc wiring (override key `terraform`, HashiCorp CDN SRC_URI) [smoke]
-- [ ] 1.2 dev-util/ruby-lsp ebuild + opencode.jsonc wiring (override key `ruby-lsp`, gem-based) [smoke]
+- [x] 1.2 dev-util/ruby-lsp ebuild + opencode.jsonc wiring (override key `ruby-lsp`, gem-based) [smoke]
 - [x] 1.3 dev-util/zls ebuild + opencode.jsonc wiring (override key `zls`, prebuilt tarball) [smoke]
 - [ ] 1.4 dev-util/nixd ebuild + opencode.jsonc wiring (override key `nixd`, source build — CONDITIONAL on CI cost) [smoke]
 - [x] 1.5 dev-util/phpactor ebuild + opencode.jsonc wiring (override key `php`, composer install) [smoke]
