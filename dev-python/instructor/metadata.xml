@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">jxnl/instructor</remote-id>
+		<remote-id type="pypi">instructor</remote-id>
+	</upstream>
+	<longdescription>
+		Instructor is a library for extracting structured, validated data from
+		large language models. It patches popular LLM clients (OpenAI,
+		Anthropic, Mistral, and others) and uses Pydantic models to define the
+		shape of the response, with automatic retries and validation.
+	</longdescription>
+</pkgmetadata>
