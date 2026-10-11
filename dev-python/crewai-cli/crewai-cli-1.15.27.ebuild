@@ -23,22 +23,21 @@ RDEPEND="
 	>=dev-python/click-8.1.7[${PYTHON_USEDEP}]
 	<dev-python/click-9
 	>=dev-python/pydantic-2.11.9[${PYTHON_USEDEP}]
-	<dev-python/pydantic-2.13
+	<dev-python/pydantic-3
 	>=dev-python/pydantic-settings-2.14.2[${PYTHON_USEDEP}]
 	<dev-python/pydantic-settings-3
 	>=dev-python/cryptography-42.0[${PYTHON_USEDEP}]
 	>=dev-python/pyjwt-2.13.0[${PYTHON_USEDEP}]
 	<dev-python/pyjwt-3
 	>=dev-python/tomli-w-1.1.0[${PYTHON_USEDEP}]
-	<dev-python/tomli-w-1.2
+	<dev-python/tomli-w-2
 	>=dev-python/packaging-23.0[${PYTHON_USEDEP}]
 	>=dev-python/python-dotenv-1.2.2[${PYTHON_USEDEP}]
 	<dev-python/python-dotenv-2
 	>=dev-python/httpx-0.28.1[${PYTHON_USEDEP}]
 	<dev-python/httpx-0.29
 	>=dev-python/textual-7.5.0[${PYTHON_USEDEP}]
-	>=dev-python/uv-0.11.6[${PYTHON_USEDEP}]
-	<dev-python/uv-0.12
+	>=dev-python/uv-0.11.6
 "
 
 # Upstream test suite requires live API access and remote services
