@@ -25,12 +25,7 @@ RDEPEND="
 	>=dev-python/urllib3-1.25.3[${PYTHON_USEDEP}]
 	<dev-python/urllib3-3.0.0
 "
-BDEPEND="
-	test? (
-		>=dev-python/pytest-7
-		>=dev-python/pytest-asyncio-0.21
-	)
-"
 
 # Upstream test suite requires a running lance-namespace server.
 RESTRICT="test"
+
