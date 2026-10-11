@@ -27,7 +27,7 @@ RDEPEND="
 	>=dev-python/pyjwt-2.13.0[${PYTHON_USEDEP}]
 	<dev-python/pyjwt-3
 	>=dev-python/pydantic-2.11.9[${PYTHON_USEDEP}]
-	<dev-python/pydantic-2.13
+	<dev-python/pydantic-3
 	>=dev-python/rich-13.7.1[${PYTHON_USEDEP}]
 	>=dev-python/opentelemetry-api-1.42[${PYTHON_USEDEP}]
 	<dev-python/opentelemetry-api-2
