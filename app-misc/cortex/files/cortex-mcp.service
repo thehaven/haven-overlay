@@ -1,0 +1,44 @@
+[Unit]
+Description=Cortex vault knowledge agent — MCP over streamable-HTTP
+Documentation=https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# The vault owner. Everything Cortex reads/writes carries this identity, so
+# the shared index DB (/storage/home/haven/.cortex/vault.db) and every note
+# mutation are the owner's uid/gid. No privilege dropping is needed.
+User=haven
+Group=haven
+WorkingDirectory=/storage/home/haven
+
+Environment=CORTEX_VAULT_ROOT=/storage/home/haven/.obsidian/Proofpoint
+Environment=CORTEX_VAULT_OWNER=haven
+Environment=CORTEX_MCP_TRANSPORT=streamable-http
+Environment=CORTEX_MCP_HOST=127.0.0.1
+Environment=CORTEX_MCP_PORT=8771
+# Shared secret consumed by the gateway (Authorization: Bearer ...). Format:
+#   CORTEX_MCP_TOKEN=<random>
+EnvironmentFile=-/etc/cortex/cortex-mcp.env
+
+ExecStart=/usr/bin/cortex-mcp
+Restart=on-failure
+RestartSec=5
+
+# The process already runs as the vault owner, so no escalation is needed or
+# granted — NoNewPrivileges stays on and cannot be bypassed.
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+# The only writable paths: the index DB and the vault itself.
+ReadWritePaths=/storage/home/haven/.cortex /storage/home/haven/.obsidian
+
+[Install]
+WantedBy=multi-user.target
