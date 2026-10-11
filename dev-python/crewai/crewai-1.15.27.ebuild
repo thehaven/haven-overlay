@@ -42,8 +42,8 @@ RDEPEND="
 	<dev-python/opentelemetry-sdk-2
 	>=dev-python/opentelemetry-exporter-otlp-proto-http-1.42[${PYTHON_USEDEP}]
 	<dev-python/opentelemetry-exporter-otlp-proto-http-2
-	>=dev-python/chromadb-1.1.0[${PYTHON_USEDEP}]
-	<dev-python/chromadb-1.2
+	>=dev-python/chromadb-1.5.0[${PYTHON_USEDEP}]
+	<dev-python/chromadb-1.6
 	>=dev-python/tokenizers-0.21[${PYTHON_USEDEP}]
 	<dev-python/tokenizers-1
 	>=dev-python/openpyxl-3.1.5[${PYTHON_USEDEP}]
