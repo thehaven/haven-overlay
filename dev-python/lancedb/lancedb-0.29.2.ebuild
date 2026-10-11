@@ -21,8 +21,12 @@ SRC_URI="
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="cpu_flags_x86_avx2"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="
+	${PYTHON_REQUIRED_USE}
+	amd64? ( cpu_flags_x86_avx2 )
+"
 
 # Hard runtime deps from lancedb 0.29.2 PyPI metadata (non-extra).
 # `cp39-abi3` wheel is compatible with all targets in PYTHON_COMPAT.
@@ -38,6 +42,27 @@ RDEPEND="${PYTHON_DEPS}
 BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}"
+
+pkg_pretend() {
+	if use amd64; then
+		if [[ -f /proc/cpuinfo ]]; then
+			if ! grep -q '\<avx2\>' /proc/cpuinfo; then
+				eerror "${PN} upstream binary wheel is compiled for x86-64-v3 (requires AVX2)."
+				eerror "Your CPU does not report 'avx2' support in /proc/cpuinfo."
+				die "CPU lacks required AVX2 instruction support"
+			fi
+			if ! grep -q '\<bmi2\>' /proc/cpuinfo; then
+				eerror "${PN} upstream binary wheel is compiled for x86-64-v3 (requires BMI2)."
+				eerror "Your CPU does not report 'bmi2' support in /proc/cpuinfo."
+				die "CPU lacks required BMI2 instruction support"
+			fi
+		fi
+	fi
+}
+
+pkg_setup() {
+	pkg_pretend
+}
 
 # No build step: the wheel is the artifact. Unpack is a no-op; the file
 # is already in ${DISTDIR} after the SRC_URI fetch.
