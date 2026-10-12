@@ -1,16 +1,37 @@
 [Unit]
-Description=Cortex - Vault Knowledge Agent (MCP Server)
-After=network.target
+Description=Cortex vault knowledge agent — periodic heartbeat
+Documentation=https://gitlab-ee.thehavennet.org.uk/ai-ml/cortex
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-User=cortex
-Group=cortex
-WorkingDirectory=/var/lib/cortex
+
+# The vault owner. Everything Cortex reads/writes carries this identity, so
+# the shared index DB (/storage/home/haven/.cortex/vault.db) and every note
+# mutation are the owner's uid/gid.
+User=haven
+Group=haven
+WorkingDirectory=/storage/home/haven
+
+Environment=CORTEX_VAULT_ROOT=/storage/home/haven/.obsidian/Proofpoint
+Environment=CORTEX_VAULT_OWNER=haven
 EnvironmentFile=-/etc/cortex/cortex.env
+
 ExecStart=/usr/bin/cortex heartbeat --format json
 Restart=always
 RestartSec=300
+
+# Hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ReadWritePaths=/storage/home/haven/.cortex /storage/home/haven/.obsidian
 
 [Install]
 WantedBy=multi-user.target
