@@ -10,7 +10,7 @@ inherit python-r1 git-r3
 DESCRIPTION="Performance audit, auto-tune, and validation suite for Gentoo hosts"
 HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/gentoo/performance-validator"
 EGIT_REPO_URI="https://gitlab-ee.thehavennet.org.uk/gentoo/performance-validator.git"
-EGIT_BRANCH="${PV}"
+EGIT_BRANCH="main"
 S="${WORKDIR}/${P}"
 
 LICENSE="GPL-2"
