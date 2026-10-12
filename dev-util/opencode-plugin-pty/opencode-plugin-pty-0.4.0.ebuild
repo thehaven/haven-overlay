@@ -25,6 +25,25 @@ src_install() {
 	npm install --audit false --global --omit dev \
 		--prefix "${ED}/usr" "${DISTDIR}/${P}.tgz" || die
 
+	# Dual V1/V2 entrypoint: upstream dist/index.js only exports named
+	# symbols ({ PTYPlugin, server }); OpenCode V2 requires a default export
+	# of the shape { id, setup|effect } and rejects the package otherwise.
+	# Patch in a default export while keeping the V1 `server` export so one
+	# install serves both runtimes. See the patch header for details.
+	pushd "${ED}/usr/$(get_libdir)/node_modules/${NPM_PKG}" > /dev/null || die
+	eapply "${FILESDIR}/${P}-dual-entrypoint.patch" || die
+	popd > /dev/null || die
+
+	# Root entrypoint shim. OpenCode V2 resolves a plugin *directory* by
+	# require.resolve()-ing "<dir>/server" then "<dir>/index" (the `x0`
+	# resolver in the opencode2 binary), then reading that module's
+	# `default`; it does NOT fall back to a nested dist/ entrypoint for a
+	# bare directory, so without this the package is silently dropped from
+	# the V2 plugin set. The shim re-exports the dual V1/V2 entrypoint;
+	# V2 reads `default`, V1 behaviour is unchanged.
+	insinto "/usr/$(get_libdir)/node_modules/${NPM_PKG}"
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
+
 	# Smoke test: verify runtime deps installed (catches extract-only
 	# ebuilds that skip npm install and ship zero deps — the original
 	# "Cannot find package 'open'" error)
