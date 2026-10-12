@@ -2,14 +2,16 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>ark%2Fschema@0.56.2.patch</email>
+		<email>haven@thehavennet.org.uk</email>
 		<name>Simon Alman</name>
 	</maintainer>
 	<longdescription>
-		Oh My Pi is an agentic hardware hacking assistant.
-		It provides automated hardware analysis, debugging,
-		and reverse-engineering capabilities with AI-driven
-		guidance for embedded systems and IoT devices.
+		Oh My Pi (omp) is an AI coding agent CLI with a terminal UI,
+		session management and built-in read, bash, edit and write
+		tools. The native N-API addon (pi-natives) is compiled here
+		from the bundled crates/ workspace rather than shipped
+		prebuilt; app-misc/oh-my-pi-bin installs the prebuilt release
+		binary instead and the two packages block each other.
 	</longdescription>
 	<upstream>
 		<remote-id type="github">can1357/oh-my-pi</remote-id>

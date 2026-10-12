@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		oh-my-pi-bin installs the upstream prebuilt release binary of
+		Oh My Pi (omp), a coding agent CLI with a terminal UI,
+		session management and locally compiled native extensions.
+		It is the prebuilt counterpart of app-misc/oh-my-pi and the
+		two packages block each other.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">can1357/oh-my-pi</remote-id>
+	</upstream>
+</pkgmetadata>
