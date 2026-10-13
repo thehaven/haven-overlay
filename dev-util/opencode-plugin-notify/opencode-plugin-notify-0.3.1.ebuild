@@ -29,6 +29,10 @@ src_install() {
 	# not bogus dev-nodejs/* atoms)
 	local mod="/usr/$(get_libdir)/node_modules/${NPM_PKG}"
 	[[ -f "${ED}${mod}/dist/index.js" ]] || die "plugin entry dist/index.js missing"
+	# v2 root entrypoint shim: upstream dist/index.js exports a V1 function
+	# default; v2's directory resolver looks for root <pkg>/server.js.
+	insinto "${mod}"
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }
 pkg_postinst() {
 	einfo "OpenCode Notify plugin installed."

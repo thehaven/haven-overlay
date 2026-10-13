@@ -29,5 +29,8 @@ src_install() {
 	# not bogus dev-nodejs/* atoms)
 	local mod="/usr/$(get_libdir)/node_modules/${NPM_PKG}"
 	[[ -f "${ED}${mod}/dist/index.js" ]] || die "plugin entry dist/index.js missing"
+
+	insinto "${mod}"
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }
 

@@ -29,4 +29,5 @@ src_compile() {
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json node_modules
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }

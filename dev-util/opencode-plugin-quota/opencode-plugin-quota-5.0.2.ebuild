@@ -12,11 +12,24 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
+RESTRICT="network-sandbox"
+
+BDEPEND="net-libs/nodejs[npm]"
+
 RDEPEND=">=net-libs/nodejs-20"
+
+PATCHES=(
+	"${FILESDIR}/${P}-opencode-v2-db.patch"
+)
+
+src_compile() {
+	npm install --omit=dev --audit=false --ignore-scripts --legacy-peer-deps || die "npm install failed"
+}
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
-	doins -r dist package.json
+	doins -r dist package.json node_modules
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }
 
 pkg_postinst() {

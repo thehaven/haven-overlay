@@ -17,6 +17,7 @@ RDEPEND=">=net-libs/nodejs-20"
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }
 
 pkg_postinst() {

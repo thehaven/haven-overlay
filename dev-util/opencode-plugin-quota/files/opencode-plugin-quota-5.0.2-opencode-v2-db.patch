@@ -1,0 +1,30 @@
+--- a/dist/lib/opencode-db-path.js	1985-10-26 09:15:00.000000000 +0100
++++ b/dist/lib/opencode-db-path.js	2026-10-13 11:44:14.054404807 +0100
+@@ -1,9 +1,10 @@
++import { existsSync } from "fs";
+ import { resolve } from "path";
+ import { getOpencodeRuntimeDirs } from "./opencode-runtime-paths.js";
+ /**
+  * OpenCode's SQLite database path, resolved the way OpenCode 2 does
+  * (`packages/cli/src/database-path.ts`): `OPENCODE_DB` (absolute, or relative
+- * to the data dir; `:memory:` passes through), else `<data dir>/opencode.db`.
++ * to data dir; `:memory:` passes through), else `<data dir>/opencode.db`.
+  *
+  * Credentials, sessions, and messages all live in this one database.
+  */
+@@ -11,6 +12,12 @@
+     const override = process.env.OPENCODE_DB?.trim();
+     if (override === ":memory:")
+         return override;
+-    return resolve(getOpencodeRuntimeDirs().dataDir, override || "opencode.db");
++    if (override)
++        return resolve(getOpencodeRuntimeDirs().dataDir, override);
++    const dataDir = getOpencodeRuntimeDirs().dataDir;
++    const v2Path = resolve(dataDir, "opencode-v2.db");
++    if (existsSync(v2Path))
++        return v2Path;
++    return resolve(dataDir, "opencode.db");
+ }
+-//# sourceMappingURL=opencode-db-path.js.map
+\ No newline at end of file
++//# sourceMappingURL=opencode-db-path.js.map
