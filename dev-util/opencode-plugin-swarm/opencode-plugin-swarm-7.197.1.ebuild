@@ -43,11 +43,22 @@ src_install() {
 	insinto "${module_dir}"
 	doins -r dist package.json node_modules
 
+	# OpenCode v2 directory resolution shim. v2's plugin loader does
+	# `require.resolve("<dir>/server")` then falls back to `<dir>/index`
+	# (no `dist/` prefix). Upstream only ships `dist/index.js`, so v2
+	# silently skipped the package. Install a root-level `server.js`
+	# that re-exports the dist entry as both V1 (`server`) and V2
+	# (`default`) — keeps the same default export, no functional
+	# change for V1 consumers.
+	newins "${FILESDIR}/${P}-server-shim.js" server.js
+
 	# Smoke tests: plugin entry + CLI entry + bin manifests must exist and
 	# be non-empty. The plugin entry is the OpenCode-loadable target; the
 	# CLI entry is bun-only (no shebang) and is invoked explicitly via `bun`.
 	[[ -s "${ED}/${module_dir}/dist/index.js" ]] || \
 		die "plugin entry dist/index.js missing or empty"
+	[[ -s "${ED}/${module_dir}/server.js" ]] || \
+		die "v2 server.js shim missing"
 	[[ -s "${ED}/${module_dir}/dist/cli/index.js" ]] || \
 		die "CLI entry dist/cli/index.js missing or empty"
 	[[ -s "${ED}/${module_dir}/package.json" ]] || \
