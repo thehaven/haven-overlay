@@ -43,6 +43,15 @@ src_install() {
 	insinto "${module_dir}"
 	doins -r dist package.json node_modules
 
+	# Prune musl-targeted native prebuilds. @msgpackr-extract ships both
+	# glibc and musl variants; on a glibc host the *.musl.node files
+	# are never loaded (msgpackr selects via process.report libc probe)
+	# but they trip QA Notice: Unresolved soname dependencies because
+	# musl’s libc is libc.musl-<arch>.so.1, not libc.so.
+	# Deleting them keeps the binpkg lean and the QA log clean.
+	find "${ED}/${module_dir}/node_modules" -type f -name '*.musl.node' -delete \
+		|| die "musl native binary prune failed"
+
 	# OpenCode v2 directory resolution shim. v2's plugin loader does
 	# `require.resolve("<dir>/server")` then falls back to `<dir>/index`
 	# (no `dist/` prefix). Upstream only ships `dist/index.js`, so v2
