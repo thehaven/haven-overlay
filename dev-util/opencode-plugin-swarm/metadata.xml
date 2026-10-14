@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		OpenCode Swarm is an architect-centric agentic swarm plugin for
+		OpenCode: hub-and-spoke orchestration with SME consultation, code
+		generation, critic and review gates, and QA-driven phase closures.
+		Designed for sessions where the model claiming "done" must be backed
+		by passing tests, lint, and adversarial review before code ships.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">ZaxbyHub/opencode-swarm</remote-id>
+	</upstream>
+</pkgmetadata>
