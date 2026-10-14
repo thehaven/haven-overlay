@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>base-system@gentoo.org</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription lang="en">
+		Terminal UI plugin for OpenCode that adds a live "Subagents" panel
+		to the session sidebar, showing a coloured status icon and label
+		for each tracked child session. Unofficial community project.
+
+		The plugin entry (`./tui` → `src/tui.tsx`) is loaded at OpenCode
+		startup. The runtime resolves its imports (solid-js,
+		@opentui/solid, @opentui/core) from a bundled node_modules tree.
+
+		Requires OpenCode >= 1.17.0 (declared by upstream
+		`engines.opencode`) and Bun >= 1.3.14 (loads libopentui.so via FFI).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">giovannic96/opencode-subagents-view</remote-id>
+		<remote-id type="npm">opencode-subagents-view</remote-id>
+	</upstream>
+</pkgmetadata>
