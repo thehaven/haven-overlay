@@ -1,0 +1,45 @@
+--- a/src/serena/tools/tools_base.py
++++ b/src/serena/tools/tools_base.py
+@@ -8,8 +8,8 @@
+ from typing import TYPE_CHECKING, Any, Protocol, TypeVar, cast
+ 
+ from mcp import Implementation
+-from mcp.server.mcpserver import Context
+-from mcp.server.mcpserver.utilities.func_metadata import FuncMetadata, func_metadata
++from mcp.server.fastmcp import Context
++from mcp.server.fastmcp.utilities.func_metadata import FuncMetadata, func_metadata
+ from sensai.util import logging
+ from sensai.util.helper import mark_used
+ from sensai.util.string import dict_string
+--- a/src/serena/mcp.py
++++ b/src/serena/mcp.py
+@@ -11,12 +11,10 @@
+ from typing import Any, Literal, cast
+ 
+ import docstring_parser
+-from mcp.server.mcpserver import server
+-from mcp.server.mcpserver.context import LifespanContextT, RequestT
+-from mcp.server.mcpserver.exceptions import ToolError
+-from mcp.server.mcpserver.server import Context
+-from mcp.server.mcpserver.server import MCPServer as FastMCP
+-from mcp.server.mcpserver.tools.base import Tool as FastMCPTool
++from mcp.server.fastmcp import server
++from mcp.server.fastmcp.exceptions import ToolError
++from mcp.server.fastmcp.server import Context, FastMCP, LifespanContextT, RequestT
++from mcp.server.fastmcp.tools.base import Tool as FastMCPTool
+ from mcp.types import ToolAnnotations
+ from sensai.util import logging
+ 
+@@ -382,11 +380,11 @@
+         log.info("MCP server initial instructions:\n%s", instructions)
+         mcp = FastMCP(
+             name="Serena",
+-            version=serena_version_str,
+             lifespan=self.server_lifespan,
+             website_url="https://oraios.github.io/serena",
+             instructions=instructions,
+         )
++        mcp._mcp_server.version = serena_version_str
+         return mcp
+ 
+     @asynccontextmanager
