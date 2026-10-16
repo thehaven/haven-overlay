@@ -1,0 +1,70 @@
+diff -uNr -x node_modules -x dist -x .git a/src/sandbox/capability-probe.ts b/src/sandbox/capability-probe.ts
+--- a/src/sandbox/capability-probe.ts	2026-10-15 04:37:26.000000000 +0100
++++ b/src/sandbox/capability-probe.ts	2026-10-16 09:47:59.657118447 +0100
+@@ -174,7 +174,7 @@
+ 	reasons: string[],
+ ): void {
+ 	try {
+-		_internals.removeProbeTempRoot(tempRoot);
++		_internals.removeProbeTempRoot(tempRoot, { recursive: true, force: true });
+ 	} catch (error) {
+ 		const code =
+ 			typeof error === 'object' &&
+@@ -310,6 +310,9 @@
+ 			'--new-session',
+ 			'--cap-drop',
+ 			'ALL',
++			'--ro-bind',
++			tempRoot,
++			tempRoot,
+ 			'--bind',
+ 			allowedRoot,
+ 			allowedRoot,
+@@ -575,7 +578,8 @@
+ 	detectBehavioralEvidence,
+ 	resolveWindowsCommandProcessorBinary,
+ 	currentProbeSourceIdentity,
+-	removeProbeTempRoot: fs.rmSync,
++	removeProbeTempRoot: (target: fs.PathLike, options?: fs.RmOptions) =>
++		fs.rmSync(target, { recursive: true, force: true, ...options }),
+ } as const;
+ 
+ /** Probe for Linux Bubblewrap (bwrap). */
+diff -uNr -x node_modules -x dist -x .git a/src/sdd/effective-spec.ts b/src/sdd/effective-spec.ts
+--- a/src/sdd/effective-spec.ts	2026-10-15 04:37:26.000000000 +0100
++++ b/src/sdd/effective-spec.ts	2026-10-16 09:47:59.657486009 +0100
+@@ -1207,13 +1207,31 @@
+ 		}
+ 	}
+ 
++	let effectiveSource = opts?.source;
++	if (!effectiveSource) {
++		const envSource = process.env.SWARM_SDD_SOURCE;
++		if (envSource === 'openspec' || envSource === 'speckit' || envSource === 'swarm') {
++			effectiveSource = envSource;
++		} else {
++			try {
++				const cfgPath = path.join(root, 'opencode-swarm.json');
++				if (fs.existsSync(cfgPath)) {
++					const parsed = JSON.parse(fs.readFileSync(cfgPath, 'utf-8'));
++					if (parsed?.sdd?.source === 'openspec' || parsed?.sdd?.source === 'speckit' || parsed?.sdd?.source === 'swarm') {
++						effectiveSource = parsed.sdd.source;
++					}
++				}
++			} catch {}
++		}
++	}
++
+ 	// b. Explicit source selection — use the named provider directly.
+-	if (opts?.source) {
+-		switch (opts.source) {
++	if (effectiveSource) {
++		switch (effectiveSource) {
+ 			case 'openspec':
+ 				return buildOpenSpecProjectionSync(root);
+ 			case 'speckit':
+-				return buildSpeckitProjectionSync(root, { feature: opts.feature });
++				return buildSpeckitProjectionSync(root, { feature: opts?.feature });
+ 			case 'swarm':
+ 				// No .swarm/spec.md present (already checked above) → null.
+ 				return null;
