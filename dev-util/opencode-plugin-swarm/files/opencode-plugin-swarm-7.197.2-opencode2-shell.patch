@@ -1,0 +1,39 @@
+diff -uNr -x node_modules -x dist -x .git a/src/hooks/guardrails/tool-before.ts b/src/hooks/guardrails/tool-before.ts
+--- a/src/hooks/guardrails/tool-before.ts	2026-10-16 07:51:07.000000000 +0100
++++ b/src/hooks/guardrails/tool-before.ts	2026-10-16 07:51:30.000000000 +0100
+@@ -278,7 +278,7 @@
+ 		detectedShellType === 'powershell' || detectedShellType === 'cmd';
+ 	if (cmdWrapper) return 'cmd';
+ 	if (psWrapper || shaped) return 'powershell';
+-	if (inheritedWindows && tool !== 'bash') {
++	if (inheritedWindows && tool !== 'bash' && tool !== 'shell') {
+ 		return detectedShellType as 'powershell' | 'cmd';
+ 	}
+ 	return null;
+@@ -1264,6 +1264,14 @@
+ 					continue;
+ 				}
+ 				if (enforce && write.original.category === 'interpreter_eval') {
++					if (
++						isArch ||
++						noScopeLenient ||
++						!isCoder ||
++						!/[.](?:write|unlink|remove|rename|rmdir)\b|open\s*\(.*['"][wax+]/i.test(detectionCommand)
++					) {
++						continue;
++					}
+ 					// Inline code (`python -c`, `node -e`, …) can write to arbitrary
+ 					// files whose targets are not statically knowable, so it cannot be
+ 					// verified against the declared scope. This stays fail-closed (it is
+diff -uNr -x node_modules -x dist -x .git a/src/hooks/shell-write-detect.ts b/src/hooks/shell-write-detect.ts
+--- a/src/hooks/shell-write-detect.ts	2026-10-16 07:51:07.000000000 +0100
++++ b/src/hooks/shell-write-detect.ts	2026-10-16 07:51:30.000000000 +0100
+@@ -3169,7 +3169,7 @@
+ 	let inDoubleQuote = false;
+ 
+ 	const isTokenBoundary = (character: string | undefined): boolean =>
+-		character === undefined || /[\s&|()]/.test(character);
++		character === undefined || /[;\s&|()]/.test(character);
+ 
+ 	for (let index = 0; index < command.length; index++) {
+ 		const character = command[index];

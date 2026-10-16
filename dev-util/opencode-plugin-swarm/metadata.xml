@@ -12,6 +12,9 @@
 		Designed for sessions where the model claiming "done" must be backed
 		by passing tests, lint, and adversarial review before code ships.
 	</longdescription>
+	<use>
+		<flag name="sandbox">Enable execution isolation and filesystem sandboxing via <pkg>sys-apps/bubblewrap</pkg></flag>
+	</use>
 	<upstream>
 		<remote-id type="github">ZaxbyHub/opencode-swarm</remote-id>
 	</upstream>

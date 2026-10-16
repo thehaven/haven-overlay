@@ -5,7 +5,7 @@ EAPI=8
 
 inherit bun
 
-DESCRIPTION="OpenCode Swarm: architect-centric multi-agent plugin (hub-and-spoke orchestration with critic, reviewer, and QA gates)"
+DESCRIPTION="Architect-centric multi-agent swarm plugin for OpenCode"
 HOMEPAGE="https://github.com/ZaxbyHub/opencode-swarm"
 SRC_URI="https://github.com/ZaxbyHub/opencode-swarm/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/opencode-swarm-${PV}"
@@ -13,6 +13,7 @@ S="${WORKDIR}/opencode-swarm-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="+sandbox"
 
 # Source-based dependency resolution: bun pulls every production dep from
 # the npm registry at build time (web-tree-sitter, bash-parser are
@@ -29,10 +30,14 @@ BDEPEND="
 # OpenCode loads dist/index.js (node-targeted ESM bundle) under Node >=22.13
 # per upstream's engines.node. The CLI entry dist/cli/index.js is bun-targeted
 # (engines.bun >=1.3.13) and must be invoked via `bun` — see pkg_postinst.
-RDEPEND=">=net-libs/nodejs-22.13"
+RDEPEND="
+	>=net-libs/nodejs-22.13
+	sandbox? ( sys-apps/bubblewrap )
+"
 
 PATCHES=(
 	"${FILESDIR}/${P}-fast-activation.patch"
+	"${FILESDIR}/${P}-opencode2-shell.patch"
 )
 
 src_compile() {
