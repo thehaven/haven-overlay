@@ -1,5 +1,5 @@
 diff --git a/src/hooks/guardrails/file-authority.ts b/src/hooks/guardrails/file-authority.ts
-index 1000ccdd6..30efdcf24 100644
+index 1000ccdd6..d52a5555b 100644
 --- a/src/hooks/guardrails/file-authority.ts
 +++ b/src/hooks/guardrails/file-authority.ts
 @@ -9,6 +9,7 @@
@@ -10,7 +10,15 @@ index 1000ccdd6..30efdcf24 100644
  import * as fsSync from 'node:fs';
  import * as fs from 'node:fs/promises';
  import * as path from 'node:path';
-@@ -186,6 +187,53 @@ const globMatcherCache = new QuickLRU<string, (path: string) => boolean>({
+@@ -34,6 +35,7 @@ import {
+ } from '../../scope/path-identity';
+ import { isPolicyProtectedPath } from '../../security/protected-path-policy.js';
+ import { log, warn } from '../../utils';
++import { resolveGitExecutable } from '../../utils/git-executable.js';
+ import {
+ 	boundedBunHash,
+ 	coarseObjectDiscriminator,
+@@ -186,6 +188,57 @@ const globMatcherCache = new QuickLRU<string, (path: string) => boolean>({
  	maxSize: 200,
  });
  
@@ -34,12 +42,16 @@ index 1000ccdd6..30efdcf24 100644
 +
 +	const worktrees: string[] = [];
 +	try {
-+		const output = execFileSync('git', ['worktree', 'list', '--porcelain'], {
-+			cwd: dir,
-+			encoding: 'utf8',
-+			stdio: ['ignore', 'pipe', 'ignore'],
-+			timeout: 1500,
-+		});
++		const output = execFileSync(
++			resolveGitExecutable(),
++			['worktree', 'list', '--porcelain'],
++			{
++				cwd: dir,
++				encoding: 'utf8',
++				stdio: ['ignore', 'pipe', 'ignore'],
++				timeout: 1500,
++			},
++		);
 +
 +		for (const line of output.split('\n')) {
 +			if (line.startsWith('worktree ')) {
@@ -64,7 +76,7 @@ index 1000ccdd6..30efdcf24 100644
  /**
   * Clears all guardrails caches.
   * Use this for test isolation or when guardrails config reloads at runtime.
-@@ -193,6 +241,7 @@ const globMatcherCache = new QuickLRU<string, (path: string) => boolean>({
+@@ -193,6 +246,7 @@ const globMatcherCache = new QuickLRU<string, (path: string) => boolean>({
  export function clearGuardrailsCaches(): void {
  	pathNormalizationCache.clear();
  	globMatcherCache.clear();
@@ -72,7 +84,7 @@ index 1000ccdd6..30efdcf24 100644
  }
  
  /**
-@@ -832,21 +881,59 @@ export function checkFileAuthorityWithRules(
+@@ -832,21 +886,59 @@ export function checkFileAuthorityWithRules(
  	// below. Comparing filesystem roots catches this universally: POSIX
  	// systems only have root `/`, so roots only differ when the target is
  	// on a different Windows drive.
@@ -146,7 +158,7 @@ index 1000ccdd6..30efdcf24 100644
  	}
  
  	const rules =
-@@ -862,15 +949,17 @@ export function checkFileAuthorityWithRules(
+@@ -862,15 +954,17 @@ export function checkFileAuthorityWithRules(
  	const flavor = getPathFlavor();
  	const matchesPathPrefix = (candidate: string, prefix: string): boolean =>
  		isPathIdentityWithin(
@@ -167,7 +179,7 @@ index 1000ccdd6..30efdcf24 100644
  			return denyAuthority(agentName, normalizedPath, {
  				code: 'AUTHORITY_UNIVERSAL_DENY',
  				layer: 'universal-deny',
-@@ -946,7 +1035,12 @@ export function checkFileAuthorityWithRules(
+@@ -946,7 +1040,12 @@ export function checkFileAuthorityWithRules(
  		isCoderAgent &&
  		options.declaredScope != null &&
  		options.declaredScope.length > 0 &&
