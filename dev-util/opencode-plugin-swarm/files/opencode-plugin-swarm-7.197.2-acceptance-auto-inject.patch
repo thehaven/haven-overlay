@@ -90,16 +90,16 @@ index 92ffd9a2c..9cda65e32 100644
  					acceptanceCheck.reason === 'acceptance_field_empty'
 diff --git a/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts b/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts
 new file mode 100644
-index 000000000..b879570f1
+index 000000000..0e11b28ef
 --- /dev/null
 +++ b/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts
 @@ -0,0 +1,84 @@
 +import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
-+import { mkdir, mkdtemp, rm } from 'node:fs/promises';
-+import { tmpdir } from 'node:os';
++import { mkdir, rm } from 'node:fs/promises';
 +import { join } from 'node:path';
 +import { ensureAgentSession, resetSwarmState } from '../../../src/state';
 +import { createIsolatedTestEnv } from '../../helpers/isolated-test-env.js';
++import { canonicalMkdtemp } from '../../helpers/tmpdir.js';
 +import {
 +	createDelegationGateHook,
 +	makeConfig,
@@ -113,7 +113,7 @@ index 000000000..b879570f1
 +	beforeEach(async () => {
 +		isolatedEnv = createIsolatedTestEnv();
 +		resetSwarmState();
-+		directory = await mkdtemp(join(tmpdir(), 'swarm-autoinject-test-'));
++		directory = canonicalMkdtemp('swarm-autoinject-test-');
 +		await mkdir(join(directory, '.swarm'), { recursive: true });
 +	});
 +
