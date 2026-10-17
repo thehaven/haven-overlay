@@ -20,6 +20,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "To enable OpenSpec, add it to your opencode.json plugins array:"
-	einfo '  {"plugins": ["opencode-plugin-openspec"]}'
+	einfo "To enable OpenSpec, add it to your opencode.json plugin array:"
+	einfo '  {"plugin": ["opencode-plugin-openspec"]}'
 }
