@@ -1,5 +1,5 @@
 diff --git a/opencode-swarm.schema.json b/opencode-swarm.schema.json
-index 729ba4912..4f2c46d23 100644
+index 7bde0f2e0..3aa0c1219 100644
 --- a/opencode-swarm.schema.json
 +++ b/opencode-swarm.schema.json
 @@ -315,6 +315,10 @@
@@ -14,7 +14,7 @@ index 729ba4912..4f2c46d23 100644
        }
      },
 diff --git a/src/config/schema.ts b/src/config/schema.ts
-index 342f621a5..c471ddb3d 100644
+index 985d0db1e..d234dcbfa 100644
 --- a/src/config/schema.ts
 +++ b/src/config/schema.ts
 @@ -269,6 +269,12 @@ export const HooksConfigSchema = z.object({
@@ -31,10 +31,10 @@ index 342f621a5..c471ddb3d 100644
  
  export type HooksConfig = z.infer<typeof HooksConfigSchema>;
 diff --git a/src/hooks/delegation-gate.ts b/src/hooks/delegation-gate.ts
-index 92ffd9a2c..fa863e355 100644
+index 92ffd9a2c..9cda65e32 100644
 --- a/src/hooks/delegation-gate.ts
 +++ b/src/hooks/delegation-gate.ts
-@@ -4732,14 +4732,41 @@ export function createDelegationGateHook(
+@@ -4732,14 +4732,50 @@ export function createDelegationGateHook(
  		if (targetAgent === 'coder' || targetAgent === 'reviewer') {
  			// Reuse the same broad text-field extraction other checks in this file
  			// use (see resolveDelegatedPlanTaskId / taskLooksLikePlanCritic) so the
@@ -51,12 +51,18 @@ index 92ffd9a2c..fa863e355 100644
 +			if (!acceptanceCheck.valid && config.hooks?.auto_inject_acceptance) {
 +				// Auto-inject a synthesized ACCEPTANCE: requirement block into args so delegations
 +				// without explicit ACCEPTANCE lines proceed safely without triggering gate rejection.
-+				const defaultRequirement = '- Complete verification of changes, tests, and documentation';
++				const defaultRequirement =
++					'- Complete verification of changes, tests, and documentation';
 +				const targetField: (typeof ACCEPTANCE_ARGS_FIELDS)[number] =
 +					(typeof args.prompt === 'string'
 +						? 'prompt'
-+						: ACCEPTANCE_ARGS_FIELDS.find((f) => typeof args[f] === 'string')) ?? 'prompt';
-+				const existingVal = typeof args[targetField] === 'string' ? (args[targetField] as string) : '';
++						: ACCEPTANCE_ARGS_FIELDS.find(
++								(f) => typeof args[f] === 'string',
++							)) ?? 'prompt';
++				const existingVal =
++					typeof args[targetField] === 'string'
++						? (args[targetField] as string)
++						: '';
 +
 +				if (acceptanceCheck.reason === 'acceptance_field_empty') {
 +					args[targetField] = existingVal.replace(
@@ -71,26 +77,29 @@ index 92ffd9a2c..fa863e355 100644
 +				logger.warn(
 +					`[delegation-gate] Auto-injected default ACCEPTANCE requirement into ${targetField} for ${targetAgent} dispatch (${acceptanceCheck.reason})`,
 +				);
-+				acceptancePromptText = ACCEPTANCE_ARGS_FIELDS.map((field) => args[field])
++				acceptancePromptText = ACCEPTANCE_ARGS_FIELDS.map(
++					(field) => args[field],
++				)
 +					.filter((value): value is string => typeof value === 'string')
 +					.join('\n');
-+				acceptanceCheck = validateCoderReviewerAcceptanceField(acceptancePromptText);
++				acceptanceCheck =
++					validateCoderReviewerAcceptanceField(acceptancePromptText);
 +			}
  			if (!acceptanceCheck.valid) {
  				const detail =
  					acceptanceCheck.reason === 'acceptance_field_empty'
 diff --git a/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts b/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts
 new file mode 100644
-index 000000000..cdfe44383
+index 000000000..b879570f1
 --- /dev/null
 +++ b/tests/unit/hooks/delegation-gate-acceptance-autoinject.test.ts
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,84 @@
 +import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
 +import { mkdir, mkdtemp, rm } from 'node:fs/promises';
 +import { tmpdir } from 'node:os';
 +import { join } from 'node:path';
-+import { createIsolatedTestEnv } from '../../helpers/isolated-test-env.js';
 +import { ensureAgentSession, resetSwarmState } from '../../../src/state';
++import { createIsolatedTestEnv } from '../../helpers/isolated-test-env.js';
 +import {
 +	createDelegationGateHook,
 +	makeConfig,
@@ -140,7 +149,9 @@ index 000000000..cdfe44383
 +
 +		// args.prompt should have had an ACCEPTANCE block appended by the auto-injection
 +		expect(args.prompt).toContain('ACCEPTANCE:');
-+		expect(args.prompt).toContain('Complete verification of changes, tests, and documentation');
++		expect(args.prompt).toContain(
++			'Complete verification of changes, tests, and documentation',
++		);
 +	});
 +
 +	test('auto-populates ACCEPTANCE requirement block when empty in reviewer dispatch', async () => {
@@ -162,6 +173,8 @@ index 000000000..cdfe44383
 +			),
 +		).resolves.toBeUndefined();
 +
-+		expect(args.prompt).toContain('ACCEPTANCE:\n- Complete verification of changes, tests, and documentation');
++		expect(args.prompt).toContain(
++			'ACCEPTANCE:\n- Complete verification of changes, tests, and documentation',
++		);
 +	});
 +});

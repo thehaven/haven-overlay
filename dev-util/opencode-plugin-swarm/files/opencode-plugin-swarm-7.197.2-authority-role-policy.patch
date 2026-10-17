@@ -1,8 +1,8 @@
 diff --git a/src/hooks/guardrails/file-authority.ts b/src/hooks/guardrails/file-authority.ts
-index c7e4b5888..60b27b372 100644
+index 1000ccdd6..838dee8e8 100644
 --- a/src/hooks/guardrails/file-authority.ts
 +++ b/src/hooks/guardrails/file-authority.ts
-@@ -623,7 +623,7 @@ export function matchesAuthorityDenyPrefix(
+@@ -570,7 +570,7 @@ export function matchesAuthorityDenyPrefix(
  export function buildEffectiveRules(
  	authorityConfig?: AuthorityConfig,
  ): Record<string, AgentRule> {
@@ -11,8 +11,8 @@ index c7e4b5888..60b27b372 100644
  		return { ...DEFAULT_AGENT_AUTHORITY_RULES };
  	}
  	const entries = Object.entries(authorityConfig.rules);
-@@ -932,16 +932,6 @@ export function checkFileAuthorityWithRules(
- 		}
+@@ -849,16 +849,6 @@ export function checkFileAuthorityWithRules(
+ 		});
  	}
  
 -	const rules =
@@ -28,7 +28,7 @@ index c7e4b5888..60b27b372 100644
  	const flavor = getPathFlavor();
  	const matchesPathPrefix = (candidate: string, prefix: string): boolean =>
  		isPathIdentityWithin(
-@@ -1015,6 +1005,26 @@ export function checkFileAuthorityWithRules(
+@@ -932,6 +922,26 @@ export function checkFileAuthorityWithRules(
  		});
  	}
  
@@ -55,7 +55,7 @@ index c7e4b5888..60b27b372 100644
  	// Configurable readOnly only narrows roles that otherwise have write ability.
  	if (rules.readOnly) {
  		return denyAuthority(agentName, normalizedPath, {
-@@ -1039,14 +1049,6 @@ export function checkFileAuthorityWithRules(
+@@ -955,14 +965,6 @@ export function checkFileAuthorityWithRules(
  			agent: sanitizeDiagnosticText(agentName, 96),
  		};
  	}
@@ -71,10 +71,10 @@ index c7e4b5888..60b27b372 100644
  	// Step 2: blockedExact - exact path matches (fast path)
  	if (rules.blockedExact) {
 diff --git a/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts b/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
-index 5521a1b1e..fd3eaa1c7 100644
+index 5521a1b1e..a9285b0f3 100644
 --- a/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
 +++ b/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
-@@ -66,4 +66,70 @@ describe('authority.enabled=false hard-policy hook coverage (FB-006)', () => {
+@@ -66,4 +66,91 @@ describe('authority.enabled=false hard-policy hook coverage (FB-006)', () => {
  			).rejects.toThrow(code);
  		}
  	});
@@ -91,7 +91,11 @@ index 5521a1b1e..fd3eaa1c7 100644
 +			authority,
 +		).toolBefore;
 +
-+		const customSession = ensureAgentSession('sre-session', 'sre-planner', directory);
++		const customSession = ensureAgentSession(
++			'sre-session',
++			'sre-planner',
++			directory,
++		);
 +		customSession.delegationActive = true;
 +		swarmState.activeAgent.set('sre-session', 'sre-planner');
 +		beginInvocation('sre-session', 'sre-planner');
@@ -122,25 +126,42 @@ index 5521a1b1e..fd3eaa1c7 100644
 +	});
 +
 +	test('checkFileAuthority allows custom agent when authority is disabled or configured in rules', () => {
-+		const { checkFileAuthority } = require('../../../src/hooks/guardrails/file-authority');
++		const {
++			checkFileAuthority,
++		} = require('../../../src/hooks/guardrails/file-authority');
 +
 +		// 1. When authority is disabled, unknown agents are allowed for normal paths
-+		const disabledResult = checkFileAuthority('sre-planner', 'tests/unit/test.py', directory, {
-+			enabled: false,
-+		});
++		const disabledResult = checkFileAuthority(
++			'sre-planner',
++			'tests/unit/test.py',
++			directory,
++			{
++				enabled: false,
++			},
++		);
 +		expect(disabledResult.allowed).toBe(true);
 +
 +		// 2. When authority is enabled, configured custom agent in rules is allowed
-+		const configuredResult = checkFileAuthority('builder', 'src/file.py', directory, {
-+			enabled: true,
-+			rules: { builder: {} },
-+		});
++		const configuredResult = checkFileAuthority(
++			'builder',
++			'src/file.py',
++			directory,
++			{
++				enabled: true,
++				rules: { builder: {} },
++			},
++		);
 +		expect(configuredResult.allowed).toBe(true);
 +
 +		// 3. When authority is enabled, unconfigured custom agent is denied with AUTHORITY_UNKNOWN_AGENT
-+		const unknownResult = checkFileAuthority('builder', 'src/file.py', directory, {
-+			enabled: true,
-+		});
++		const unknownResult = checkFileAuthority(
++			'builder',
++			'src/file.py',
++			directory,
++			{
++				enabled: true,
++			},
++		);
 +		expect(unknownResult.allowed).toBe(false);
 +		expect(unknownResult.code).toBe('AUTHORITY_UNKNOWN_AGENT');
 +	});
