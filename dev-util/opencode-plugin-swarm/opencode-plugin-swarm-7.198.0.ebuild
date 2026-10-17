@@ -38,7 +38,6 @@ RDEPEND="
 PATCHES=(
 	"${FILESDIR}/${P}-fast-activation.patch"
 	"${FILESDIR}/${P}-opencode2-shell.patch"
-	"${FILESDIR}/${P}-sandbox-and-sdd.patch"
 	"${FILESDIR}/${P}-worktree-authority.patch"
 	"${FILESDIR}/${P}-acceptance-auto-inject.patch"
 )
