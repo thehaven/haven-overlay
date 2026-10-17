@@ -1,0 +1,147 @@
+diff --git a/src/hooks/guardrails/file-authority.ts b/src/hooks/guardrails/file-authority.ts
+index c7e4b5888..60b27b372 100644
+--- a/src/hooks/guardrails/file-authority.ts
++++ b/src/hooks/guardrails/file-authority.ts
+@@ -623,7 +623,7 @@ export function matchesAuthorityDenyPrefix(
+ export function buildEffectiveRules(
+ 	authorityConfig?: AuthorityConfig,
+ ): Record<string, AgentRule> {
+-	if (authorityConfig?.enabled === false || !authorityConfig?.rules) {
++	if (!authorityConfig?.rules) {
+ 		return { ...DEFAULT_AGENT_AUTHORITY_RULES };
+ 	}
+ 	const entries = Object.entries(authorityConfig.rules);
+@@ -932,16 +932,6 @@ export function checkFileAuthorityWithRules(
+ 		}
+ 	}
+ 
+-	const rules =
+-		effectiveRules[normalizedAgent] ?? effectiveRules[strippedAgent];
+-	if (!rules) {
+-		return denyAuthority(agentName, normalizedPath, {
+-			code: 'AUTHORITY_UNKNOWN_AGENT',
+-			layer: 'role-capability',
+-			rule: 'known-agent-role',
+-			detail: 'Unknown agent: no authority classification exists',
+-		});
+-	}
+ 	const flavor = getPathFlavor();
+ 	const matchesPathPrefix = (candidate: string, prefix: string): boolean =>
+ 		isPathIdentityWithin(
+@@ -1015,6 +1005,26 @@ export function checkFileAuthorityWithRules(
+ 		});
+ 	}
+ 
++	if (options.authorityEnabled === false) {
++		return {
++			allowed: true,
++			layer: 'role-policy',
++			path: sanitizeDiagnosticText(normalizedPath, 320),
++			agent: sanitizeDiagnosticText(agentName, 96),
++		};
++	}
++
++	const rules =
++		effectiveRules[normalizedAgent] ?? effectiveRules[strippedAgent];
++	if (!rules) {
++		return denyAuthority(agentName, normalizedPath, {
++			code: 'AUTHORITY_UNKNOWN_AGENT',
++			layer: 'role-capability',
++			rule: 'known-agent-role',
++			detail: 'Unknown agent: no authority classification exists',
++		});
++	}
++
+ 	// Configurable readOnly only narrows roles that otherwise have write ability.
+ 	if (rules.readOnly) {
+ 		return denyAuthority(agentName, normalizedPath, {
+@@ -1039,14 +1049,6 @@ export function checkFileAuthorityWithRules(
+ 			agent: sanitizeDiagnosticText(agentName, 96),
+ 		};
+ 	}
+-	if (options.authorityEnabled === false) {
+-		return {
+-			allowed: true,
+-			layer: 'role-policy',
+-			path: sanitizeDiagnosticText(normalizedPath, 320),
+-			agent: sanitizeDiagnosticText(agentName, 96),
+-		};
+-	}
+ 
+ 	// Step 2: blockedExact - exact path matches (fast path)
+ 	if (rules.blockedExact) {
+diff --git a/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts b/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
+index 5521a1b1e..fd3eaa1c7 100644
+--- a/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
++++ b/tests/unit/hooks/guardrails-authority-disabled-hook-feedback.test.ts
+@@ -66,4 +66,70 @@ describe('authority.enabled=false hard-policy hook coverage (FB-006)', () => {
+ 			).rejects.toThrow(code);
+ 		}
+ 	});
++
++	test('allows custom or unknown host agent writes when authority.enabled is false', async () => {
++		const authority: AuthorityConfig = {
++			enabled: false,
++			universal_deny_prefixes: ['secrets/'],
++		};
++		const hook = createGuardrailsHooks(
++			directory,
++			GuardrailsConfigSchema.parse({ enabled: true }),
++			undefined,
++			authority,
++		).toolBefore;
++
++		const customSession = ensureAgentSession('sre-session', 'sre-planner', directory);
++		customSession.delegationActive = true;
++		swarmState.activeAgent.set('sre-session', 'sre-planner');
++		beginInvocation('sre-session', 'sre-planner');
++
++		// Unknown / host agent write to regular path succeeds when authority is disabled
++		await expect(
++			hook(
++				{
++					tool: 'write',
++					sessionID: 'sre-session',
++					callID: 'write-sre-test',
++				},
++				{ args: { filePath: 'tests/unit/test_smart_router.py' } },
++			),
++		).resolves.toBeUndefined();
++
++		// Universal deny still protects secrets even when authority is disabled
++		await expect(
++			hook(
++				{
++					tool: 'write',
++					sessionID: 'sre-session',
++					callID: 'write-sre-secret',
++				},
++				{ args: { filePath: 'secrets/token.txt' } },
++			),
++		).rejects.toThrow('AUTHORITY_UNIVERSAL_DENY');
++	});
++
++	test('checkFileAuthority allows custom agent when authority is disabled or configured in rules', () => {
++		const { checkFileAuthority } = require('../../../src/hooks/guardrails/file-authority');
++
++		// 1. When authority is disabled, unknown agents are allowed for normal paths
++		const disabledResult = checkFileAuthority('sre-planner', 'tests/unit/test.py', directory, {
++			enabled: false,
++		});
++		expect(disabledResult.allowed).toBe(true);
++
++		// 2. When authority is enabled, configured custom agent in rules is allowed
++		const configuredResult = checkFileAuthority('builder', 'src/file.py', directory, {
++			enabled: true,
++			rules: { builder: {} },
++		});
++		expect(configuredResult.allowed).toBe(true);
++
++		// 3. When authority is enabled, unconfigured custom agent is denied with AUTHORITY_UNKNOWN_AGENT
++		const unknownResult = checkFileAuthority('builder', 'src/file.py', directory, {
++			enabled: true,
++		});
++		expect(unknownResult.allowed).toBe(false);
++		expect(unknownResult.code).toBe('AUTHORITY_UNKNOWN_AGENT');
++	});
+ });

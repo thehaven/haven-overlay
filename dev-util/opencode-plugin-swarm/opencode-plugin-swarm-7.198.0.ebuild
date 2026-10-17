@@ -40,6 +40,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-opencode2-shell.patch"
 	"${FILESDIR}/${P}-worktree-authority.patch"
 	"${FILESDIR}/${P}-acceptance-auto-inject.patch"
+	"${FILESDIR}/${P}-authority-role-policy.patch"
 )
 
 src_compile() {
