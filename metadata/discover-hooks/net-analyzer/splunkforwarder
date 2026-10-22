@@ -2,6 +2,10 @@
 # Splunk's download page serves data-link attributes in static HTML
 # containing versioned tarball URLs. This extracts the latest version.
 #
+# Splunk ships four-component release versions (10.6.1.1), so the version
+# is matched as a whole dotted number. A three-component match truncated
+# 10.6.1.1 to 10.6.1, which matches no download path.
+#
 # SECURITY NOTE: source = "cmd" executes shell inside nvchecker.
 # This hook lives in the overlay repo and is trusted input.
 # Auditors should review cmd hooks with the same scrutiny as
@@ -11,4 +15,4 @@
 # will silently return empty. Monitor for silent failures.
 _schema = 1
 source = "cmd"
-cmd = "curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html | grep -oP 'splunkforwarder-\\K[0-9]+\\.[0-9]+\\.[0-9]+' | sort -Vu | tail -1"
+cmd = "curl -sSlL https://www.splunk.com/en_us/download/universal-forwarder.html | grep -oP 'splunkforwarder-\\K[0-9]+(\\.[0-9]+)+' | sort -Vu | tail -1"
