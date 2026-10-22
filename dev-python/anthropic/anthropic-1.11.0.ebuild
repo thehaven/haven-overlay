@@ -48,7 +48,6 @@ KEYWORDS="~amd64 ~arm64"
 
 RDEPEND="
 	>=dev-python/anyio-3.5.0[${PYTHON_USEDEP}]
-	>=dev-python/distro-1.11.0[${PYTHON_USEDEP}]
 	>=dev-python/docstring-parser-0.15[${PYTHON_USEDEP}]
 	>=dev-python/httpx-0.25.0[${PYTHON_USEDEP}]
 	>=dev-python/jiter-0.4.0[${PYTHON_USEDEP}]
