@@ -14,8 +14,15 @@ HOMEPAGE="https://lancedb.github.io/lancedb/ https://github.com/lancedb/lancedb"
 # and bundled into the wheel). This ebuild installs the prebuilt amd64
 # wheel directly. If upstream ever ships an sdist, switch to distutils-r1
 # + pypi.
+# files.pythonhosted.org embeds a per-release content hash in its paths, so the
+# wheel URL cannot be derived from ${PV}. The wheel tag is not stable either:
+# 0.29.x ships cp39-abi3-manylinux_2_17_x86_64, 0.40.x ships
+# cp310-abi3-manylinux_2_28_x86_64. metadata/bump-hooks/dev-python/lancedb
+# rewrites the WHEEL_URL line below with the URL the PyPI JSON API reports for
+# the version being bumped.
+WHEEL_URL="https://files.pythonhosted.org/packages/66/21/153a42294279c5b66d763f357808dde0899b71c5c8e41ad5ecbeeb8728df/lancedb-0.29.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 SRC_URI="
-	amd64? ( https://files.pythonhosted.org/packages/66/21/153a42294279c5b66d763f357808dde0899b71c5c8e41ad5ecbeeb8728df/lancedb-0.29.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl -> ${P}-amd64.whl )
+	amd64? ( ${WHEEL_URL} -> ${P}-amd64.whl )
 "
 
 LICENSE="Apache-2.0"
