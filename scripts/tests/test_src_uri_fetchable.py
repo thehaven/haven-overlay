@@ -58,6 +58,10 @@ KNOWN_BROKEN = CHANGE_TARGETS | {
     # GitHub releases ship no assets; masked in profiles/package.mask.
     "https://repo.jellyfin.org/releases/server/linux/stable/server/jellyfin-server_10.6.2_linux-amd64.tar.gz",
     "https://github.com/grafana/alloy/releases/download/v1.19.1/alloy-linux-amd64.zip",
+    # net-nds/slapi-nis: upstream 389-ds publishes the plug-in from its git
+    # tree only; the releases.pagure.org tarball is gone. Follow-up: port the
+    # stub to git-r3 against the 389-ds repository.
+    "https://releases.pagure.org/slapi-nis/slapi-nis-0.56.7.tar.gz",
     "https://github.com/jason-kuo/ormsgpack/archive/refs/tags/v1.12.2.tar.gz",
     "https://github.com/voidful/Distil/archive/refs/tags/v0.1.0.tar.gz",
     "https://github.com/readmeabook/readmeabook/archive/refs/tags/v1.2.1.tar.gz",
