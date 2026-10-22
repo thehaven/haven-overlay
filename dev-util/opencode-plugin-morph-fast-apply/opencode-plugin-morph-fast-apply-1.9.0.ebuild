@@ -7,8 +7,10 @@ inherit bun
 
 DESCRIPTION="Integrates Morph's Fast Apply API for 10,500+ tokens/sec code editing"
 HOMEPAGE="https://github.com/JRedeker/opencode-morph-fast-apply"
-SRC_URI="https://github.com/JRedeker/opencode-morph-fast-apply/archive/0625507c07ac73443ec8780a674778287a4a0c4e.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/opencode-morph-fast-apply-1.9.0"
+# Upstream ships a git tag per release; the archive directory GitHub creates for a
+# tag is <repo>-<version without the leading v>, so S follows ${PV}.
+SRC_URI="https://github.com/JRedeker/opencode-morph-fast-apply/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/opencode-morph-fast-apply-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
