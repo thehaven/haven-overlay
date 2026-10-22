@@ -6,8 +6,8 @@ EAPI=8
 DESCRIPTION="OmniSharp server based on Roslyn workspaces"
 HOMEPAGE="https://github.com/OmniSharp/omnisharp-roslyn"
 SRC_URI="
-	amd64? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp-linux-x64-net6.0.tar.gz -> ${P}-amd64.tar.gz )
-	arm64? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp-linux-arm64-net6.0.tar.gz -> ${P}-arm64.tar.gz )
+	amd64? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp-linux-x64.tar.gz -> ${P}-amd64.tar.gz )
+	arm64? ( https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${PV}/omnisharp-linux-arm64.tar.gz -> ${P}-arm64.tar.gz )
 "
 S="${WORKDIR}"
 
