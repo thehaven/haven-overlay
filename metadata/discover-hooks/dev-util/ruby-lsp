@@ -1,0 +1,12 @@
+_schema = 1
+# ruby-lsp ships on rubygems.org, not as a GitHub release. The gem version
+# of a prerelease carries a dot before the tag (0.27.0.beta5), which is not a
+# legal Portage version, so the newest gem version is normalised to PMS
+# syntax here (0.27.0_beta5). The ebuild maps the PMS version back to the
+# upstream gem name for the download URL.
+#
+# SECURITY NOTE: source = "cmd" executes shell inside nvchecker. The hook
+# lives in the overlay repo (trusted input); auditors should review cmd
+# hooks with the same scrutiny as bump-hook scripts.
+source = "cmd"
+cmd = "curl -sSf https://rubygems.org/api/v1/versions/ruby-lsp.json | jq -r '.[0].number' | sed -E 's/[.](alpha|beta|rc|pre)[.]?([0-9]*)$/_\\1\\2/'"
