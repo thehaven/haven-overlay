@@ -22,18 +22,28 @@ HOMEPAGE="https://pytorch.org https://pypi.org/project/torch/"
 #
 # cp315 reuses the cp314 wheel: ABI-compatible forward, and PyTorch 2.10.0
 # does not publish a cp315 build (first cp315 wheel is torch 2.13.0).
+#
+# files.pythonhosted.org embeds a per-release content hash in its paths, so the
+# three CPU wheel URLs below cannot be derived from ${PV} - every new version
+# 404s the previous release's paths. metadata/bump-hooks/dev-python/torch
+# rewrites the three TORCH_CP*_URL lines with the URLs the PyPI JSON API reports
+# for the version being bumped. The CUDA URLs are unaffected:
+# download.pytorch.org serves plain paths.
+TORCH_CP312_URL="https://files.pythonhosted.org/packages/23/8e/3c74db5e53bff7ed9e34c8123e6a8bfef718b2450c35eefab85bb4a7e270/torch-2.10.0-cp312-cp312-manylinux_2_28_x86_64.whl"
+TORCH_CP313_URL="https://files.pythonhosted.org/packages/98/fb/5160261aeb5e1ee12ee95fe599d0541f7c976c3701d607d8fc29e623229f/torch-2.10.0-cp313-cp313-manylinux_2_28_x86_64.whl"
+TORCH_CP314_URL="https://files.pythonhosted.org/packages/5e/cd/4b95ef7f293b927c283db0b136c42be91c8ec6845c44de0238c8c23bdc80/torch-2.10.0-cp314-cp314-manylinux_2_28_x86_64.whl"
 SRC_URI="
 	!cuda? (
 		python_targets_python3_12? (
-			https://files.pythonhosted.org/packages/23/8e/3c74db5e53bff7ed9e34c8123e6a8bfef718b2450c35eefab85bb4a7e270/torch-${PV}-cp312-cp312-manylinux_2_28_x86_64.whl
+			${TORCH_CP312_URL}
 			-> ${P}-cp312.whl.zip
 		)
 		python_targets_python3_13? (
-			https://files.pythonhosted.org/packages/98/fb/5160261aeb5e1ee12ee95fe599d0541f7c976c3701d607d8fc29e623229f/torch-${PV}-cp313-cp313-manylinux_2_28_x86_64.whl
+			${TORCH_CP313_URL}
 			-> ${P}-cp313.whl.zip
 		)
 		python_targets_python3_14? (
-			https://files.pythonhosted.org/packages/5e/cd/4b95ef7f293b927c283db0b136c42be91c8ec6845c44de0238c8c23bdc80/torch-${PV}-cp314-cp314-manylinux_2_28_x86_64.whl
+			${TORCH_CP314_URL}
 			-> ${P}-cp314.whl.zip
 		)
 	)

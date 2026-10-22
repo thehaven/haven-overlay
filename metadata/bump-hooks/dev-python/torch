@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Bump hook: resolve the PyPI CPU wheel URLs for dev-python/torch <new_version>.
+
+The CPU wheels live on files.pythonhosted.org, whose paths embed a per-release
+content hash, so none of the three cp31x URLs can be derived from ${PV}: every
+new version 404s the previous release's paths. The CUDA wheels are unaffected
+(download.pytorch.org serves plain paths) and stay literal in the ebuild.
+
+Prints one TORCH_CP<xy>_URL line per CPython target, or exits non-zero when a
+target has no CPU wheel for this release so the bump stage aborts rather than
+regenerating an ebuild with stale URLs.
+"""
+import json
+import re
+import sys
+import urllib.request
+
+PKG = "torch"
+TARGETS = ("312", "313", "314")
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(1)
+    ver = sys.argv[1]
+    try:
+        with urllib.request.urlopen(
+            f"https://pypi.org/pypi/{PKG}/{ver}/json", timeout=25
+        ) as resp:
+            data = json.load(resp)
+    except Exception:
+        sys.exit(1)
+
+    names = {f["filename"]: f["url"] for f in data["urls"] if f["packagetype"] == "bdist_wheel"}
+    for cp in TARGETS:
+        wheel_re = re.compile(
+            r"^torch-" + re.escape(ver) + r"-cp" + cp + r"-cp" + cp + r"-manylinux_[0-9_]+_x86_64\.whl$"
+        )
+        for name, url in names.items():
+            if wheel_re.match(name):
+                print(f"TORCH_CP{cp}_URL={url}")
+                break
+        else:
+            sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
