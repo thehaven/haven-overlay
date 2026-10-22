@@ -8,7 +8,12 @@ inherit python-single-r1
 
 DESCRIPTION="MCP server for time and timezone conversion"
 HOMEPAGE="https://github.com/modelcontextprotocol/servers/tree/main/src/time"
-SRC_URI="https://files.pythonhosted.org/packages/ad/d9/fcc7f85f0cdcfa8da9c650439128dd72be21855a126b745f17cf43f24b11/mcp_server_time-${PV}-py3-none-any.whl"
+# files.pythonhosted.org embeds a per-release content hash in its paths, so the
+# wheel URL cannot be derived from ${PV}. metadata/bump-hooks/dev-python/mcp-server-time
+# rewrites the WHEEL_URL line below with the URL the PyPI JSON API reports for
+# the version being bumped.
+WHEEL_URL="https://files.pythonhosted.org/packages/ad/d9/fcc7f85f0cdcfa8da9c650439128dd72be21855a126b745f17cf43f24b11/mcp_server_time-2026.8.18-py3-none-any.whl"
+SRC_URI="${WHEEL_URL}"
 S="${WORKDIR}"
 
 PATCHES=( "${FILESDIR}/mcp-server-time-2026.8.18-mcp2-compat.patch" )
