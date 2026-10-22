@@ -6,6 +6,9 @@ EAPI=8
 
 inherit systemd
 
+# Release channel word in the asset name. It is "develop" for nightly builds and
+# "master" for stable ones, so metadata/bump-hooks/net-nntp/radarr resolves it from
+# the GitHub release on every bump; keep in sync with that hook.
 RELEASE='develop'
 SRC_URI="https://github.com/Radarr/Radarr/releases/download/v${PV}/Radarr.${RELEASE}.${PV}.linux-core-x64.tar.gz -> ${P}.tar.gz"
 

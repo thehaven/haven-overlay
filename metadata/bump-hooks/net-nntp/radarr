@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""Bump hook for net-nntp/radarr.
+
+Radarr publishes every release under the GitHub tag v<PV>, but the channel word
+inside the asset name is not constant: stable releases use "master" and nightly
+builds use "develop".
+
+  v6.4.4.10685 (stable)      -> Radarr.master.6.4.4.10685.linux-core-x64.tar.gz
+  v6.4.4.10684 (prerelease) -> Radarr.develop.6.4.4.10684.linux-core-x64.tar.gz
+
+so the ebuild cannot build the asset name from ${PV} alone. Resolve the channel
+from the GitHub release of the version being bumped and hand it to the ebuild.
+The word is read out of the published asset name rather than guessed from the
+prerelease flag, so any channel upstream introduces keeps working.
+"""
+import json
+import os
+import re
+import sys
+import urllib.error
+import urllib.request
+
+REPO = "Radarr/Radarr"
+SUFFIX = ".linux-core-x64.tar.gz"
+
+ver = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("VERSION", "")
+if not ver:
+    sys.exit("no version given")
+
+url = f"https://api.github.com/repos/{REPO}/releases/tags/v{ver}"
+req = urllib.request.Request(
+    url, headers={"Accept": "application/vnd.github+json", "User-Agent": "ebuild-updater"}
+)
+try:
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        release = json.load(resp)
+except (urllib.error.URLError, OSError, ValueError) as exc:
+    sys.exit(f"radarr bump-hook: cannot query release v{ver}: {exc}")
+
+channels = set()
+for asset in release.get("assets", []):
+    # Radarr.<channel>.<PV>.linux-core-x64.tar.gz
+    match = re.fullmatch(r"Radarr\.([^.]+)\.(.+)\.linux-core-x64\.tar\.gz", asset["name"])
+    if match and match.group(2) == ver:
+        channels.add(match.group(1))
+
+if not channels:
+    sys.exit(f"radarr bump-hook: release v{ver} has no Radarr.*.{ver}{SUFFIX} asset")
+
+# A release normally ships one channel; prefer the stable one if both appear.
+print(f"RELEASE={'master' if 'master' in channels else sorted(channels)[0]}")
