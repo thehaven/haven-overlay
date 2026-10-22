@@ -19,11 +19,9 @@ if [[ "${PV}" == "9999" ]] ; then
 		go-module_live_vendor
 	}
 else
-	SRC_URI="
-		https://github.com/NVIDIA/${PN}/archive/v${PV/_rc/-rc.}.tar.gz -> ${P}.tar.gz
-		https://github.com/thehaven/gentoo-go-deps/releases/download/${P}/${P}-deps.tar.xz
-		https://github.com/thehaven/gentoo-go-deps/releases/download/${P}/${P}-vendor.tar.xz
-	"
+	# Upstream vendors its dependencies, so the module cache and vendor tarballs
+	# are not needed; ego builds from the vendored tree in ${S}/vendor.
+	SRC_URI="https://github.com/NVIDIA/${PN}/archive/v${PV/_rc/-rc.}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${PV/_rc/-rc.}"
 	KEYWORDS="~amd64"
 	RESTRICT="mirror"
