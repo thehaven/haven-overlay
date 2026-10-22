@@ -9,8 +9,16 @@ inherit cmake cuda rocm
 
 if [[ "${PV}" != "9999" ]]; then
 	KEYWORDS="~amd64"
-	MY_PV="b${PV#0_pre}"
-	S="${WORKDIR}/llama.cpp-${MY_PV}"
+	# Upstream tag naming changed with the 0.1.0 release: build-number tags
+	# (b5716, packaged here as 0_pre5716) are now v-prefixed semver tags
+	# (v0.7.0, packaged here as 0.7.0). GitHub strips the leading "v" from
+	# the top-level directory of a tag archive, hence S below.
+	if [[ "${PV}" == 0_pre* ]]; then
+		MY_PV="b${PV#0_pre}"
+	else
+		MY_PV="v${PV}"
+	fi
+	S="${WORKDIR}/llama.cpp-${MY_PV#v}"
 	SRC_URI="https://github.com/ggml-org/llama.cpp/archive/refs/tags/${MY_PV}.tar.gz -> ${P}.tar.gz"
 else
 	inherit git-r3
