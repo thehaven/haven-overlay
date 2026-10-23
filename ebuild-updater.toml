@@ -88,4 +88,23 @@ hold = [
     "dev-util/lsp-meta",
     "dev-util/opencode-plugins",
     "dev-util/opencode-themes",
+    # SECURITY: litellm 1.107.0 supply-chain compromise (2026-10-21). All
+    # seven 1.107.0 wheels shipped a cook.pth/cook.py credential stealer plus
+    # a sitecustomize.py remote-code loader; the sdist carried a tampered
+    # pyproject.toml. Root cause: the release was built from the lookalike
+    # repo Berri-AI/litellm. PyPI removed the files 2026-10-21 13:23Z and the
+    # Docker tags were yanked 17:13Z, but the compromised artefacts are still
+    # reachable in most mirrors and caches, so a plain bump would reinstall
+    # them. Advisory: https://github.com/BerriAI/litellm/issues/47826
+    # Paired with ">=dev-python/litellm-1.107.0" in profiles/package.mask.
+    #
+    # NOTE this hold is a coarse instrument: hold is atom-level (category/
+    # package), so it freezes EVERY future litellm bump, not just 1.107.0.
+    # That is the intended behaviour here -- the maintainers ask that the next
+    # release also be treated as untrusted until the PyPI publishing credential
+    # is rotated -- but it means litellm stops tracking upstream entirely.
+    # Unhold deliberately once a vetted, attested release lands, and narrow
+    # the mask at the same time. openspec/changes/add-ebuild-vulnerability-gate
+    # replaces this coarse hold with version-scoped blocking.
+    "dev-python/litellm",
 ]
