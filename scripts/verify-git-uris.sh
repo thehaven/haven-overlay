@@ -10,7 +10,7 @@
 # while real builds were broken.
 #
 # The gate probes every URI exactly as git-r3 would during a build:
-#   https:// -> sudo -u portage git ls-remote <uri> HEAD
+#   https:// -> sudo -u portage env GIT_TERMINAL_PROMPT=0 git ls-remote <uri> HEAD
 #   file:// or bare path -> sudo -u portage git -C <path> rev-parse HEAD
 #   ssh://  -> SKIP (credentials; must be migrated to https or masked)
 #
@@ -54,7 +54,7 @@ is_masked() {
 
 probe_https() {
 	local uri="$1"
-	if timeout 30 sudo -u portage git ls-remote "$uri" HEAD >/dev/null 2>&1; then
+	if timeout 30 sudo -u portage env GIT_TERMINAL_PROMPT=0 git ls-remote "$uri" HEAD >/dev/null 2>&1; then
 		printf 'OK   %s\n' "$uri"
 		return 0
 	fi
