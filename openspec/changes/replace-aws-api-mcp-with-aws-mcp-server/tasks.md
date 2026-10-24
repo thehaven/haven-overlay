@@ -420,18 +420,67 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 
 ## 7. Overlay consistency
 
-- [ ] 7.1 Verify the overlay carries no second ebuild for either upstream:
+- [x] 7.1 Verify the overlay carries no second ebuild for either upstream:
   `ls -d */mcp-proxy-for-aws`, `rtk grep -rl 'aws/mcp-proxy-for-aws' --include='*.ebuild' .` and
   `rtk grep -rl 'mcp-proxy-for-aws' metadata` — the first may match only the new atom, the other
   two must return nothing else
-- [ ] 7.2 Run the full overlay test suite `pytest scripts/tests/` with an **explicit timeout** and
+  (DONE 2026-10-24 - The three duplicate pre-flight checks, all executed. `ls -d */mcp-proxy-for-aws` returns exactly ONE
+  directory - the new atom. `ls -d */mcp-server-aws` returns exactly ONE directory - the retired
+  atom, which is MASKED and intentionally retained on disk; mask is not deletion, so this is not a
+  duplicate and the overlay's own convention (AGENTS.md:57, README.md:80) is to keep the ebuild so
+  the source tarball stops being refreshed. `rtk grep -rl 'aws/mcp-proxy-for-aws' --include='*.ebuild' .`
+  returns exactly ONE file - the new ebuild itself. `rtk grep -rl 'mcp-proxy-for-aws' metadata` returns
+  NOTHING (exit 1) - metadata/md5-cache/ was deliberately NOT regenerated, because the overlay's
+  recorded convention is that the webhost regenerates it in bulk and it is reported, not enforced.
+  Cross-checked with a python byte-scan of the whole tree, because `rtk grep -rl` was proved
+  unreliable earlier in this change: 12 files contain the string, and every one is legitimate - the
+  new atom's ebuild and metadata.xml, the mcp-meta 5.6.10 flag mapping, the mcp-mesh registry
+  example, profiles/package.mask, docs/aws-mcp-migration.md, the new ebuild test, the change's own
+  proposal/design/spec/tasks, and .pytest_cache (which pytest self-ignores). No second ebuild
+  exists for either upstream.
+  )
+- [x] 7.2 Run the full overlay test suite `pytest scripts/tests/` with an **explicit timeout** and
   verify the result is *no NEW failures against the recorded baseline* — not *zero failures*; a
   gate demanding zero would be red from its first run and would train the operator to ignore it.
   Any skipped or hanging test must be recorded in the output, never silently dropped
-- [ ] 7.3 Run `ebuild dev-util/mcp-proxy-for-aws clean` and a `--pretend` emerge; verify no
+  (DONE 2026-10-24 - The full overlay test suite was run PER TEST FILE with an explicit 180s shell timeout each, so no
+  single file can hang the run and every timeout is visible. pytest 9.1.1 on python3.14.7 with
+  `-p no:hydra_pytest` (this host's portage pairs hydra-core-1.4.0_rc2 with omegaconf-2.4.0, which
+  genuinely lacks _validation_context.py). RESULTS: gepa 6 passed; grafonnet 4 passed; headroom_ai
+  1 passed; hermes_evolution 8 passed; litellm 30 passed; mcp_pin 3 passed (was 1 before this
+  change); mcp_proxy_for_aws 8 passed (new file); opencode_plugin_swarm 3 failed 20 passed;
+  overlay_duplicates 2 passed; pep517_backend_drift TIMED OUT after 180s - NOT CHECKED, never
+  clean, recorded here rather than silently dropped; prime_agent 3 failed 4 passed;
+  src_uri_fetchable 1 failed 1 passed.
+  THE BASELINE WAS ESTABLISHED DIFFERENTIALLY, NOT ASSUMED: a git worktree at the pre-change base
+  commit 7364489b (the parent of the Group-1 commit 823614d8) was created and the same three failing
+  files plus the hanging one were run there with the identical command and the identical timeout.
+  The failing test IDs are IDENTICAL SETS in both trees - test_referenced_patches_and_shims_exist
+  [ebuild_path3], [ebuild_path4] and [ebuild_path5] in test_opencode_plugin_swarm_ebuild.py;
+  test_bin_symlink_installed, test_license_covers_bundled_deps and test_node_floor_matches_engines in
+  test_prime_agent_ebuild.py; test_no_new_broken_urls in test_src_uri_fetchable.py.
+  SEVEN PRE-EXISTING FAILURES, ZERO NEW FAILURES. The worktree was removed afterwards.
+  This is the "no NEW failures against the recorded baseline" gate, NOT a zero-failures gate: a
+  zero-failures gate would be red from its first run and would train the operator to ignore it.
+  )
+- [x] 7.3 Run `ebuild dev-util/mcp-proxy-for-aws clean` and a `--pretend` emerge; verify no
   Portage warnings and that the manifest is consistent. Do **not** gate on a repo-wide `pkgcheck`
   finding count — pkgcheck 0.10.39 does not know portage's `network-sandbox` feature and flags
   correct ebuilds as wrong
+  (DONE 2026-10-24 - `ebuild dev-util/mcp-proxy-for-aws/mcp-proxy-for-aws-1.7.0.ebuild clean` exits 0 with no output
+  and no errors. `emerge --pretend --ask=n dev-util/mcp-proxy-for-aws` resolves in 6.46s (backtrack
+  0/20) to exactly `[ebuild R] dev-util/mcp-proxy-for-aws-1.7.0` with NO Portage warnings.
+  Manifest consistency was verified in a SCRATCH COPY, because `ebuild manifest` WRITES and may
+  therefore only ever run outside the validated tree: the scratch-generated DIST line is BYTE-IDENTICAL
+  to the committed one - `DIST mcp_proxy_for_aws-1.7.0.tar.gz 461251 BLAKE2B a4bfb731... SHA512
+  9a356842...`. The scratch Manifest also carries EBUILD and MISC lines; the committed Manifest is
+  DIST-only, matching the retired package's thin-manifest shape and the overlay's
+  `thin-manifests = true` convention, and the DIST line is the only one that governs the distfile
+  fetch and its verification. The "Repository x-scratch is missing masters attribute" warning is an
+  artefact of the scratch directory, not a defect in the ebuild. NO repo-wide pkgcheck count gate was
+  applied, per the overlay's own recorded lesson that pkgcheck 0.10.39 does not know portage's
+  `network-sandbox` feature and therefore flags correct ebuilds as wrong.
+  )
 
 ## 8. Integration verification
 
