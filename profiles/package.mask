@@ -85,3 +85,13 @@ net-misc/bbcp
 # only once a vetted release with attestations lands.
 >=dev-python/litellm-1.107.0
 
+# Dead upstream: awslabs/aws-api-mcp-server is end-of-life (2026-10-24). The
+# upstream project is deprecated in favour of the managed, AWS-hosted AWS MCP
+# Server, which the overlay packages as dev-util/mcp-proxy-for-aws (a thin
+# proxy that forwards to the remote endpoint). The retired local server is
+# masked rather than deleted, so the ebuild stays recoverable: remove this
+# line and re-emerge to restore it.
+# Masked as an open-ended range so a future re-release of the retired package
+# is blocked as well. The successor is a different upstream project with a
+# different name, so the two atoms can never be confused.
+>=dev-util/mcp-server-aws-1.3.36

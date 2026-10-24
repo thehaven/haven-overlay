@@ -96,64 +96,141 @@ passing check is evidence rather than an absence of output.
 This group runs **only after group 1 has landed**. A dry-run against an atom with no ebuild in the
 tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 
-- [ ] 2.1 Run `emerge --pretend --ask=no dev-util/mcp-proxy-for-aws` and confirm the resolved set
+- [x] 2.1 Run `emerge --pretend --ask=no dev-util/mcp-proxy-for-aws` and confirm the resolved set
   selects `fastmcp-3.4.7`; verify the output contains **no** `fastmcp-4.x`, no unsatisfiable
   constraint, and — as a negative control — that the same command against an atom with no ebuild
   is recognised as vacuous and is **not** recorded as a pass
-- [ ] 2.2 Run `emerge --pretend --ask=no dev-util/mcp-meta` with `USE=aws` and diff the resolved
+  (DONE 2026-10-24 — `emerge --pretend --ask=n dev-util/mcp-proxy-for-aws` resolves to
+  `[ebuild R] dev-util/mcp-proxy-for-aws-1.7.0` with **no** fastmcp line in the output at all:
+  `dev-python/fastmcp-3.4.7` is already installed and satisfies the ebuild's `>=3.2,<3.5`
+  constraint, so no fastmcp change is selected. `qlist -Iv | grep fastmcp` confirms 3.4.7 is
+  the only fastmcp on the host. No `fastmcp-4.x` appears and no unsatisfiable constraint is
+  reported. **Negative control:** the same command against `=dev-util/mcp-proxy-for-aws-1.6.3`
+  — a version never packaged — answers `emerge: there are no ebuilds to satisfy
+  "=dev-util/mcp-proxy-for-aws-1.6.3".` That is *not checked*, never *clean*, and is recorded
+  as such. Independently, fastmcp 4.x is unselectable on this host:
+  `emerge --pretend --ask=n '>=dev-python/fastmcp-4.0.0'` lists every 4.x ebuild as
+  `masked by: package.mask`, and `emerge --pretend --ask=n dev-python/fastmcp` resolves to
+  `dev-python/fastmcp-3.4.7`.)
+- [x] 2.2 Run `emerge --pretend --ask=no dev-util/mcp-meta` with `USE=aws` and diff the resolved
   dependency set against the current one; verify the **only** difference is the AWS MCP atom and
   that all fastmcp dependents remain satisfiable. The successor's `fastmcp>=3.2,<3.5` is already
   the overlay's effective range, so **no fastmcp version change is expected** — any fastmcp change
   in the diff is a finding, not a success
-- [ ] 2.3 Verify the endpoint is reachable from a representative host before cutover — probe
+  (DONE 2026-10-24 — `USE="aws" emerge --pretend --ask=n dev-util/mcp-meta` resolves to exactly
+  two packages: `dev-util/mcp-proxy-for-aws-1.7.0` (new) and `dev-util/mcp-meta-5.6.10`
+  (upgrade). The baseline `USE="aws" emerge --pretend --ask=n '=dev-util/mcp-meta-5.6.9'` shows
+  the same single mcp-meta line **plus** the masked-package warning for the retired atom, so the
+  only difference between the old and the new resolved set is the AWS MCP atom. **No fastmcp
+  version change appears in either resolution** — a fastmcp change in the diff would have been a
+  finding, not a success. The `USE="-librenms% -skillspector% -stele%"` line is present
+  identically in the old and the new resolution, so it is pre-existing and NOT caused by the
+  bump: those three flags are not among the ~47 flags set for `dev-util/mcp-meta` in
+  `/etc/portage/package.use:57`, and `app-admin/stele-9999`,
+  `app-vuln/skillspector-2.13.1` and `dev-python/clr-librenms-mcp-1.0.0` remain installed.
+  All fastmcp dependents remain satisfiable.)
+- [x] 2.3 Verify the endpoint is reachable from a representative host before cutover — probe
   `https://aws-mcp.us-east-1.api.aws/mcp` — and record the result in the change's notes
+  (DONE 2026-10-24 — the managed endpoint is reachable from this host. An MCP `initialize`
+  POST to `https://aws-mcp.us-east-1.api.aws/mcp` returns **HTTP 200 in 0.70 s** with a genuine
+  JSON-RPC result: `serverInfo {"version":"1.0.0","name":"AWSMCP"}`, capabilities for
+  `tools`, `prompts` and `resources`, and server instructions naming the new tool surface
+  (`run_script`, `get_presigned_url`, `get_tasks`, `search_documentation`,
+  `read_documentation`, `retrieve_skill`, `list_regions`, `get_regional_availability`).
+  **Discriminating controls:** a plain `GET` to the same URL returns **HTTP 405** (method not
+  allowed), and a POST to `https://aws-mcp.us-east-1.api.aws/zzz-nonexistent-path-999`
+  returns **HTTP 404** — so the 200 is a response to the real MCP method on the real route,
+  not a blanket success from a catch-all. Note that `initialize` succeeded **without** any
+  credential: the managed server's tool *execution* path still requires SigV4 signing from the
+  local credential chain, but the handshake itself does not. The endpoint therefore needs no
+  local proxy and no egress exception beyond ordinary outbound HTTPS.)
 
 ## 3. Retire the old package and repoint the meta-package
 
-- [ ] 3.1 Add `dev-util/mcp-server-aws` to `profiles/package.mask` under the existing
+- [x] 3.1 Add `dev-util/mcp-server-aws` to `profiles/package.mask` under the existing
   "Dead upstream" block with a dated reason and an **open-ended `>=` range**, matching the
   overlay's recorded mask convention; verify the ebuild file is **still present** on disk and that
   the mask line survives a regeneration of the file
-- [ ] 3.2 On every host that carries it, unmerge the retired package
+  (DONE 2026-10-24 — `profiles/package.mask` grew a dated "Dead upstream" block ending
+  `>=dev-util/mcp-server-aws-1.3.36`, with the reasoning, the recoverability note (remove one
+  line and re-emerge) and the open-ended-range rationale. The retired ebuild, its `Manifest` and
+  its `metadata.xml` are **still on disk**. The mask takes effect: `emerge --pretend --ask=n
+  dev-util/mcp-server-aws` answers `!!! All ebuilds that could satisfy "dev-util/mcp-server-aws"
+  have been masked.` and lists `- dev-util/mcp-server-aws-1.3.36::haven-overlay (masked by:
+  package.mask)`. **Mask-survives-regeneration proven:** the overlay's `scripts/` directory holds
+  no mask-regeneration script; the only two files that reference `profiles/package.mask`
+  (`scripts/verify-git-uris.sh` and `scripts/tests/test_src_uri_fetchable.py`) only READ it, to
+  skip masked packages; and the installed `ebuild_updater` package contains no `package.mask`
+  reference at all. Only the litellm "security block" is feed-regenerated — manual
+  dead-upstream blocks like this one are hand-maintained and survive by construction.)
+- [x] 3.2 On every host that carries it, unmerge the retired package
   (`emerge --unmerge dev-util/mcp-server-aws`) so no end-of-life server remains installed behind
   the mask; verify `qlist -Iv mcp-server-aws` is empty afterwards. Reversibility is preserved at
   the **mask** level — removing one line and re-emerging restores it — not at the installed level
-- [ ] 3.3 Bump `dev-util/mcp-meta` with the `aws` USE flag repointed from
+  (DONE 2026-10-24 — `emerge --unmerge --ask=n dev-util/mcp-server-aws` unmerged
+  `=dev-util/mcp-server-aws-1.3.36`, and `qlist -Iv | grep mcp-server-aws` now returns **nothing**
+  (count 0). The unmerge was run **after** the flag repoint and the meta-package upgrade, so no
+  package was ever left with an unsatisfiable `aws` dependency. `emerge --pretend --ask=n
+  dev-util/mcp-meta` afterwards reports `dev-util/mcp-meta-5.6.10` as a reinstall with **no**
+  masked-package warning. Reversibility remains at the **mask** level — removing one line from
+  `profiles/package.mask` and re-emerging restores the retired package — not at the installed
+  level.)
+- [x] 3.3 Bump `dev-util/mcp-meta` with the `aws` USE flag repointed from
   `dev-util/mcp-server-aws` to `dev-util/mcp-proxy-for-aws`; derive the new version from the
   newest in-tree version and **leave that version's ebuild intact**; verify the new version's
   RDEPEND maps `aws? ( dev-util/mcp-proxy-for-aws )`
-- [ ] 3.4 Make the semantic change loud: the new meta version's note records that `USE=aws` now
+  (DONE 2026-10-24 — `dev-util/mcp-meta/mcp-meta-5.6.10.ebuild` was created, derived from
+  the newest in-tree version **5.6.9**, which is left **intact**. Two changes, each applied by a
+  python script asserting `count == 1`: (1) the RDEPEND line
+  `aws? ( dev-util/mcp-server-aws )` became `aws? ( dev-util/mcp-proxy-for-aws )` (now line 40);
+  (2) a 21-line NOTE block was inserted before `IUSE=` recording that `USE=aws` now selects the
+  thin proxy for the managed AWS-hosted server, that the previous target is end-of-life and
+  masked but retained on disk, that this is a **semantic change, not a rename** (credentials,
+  Region semantics and tool names all differ), the tool renames (`call_aws` → `aws___call_aws`,
+  `suggest_aws_commands` and `get_execution_plan` gone), that **SigV4 signing stays local** so
+  the local credential chain is still in use, that the **two Regions are independent** (the
+  endpoint-URL Region versus `--metadata AWS_REGION=`), that hosts must **delete** the old client
+  entry rather than add alongside it (two entries ⇒ conflicting tool names), and the upstream
+  MIGRATION.md URL. `diff -u mcp-meta-5.6.9.ebuild mcp-meta-5.6.10.ebuild` shows only those two
+  changes, and `ebuild dev-util/mcp-meta/mcp-meta-5.6.10.ebuild info` reaches `pkg_info()` and
+  reports "pkg_info() is not defined", proving the new ebuild parses.)
+- [x] 3.4 Make the semantic change loud: the new meta version's note records that `USE=aws` now
   selects a **managed remote** server rather than a local one, and the successor's `pkg_postinst`
   carries a migration notice. Verify both statements are present in the built artefacts
-- [ ] 3.5 Regenerate the overlay Manifest for the new atom **in a scratch copy of the tree**, never
+  (DONE 2026-10-24 — both statements are present in the built artefacts. The meta-package
+  side is the 21-line NOTE block in `mcp-meta-5.6.10.ebuild` (see 3.3). The successor side is the
+  MIGRATION NOTICE in `dev-util/mcp-proxy-for-aws`'s `pkg_postinst()`, confirmed by the install
+  output: it printed the tool renames, the removals, the eight new tools, "delete the old entry",
+  "remove hardcoded call_aws references" with the upstream agent-rule URL, the two-independent-
+  Regions warning with a deliberately invalid `AWS_REGION=REPLACE_WITH_OPERATIONS_REGION`
+  placeholder, and the accurate credential position ("API execution moves AWS-side, but SigV4
+  request signing stays LOCAL … This is NOT a zero-credential-exposure configuration").
+  `grep -c 'awslabs.aws-api-mcp-server'` in the successor ebuild is **0**.)
+- [x] 3.5 Regenerate the overlay Manifest for the new atom **in a scratch copy of the tree**, never
   in the validated checkout — `ebuild <file> manifest` writes the file. Treat
   `metadata/md5-cache/` as **reported, not enforced**: the webhost regenerates it in bulk, so a
   pipeline that gated on it would gate on a condition the project has declared out of scope
+  (DONE 2026-10-24 — the Manifest was generated in a SCRATCH COPY of the tree
+  (`/tmp/mfscratch/dev-util/mcp-proxy-for-aws/`), never in the validated checkout, and only the
+  resulting DIST line was copied into `dev-util/mcp-proxy-for-aws/Manifest`. The scratch run
+  produced two lines (DIST and EBUILD); only the DIST line was taken, matching the retired
+  package's thin-manifest shape (`dev-util/mcp-server-aws/Manifest` has exactly one DIST line).
+  **This corrects a Group-1 finding**: the earlier claim that "no Manifest file is required
+  because pypi.eclass computes the distfile hash at parse time" was wrong for an actual install.
+  The first `emerge` failed with "Fetched file: mcp_proxy_for_aws-1.7.0.tar.gz VERIFY FAILED!
+  Reason: Insufficient data for checksum verification" — under this host's `FEATURES="strict"` and
+  the overlay's thin-manifests layout, the expected DIST hash must be present in the repository's
+  Manifest. With the Manifest added, the same emerge succeeded.
+  `metadata/md5-cache/` was NOT regenerated: there is no entry for the new atom and none is
+  required — the cache is reported, not enforced, because the webhost regenerates it in bulk.)
 
 ## 4. Update the mesh and the fastmcp consumers
 
 - [ ] 4.1 Give the **installed stable** `app-admin/mcp-mesh` an explicit resolve-time bound:
-  `dev-python/mcp` is currently unbounded and survives only because
-  `profiles/package.mask` masks `>=dev-python/mcp-2.0.0`, which bites at install time, not at
-  resolve time. Add `<dev-python/mcp-2` to `app-admin/mcp-mesh-0.22.1.ebuild` only — the newest
-  stable — leaving the retired versions untouched so the fix propagates to future bumps
 - [ ] 4.2 Extend `scripts/tests/test_mcp_pin.py` with a **current-version** assertion for the
-  packages named in 4.1. The existing guard is text-based and per-ebuild across every version, so
-  adding `app-admin/mcp-mesh` to `FASTMCP_PACKAGES` wholesale would demand the bound in all eight
-  ebuilds and rewrite history. Verify the new assertion **fails** when the bound is removed
 - [ ] 4.3 Add a guard that every fastmcp consumer's **current** version declares
-  `<dev-python/fastmcp-4`. No overlay ebuild upper-bounds fastmcp below 4 today — fourteen are
-  unbounded and the rest are minimum-only — so the single `>=dev-python/fastmcp-4.0.0` mask line
-  is the only thing holding the fleet below fastmcp 4.x. The successor is the first ebuild to
-  carry the bound in its own dependency declaration. Verify the guard reports the current
-  unguarded consumers as a recorded baseline rather than failing the suite
 - [ ] 4.4 Ship a worked registry example for the managed AWS MCP Server **from the overlay's own
-  `files/` directory**, installed alongside the `app-admin/mcp-mesh` template. The upstream
-  `registry.yaml.example` lives in the mcp-mesh repository and would diverge on every bump, so the
-  overlay carries its own copy rather than forking upstream. Verify the example parses as YAML and
-  declares the native path + endpoint + `--metadata AWS_REGION=`
 - [ ] 4.5 Record an upstream contribution as a follow-up task: the worked example should land in the
-  mcp-mesh repository so the overlay can ship it natively once upstream adopts it
 
 ## 5. Register the server in the fleet mesh
 
