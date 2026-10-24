@@ -51,6 +51,7 @@ RDEPEND="
 	dev-python/pydantic-settings[${PYTHON_USEDEP}]
 	dev-python/idna[${PYTHON_USEDEP}]
 	dev-python/mcp[${PYTHON_USEDEP}]
+	<dev-python/mcp-2[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/structlog[${PYTHON_USEDEP}]
@@ -77,6 +78,12 @@ python_install_all() {
 	# Fleet-shared registry template (from contrib/mcp-forge/)
 	insinto /etc/mcp-forge
 	newins "${S}"/contrib/mcp-forge/registry.yaml.example registry.yaml.example
+
+	# Overlay-provided worked example for the managed, AWS-hosted AWS MCP
+	# Server. Shipped from this overlay's own files/ directory rather than
+	# forked from the upstream template, so it survives upstream bumps
+	# unchanged. Installed alongside the fleet-shared registry template.
+	newins "${FILESDIR}/registry.aws-mcp.example.yaml" registry.aws-mcp.example.yaml
 
 	# Operator documentation
 	docinto contrib

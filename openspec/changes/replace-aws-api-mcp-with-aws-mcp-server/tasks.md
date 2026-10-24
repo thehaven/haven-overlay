@@ -226,11 +226,33 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 
 ## 4. Update the mesh and the fastmcp consumers
 
-- [ ] 4.1 Give the **installed stable** `app-admin/mcp-mesh` an explicit resolve-time bound:
-- [ ] 4.2 Extend `scripts/tests/test_mcp_pin.py` with a **current-version** assertion for the
-- [ ] 4.3 Add a guard that every fastmcp consumer's **current** version declares
-- [ ] 4.4 Ship a worked registry example for the managed AWS MCP Server **from the overlay's own
-- [ ] 4.5 Record an upstream contribution as a follow-up task: the worked example should land in the
+- [x] 4.1 Give the **installed stable** `app-admin/mcp-mesh` an explicit resolve-time bound:
+  `dev-python/mcp` is currently unbounded and survives only because
+  `profiles/package.mask` masks `>=dev-python/mcp-2.0.0`, which bites at install time, not at
+  resolve time. Add `<dev-python/mcp-2` to `app-admin/mcp-mesh-0.22.1.ebuild` only — the newest
+  stable — leaving the retired versions untouched so the fix propagates to future bumps
+  (DONE 2026-10-24 — Resolve-time bound added. `<dev-python/mcp-2[${PYTHON_USEDEP}]` added to `app-admin/mcp-mesh-0.22.1.ebuild` (the installed stable) AND to `app-admin/mcp-mesh-9999.ebuild` — the live/bump-template ebuild, so the fix propagates into future bumps per the overlay's "fix the newest in-tree version" rule. The retired versions 0.17.0-0.22.0 are untouched. Verified: `emerge --pretend --ask=n app-admin/mcp-mesh` -> `[ebuild R] app-admin/mcp-mesh-0.22.1` with no mcp 2.x in the resolution and no new dependency; both ebuilds parse (`ebuild ... info` reaches pkg_info()).)
+- [x] 4.2 Extend `scripts/tests/test_mcp_pin.py` with a **current-version** assertion for the
+  packages named in 4.1. The existing guard is text-based and per-ebuild across every version, so
+  adding `app-admin/mcp-mesh` to `FASTMCP_PACKAGES` wholesale would demand the bound in all eight
+  ebuilds and rewrite history. Verify the new assertion **fails** when the bound is removed
+  (DONE 2026-10-24 — `scripts/tests/test_mcp_pin.py` extended with `CURRENT_VERSION_MCP_PINS` and a new `test_current_version_mcp_pins_are_present`. mcp-mesh was deliberately NOT added to `FASTMCP_PACKAGES`, because that set is per-ebuild across EVERY version and would demand the bound in all eight ebuilds and rewrite retired history. The new helper `_current_version_ebuild()` picks the newest STABLE ebuild (9999 excluded) using `portage.versions.vercmp` with a dependency-free fallback. NEGATIVE CONTROL: removing the bound from `mcp-mesh-0.22.1.ebuild` makes the new test FAIL with "current-version mcp pin missing"; restoring it returns the suite to 3 passed.
+- [x] 4.3 Add a guard that every fastmcp consumer's **current** version declares
+  `<dev-python/fastmcp-4`. No overlay ebuild upper-bounds fastmcp below 4 today — fourteen are
+  unbounded and the rest are minimum-only — so the single `>=dev-python/fastmcp-4.0.0` mask line
+  is the only thing holding the fleet below fastmcp 4.x. The successor is the first ebuild to
+  carry the bound in its own dependency declaration. Verify the guard reports the current
+  unguarded consumers as a recorded baseline rather than failing the suite
+  (DONE 2026-10-24 — New `test_fastmcp_consumers_declare_a_resolve_time_bound` added. It scans every overlay ebuild that declares `dev-python/fastmcp` and checks whether that package's CURRENT version declares an upper bound below fastmcp 4.x (the successor's `<dev-python/fastmcp-3.5` counts; a bare `>=` minimum does not). The eight currently-unguarded consumers are recorded in `UNGUARDED_FASTMCP_CONSUMERS` as a BASELINE — reported via print, never a suite failure — so the guard fails only when the unguarded set GROWS. Baseline: app-misc/mem0-mcp, dev-python/clr-librenms-mcp, dev-util/mcp-server-analyzer, dev-util/mcp-server-aws (masked), dev-util/mcp-server-gemini-deepsearch, dev-util/mcp-server-linkedin, dev-util/mcp-server-opentofu, dev-util/mcp-server-pass. NEGATIVE CONTROL: a throwaway `dev-util/fake-fastmcp-pkg-1.0.0.ebuild` made the guard FAIL with the new consumer named; removing it restored 3 passed.
+- [x] 4.4 Ship a worked registry example for the managed AWS MCP Server **from the overlay's own
+  `files/` directory**, installed alongside the `app-admin/mcp-mesh` template. The upstream
+  `registry.yaml.example` lives in the mcp-mesh repository and would diverge on every bump, so the
+  overlay carries its own copy rather than forking upstream. Verify the example parses as YAML and
+  declares the native path + endpoint + `--metadata AWS_REGION=`
+  (DONE 2026-10-24 — `app-admin/mcp-mesh/files/registry.aws-mcp.example.yaml` created and installed by BOTH `mcp-mesh-0.22.1.ebuild` and `mcp-mesh-9999.ebuild` via `newins "${FILESDIR}/registry.aws-mcp.example.yaml" registry.aws-mcp.example.yaml` into /etc/mcp-forge, alongside the upstream fleet-shared registry template. It is the overlay's own copy in the overlay's own `files/` directory, NOT a fork of upstream's `registry.yaml.example`, so it does not diverge on every bump. Verified by parsing it with PyYAML and asserting: name `aws-mcp`; command `/usr/bin/mcp-proxy-for-aws`; args include the endpoint `https://aws-mcp.us-east-1.api.aws/mcp` and `--metadata AWS_REGION=REPLACE_WITH_OPERATIONS_REGION`; `enabled: false` (available but unused until an operator opts in). The header records the three operator traps: delete the retired client entry, the two Regions are independent, and SigV4 signing stays local so this is NOT a zero-credential-exposure configuration.
+- [x] 4.5 Record an upstream contribution as a follow-up task: the worked example should land in the
+  mcp-mesh repository so the overlay can ship it natively once upstream adopts it
+  (DONE 2026-10-24 — Recorded as an explicit follow-up bullet under `## Workflow follow-up` in this file: contribute the worked example to the mcp-mesh repository so the overlay can ship it natively from `contrib/mcp-forge/registry.yaml.example`; until upstream adopts it the overlay keeps its own copy in `app-admin/mcp-mesh/files/`. Not performed by this change.
 
 ## 5. Register the server in the fleet mesh
 
@@ -302,3 +324,9 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 - Client-configuration changes on each host (including this host's
   `~/.config/opencode/opencode.json`) are separate repositories and need their own approval; they
   are not performed by this change.
+- **Follow-up (task 4.5): contribute the worked AWS MCP Server registry example upstream** to the
+  mcp-mesh repository (`gitlab-ee.thehavennet.org.uk/ai-ml/mcp-mesh`), so the overlay can ship it
+  natively from `contrib/mcp-forge/registry.yaml.example` instead of carrying its own copy in
+  `app-admin/mcp-mesh/files/`. Until upstream adopts it the overlay keeps the local copy, which
+  is why the example is shipped from the overlay's `files/` directory rather than forked from
+  upstream. Tracked here, not done by this change.

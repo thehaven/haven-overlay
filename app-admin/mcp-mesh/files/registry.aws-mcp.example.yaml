@@ -1,0 +1,60 @@
+# Worked example: the managed, AWS-hosted AWS MCP Server.
+#
+# The retired self-hosted AWS API MCP server (dev-util/mcp-server-aws) is
+# end-of-life upstream and is masked in this overlay. Its successor is the
+# AWS-hosted MCP Server, reached through a thin LOCAL proxy packaged as
+# dev-util/mcp-proxy-for-aws.
+#
+# This file is a WORKED EXAMPLE shipped by the haven-overlay. It is not a
+# fork of the upstream mcp-mesh registry template (that file lives in the
+# mcp-mesh repository and would diverge on every bump); contributing it
+# upstream is tracked as a follow-up.
+#
+# To activate: copy the `servers:` entry below into
+# /etc/mcp-forge/registry.yaml, set the Region, flip `enabled` to true, and
+# restart mcp-mesh. The entry is shipped disabled so it is AVAILABLE but
+# UNUSED until an operator opts in.
+#
+# Three things an operator must get right:
+#
+#   1. DELETE the retired client entry. The old server exposed `call_aws`;
+#      the managed server exposes `aws___call_aws`. Running both at once
+#      gives the agent two overlapping tool sets with conflicting names.
+#
+#   2. The endpoint-URL Region and the --metadata Region are INDEPENDENT.
+#      The URL says where the MCP server runs; --metadata says which Region
+#      the AWS API calls execute in. Omitting --metadata silently defaults
+#      operations to us-east-1, so the placeholder below is deliberately
+#      INVALID: a verbatim paste fails loudly instead of quietly running
+#      against the wrong Region.
+#
+#   3. API execution happens AWS-side, but SigV4 request signing stays LOCAL,
+#      so the local AWS credential chain is still in use. This is NOT a
+#      zero-credential-exposure configuration.
+#
+# The packaged atom IS the version pin: /usr/bin/mcp-proxy-for-aws is the
+# native path for dev-util/mcp-proxy-for-aws-1.7.0. There is no runtime
+# package resolver.
+#
+# Schema reference: see mcp-mesh tests/fixtures/realistic_50_servers.yaml and
+# the mcp-forge project documentation.
+servers:
+- name: aws-mcp
+  command: /usr/bin/mcp-proxy-for-aws
+  args:
+  - https://aws-mcp.us-east-1.api.aws/mcp
+  - --metadata
+  - AWS_REGION=REPLACE_WITH_OPERATIONS_REGION
+  npx_args: []
+  packages: []
+  env: {}
+  description: 'AWS MCP Server (managed, AWS-hosted) reached through the thin
+    local proxy. API execution runs AWS-side; SigV4 request signing stays local.
+    Tool names are aws___* (aws___call_aws, aws___run_script,
+    aws___search_documentation, ...) - the retired call_aws name does not
+    exist. Available but unused until an operator opts in.'
+  enabled: false
+  required_env: []
+  env_safe_defaults: {}
+  headers: {}
+  probe_inventory: false
