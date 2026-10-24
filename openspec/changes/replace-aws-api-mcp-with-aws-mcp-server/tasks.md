@@ -272,27 +272,151 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 
 ## 6. Document the migration
 
-- [ ] 6.1 Add the configuration-contract mapping table to the overlay documentation — one row per
+- [x] 6.1 Add the configuration-contract mapping table to the overlay documentation — one row per
   old setting, giving the successor equivalent, including an explicit **"no equivalent"** row for
   each of the nine settings that do not carry over (`AWS_API_MCP_WORKING_DIR`,
   `AWS_API_MCP_ALLOW_UNRESTRICTED_LOCAL_FILE_ACCESS`, `AWS_API_MCP_AGENT_SCRIPTS_DIR`,
   `AWS_API_MCP_TRANSPORT`/`_HOST`/`_PORT`, `AUTH_TYPE`/`AUTH_ISSUER`/`AUTH_JWKS_URI`,
   `AWS_API_MCP_TELEMETRY`); verify every old setting in the retired ebuild appears in the table
-- [ ] 6.2 Document the tool-surface change — `call_aws` → `aws___call_aws`, `suggest_aws_commands`
+  (DONE 2026-10-24 — Added `docs/aws-mcp-migration.md` (new file) to the overlay documentation,
+  with a full configuration-contract mapping table: one row per old setting,
+  giving the successor equivalent. The retired ebuild's own `pkg_postinst`
+  documents no environment variables at all (`rtk grep -nE 'AWS_|AUTH_|READ_OPERATIONS|REQUIRE_MUTATION|EXPERIMENTAL'`
+  over `dev-util/mcp-server-aws/mcp-server-aws-1.3.36.ebuild` returns no
+  matches), so "the old settings" are the upstream package's, taken from the
+  upstream MIGRATION.md (re-fetched verbatim, HTTP 200, 9293 B).
+  
+  The upstream table is 12 rows covering 18 individual variables. Six rows are
+  explicit "No equivalent": AWS_API_MCP_WORKING_DIR,
+  AWS_API_MCP_ALLOW_UNRESTRICTED_LOCAL_FILE_ACCESS, EXPERIMENTAL_AGENT_SCRIPTS
+  (now built-in skills via `aws___retrieve_skill`), AWS_API_MCP_AGENT_SCRIPTS_DIR,
+  AWS_API_MCP_TRANSPORT/_HOST/_PORT, AUTH_TYPE/_ISSUER/_JWKS_URI,
+  AWS_API_MCP_TELEMETRY — eleven individual variables in total.
+  
+  Note: the task text said "nine settings"; upstream also marks
+  EXPERIMENTAL_AGENT_SCRIPTS as not carrying over, so the doc covers all 18
+  individual variables — a superset of the nine named in the task.
+  
+  Verification: every one of the 18 individual retired settings is present in
+  the table (per-setting occurrence counts all >= 1:
+  AWS_REGION 7, AWS_API_MCP_PROFILE_NAME 1, READ_OPERATIONS_ONLY 1,
+  REQUIRE_MUTATION_CONSENT 1, AWS_ACCESS_KEY_ID 1, AWS_SECRET_ACCESS_KEY 1,
+  AWS_SESSION_TOKEN 1, AWS_API_MCP_WORKING_DIR 1,
+  AWS_API_MCP_ALLOW_UNRESTRICTED_LOCAL_FILE_ACCESS 1,
+  EXPERIMENTAL_AGENT_SCRIPTS 1, AWS_API_MCP_AGENT_SCRIPTS_DIR 1,
+  AWS_API_MCP_TRANSPORT 1, AWS_API_MCP_HOST 1, AWS_API_MCP_PORT 1,
+  AUTH_TYPE 1, AUTH_ISSUER 1, AUTH_JWKS_URI 1, AWS_API_MCP_TELEMETRY 1).
+  
+  The overlay has exactly one documentation file (`docs/gentoo-ebuild-cheatsheet.md`,
+  linked from README.md:22 and AGENTS.md:13) and no docs index, so the new page
+  sits beside it at `docs/aws-mcp-migration.md`.
+  )
+- [x] 6.2 Document the tool-surface change — `call_aws` → `aws___call_aws`, `suggest_aws_commands`
   and `get_execution_plan` removed, the eight new tools listed — and the instruction to **remove**
   hardcoded `call_aws` references from skills, context files, prompts and steering documents,
   pointing at the upstream AWS agent rule; verify the upstream rule URL is present and resolves
-- [ ] 6.3 Document the two independent Regions — the endpoint URL Region (where the managed server
+  (DONE 2026-10-24 — Documented the tool-surface change in `docs/aws-mcp-migration.md` under
+  "Tool surface": the retired `call_aws` becomes `aws___call_aws`;
+  `suggest_aws_commands` and `get_execution_plan` are removed; eight new tools
+  are added (`aws___run_script`, `aws___search_documentation`,
+  `aws___read_documentation`, `aws___retrieve_skill`, `aws___list_regions`,
+  `aws___get_regional_availability`, `aws___get_presigned_url`, `aws___get_tasks`).
+  API coverage does not change — both `aws___call_aws` and `aws___run_script`
+  resolve to the same underlying AWS API surface.
+  
+  Added a "Remove hardcoded `call_aws` references" subsection quoting the
+  upstream requirement (remove hardcoded `call_aws` lines from Skills, context
+  files, prompts and steering documents, and rely on the "Prefer the AWS MCP
+  Server for AWS interactions" agent instruction) and linking the upstream rule
+  URL `https://github.com/aws/agent-toolkit-for-aws/blob/main/rules/aws-agent-rules.md`.
+  
+  Verification: all eleven tool names present (aws___call_aws 2,
+  aws___run_script 2, aws___search_documentation 1, aws___read_documentation 1,
+  aws___retrieve_skill 2, aws___list_regions 1,
+  aws___get_regional_availability 1, aws___get_presigned_url 1, aws___get_tasks 1,
+  suggest_aws_commands 1, get_execution_plan 1); "Remove hardcoded" 1; the
+  agent-rule URL 1. The URL was FETCHED and returned HTTP 200, so it resolves.
+  )
+- [x] 6.3 Document the two independent Regions — the endpoint URL Region (where the managed server
   runs) versus `--metadata AWS_REGION` (the operations Region), that omitting the latter defaults
   operations to `us-east-1`, and that the old entry must be **deleted** rather than left alongside
   the new one; verify all three statements appear
-- [ ] 6.4 Document that the **packaged atom is the pin** — client configuration names the native
+  (DONE 2026-10-24 — Documented the two independent Regions in `docs/aws-mcp-migration.md` under
+  "The two Regions are independent": the endpoint URL's Region decides where the
+  managed MCP server runs, while `--metadata AWS_REGION=` decides the default
+  Region for operations; the two may differ. Omitting `--metadata AWS_REGION`
+  defaults all operations to `us-east-1`.
+  
+  Documented that the old client entry must be DELETED, not added alongside:
+  running both at once causes tool-name conflicts that confuse the agent.
+  
+  Both the overlay's shipped examples (the successor ebuild's `pkg_postinst`
+  snippets and the mcp-mesh registry example) deliberately carry the invalid
+  placeholder `AWS_REGION=REPLACE_WITH_OPERATIONS_REGION` so a verbatim paste
+  fails loudly instead of silently defaulting operations to us-east-1.
+  
+  Verification: "two Regions" 2, "independent" 1, "defaults all operations to" 1,
+  "Delete the retired client entry" 1.
+  )
+- [x] 6.4 Document that the **packaged atom is the pin** — client configuration names the native
   path and the endpoint, and never resolves the proxy through a runtime package resolver. Verify
   `rtk grep -rn 'mcp-proxy-for-aws@latest' .` returns nothing and that no emitted snippet contains
   `uvx`
-- [ ] 6.5 Document the credential position accurately: API execution moves AWS-side, but **SigV4
+  (DONE 2026-10-24 — Documented in `docs/aws-mcp-migration.md` under "The packaged atom is the
+  pin": the client configuration points at the native packaged binary
+  `/usr/bin/mcp-proxy-for-aws`, so the installed ebuild version IS the pin. Two
+  reasons are given for avoiding a runtime package resolver: an unpinned install
+  resolves every transitive dependency to its newest version at install time
+  (upstream's own supply-chain warning), and the overlay's Native Path Alignment
+  standard requires the native `/usr/bin` path rather than `uvx`/`npx`. The
+  installed ebuild version is a stronger guarantee than a version string in a
+  client configuration.
+  
+  Verification — the gate had to be SCOPED, not repo-wide. The literal
+  `mcp-proxy-for-aws@latest` appears in exactly three places in the tree, all
+  deliberate: the negative-test fixture in
+  `scripts/tests/test_mcp_proxy_for_aws_ebuild.py`, and this change's own
+  `tasks.md` and `specs/aws-mcp-packaging/spec.md`, where the string is named
+  as the forbidden pattern. A python byte-scan of the tree reports it in NO
+  ebuild, NO client config, NO registry example and NO documentation — only in
+  those three negative-fixture locations. The task's literal instruction
+  ("grep -rn ... returns nothing") therefore cannot be satisfied repo-wide
+  without deleting the spec requirement that names the forbidden string; the
+  honest gate recorded here is the scoped one.
+  
+  No emitted snippet contains a runtime-resolver invocation: the doc was reworded
+  to say "no runtime-resolver invocation appears anywhere in this overlay" so the
+  overlay's own (unrelated, pre-existing) `uvx` mentions in the opencode CLI
+  ebuilds and the negative-test fixture are not conflated with an AWS-MCP
+  emission point.
+  
+  INSTRUMENT TRAP RECORDED: `rtk grep -rln 'uvx' . --glob '!.git'` returned
+  nothing while a python byte-scan of the same tree found 16 files containing
+  `uvx`. `rtk grep` with -r/-l is unreliable for this repository; use the python
+  byte-scan for tree-wide absence checks.
+  )
+- [x] 6.5 Document the credential position accurately: API execution moves AWS-side, but **SigV4
   signing stays local** and the proxy still uses the local credential chain. Verify the
   documentation does not claim "zero credential exposure"
+  (DONE 2026-10-24 — Documented the accurate credential position in `docs/aws-mcp-migration.md` under
+  "Credentials — the accurate position": API execution moves AWS-side, but
+  SigV4 request SIGNING stays LOCAL — the proxy uses fastmcp directly for SigV4
+  signing, request hooks and error handling (upstream declares fastmcp for
+  exactly that reason). The local credential chain therefore remains in use;
+  this setup does not take credentials off the host and must not be described as
+  if it did.
+  
+  The upstream governance benefits (CloudWatch metrics separating agent from
+  human activity, every API call recorded in CloudTrail for a full audit trail,
+  OAuth 2.1 authorization, sandboxed script execution, IAM condition keys) are
+  retained, but the "zero credential exposure" claim is NOT made.
+  
+  Verification: the doc was edited once to remove the literal phrase — the
+  sentence now reads "The local credential chain remains in use — this setup does
+  not take credentials off the host, and it must not be described as if it did."
+  A grep for `zero.credential.exposure` over the doc returns no match;
+  `SigV4` appears 2 times.
+  )
 
 ## 7. Overlay consistency
 
