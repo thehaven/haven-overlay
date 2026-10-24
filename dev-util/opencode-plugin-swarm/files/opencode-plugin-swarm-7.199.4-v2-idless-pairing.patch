@@ -1,0 +1,1663 @@
+From 50a611b148560b8e053460ab286140290bc299a7 Mon Sep 17 00:00:00 2001
+From: Simon Alman <haven@thehavennet.org.uk>
+Date: Fri, 23 Oct 2026 12:07:41 +0100
+Subject: [PATCH 1/3] fix(host/v2): keep tool-call pairing when v2 context
+ messages carry no id
+
+The v2 host hands session.hook('context') messages with no `id`, so
+onV2ContextEvent paired transformed v1 views back by position. The v1
+chain changes the view count (materializeSystemGuidanceInPlace converts a
+mid-history system entry into a re-homed carrier; verdict inserts), so
+later views landed on the wrong message and the trailing one was dropped,
+orphaning a tool_result the provider rejects. writeBackTextParts also
+moved assistant preamble text after its tool call.
+
+Pair views by object identity (then id, then position for rebuilt views
+only), never drop a message carrying non-text parts, rebuild in host
+order, and write text back in position.
+
+Closes #3423
+---
+ .../pending/3423-v2-context-idless-pairing.md |  21 ++
+ src/host/v2/guidance.ts                       | 142 +++++++----
+ .../host/v2/guidance-idless-pairing.test.ts   | 241 ++++++++++++++++++
+ 3 files changed, 349 insertions(+), 55 deletions(-)
+ create mode 100644 docs/releases/pending/3423-v2-context-idless-pairing.md
+ create mode 100644 tests/unit/host/v2/guidance-idless-pairing.test.ts
+
+diff --git a/docs/releases/pending/3423-v2-context-idless-pairing.md b/docs/releases/pending/3423-v2-context-idless-pairing.md
+new file mode 100644
+index 000000000..23019d556
+--- /dev/null
++++ b/docs/releases/pending/3423-v2-context-idless-pairing.md
+@@ -0,0 +1,21 @@
++# v2 context bridge keeps tool-call pairing for id-less host messages
++
++## What
++
++- On OpenCode V2, the `session.hook('context')` bridge (`onV2ContextEvent`) now pairs each transformed v1 view back to its v2 message by **object identity**. It falls back to `id`, and uses position only for views that a stage rebuilt as new objects.
++- A message that carries non-text parts (tool calls, tool results, media) is never dropped. Messages are rebuilt in the host's order.
++- Transformed text is written back **in position**, so an assistant's preamble stays before its tool call.
++
++## Why
++
++The v2 host's context messages carry no `id`, so every message was paired back by position. The v1 chain changes the view count: `materializeSystemGuidanceInPlace` converts a mid-history system entry into a re-homed carrier, and other stages splice in verdicts. Every later view then landed on the wrong message and the trailing message was dropped. An assistant `tool-call` lost its `tool-result`, and the provider rejected the request (`unexpected tool_use_id found in tool_result blocks`).
++
++In a three-step shell scenario with opencode-swarm as the only plugin, 2 of 5 runs failed before this change and 0 of 8 failed after it (#3423).
++
++## Migration steps
++
++None.
++
++## Known caveats
++
++None. The v1 host path and the v1 hook chain are unchanged.
+diff --git a/src/host/v2/guidance.ts b/src/host/v2/guidance.ts
+index 2278e8dc4..b963828f6 100644
+--- a/src/host/v2/guidance.ts
++++ b/src/host/v2/guidance.ts
+@@ -85,18 +85,42 @@ function toV1MessageView(
+ 	};
+ }
+ 
+-/** Write the (non-carrier) transformed text parts back onto a v2 message. */
++/**
++ * Write the (non-carrier) transformed text parts back onto a v2 message.
++ *
++ * Text parts are replaced IN POSITION: the v1 chain only sees text, so every
++ * non-text part (tool-call, tool-result, media, reasoning) keeps its slot
++ * relative to the text around it — an assistant's preamble stays before its
++ * tool call. Extra texts follow the last original text part (or lead the
++ * message when it had none); missing texts drop the trailing text slots.
++ */
+ function writeBackTextParts(
+ 	message: V2Message,
+ 	parts: Array<{ type: string; text?: string }>,
+ ): void {
+-	const kept = (message.content ?? []).filter(
+-		(part) => !(part && typeof part === 'object' && part.type === 'text'),
+-	);
+ 	const texts = parts
+ 		.filter((p) => p.type === 'text' && typeof p.text === 'string')
+ 		.map((p) => ({ type: 'text' as const, text: p.text as string }));
+-	message.content = [...kept, ...texts];
++	const content: V2Message['content'] = [];
++	let nextText = 0;
++	let afterLastText = 0;
++	for (const part of message.content ?? []) {
++		if (part && typeof part === 'object' && part.type === 'text') {
++			if (nextText < texts.length) content.push(texts[nextText++]);
++			afterLastText = content.length;
++		} else {
++			content.push(part);
++		}
++	}
++	content.splice(afterLastText, 0, ...texts.slice(nextText));
++	message.content = content;
++}
++
++/** True when a message carries anything the v1 text-only view cannot see. */
++function hasNonTextParts(message: V2Message): boolean {
++	return (message.content ?? []).some(
++		(part) => !(part && typeof part === 'object' && part.type === 'text'),
++	);
+ }
+ 
+ /** Map the v2 model ref onto the v1 {providerID, modelID} shape. */
+@@ -125,10 +149,18 @@ export async function onV2ContextEvent(
+ 
+ 	const messagesTransform = hooks['experimental.chat.messages.transform'];
+ 	if (typeof messagesTransform === 'function') {
+-		const views = (event.messages ?? []).map((m) =>
++		const originalMessages = [...(event.messages ?? [])];
++		const views = originalMessages.map((m) =>
+ 			toV1MessageView(m, sessionID, eventAgentName),
+ 		);
+-		const originalMessages = [...(event.messages ?? [])];
++		// The v2 host's context messages carry no `id`, and the v1 chain changes
++		// the view count (carrier materialization, verdict inserts), so pair each
++		// view to its original by OBJECT IDENTITY — stages convert views in place
++		// (convertSystemEntryInPlace keeps the object, replaces `info`).
++		const originalByView = new Map<V1PartsMessageView, V2Message>();
++		for (let i = 0; i < views.length; i += 1) {
++			originalByView.set(views[i], originalMessages[i]);
++		}
+ 		await withTimeout(
+ 			messagesTransform({}, { messages: views as unknown as unknown[] }),
+ 			V2_GUIDANCE_CHAIN_TIMEOUT_MS,
+@@ -141,33 +173,30 @@ export async function onV2ContextEvent(
+ 				},
+ 			);
+ 			// Restore the pre-transform views so a partial failure cannot corrupt content.
+-			for (let i = 0; i < originalMessages.length; i += 1) {
+-				views[i] = toV1MessageView(
+-					originalMessages[i],
+-					sessionID,
+-					eventAgentName,
+-				);
++			views.length = 0;
++			originalByView.clear();
++			for (const message of originalMessages) {
++				const view = toV1MessageView(message, sessionID, eventAgentName);
++				views.push(view);
++				originalByView.set(view, message);
+ 			}
+ 		});
+ 
+-		// Partition carriers vs kept messages, then re-home the carriers.
+-		// Pair views with their original v2 messages by IDENTITY, not position:
+-		// the v1 chain can insert carriers (unshift/splice) or rebuild the
+-		// array (materializeSystemGuidanceInPlace), so positional pairing would
+-		// write one message's transformed text back onto a different message.
++		// Re-home carriers, then pair the kept views with their originals:
++		// object identity first, then `id`, then — only for views a stage
++		// rebuilt as new objects — position among the still-unclaimed id-less
++		// originals. Views with no match (chain inserts) are dropped.
+ 		const originalById = new Map<string, V2Message>();
+-		const originalsWithoutId: V2Message[] = [];
+ 		for (const message of originalMessages) {
+-			const id = typeof message.id === 'string' ? message.id : undefined;
+-			if (id !== undefined && id.length > 0) originalById.set(id, message);
+-			else originalsWithoutId.push(message);
++			if (typeof message.id === 'string' && message.id.length > 0) {
++				originalById.set(message.id, message);
++			}
+ 		}
+-		const usedIds = new Set<string>();
+-		let nextIdless = 0;
+-		const keptParts: Array<{
+-			message: V2Message;
+-			parts: Array<{ type: string; text?: string }>;
+-		}> = [];
++		const claimed = new Map<
++			V2Message,
++			Array<{ type: string; text?: string }>
++		>();
++		const unpaired: V1PartsMessageView[] = [];
+ 		event.system = event.system ?? [];
+ 		for (const view of views) {
+ 			const id = view.info.id;
+@@ -184,37 +213,40 @@ export async function onV2ContextEvent(
+ 				}
+ 				continue;
+ 			}
+-			let message: V2Message | undefined;
+-			if (
+-				typeof id === 'string' &&
+-				id.length > 0 &&
+-				originalById.has(id) &&
+-				!usedIds.has(id)
+-			) {
+-				message = originalById.get(id);
+-				usedIds.add(id);
+-			} else if (
+-				(id === undefined || id.length === 0) &&
+-				nextIdless < originalsWithoutId.length
+-			) {
+-				// Id-less views pair positionally with id-less originals only.
+-				message = originalsWithoutId[nextIdless];
+-				nextIdless += 1;
+-			}
+-			if (message) {
+-				keptParts.push({ message, parts: view.parts });
+-			}
+-			// Views with no identity match are dropped from the pairing (their
+-			// write-back is skipped) rather than written onto a wrong message.
++			const byIdentity = originalByView.get(view);
++			const byId =
++				typeof id === 'string' && id.length > 0
++					? originalById.get(id)
++					: undefined;
++			const message = byIdentity ?? byId;
++			if (message && !claimed.has(message)) claimed.set(message, view.parts);
++			else if (!message && (id === undefined || id.length === 0))
++				unpaired.push(view);
+ 		}
+-		// Write the (non-carrier) transformed text parts back onto their
+-		// identity-paired v2 messages, then reassign the array in place.
+-		for (const { message, parts } of keptParts) {
+-			writeBackTextParts(message, parts);
++		const unclaimedIdless = originalMessages.filter(
++			(m) => !claimed.has(m) && !(typeof m.id === 'string' && m.id.length > 0),
++		);
++		for (let i = 0; i < unpaired.length; i += 1) {
++			const message = unclaimedIdless[i];
++			if (message) claimed.set(message, unpaired[i].parts);
++		}
++
++		// Rebuild in the HOST's order. A message whose view the chain dropped is
++		// removed only when it is text-only: tool calls/results and media are
++		// invisible to the v1 chain and removing them orphans tool pairs.
++		const kept: V2Message[] = [];
++		for (const message of originalMessages) {
++			const parts = claimed.get(message);
++			if (parts) {
++				writeBackTextParts(message, parts);
++				kept.push(message);
++			} else if (hasNonTextParts(message)) {
++				kept.push(message);
++			}
+ 		}
+ 		// In-place contract: the host reads its own arrays after the hook.
+ 		event.messages.length = 0;
+-		event.messages.push(...keptParts.map((k) => k.message));
++		event.messages.push(...kept);
+ 	}
+ 
+ 	const systemTransform = hooks['experimental.chat.system.transform'];
+diff --git a/tests/unit/host/v2/guidance-idless-pairing.test.ts b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+new file mode 100644
+index 000000000..822f27616
+--- /dev/null
++++ b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+@@ -0,0 +1,241 @@
++/**
++ * v2 context write-back must survive a v1 chain that changes the view count
++ * when the host's messages carry no `id`.
++ *
++ * The pinned v2 host hands `session.hook('context')` messages shaped
++ * `{ role, content }` — no `id` (observed on opencode 2.1.3). `onV2ContextEvent`
++ * (src/host/v2/guidance.ts) pairs each transformed v1 view back to its v2
++ * message by `id`, falling back to POSITION for id-less messages. The v1
++ * chain does change the view count: `materializeSystemGuidanceInPlace`
++ * converts a mid-history `role:'system'` entry into a guidance carrier (which
++ * is re-homed to `event.system` and removed from the list), and other stages
++ * splice in verdict messages. Positional pairing then shifts every later view
++ * onto the wrong v2 message and drops the trailing original — an assistant
++ * `tool-call` loses its `tool` result and the provider rejects the request:
++ *
++ *   messages.N.content.0: unexpected `tool_use_id` found in `tool_result`
++ *   blocks … must have a corresponding `tool_use` block in the previous message
++ *
++ * Separately, `writeBackTextParts` rebuilt every message as
++ * `[...nonText, ...text]`, moving an assistant's preamble text AFTER its
++ * tool call.
++ *
++ * Tests 1–3 are RED at base and GREEN after the fix; 4–5 are regression floors
++ * (GREEN at both ends).
++ */
++
++import { afterEach, describe, expect, test } from 'bun:test';
++import { materializeSystemGuidanceInPlace } from '../../../../src/hooks/messages-transform';
++import { onV2ContextEvent } from '../../../../src/host/v2/guidance';
++import type {
++	V1HooksSubset,
++	V2Message,
++	V2SessionContextEvent,
++} from '../../../../src/host/v2/types';
++import { resetSwarmState } from '../../../../src/state';
++import { canonicalMkdtemp } from '../../../helpers/tmpdir';
++
++type ViewMessage = {
++	info: { id?: string; role?: string; [key: string]: unknown };
++	parts: Array<{ type: string; text?: string }>;
++};
++type Transform = (messages: ViewMessage[]) => void;
++
++function hooksWith(transform: Transform): V1HooksSubset {
++	return {
++		'experimental.chat.messages.transform': async (
++			_input: unknown,
++			output: { messages: ViewMessage[] },
++		) => {
++			transform(output.messages);
++		},
++	} as unknown as V1HooksSubset;
++}
++
++const call = (id: string) => ({
++	type: 'tool-call',
++	id,
++	name: 'shell',
++	input: { command: 'true' },
++});
++const result = (id: string) => ({
++	type: 'tool-result',
++	id,
++	name: 'shell',
++	result: { type: 'text', value: 'ok' },
++});
++
++/** A real-shaped v2 history: no `id`, a system entry between tool turns. */
++function idlessHistory(): V2Message[] {
++	return [
++		{ role: 'user', content: [{ type: 'text', text: 'run three steps' }] },
++		{
++			role: 'assistant',
++			content: [{ type: 'text', text: 'step 1' }, call('t1')],
++		},
++		{ role: 'tool', content: [result('t1')] },
++		{
++			role: 'system',
++			content: [{ type: 'text', text: 'mid-history reminder' }],
++		},
++		{
++			role: 'assistant',
++			content: [{ type: 'text', text: 'step 2' }, call('t2')],
++		},
++		{ role: 'tool', content: [result('t2')] },
++		{
++			role: 'assistant',
++			content: [{ type: 'text', text: 'step 3' }, call('t3')],
++		},
++		{ role: 'tool', content: [result('t3')] },
++	];
++}
++
++function event(messages: V2Message[]): V2SessionContextEvent {
++	return {
++		sessionID: 'idless-pairing-session',
++		agent: undefined,
++		system: [],
++		messages,
++		options: {},
++		tools: {},
++	};
++}
++
++/** Every tool-result must answer a tool-call in the message right before it. */
++function orphanedResults(messages: V2Message[]): string[] {
++	const orphans: string[] = [];
++	messages.forEach((message, index) => {
++		for (const part of message.content) {
++			if (part.type !== 'tool-result') continue;
++			const previous = messages[index - 1];
++			const answered = previous?.content.some(
++				(p) => p.type === 'tool-call' && p.id === part.id,
++			);
++			if (!answered) orphans.push(String(part.id));
++		}
++	});
++	return orphans;
++}
++
++const toolIds = (messages: V2Message[], type: string) =>
++	messages.flatMap((m) =>
++		m.content.filter((p) => p.type === type).map((p) => p.id),
++	);
++
++afterEach(() => {
++	resetSwarmState();
++});
++
++describe('v2 context write-back with id-less host messages', () => {
++	test('RED at base — a system entry materialized by the v1 chain does not orphan any tool result', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) =>
++				materializeSystemGuidanceInPlace(messages as never),
++			),
++			canonicalMkdtemp('swarm-idless-materialize-'),
++		);
++
++		expect(toolIds(ev.messages, 'tool-call')).toEqual(['t1', 't2', 't3']);
++		expect(toolIds(ev.messages, 'tool-result')).toEqual(['t1', 't2', 't3']);
++		expect(orphanedResults(ev.messages)).toEqual([]);
++		// The system entry's text was re-homed, not left in the message list.
++		expect(ev.messages.some((m) => m.role === 'system')).toBe(false);
++		expect(ev.system.map((part) => part.text).join('\n')).toContain(
++			'mid-history reminder',
++		);
++	});
++
++	test('RED at base — a view inserted by the v1 chain does not shift text onto other messages', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages.unshift({
++					info: { role: 'user' },
++					parts: [{ type: 'text', text: 'verdict' }],
++				});
++			}),
++			canonicalMkdtemp('swarm-idless-insert-'),
++		);
++
++		const texts = ev.messages.map((m) =>
++			m.content
++				.filter((p) => p.type === 'text')
++				.map((p) => p.text)
++				.join(''),
++		);
++		expect(texts).toEqual([
++			'run three steps',
++			'step 1',
++			'',
++			'mid-history reminder',
++			'step 2',
++			'',
++			'step 3',
++			'',
++		]);
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
++
++	test('RED at base — write-back keeps an assistant preamble before its tool call', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith(() => {}),
++			canonicalMkdtemp('swarm-idless-order-'),
++		);
++
++		for (const message of ev.messages.filter((m) => m.role === 'assistant')) {
++			expect(message.content.map((part) => part.type)).toEqual([
++				'text',
++				'tool-call',
++			]);
++		}
++	});
++
++	test('regression floor — transformed text is written back onto the message it came from', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				for (const message of messages) {
++					for (const part of message.parts) {
++						if (part.type === 'text') part.text = `${part.text}!`;
++					}
++				}
++			}),
++			canonicalMkdtemp('swarm-idless-rewrite-'),
++		);
++
++		const assistantTexts = ev.messages
++			.filter((m) => m.role === 'assistant')
++			.map((m) => m.content.find((p) => p.type === 'text')?.text);
++		expect(assistantTexts).toEqual(['step 1!', 'step 2!', 'step 3!']);
++	});
++
++	test('regression floor — id-bearing messages still pair by id and dropped text-only views are removed', async () => {
++		const ev = event([
++			{ id: 'm1', role: 'user', content: [{ type: 'text', text: 'keep' }] },
++			{ id: 'm2', role: 'user', content: [{ type: 'text', text: 'drop' }] },
++			{
++				id: 'm3',
++				role: 'assistant',
++				content: [{ type: 'text', text: 'reply' }],
++			},
++		]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				const index = messages.findIndex((m) => m.info.id === 'm2');
++				messages.splice(index, 1);
++			}),
++			canonicalMkdtemp('swarm-id-pairing-'),
++		);
++
++		expect(ev.messages.map((m) => m.id)).toEqual(['m1', 'm3']);
++		expect(ev.messages[1]?.content).toEqual([{ type: 'text', text: 'reply' }]);
++	});
++});
+
+From f41ed666985f985ea85f83bb3a782f37cd9ae667 Mon Sep 17 00:00:00 2001
+From: Simon Alman <haven@thehavennet.org.uk>
+Date: Fri, 23 Oct 2026 12:11:50 +0100
+Subject: [PATCH 2/3] fix(host/v2): restrict the positional fallback to
+ same-role, non-carrier originals
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The positional fallback (for views a stage rebuilt as new objects, e.g. the
+guardrails retry rollback's structuredClone) could pair a chain-inserted
+view with an original whose view was consumed as a carrier — writing, say,
+an injected user verdict onto the re-homed system message. Exclude
+carrier-consumed originals and align fallback views only with originals of
+the same role, in order. Adds a hardening test (red on the previous head)
+and a clone-rollback floor.
+
+Refs #3423
+---
+ src/host/v2/guidance.ts                       | 31 ++++++++--
+ .../host/v2/guidance-idless-pairing.test.ts   | 59 ++++++++++++++++++-
+ 2 files changed, 83 insertions(+), 7 deletions(-)
+
+diff --git a/src/host/v2/guidance.ts b/src/host/v2/guidance.ts
+index b963828f6..872ca2be1 100644
+--- a/src/host/v2/guidance.ts
++++ b/src/host/v2/guidance.ts
+@@ -192,6 +192,7 @@ export async function onV2ContextEvent(
+ 				originalById.set(message.id, message);
+ 			}
+ 		}
++		const consumed = new Set<V2Message>();
+ 		const claimed = new Map<
+ 			V2Message,
+ 			Array<{ type: string; text?: string }>
+@@ -211,6 +212,8 @@ export async function onV2ContextEvent(
+ 						event.system.push({ type: 'text', text: part.text });
+ 					}
+ 				}
++				const source = originalByView.get(view);
++				if (source) consumed.add(source);
+ 				continue;
+ 			}
+ 			const byIdentity = originalByView.get(view);
+@@ -223,12 +226,30 @@ export async function onV2ContextEvent(
+ 			else if (!message && (id === undefined || id.length === 0))
+ 				unpaired.push(view);
+ 		}
+-		const unclaimedIdless = originalMessages.filter(
+-			(m) => !claimed.has(m) && !(typeof m.id === 'string' && m.id.length > 0),
++		// Positional fallback, for views a stage rebuilt as new objects (the
++		// guardrails retry rollback restores a structuredClone): align them in
++		// order with still-unclaimed id-less originals of the SAME role. An
++		// original consumed as a carrier is excluded, so a chain-inserted view
++		// can never overwrite another role's message.
++		const candidates = originalMessages.filter(
++			(m) =>
++				!claimed.has(m) &&
++				!consumed.has(m) &&
++				!(typeof m.id === 'string' && m.id.length > 0),
+ 		);
+-		for (let i = 0; i < unpaired.length; i += 1) {
+-			const message = unclaimedIdless[i];
+-			if (message) claimed.set(message, unpaired[i].parts);
++		let cursor = 0;
++		for (const view of unpaired) {
++			let match = cursor;
++			while (
++				match < candidates.length &&
++				candidates[match].role !== view.info.role
++			) {
++				match += 1;
++			}
++			if (match < candidates.length) {
++				claimed.set(candidates[match], view.parts);
++				cursor = match + 1;
++			}
+ 		}
+ 
+ 		// Rebuild in the HOST's order. A message whose view the chain dropped is
+diff --git a/tests/unit/host/v2/guidance-idless-pairing.test.ts b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+index 822f27616..af1c68452 100644
+--- a/tests/unit/host/v2/guidance-idless-pairing.test.ts
++++ b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+@@ -20,8 +20,8 @@
+  * `[...nonText, ...text]`, moving an assistant's preamble text AFTER its
+  * tool call.
+  *
+- * Tests 1–3 are RED at base and GREEN after the fix; 4–5 are regression floors
+- * (GREEN at both ends).
++ * Tests 1–3 are RED at base and GREEN after the fix; 4, 5 and 7 are regression
++ * floors; 6 pins the positional fallback against role confusion.
+  */
+ 
+ import { afterEach, describe, expect, test } from 'bun:test';
+@@ -238,4 +238,59 @@ describe('v2 context write-back with id-less host messages', () => {
+ 		expect(ev.messages.map((m) => m.id)).toEqual(['m1', 'm3']);
+ 		expect(ev.messages[1]?.content).toEqual([{ type: 'text', text: 'reply' }]);
+ 	});
++	test('hardening — a chain-inserted view never overwrites a message consumed as a carrier', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				materializeSystemGuidanceInPlace(messages as never);
++				messages.push({
++					info: { role: 'user' },
++					parts: [{ type: 'text', text: 'injected verdict' }],
++				});
++			}),
++			canonicalMkdtemp('swarm-idless-carrier-insert-'),
++		);
++
++		expect(ev.messages.some((m) => m.role === 'system')).toBe(false);
++		const allText = JSON.stringify(ev.messages);
++		expect(allText).not.toContain('injected verdict');
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
++
++	test('regression floor — views rebuilt as clones (retry rollback) still pair by role and order', async () => {
++		const ev = event(idlessHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				const clones = structuredClone(messages);
++				for (const clone of clones) {
++					for (const part of clone.parts) {
++						if (part.type === 'text') part.text = `${part.text}#`;
++					}
++				}
++				messages.length = 0;
++				for (const clone of clones) messages.push(clone);
++			}),
++			canonicalMkdtemp('swarm-idless-clone-'),
++		);
++
++		const texts = ev.messages.map((m) =>
++			m.content
++				.filter((p) => p.type === 'text')
++				.map((p) => p.text)
++				.join(''),
++		);
++		expect(texts).toEqual([
++			'run three steps#',
++			'step 1#',
++			'',
++			'mid-history reminder#',
++			'step 2#',
++			'',
++			'step 3#',
++			'',
++		]);
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
+ });
+
+From 3f340d633bb24160e57b874f20c6928562e5f402 Mon Sep 17 00:00:00 2001
+From: t <a@b.c>
+Date: Fri, 23 Oct 2026 22:21:03 -0500
+Subject: [PATCH 3/3] fix(host/v2): pair context views by an origin stamp
+ instead of position
+
+Review follow-up for #3424. The positional fallback could not tell a structuredClone-rebuilt view from a chain-inserted one, so after the guardrails retry rollback an id-less insert (full-auto verdict) could take a later same-role message's text slot. Views now carry a string origin index (info.swarmV2Origin) that survives structuredClone and the carrier materialization spread; pairing is identity, then id, then the stamp (integer, in range, same role, first claim wins), and unstamped chain inserts are dropped. The positional fallback is removed.
+
+Also: a carrier-consumed source is no longer retained just because it has non-text parts (guidance was delivered twice); non-array content is left untouched instead of being split into characters; event.messages is refilled with a loop instead of a spread push. Tests now pin the retention branch, the stamp mechanics, rollback plus insert, and consumed carrier sources, and clean up their temp dirs. The release note and hook inventory describe the dropped id-less inserts and the pairing contract.
+
+Refs #3423
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+---
+ docs/host/v2-hook-inventory.md                |   4 +-
+ .../pending/3423-v2-context-idless-pairing.md |  14 +-
+ src/host/v2/guidance.ts                       | 158 +++---
+ .../v2/guidance-idless-pairing-stamp.test.ts  | 484 ++++++++++++++++++
+ .../host/v2/guidance-idless-pairing.test.ts   |  86 ++--
+ 5 files changed, 627 insertions(+), 119 deletions(-)
+ create mode 100644 tests/unit/host/v2/guidance-idless-pairing-stamp.test.ts
+
+diff --git a/docs/host/v2-hook-inventory.md b/docs/host/v2-hook-inventory.md
+index 52f38d8d7..c3c4b6db1 100644
+--- a/docs/host/v2-hook-inventory.md
++++ b/docs/host/v2-hook-inventory.md
+@@ -13,7 +13,7 @@
+ | 3 | `tool` map — `buildPluginToolObject()` (`src/index.ts:3782`, `src/tools/plugin-registration.ts`) | `ctx.tool.transform(editor.add)` per tool from the SAME map (`src/host/v2/tools.ts`) | Ported; **delta:** v1 tool `title`/`attachments` have no v2 surface; result maps `string \| {output, metadata}` → `{content, metadata}`; args zod shape → `z.toJSONSchema` input |
+ | 4 | `agent` map + autoSelect + lane permissions (v1 `config` hook, `src/index.ts:4155-4286`) | v1 `config` hook invoked against a synthetic `opencodeConfig`; `.agent` table mapped onto `ctx.agent.transform` (`prompt`→`system`, `mode` preserved, `tools` → per-tool allow permission rules, `disable:true` → editor.remove) (`src/host/v2/agents-commands.ts`) | Ported; **delta:** the v1 `permission` block (deny-by-default plugin-tool surface, factory write denies) is NOT read by the v2 mapper — agents ship `permissions: undefined` and the mapper's `tools` allow-rule branch is dead (`getAgentConfigs` deletes `sdkConfig.tools` before the table is written); write denials remain enforced on v2 by the global execute.before scope-guard. External-directory lane-permission scoping (applyLanePermissions) is also dropped. Both are #2910 follow-ups |
+ | 5 | `config` hook command table (~90 TUI shortcuts as `{template, description}`) | `ctx.command.transform` — one `CommandDefinition` per v1 entry; `execute` invokes `command.execute.before` natively and submits the handler-produced prompt via `ctx.session.prompt` (raw expanded template only as the fallback; #3169 Phase 4) | Ported; **delta:** native dispatch replaces the raw-template text bridge (direct `$ARGUMENTS` substitution remains in the fallback arm) |
+-| 6 | `experimental.chat.messages.transform` (~20-step chain, `src/index.ts:4893-4962`) | `ctx.session.hook("context")` — chain runs against a translated view; materialized `swarm-guidance:*` carriers re-homed into `event.system` (`src/host/v2/guidance.ts`). `event.messages` is mutated **in place** (translated parts written back onto the same v2 message objects — the dual of the v1 in-place `output` rule), and `event.agent` (an `Agent.Info`-shaped object on v2) is normalized to a name before any v1 agent comparison (`seedV1SessionState` → `normalizeV2AgentRef`, `src/host/v2/setup.ts`) | Ported; **delta:** user→system transport change (v2 renders system natively; #2526 workaround is v1-only); fence preserved; one destination per guidance unit; since #3320 the translated USER views carry `info.agent` from `event.agent` (assistant views untouched — the v1 SDK shape has `agent` on UserMessage only) so the v1 stages keyed on `info.agent` resolve native `plan`/`build` sessions instead of defaulting them to the architect |
++| 6 | `experimental.chat.messages.transform` (~20-step chain, `src/index.ts:4893-4962`) | `ctx.session.hook("context")` — chain runs against a translated view; materialized `swarm-guidance:*` carriers re-homed into `event.system` (`src/host/v2/guidance.ts`). `event.messages` is mutated **in place** (translated parts written back onto the same v2 message objects — the dual of the v1 in-place `output` rule), and `event.agent` (an `Agent.Info`-shaped object on v2) is normalized to a name before any v1 agent comparison (`seedV1SessionState` → `normalizeV2AgentRef`, `src/host/v2/setup.ts`) | Ported; **delta:** user→system transport change (v2 renders system natively; #2526 workaround is v1-only); fence preserved; one destination per guidance unit; since #3320 the translated USER views carry `info.agent` from `event.agent` (assistant views untouched — the v1 SDK shape has `agent` on UserMessage only) so the v1 stages keyed on `info.agent` resolve native `plan`/`build` sessions instead of defaulting them to the architect; pairing contract: the host's context messages are id-less, so each view is stamped with its original index (`info.swarmV2Origin`) and paired back by object identity, then `id`, then that stamp (no positional fallback); messages with non-text parts are kept when their view is dropped, consumed carrier sources are removed, and id-less views the v1 chain inserts (full-auto verdict/continuation) have no origin and are dropped, i.e. not delivered on v2 |
+ | 7 | `experimental.chat.system.transform` (`src/index.ts:4966-5026`) | `ctx.session.hook("context")` — same hook; system-chain strings — exactly what the v1 `output.system` string surface receives (multiple `output.system` entries arrive as multiple native `event.system` text parts) — appended as `event.system` text parts | Ported |
+ | 8 | `experimental.text.complete` (`prWorkflowResponseGate.textComplete`, `src/index.ts:4866`) | **no equivalent** (official migration table) | **Delta:** PR-workflow response gate inert on v2; one bounded operational log at setup; re-homing design is the follow-up tracked on #2910 |
+ | 9 | `experimental.session.compacting` (`src/index.ts:5028-5052`) | `ctx.session.hook("compaction")` — translated session/model identity (`src/host/v2/hooks.ts`) | Ported; **delta:** the v1 customizer's directive output has no v2 mapping yet (turn-generation advance still runs) |
+@@ -41,7 +41,7 @@ Every contract sentence of AGENTS.md invariant 10 (both the v1 and the v2 paragr
+ | Delivery/telemetry predicates assert the host-render contract (`deliveredGuidanceDelta` — non-empty delta + renderable carrier shape), not presence in the plugin's own array | Row 6 delta — the predicates are transport-agnostic (carrier shape + delta), so they hold on both the v1 carrier and the v2 re-homed forms | `tests/unit/hooks/system-guidance-carrier.test.ts` (delivery predicates); `tests/unit/host/v2/adapter-behavior.test.ts` |
+ | Do not emit diagnostic noise into chat-visible streams; debug-gated logger unless operationally visible | All v2 adapter diagnostics route through the debug-gated logger (`src/utils/logger.ts`, `OPENCODE_SWARM_DEBUG=1`); operational warnings ride the shared v1 init core unchanged | `tests/unit/utils/logger.edge-case.test.ts` |
+ | Version-pin and enforcement sentences: the pinned-host tripwire (`PINNED_HOST_PACKAGE_VERSION`, host-message-role-contract-2526), the "no `role:'system'` construction" splice-ratchet rule (system-splice-ratchet-2526), and "the pre-#2526 `consolidateSystemMessages` merge and the v6.85.1 `output.system` collapse are both gone" | Enforced by the named tests themselves, not by an inventory mapping — recorded here so the map's "every sentence" claim includes the maintenance/enforcement class; row 6/7 carry their operative runtime contracts | `tests/unit/hooks/host-message-role-contract-2526.test.ts`; `tests/unit/hooks/system-splice-ratchet-2526.test.ts` |
+-| `event.agent` is an `Agent.Info` object on v2 and must be normalized to a name before any v1-style agent comparison | Row 6 — normalized once per context event via `seedV1SessionState` → `normalizeV2AgentRef` (`src/host/v2/setup.ts:326+`, invoked from `src/host/v2/guidance.ts:108`) into `ensureAgentSession` + `swarmState.activeAgent` | `tests/unit/host/v2/dual-shape-parity.test.ts` (session-state seeding); `tests/unit/host/v2/adapter-behavior.test.ts` |
++| `event.agent` is an `Agent.Info` object on v2 and must be normalized to a name before any v1-style agent comparison | Row 6 — normalized once per context event via `seedV1SessionState` → `normalizeV2AgentRef` (`src/host/v2/setup.ts`, invoked from `onV2ContextEvent` in `src/host/v2/guidance.ts`) into `ensureAgentSession` + `swarmState.activeAgent` | `tests/unit/host/v2/dual-shape-parity.test.ts` (session-state seeding); `tests/unit/host/v2/adapter-behavior.test.ts` |
+ 
+ 
+ ## ToolContext synthesis (v2 → v1)
+diff --git a/docs/releases/pending/3423-v2-context-idless-pairing.md b/docs/releases/pending/3423-v2-context-idless-pairing.md
+index 23019d556..859723c26 100644
+--- a/docs/releases/pending/3423-v2-context-idless-pairing.md
++++ b/docs/releases/pending/3423-v2-context-idless-pairing.md
+@@ -2,15 +2,15 @@
+ 
+ ## What
+ 
+-- On OpenCode V2, the `session.hook('context')` bridge (`onV2ContextEvent`) now pairs each transformed v1 view back to its v2 message by **object identity**. It falls back to `id`, and uses position only for views that a stage rebuilt as new objects.
+-- A message that carries non-text parts (tool calls, tool results, media) is never dropped. Messages are rebuilt in the host's order.
++- On OpenCode V2, the `session.hook('context')` bridge (`onV2ContextEvent`) now stamps every v1 view with its index in the original `event.messages` (`info.swarmV2Origin`) and pairs each transformed view back to its v2 message by **object identity**, then **`id`**, then that **origin stamp**. There is no positional fallback.
++- A message that carries non-text parts (tool calls, tool results, media) is not dropped when the chain drops its view (other than a consumed carrier source, below). Messages are rebuilt in the host's order.
++- A message consumed as a guidance carrier source is removed from the list (its text is delivered once, in `event.system`), so each guidance unit has exactly one destination.
+ - Transformed text is written back **in position**, so an assistant's preamble stays before its tool call.
++- Message content that is not an array (out of contract) is left untouched instead of being split or throwing.
+ 
+ ## Why
+ 
+-The v2 host's context messages carry no `id`, so every message was paired back by position. The v1 chain changes the view count: `materializeSystemGuidanceInPlace` converts a mid-history system entry into a re-homed carrier, and other stages splice in verdicts. Every later view then landed on the wrong message and the trailing message was dropped. An assistant `tool-call` lost its `tool-result`, and the provider rejected the request (`unexpected tool_use_id found in tool_result blocks`).
+-
+-In a three-step shell scenario with opencode-swarm as the only plugin, 2 of 5 runs failed before this change and 0 of 8 failed after it (#3423).
++The v2 host's context messages carry no `id`, so every message was paired back by position. The v1 chain changes the view count: `materializeSystemGuidanceInPlace` converts a mid-history system entry into a re-homed carrier, and other stages splice in verdicts. Every later view then landed on the wrong message and the trailing message was dropped. An assistant `tool-call` lost its `tool-result`, and the provider rejected the request (`unexpected tool_use_id found in tool_result blocks`). The guardrails retry rollback replaces every view with a `structuredClone`, which defeats identity pairing; the origin stamp is a plain string key, so it survives the clone.
+ 
+ ## Migration steps
+ 
+@@ -18,4 +18,6 @@ None.
+ 
+ ## Known caveats
+ 
+-None. The v1 host path and the v1 hook chain are unchanged.
++- On the v2 host, id-less views inserted by the v1 chain (the full-auto verdict and continuation messages) have no origin and are dropped. They are not delivered to the model. Previously they were written onto an unrelated message.
++- The v1 host path and the v1 hook chain are unchanged.
++- The live-run figures (2 of 5 runs failed before, 0 of 8 after, opencode 2.1.3, three-step shell scenario with opencode-swarm as the only plugin; 0 of 3 failed with a full plugin set) are the PR author's manual measurement taken before the origin-stamp change. They are not reproducible in CI.
+diff --git a/src/host/v2/guidance.ts b/src/host/v2/guidance.ts
+index 872ca2be1..48caaeef5 100644
+--- a/src/host/v2/guidance.ts
++++ b/src/host/v2/guidance.ts
+@@ -18,6 +18,13 @@
+  * `event.agent` is an Agent.Info-shaped object on v2; it is normalized to a
+  * name before any v1 agent comparison (frozen C4 header requirement).
+  *
++ * View -> original pairing: every v1 view is stamped `info.swarmV2Origin` (its
++ * index in the original `event.messages`). Kept views are paired by object
++ * identity, then `id`, then that stamp (role-checked for non-carriers); there
++ * is no positional fallback. Views the chain INSERTS carry no stamp and are
++ * dropped — on v2, id-less chain inserts (full-auto verdict/continuation
++ * messages) are therefore not delivered.
++ *
+  * Part-kind mapping (R10): text parts map 1:1; non-text content kinds
+  * (media, tool-call, tool-result, reasoning, step-start, compaction, effort)
+  * are preserved untouched on their message — the v1 chain's steps only read
+@@ -40,18 +47,36 @@ import type {
+ const V2_GUIDANCE_CHAIN_TIMEOUT_MS = 30_000;
+ 
+ interface V1PartsMessageView {
+-	info: { id?: string; role?: string; sessionID?: string };
++	info: {
++		id?: string;
++		role?: string;
++		sessionID?: string;
++		/**
++		 * Index of the source message in the ORIGINAL `event.messages` array. A
++		 * plain enumerable string key so it survives `structuredClone` and
++		 * `{...info}` spreads (the guardrails rollback clones views; stages such
++		 * as convertSystemEntryInPlace rebuild `info`). Views a chain INSERTS
++		 * never carry it.
++		 */
++		swarmV2Origin?: number;
++	};
+ 	parts: Array<{ type: string; text?: string }>;
+ }
+ 
++/** `V2Message.content` is typed as an array; tolerate (never split) anything else. */
++function contentParts(message: V2Message): V2Message['content'] {
++	return Array.isArray(message.content) ? message.content : [];
++}
++
+ /** Translate v2 messages into the v1 parts view the chain expects. */
+ function toV1MessageView(
+ 	message: V2Message,
+ 	sessionID: string,
++	originIndex: number,
+ 	agentName?: string,
+ ): V1PartsMessageView {
+ 	const textParts: Array<{ type: string; text?: string }> = [];
+-	for (const part of message.content ?? []) {
++	for (const part of contentParts(message)) {
+ 		if (
+ 			part &&
+ 			typeof part === 'object' &&
+@@ -66,6 +91,7 @@ function toV1MessageView(
+ 			id: typeof message.id === 'string' ? message.id : undefined,
+ 			role: message.role,
+ 			sessionID,
++			swarmV2Origin: originIndex,
+ 			// #3320: stamp the session's agent on USER views so the v1 message
+ 			// stages (which key on info.agent) can tell a plan/build turn from
+ 			// the architect main session. Absent when the event carries no agent
+@@ -98,13 +124,15 @@ function writeBackTextParts(
+ 	message: V2Message,
+ 	parts: Array<{ type: string; text?: string }>,
+ ): void {
++	// Out-of-contract (non-array) content is left untouched, never split.
++	if (!Array.isArray(message.content)) return;
+ 	const texts = parts
+ 		.filter((p) => p.type === 'text' && typeof p.text === 'string')
+ 		.map((p) => ({ type: 'text' as const, text: p.text as string }));
+ 	const content: V2Message['content'] = [];
+ 	let nextText = 0;
+ 	let afterLastText = 0;
+-	for (const part of message.content ?? []) {
++	for (const part of message.content) {
+ 		if (part && typeof part === 'object' && part.type === 'text') {
+ 			if (nextText < texts.length) content.push(texts[nextText++]);
+ 			afterLastText = content.length;
+@@ -118,7 +146,10 @@ function writeBackTextParts(
+ 
+ /** True when a message carries anything the v1 text-only view cannot see. */
+ function hasNonTextParts(message: V2Message): boolean {
+-	return (message.content ?? []).some(
++	if (message.content === undefined) return false;
++	// Opaque (non-array) content is kept, not dropped.
++	if (!Array.isArray(message.content)) return true;
++	return message.content.some(
+ 		(part) => !(part && typeof part === 'object' && part.type === 'text'),
+ 	);
+ }
+@@ -150,13 +181,13 @@ export async function onV2ContextEvent(
+ 	const messagesTransform = hooks['experimental.chat.messages.transform'];
+ 	if (typeof messagesTransform === 'function') {
+ 		const originalMessages = [...(event.messages ?? [])];
+-		const views = originalMessages.map((m) =>
+-			toV1MessageView(m, sessionID, eventAgentName),
++		const views = originalMessages.map((m, i) =>
++			toV1MessageView(m, sessionID, i, eventAgentName),
+ 		);
+ 		// The v2 host's context messages carry no `id`, and the v1 chain changes
+-		// the view count (carrier materialization, verdict inserts), so pair each
+-		// view to its original by OBJECT IDENTITY — stages convert views in place
+-		// (convertSystemEntryInPlace keeps the object, replaces `info`).
++		// the view count (carrier materialization, verdict inserts). Every view is
++		// stamped with its original index (`info.swarmV2Origin`); pairing below is
++		// object identity (stages convert views in place) -> `id` -> that stamp.
+ 		const originalByView = new Map<V1PartsMessageView, V2Message>();
+ 		for (let i = 0; i < views.length; i += 1) {
+ 			originalByView.set(views[i], originalMessages[i]);
+@@ -175,33 +206,74 @@ export async function onV2ContextEvent(
+ 			// Restore the pre-transform views so a partial failure cannot corrupt content.
+ 			views.length = 0;
+ 			originalByView.clear();
+-			for (const message of originalMessages) {
+-				const view = toV1MessageView(message, sessionID, eventAgentName);
++			originalMessages.forEach((message, i) => {
++				const view = toV1MessageView(message, sessionID, i, eventAgentName);
+ 				views.push(view);
+ 				originalByView.set(view, message);
+-			}
++			});
+ 		});
+ 
+-		// Re-home carriers, then pair the kept views with their originals:
+-		// object identity first, then `id`, then — only for views a stage
+-		// rebuilt as new objects — position among the still-unclaimed id-less
+-		// originals. Views with no match (chain inserts) are dropped.
++		// Pair each kept view with its original, in TWO passes so an exact match
++		// (object identity, then `id`) always outranks the weaker origin stamp:
++		//   pass 1: identity, then `id`;
++		//   pass 2: for still-unresolved views, `info.swarmV2Origin` (an integer in
++		//           range; non-carrier views must also match the original's role).
++		// First claim wins: an original already claimed by an earlier resolution is
++		// never reassigned and a later duplicate view is dropped. There is NO
++		// positional pairing. Views with no resolution — chain inserts, which carry
++		// no stamp — are dropped, so on v2 id-less chain inserts (full-auto verdict
++		// and continuation messages) are NOT delivered to the model.
+ 		const originalById = new Map<string, V2Message>();
+ 		for (const message of originalMessages) {
+ 			if (typeof message.id === 'string' && message.id.length > 0) {
+ 				originalById.set(message.id, message);
+ 			}
+ 		}
++		const isCarrier = (view: V1PartsMessageView): boolean =>
++			typeof view.info.id === 'string' &&
++			view.info.id.startsWith(GUIDANCE_CARRIER_ID_PREFIX);
++		const resolved = new Map<V1PartsMessageView, V2Message>();
++		const taken = new Set<V2Message>();
++		const resolve = (view: V1PartsMessageView, message: V2Message): void => {
++			if (taken.has(message)) return;
++			taken.add(message);
++			resolved.set(view, message);
++		};
++		const unresolved: V1PartsMessageView[] = [];
++		for (const view of views) {
++			const id = view.info.id;
++			const exact =
++				originalByView.get(view) ??
++				(typeof id === 'string' && id.length > 0
++					? originalById.get(id)
++					: undefined);
++			if (exact) resolve(view, exact);
++			else unresolved.push(view);
++		}
++		for (const view of unresolved) {
++			const origin: unknown = view.info.swarmV2Origin;
++			if (
++				typeof origin !== 'number' ||
++				!Number.isInteger(origin) ||
++				origin < 0 ||
++				origin >= originalMessages.length
++			) {
++				continue;
++			}
++			const original = originalMessages[origin];
++			if (!isCarrier(view) && view.info.role !== original.role) continue;
++			resolve(view, original);
++		}
++
+ 		const consumed = new Set<V2Message>();
+ 		const claimed = new Map<
+ 			V2Message,
+ 			Array<{ type: string; text?: string }>
+ 		>();
+-		const unpaired: V1PartsMessageView[] = [];
+ 		event.system = event.system ?? [];
+ 		for (const view of views) {
+-			const id = view.info.id;
+-			if (typeof id === 'string' && id.startsWith(GUIDANCE_CARRIER_ID_PREFIX)) {
++			const source = resolved.get(view);
++			if (isCarrier(view)) {
+ 				// Re-homed carrier (R1): fenced text becomes a system part.
+ 				for (const part of view.parts) {
+ 					if (
+@@ -212,62 +284,30 @@ export async function onV2ContextEvent(
+ 						event.system.push({ type: 'text', text: part.text });
+ 					}
+ 				}
+-				const source = originalByView.get(view);
+ 				if (source) consumed.add(source);
+-				continue;
+-			}
+-			const byIdentity = originalByView.get(view);
+-			const byId =
+-				typeof id === 'string' && id.length > 0
+-					? originalById.get(id)
+-					: undefined;
+-			const message = byIdentity ?? byId;
+-			if (message && !claimed.has(message)) claimed.set(message, view.parts);
+-			else if (!message && (id === undefined || id.length === 0))
+-				unpaired.push(view);
+-		}
+-		// Positional fallback, for views a stage rebuilt as new objects (the
+-		// guardrails retry rollback restores a structuredClone): align them in
+-		// order with still-unclaimed id-less originals of the SAME role. An
+-		// original consumed as a carrier is excluded, so a chain-inserted view
+-		// can never overwrite another role's message.
+-		const candidates = originalMessages.filter(
+-			(m) =>
+-				!claimed.has(m) &&
+-				!consumed.has(m) &&
+-				!(typeof m.id === 'string' && m.id.length > 0),
+-		);
+-		let cursor = 0;
+-		for (const view of unpaired) {
+-			let match = cursor;
+-			while (
+-				match < candidates.length &&
+-				candidates[match].role !== view.info.role
+-			) {
+-				match += 1;
+-			}
+-			if (match < candidates.length) {
+-				claimed.set(candidates[match], view.parts);
+-				cursor = match + 1;
++			} else if (source) {
++				claimed.set(source, view.parts);
+ 			}
+ 		}
+ 
+ 		// Rebuild in the HOST's order. A message whose view the chain dropped is
+-		// removed only when it is text-only: tool calls/results and media are
+-		// invisible to the v1 chain and removing them orphans tool pairs.
++		// removed when it is text-only or was consumed as a carrier source (its
++		// text now lives in event.system — one destination per guidance unit).
++		// Otherwise it is kept: tool calls/results and media are invisible to the
++		// v1 chain and removing them orphans tool pairs.
+ 		const kept: V2Message[] = [];
+ 		for (const message of originalMessages) {
+ 			const parts = claimed.get(message);
+ 			if (parts) {
+ 				writeBackTextParts(message, parts);
+ 				kept.push(message);
+-			} else if (hasNonTextParts(message)) {
++			} else if (!consumed.has(message) && hasNonTextParts(message)) {
+ 				kept.push(message);
+ 			}
+ 		}
+ 		// In-place contract: the host reads its own arrays after the hook.
+ 		event.messages.length = 0;
+-		event.messages.push(...kept);
++		for (const message of kept) event.messages.push(message);
+ 	}
+ 
+ 	const systemTransform = hooks['experimental.chat.system.transform'];
+diff --git a/tests/unit/host/v2/guidance-idless-pairing-stamp.test.ts b/tests/unit/host/v2/guidance-idless-pairing-stamp.test.ts
+new file mode 100644
+index 000000000..7f2176989
+--- /dev/null
++++ b/tests/unit/host/v2/guidance-idless-pairing-stamp.test.ts
+@@ -0,0 +1,484 @@
++/**
++ * Origin-stamp pairing for the v2 context bridge (src/host/v2/guidance.ts).
++ *
++ * Every v1 view is stamped `info.swarmV2Origin` (its index in the original
++ * `event.messages`). Kept views pair to their original by object identity,
++ * then `id`, then that stamp (role-checked for non-carriers). There is no
++ * positional fallback: views the chain inserts carry no stamp and are dropped.
++ *
++ * Companion to guidance-idless-pairing.test.ts (kept split for the FR-006
++ * 500-line cap). Covers the guardrails-rollback shape (every view replaced by
++ * a structuredClone), stamp mechanics, retention of non-text messages whose
++ * view the chain dropped, consumed carrier sources, and out-of-contract
++ * (non-array) message content.
++ */
++
++import { afterEach, describe, expect, test } from 'bun:test';
++import { materializeSystemGuidanceInPlace } from '../../../../src/hooks/messages-transform';
++import { GUIDANCE_CARRIER_ID_PREFIX } from '../../../../src/hooks/system-guidance-carrier';
++import { onV2ContextEvent } from '../../../../src/host/v2/guidance';
++import type {
++	V1HooksSubset,
++	V2Message,
++	V2SessionContextEvent,
++} from '../../../../src/host/v2/types';
++import { resetSwarmState } from '../../../../src/state';
++import { canonicalMkdtemp, removeTreeWithRetry } from '../../../helpers/tmpdir';
++
++type ViewMessage = {
++	info: { id?: string; role?: string; [key: string]: unknown };
++	parts: Array<{ type: string; text?: string }>;
++};
++type Transform = (messages: ViewMessage[]) => void;
++
++function hooksWith(transform: Transform): V1HooksSubset {
++	return {
++		'experimental.chat.messages.transform': async (
++			_input: unknown,
++			output: { messages: ViewMessage[] },
++		) => {
++			transform(output.messages);
++		},
++	} as unknown as V1HooksSubset;
++}
++
++const tempDirs: string[] = [];
++function tempDir(prefix: string): string {
++	const dir = canonicalMkdtemp(prefix);
++	tempDirs.push(dir);
++	return dir;
++}
++
++afterEach(() => {
++	resetSwarmState();
++	for (const dir of tempDirs.splice(0)) removeTreeWithRetry(dir);
++});
++
++const call = (id: string) => ({
++	type: 'tool-call',
++	id,
++	name: 'shell',
++	input: { command: 'true' },
++});
++const result = (id: string) => ({
++	type: 'tool-result',
++	id,
++	name: 'shell',
++	result: { type: 'text', value: 'ok' },
++});
++const text = (value: string) => ({ type: 'text', text: value });
++const msg = (role: string, value: string, id?: string): V2Message => ({
++	...(id === undefined ? {} : { id }),
++	role,
++	content: [text(value)],
++});
++
++function event(messages: V2Message[]): V2SessionContextEvent {
++	return {
++		sessionID: 'idless-stamp-session',
++		agent: undefined,
++		system: [],
++		messages,
++		options: {},
++		tools: {},
++	};
++}
++
++const textOf = (m: V2Message): string =>
++	Array.isArray(m.content)
++		? m.content
++				.filter((p) => p.type === 'text')
++				.map((p) => p.text)
++				.join('')
++		: '<opaque>';
++const textsOf = (messages: V2Message[]) => messages.map(textOf);
++
++/** Every tool-result must answer a tool-call in the message right before it. */
++function orphanedResults(messages: V2Message[]): string[] {
++	const orphans: string[] = [];
++	messages.forEach((message, index) => {
++		for (const part of message.content) {
++			if (part.type !== 'tool-result') continue;
++			const answered = messages[index - 1]?.content.some(
++				(p) => p.type === 'tool-call' && p.id === part.id,
++			);
++			if (!answered) orphans.push(String(part.id));
++		}
++	});
++	return orphans;
++}
++
++/** The guardrails rollback (src/index.ts): every view replaced by a clone. */
++function rollback(messages: ViewMessage[]): void {
++	const clones = structuredClone(messages);
++	messages.length = 0;
++	for (const clone of clones) messages.push(clone);
++}
++
++const verdict = (): ViewMessage => ({
++	info: { role: 'assistant' },
++	parts: [{ type: 'text', text: 'VERDICT' }],
++});
++
++const plainHistory = (): V2Message[] => [
++	msg('user', 'u'),
++	msg('assistant', 'a1'),
++	msg('assistant', 'a2'),
++];
++const toolHistory = (): V2Message[] => [
++	msg('user', 'u'),
++	{ role: 'assistant', content: [text('a1'), call('t1')] },
++	{ role: 'tool', content: [result('t1')] },
++	{ role: 'assistant', content: [text('a2'), call('t2')] },
++	{ role: 'tool', content: [result('t2')] },
++];
++
++describe('rollback clones + chain inserts (no positional pairing)', () => {
++	test('RED at base — an id-less assistant view spliced between later same-role views overwrites nothing', async () => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages.splice(2, 0, verdict());
++			}),
++			tempDir('swarm-stamp-rollback-insert-'),
++		);
++		expect(ev.messages).toEqual(plainHistory());
++		expect(JSON.stringify(ev.messages)).not.toContain('VERDICT');
++	});
++
++	test('RED at base — same with a user message after the insert, two inserts', async () => {
++		const host = [
++			msg('user', 'u1'),
++			msg('assistant', 'a1'),
++			msg('user', 'u2'),
++			msg('assistant', 'a2'),
++		];
++		const ev = event(host);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages.splice(2, 0, verdict());
++				messages.splice(4, 0, verdict());
++			}),
++			tempDir('swarm-stamp-rollback-user-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u1', 'a1', 'u2', 'a2']);
++		expect(JSON.stringify(ev.messages)).not.toContain('VERDICT');
++	});
++
++	test('RED at base — tool-call/tool-result pairing survives rollback + insert', async () => {
++		const ev = event(toolHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages.splice(3, 0, verdict());
++			}),
++			tempDir('swarm-stamp-rollback-tools-'),
++		);
++		expect(ev.messages).toEqual(toolHistory());
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
++
++	test('RED at base — removing a same-role id-less original and inserting a same-role view removes the original, never overwrites it', async () => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages.splice(1, 1); // chain drops a1's view
++				messages.push(verdict()); // ...and inserts a same-role view
++			}),
++			tempDir('swarm-stamp-remove-insert-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a2']);
++		expect(JSON.stringify(ev.messages)).not.toContain('VERDICT');
++	});
++
++	test('the stamp is a plain string key that survives structuredClone, and pairing works after a rollback', async () => {
++		const seen: unknown[] = [];
++		const ev = event([...toolHistory(), msg('assistant', 'a3')]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				for (const m of messages) seen.push(m.info.swarmV2Origin);
++				expect(Object.keys(messages[0].info)).toContain('swarmV2Origin');
++				rollback(messages);
++				for (const m of messages) {
++					for (const p of m.parts) {
++						if (p.type === 'text') p.text = `${p.text}#`;
++					}
++				}
++			}),
++			tempDir('swarm-stamp-clone-'),
++		);
++		expect(seen).toEqual([0, 1, 2, 3, 4, 5]);
++		expect(textsOf(ev.messages)).toEqual(['u#', 'a1#', '', 'a2#', '', 'a3#']);
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
++});
++
++describe('stamp mechanics', () => {
++	test.each([
++		['out of range high', 99],
++		['negative', -1],
++		['non-integer', 1.5],
++		['string', '1'],
++		['NaN', Number.NaN],
++		['null', null],
++	])('a forged stamp (%s) pairs to nothing and the view is dropped', async (_label, forged) => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages[1].info.swarmV2Origin = forged;
++				messages[1].parts[0].text = 'FORGED';
++			}),
++			tempDir('swarm-stamp-forged-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a2']);
++		expect(JSON.stringify(ev.messages)).not.toContain('FORGED');
++	});
++
++	test('a duplicate stamp does not steal an identity-paired original', async () => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				// a2 keeps its identity; a1 is replaced by a clone stamped as a2.
++				const thief = structuredClone(messages[1]);
++				thief.info.swarmV2Origin = 2;
++				thief.parts[0].text = 'STOLEN';
++				messages[1] = thief;
++			}),
++			tempDir('swarm-stamp-dup-identity-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a2']);
++		expect(JSON.stringify(ev.messages)).not.toContain('STOLEN');
++	});
++
++	test('duplicate stamps among clones are first-claim-wins; the later view is dropped', async () => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages[2].info.swarmV2Origin = 1;
++				messages[1].parts[0].text = 'a1#';
++				messages[2].parts[0].text = 'a2#';
++			}),
++			tempDir('swarm-stamp-dup-clone-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a1#']);
++	});
++
++	test('a stamp-paired view whose role differs from the original pairs to nothing', async () => {
++		const ev = event(plainHistory());
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages[1].info.role = 'user';
++				messages[1].parts[0].text = 'WRONG-ROLE';
++			}),
++			tempDir('swarm-stamp-role-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a2']);
++		expect(JSON.stringify(ev.messages)).not.toContain('WRONG-ROLE');
++	});
++
++	test('precedence: id beats stamp when views are clones', async () => {
++		const ev = event([
++			msg('user', 'ua', 'a'),
++			msg('assistant', 'ab', 'b'),
++			msg('assistant', 'ac', 'c'),
++		]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				messages[1].info.swarmV2Origin = 2; // lies: points at c
++				messages[2].info.swarmV2Origin = 1; // lies: points at b
++				for (const m of messages) m.parts[0].text += '#';
++			}),
++			tempDir('swarm-stamp-id-over-stamp-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['ua#', 'ab#', 'ac#']);
++	});
++
++	test('precedence: object identity beats id', async () => {
++		const ev = event([
++			msg('user', 'ua', 'a'),
++			msg('assistant', 'ab', 'b'),
++			msg('assistant', 'ac', 'c'),
++		]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages[1].info.id = 'c'; // id points at c, identity is b
++				messages[1].parts[0].text = 'ab#';
++			}),
++			tempDir('swarm-stamp-identity-over-id-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['ua', 'ab#', 'ac']);
++	});
++});
++
++describe('retention of messages whose view the chain dropped', () => {
++	test('tool-call, tool-result and media messages stay in host order; text-only messages are removed', async () => {
++		const host: V2Message[] = [
++			msg('user', 'u'),
++			{ role: 'assistant', content: [text('a1'), call('t1')] },
++			{ role: 'tool', content: [result('t1')] },
++			msg('assistant', 'a2'),
++			{ role: 'user', content: [text('pic'), { type: 'media', url: 'x' }] },
++			msg('assistant', 'a3'),
++		];
++		const originals = [...host];
++		const ev = event(host);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages.length = 0;
++			}),
++			tempDir('swarm-stamp-retention-'),
++		);
++		expect(ev.messages.length).toBe(3);
++		expect(ev.messages[0]).toBe(originals[1]);
++		expect(ev.messages[1]).toBe(originals[2]);
++		expect(ev.messages[2]).toBe(originals[4]);
++		expect(orphanedResults(ev.messages)).toEqual([]);
++	});
++});
++
++describe('consumed carrier sources', () => {
++	const sysSource = (): V2Message => ({
++		role: 'system',
++		content: [text('SYS-GUIDE'), { type: 'effort' }],
++	});
++	const occurrences = (haystack: string, needle: string) =>
++		haystack.split(needle).length - 1;
++
++	test('a system source with non-text parts is delivered once in event.system and removed from messages', async () => {
++		const source = sysSource();
++		const ev = event([msg('user', 'u'), source, msg('assistant', 'a')]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) =>
++				materializeSystemGuidanceInPlace(messages as never),
++			),
++			tempDir('swarm-stamp-consumed-'),
++		);
++		expect(occurrences(JSON.stringify(ev.system), 'SYS-GUIDE')).toBe(1);
++		expect(ev.messages.includes(source)).toBe(false);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a']);
++	});
++
++	test('a rollback clone materialized into a carrier AFTER cloning still consumes its source', async () => {
++		const source = sysSource();
++		const ev = event([msg('user', 'u'), source, msg('assistant', 'a')]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				rollback(messages);
++				materializeSystemGuidanceInPlace(messages as never);
++			}),
++			tempDir('swarm-stamp-consumed-clone-'),
++		);
++		expect(occurrences(JSON.stringify(ev.system), 'SYS-GUIDE')).toBe(1);
++		expect(ev.messages.includes(source)).toBe(false);
++		expect(textsOf(ev.messages)).toEqual(['u', 'a']);
++	});
++});
++
++describe('non-array message content (out of contract)', () => {
++	const opaque = (role: string, content: unknown): V2Message =>
++		({ role, content }) as unknown as V2Message;
++
++	test('a claimed string-content message is left untouched, never split into characters', async () => {
++		const weird = opaque('user', 'hello world');
++		const ev = event([weird, msg('assistant', 'a')]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith(() => {}),
++			tempDir('swarm-opaque-'),
++		);
++		expect(ev.messages[0]).toBe(weird);
++		expect(weird.content as unknown).toBe('hello world');
++		expect(textOf(ev.messages[1])).toBe('a');
++	});
++
++	test('a dropped string-content message is retained', async () => {
++		const weird = opaque('user', 'hello world');
++		const ev = event([weird, msg('assistant', 'a')]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages.length = 0;
++			}),
++			tempDir('swarm-opaque-drop-'),
++		);
++		expect(ev.messages).toEqual([weird]);
++		expect(weird.content as unknown).toBe('hello world');
++	});
++
++	test('a string-content carrier source does not throw and its content is never split', async () => {
++		const weird = opaque('system', 'SYS-STR');
++		const ev = event([msg('user', 'u'), weird]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages[1].info.id = `${GUIDANCE_CARRIER_ID_PREFIX}x`;
++				messages[1].parts = [{ type: 'text', text: 'CARRIER' }];
++			}),
++			tempDir('swarm-opaque-carrier-'),
++		);
++		expect(JSON.stringify(ev.system)).toContain('CARRIER');
++		expect(weird.content as unknown).toBe('SYS-STR');
++	});
++
++	test('a claimed message with undefined content is not given an empty array', async () => {
++		const weird = opaque('assistant', undefined);
++		const ev = event([msg('user', 'u'), weird]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith(() => {}),
++			tempDir('swarm-undef-'),
++		);
++		expect('content' in weird && weird.content !== undefined).toBe(false);
++	});
++
++	test('a dropped message with undefined content is removed, not retained', async () => {
++		const ev = event([msg('user', 'u'), opaque('assistant', undefined)]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages.length = 1;
++			}),
++			tempDir('swarm-undef-drop-'),
++		);
++		expect(textsOf(ev.messages)).toEqual(['u']);
++	});
++});
++
++describe('in-position write-back', () => {
++	test('a non-text part that precedes the text keeps its slot', async () => {
++		const host: V2Message = {
++			role: 'assistant',
++			content: [{ type: 'reasoning' }, text('t')],
++		};
++		const ev = event([host]);
++		await onV2ContextEvent(
++			ev,
++			hooksWith((messages) => {
++				messages[0].parts[0].text = 't#';
++			}),
++			tempDir('swarm-inpos-'),
++		);
++		expect(host.content.map((p) => p.type)).toEqual(['reasoning', 'text']);
++		expect(textOf(host)).toBe('t#');
++	});
++});
+diff --git a/tests/unit/host/v2/guidance-idless-pairing.test.ts b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+index af1c68452..81e3422c7 100644
+--- a/tests/unit/host/v2/guidance-idless-pairing.test.ts
++++ b/tests/unit/host/v2/guidance-idless-pairing.test.ts
+@@ -3,25 +3,30 @@
+  * when the host's messages carry no `id`.
+  *
+  * The pinned v2 host hands `session.hook('context')` messages shaped
+- * `{ role, content }` — no `id` (observed on opencode 2.1.3). `onV2ContextEvent`
+- * (src/host/v2/guidance.ts) pairs each transformed v1 view back to its v2
+- * message by `id`, falling back to POSITION for id-less messages. The v1
+- * chain does change the view count: `materializeSystemGuidanceInPlace`
++ * `{ role, content }` - no `id` (observed on opencode 2.1.3). `onV2ContextEvent`
++ * (src/host/v2/guidance.ts) stamps every v1 view with its original index
++ * (`info.swarmV2Origin`) and pairs kept views back to their v2 message by
++ * object identity, then `id`, then that stamp. There is no positional
++ * fallback; chain-inserted views carry no stamp and are dropped.
++ *
++ * The v1 chain does change the view count: `materializeSystemGuidanceInPlace`
+  * converts a mid-history `role:'system'` entry into a guidance carrier (which
+  * is re-homed to `event.system` and removed from the list), and other stages
+- * splice in verdict messages. Positional pairing then shifts every later view
+- * onto the wrong v2 message and drops the trailing original — an assistant
++ * splice in verdict messages. Pairing by position shifts every later view onto
++ * the wrong v2 message and drops the trailing original - an assistant
+  * `tool-call` loses its `tool` result and the provider rejects the request:
+  *
+  *   messages.N.content.0: unexpected `tool_use_id` found in `tool_result`
+- *   blocks … must have a corresponding `tool_use` block in the previous message
++ *   blocks ... must have a corresponding `tool_use` block in the previous message
+  *
+  * Separately, `writeBackTextParts` rebuilt every message as
+  * `[...nonText, ...text]`, moving an assistant's preamble text AFTER its
+  * tool call.
+  *
+- * Tests 1–3 are RED at base and GREEN after the fix; 4, 5 and 7 are regression
+- * floors; 6 pins the positional fallback against role confusion.
++ * Base-claim accuracy is recorded in the test titles ("RED at base" = fails
++ * against the pre-PR src/host/v2/guidance.ts). The rollback-clone, stamp
++ * mechanics, retention and non-array-content cases live in
++ * guidance-idless-pairing-stamp.test.ts.
+  */
+ 
+ import { afterEach, describe, expect, test } from 'bun:test';
+@@ -33,7 +38,7 @@ import type {
+ 	V2SessionContextEvent,
+ } from '../../../../src/host/v2/types';
+ import { resetSwarmState } from '../../../../src/state';
+-import { canonicalMkdtemp } from '../../../helpers/tmpdir';
++import { canonicalMkdtemp, removeTreeWithRetry } from '../../../helpers/tmpdir';
+ 
+ type ViewMessage = {
+ 	info: { id?: string; role?: string; [key: string]: unknown };
+@@ -123,8 +128,16 @@ const toolIds = (messages: V2Message[], type: string) =>
+ 		m.content.filter((p) => p.type === type).map((p) => p.id),
+ 	);
+ 
++const tempDirs: string[] = [];
++function tempDir(prefix: string): string {
++	const dir = canonicalMkdtemp(prefix);
++	tempDirs.push(dir);
++	return dir;
++}
++
+ afterEach(() => {
+ 	resetSwarmState();
++	for (const dir of tempDirs.splice(0)) removeTreeWithRetry(dir);
+ });
+ 
+ describe('v2 context write-back with id-less host messages', () => {
+@@ -135,7 +148,7 @@ describe('v2 context write-back with id-less host messages', () => {
+ 			hooksWith((messages) =>
+ 				materializeSystemGuidanceInPlace(messages as never),
+ 			),
+-			canonicalMkdtemp('swarm-idless-materialize-'),
++			tempDir('swarm-idless-materialize-'),
+ 		);
+ 
+ 		expect(toolIds(ev.messages, 'tool-call')).toEqual(['t1', 't2', 't3']);
+@@ -158,7 +171,7 @@ describe('v2 context write-back with id-less host messages', () => {
+ 					parts: [{ type: 'text', text: 'verdict' }],
+ 				});
+ 			}),
+-			canonicalMkdtemp('swarm-idless-insert-'),
++			tempDir('swarm-idless-insert-'),
+ 		);
+ 
+ 		const texts = ev.messages.map((m) =>
+@@ -185,7 +198,7 @@ describe('v2 context write-back with id-less host messages', () => {
+ 		await onV2ContextEvent(
+ 			ev,
+ 			hooksWith(() => {}),
+-			canonicalMkdtemp('swarm-idless-order-'),
++			tempDir('swarm-idless-order-'),
+ 		);
+ 
+ 		for (const message of ev.messages.filter((m) => m.role === 'assistant')) {
+@@ -207,7 +220,7 @@ describe('v2 context write-back with id-less host messages', () => {
+ 					}
+ 				}
+ 			}),
+-			canonicalMkdtemp('swarm-idless-rewrite-'),
++			tempDir('swarm-idless-rewrite-'),
+ 		);
+ 
+ 		const assistantTexts = ev.messages
+@@ -232,13 +245,14 @@ describe('v2 context write-back with id-less host messages', () => {
+ 				const index = messages.findIndex((m) => m.info.id === 'm2');
+ 				messages.splice(index, 1);
+ 			}),
+-			canonicalMkdtemp('swarm-id-pairing-'),
++			tempDir('swarm-id-pairing-'),
+ 		);
+ 
+ 		expect(ev.messages.map((m) => m.id)).toEqual(['m1', 'm3']);
+ 		expect(ev.messages[1]?.content).toEqual([{ type: 'text', text: 'reply' }]);
+ 	});
+-	test('hardening — a chain-inserted view never overwrites a message consumed as a carrier', async () => {
++
++	test('a chain-inserted view appended after carrier materialization is dropped and no message is overwritten', async () => {
+ 		const ev = event(idlessHistory());
+ 		await onV2ContextEvent(
+ 			ev,
+@@ -249,48 +263,16 @@ describe('v2 context write-back with id-less host messages', () => {
+ 					parts: [{ type: 'text', text: 'injected verdict' }],
+ 				});
+ 			}),
+-			canonicalMkdtemp('swarm-idless-carrier-insert-'),
++			tempDir('swarm-idless-carrier-insert-'),
+ 		);
+ 
+ 		expect(ev.messages.some((m) => m.role === 'system')).toBe(false);
+ 		const allText = JSON.stringify(ev.messages);
+ 		expect(allText).not.toContain('injected verdict');
+-		expect(orphanedResults(ev.messages)).toEqual([]);
+-	});
+-
+-	test('regression floor — views rebuilt as clones (retry rollback) still pair by role and order', async () => {
+-		const ev = event(idlessHistory());
+-		await onV2ContextEvent(
+-			ev,
+-			hooksWith((messages) => {
+-				const clones = structuredClone(messages);
+-				for (const clone of clones) {
+-					for (const part of clone.parts) {
+-						if (part.type === 'text') part.text = `${part.text}#`;
+-					}
+-				}
+-				messages.length = 0;
+-				for (const clone of clones) messages.push(clone);
+-			}),
+-			canonicalMkdtemp('swarm-idless-clone-'),
++		// No message other than the consumed carrier source changed.
++		expect(ev.messages).toEqual(
++			idlessHistory().filter((m) => m.role !== 'system'),
+ 		);
+-
+-		const texts = ev.messages.map((m) =>
+-			m.content
+-				.filter((p) => p.type === 'text')
+-				.map((p) => p.text)
+-				.join(''),
+-		);
+-		expect(texts).toEqual([
+-			'run three steps#',
+-			'step 1#',
+-			'',
+-			'mid-history reminder#',
+-			'step 2#',
+-			'',
+-			'step 3#',
+-			'',
+-		]);
+ 		expect(orphanedResults(ev.messages)).toEqual([]);
+ 	});
+ });

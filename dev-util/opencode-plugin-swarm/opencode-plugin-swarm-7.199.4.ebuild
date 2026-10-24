@@ -36,11 +36,7 @@ RDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-fast-activation.patch"
-	"${FILESDIR}/${P}-worktree-authority.patch"
-	"${FILESDIR}/${P}-acceptance-auto-inject.patch"
-	"${FILESDIR}/${P}-authority-role-policy.patch"
-	"${FILESDIR}/${P}-v2-host-agent-handoff.patch"
+	"${FILESDIR}/${P}-v2-idless-pairing.patch"
 )
 
 src_compile() {
