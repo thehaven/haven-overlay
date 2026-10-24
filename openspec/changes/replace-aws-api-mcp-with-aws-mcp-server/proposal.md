@@ -13,9 +13,12 @@ The successor is materially different, not a rename: the AWS API MCP Server is a
 remote, AWS-hosted** server, and the only thing installed locally is a thin proxy
 (`mcp-proxy-for-aws`, upstream `aws/mcp-proxy-for-aws`, PyPI latest `1.7.0`). The proxy forwards
 to `https://aws-mcp.us-east-1.api.aws/mcp`; the AWS calls execute on the AWS side, not on the
-machine that runs the proxy. The tool surface changes accordingly — `call_aws` becomes
-`aws___call_aws`, `suggest_aws_commands` is removed, and eight new tools appear including
-`aws___run_script` (sandboxed Python that chains API calls).
+machine that runs the proxy. The tool surface changes accordingly — `call_aws`,
+`suggest_aws_commands` and `get_execution_plan` are all removed, and eight new tools appear
+including `aws___run_script` (sandboxed Python that chains API calls). **Corrected during
+implementation (task 8.1, 2026-10-24):** upstream's migration guide names `aws___call_aws` as the
+rename of `call_aws`, but the live managed server does not expose that tool — verified twice,
+through the proxy and directly against the endpoint. `aws___run_script` is the live replacement.
 
 ## What Changes
 

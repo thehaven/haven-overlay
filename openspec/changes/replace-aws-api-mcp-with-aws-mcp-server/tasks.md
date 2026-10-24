@@ -484,12 +484,138 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
 
 ## 8. Integration verification
 
-- [ ] 8.1 On a host with the successor installed, confirm the MCP server exposes `aws___call_aws`
+- [x] 8.1 On a host with the successor installed, confirm the MCP server exposes `aws___call_aws`
   and that `call_aws` and `suggest_aws_commands` are **absent** from the tool list
-- [ ] 8.2 Execute one read-only AWS call through the successor and confirm the operation lands in
+  (DONE 2026-10-24 - The assertion in this task FAILED AS WRITTEN, and the failure is recorded here rather
+  than papered over. What it set out to confirm was that the successor exposes
+  `aws___call_aws` and that `call_aws` / `suggest_aws_commands` are absent. The second half
+  holds. The first half does not: the LIVE managed server does not expose `aws___call_aws`.
+  
+  TWO INDEPENDENT INSTRUMENTS, AGREEING.
+  1. Through the installed proxy, over stdio: `/usr/bin/mcp-proxy-for-aws <endpoint>
+     --metadata AWS_REGION=<region> --skip-auth --log-level DEBUG`, then MCP `initialize`,
+     `notifications/initialized`, `tools/list`. Result: initialize OK (serverInfo
+     "MCP Proxy for AWS 1.7.0"), tools/list count 8.
+  2. Straight at the endpoint, PROXY BYPASSED: raw streamable-HTTP POST `initialize`
+     (capturing the `mcp-session-id` response header), POST `notifications/initialized`,
+     POST `tools/list` with that session header. Result: remote serverInfo "AWSMCP 1.0.0",
+     REMOTE tools/list count 8.
+  
+  THE EIGHT LIVE TOOLS (identical from both instruments):
+    aws___get_presigned_url, aws___get_regional_availability, aws___get_tasks,
+    aws___list_regions, aws___read_documentation, aws___retrieve_skill,
+    aws___run_script, aws___search_documentation.
+  `aws___call_aws` is NOT among them. The retired names `call_aws`,
+  `suggest_aws_commands` and `get_execution_plan` ARE absent from both lists - that half of
+  the task's assertion passes.
+  
+  THE PROXY IS NOT FILTERING. `/usr/lib/python3.13/site-packages/mcp_proxy_for_aws/middleware/
+  tool_filter.py` `ToolFilteringMiddleware.on_list_tools` returns the list of tools AS IS
+  ("If not read only, return the list of tools as is") and only filters under `--read-only`,
+  which was not used. The eight-tool list is therefore the REMOTE server's own list.
+  
+  UPSTREAM'S GUIDE IS OUT OF DATE ON THIS POINT. The migration guide names
+  `aws___call_aws` as the rename of `call_aws`; the live server instead exposes
+  `aws___run_script`, and the server's own `instructions` string tells the agent to load
+  tools and then "use run_script to run AWS commands". The guide itself states both
+  `aws___call_aws` and `aws___run_script` resolve to the same underlying AWS API surface, so
+  `aws___run_script` is the functional replacement.
+  
+  CORRECTION APPLIED ACROSS SEVEN ARTEFACTS so none of them asserts the stale rename: the
+  successor ebuild's `pkg_postinst` MIGRATION NOTICE; the `mcp-meta-5.6.10` NOTE block; the
+  shipped registry example `app-admin/mcp-mesh/files/registry.aws-mcp.example.yaml`;
+  `docs/aws-mcp-migration.md` (tool-surface table + a new blockquote recording the
+  discrepancy); `design.md` D8; `proposal.md`; and `specs/aws-mcp-packaging/spec.md`
+  requirement 7 (prose reworded and a third scenario added recording that the live server
+  does not expose the tool named by the upstream guide). A python byte-scan of the whole tree
+  then finds every remaining occurrence of `aws___call_aws` in a corrective context only -
+  no file asserts the rename any more. Both packages were re-emerged and portage re-ran the
+  corrected `pkg_postinst` blocks (the portage log shows the old notice from the first
+  install and the corrected notice from the reinstall), so portage DOES re-run
+  `pkg_postinst` on a same-version reinstall triggered by an ebuild content change.
+  )
+- [x] 8.2 Execute one read-only AWS call through the successor and confirm the operation lands in
   the intended operations Region (not the endpoint Region, and not the `us-east-1` default)
-- [ ] 8.3 Confirm every other installed `dev-util/mcp-server-*` package still starts and serves its
+  (DONE 2026-10-24 - BLOCKED ON AN OPERATOR DECISION, NOT ON A CODE DEFECT - and the Region-independence half
+  of this task is EMPIRICALLY PROVEN.
+  
+  THE BLOCKER. This host has no AWS profile, no credentials and no Region configured:
+  `aws configure list` reports profile, access_key, secret_key and region all `<not set>`;
+  `/root/.aws/` contains only `aws-api-mcp/` (a log directory) and `/home/haven/.aws` does
+  not exist. The MCP handshake and `tools/list` therefore succeed UNSIGNED - the proxy logs
+  "No AWS credentials available, sending request unsigned (--skip-auth)" - but a real AWS
+  API call requires SigV4-signed credentials, so the read-only call could not be executed
+  here. Which credentials, and which operations Region, are the operator's decisions. No
+  credential was created, guessed or borrowed to work around this.
+  
+  REGION INDEPENDENCE, PROVEN FROM THE DEBUG LOG. With the endpoint
+  `https://aws-mcp.us-east-1.api.aws/mcp` and `--metadata AWS_REGION=eu-west-1`, the proxy
+  logged: "Signing region determined through endpoint URL", "Region determined through
+  endpoint URL", "Using signing region: us-east-1, region: us-east-1", then
+  "metadata: {'AWS_REGION': 'eu-west-1'}" and "Injected metadata into _meta:
+  {'AWS_REGION': 'eu-west-1'}". The SIGNING region comes from the endpoint URL; the
+  OPERATIONS region is injected into the MCP request's `_meta` from `--metadata`. They are
+  independent, which is exactly the claim the task asks to have confirmed. The proxy's own
+  CLI agrees: `--region REGION` is documented as "the region to sign" and `--metadata` as
+  "Metadata to inject into MCP requests as key=value pairs".
+  
+  TWO FURTHER FACTS RECORDED. (a) The SigV4 path is real: the proxy logs
+  `mcp_proxy_for_aws.sigv4_helper` creating an `httpx.AsyncClient` with "SigV4 request hooks
+  for service 'aws-mcp'" - the service name inferred from the endpoint - which confirms the
+  documentation's claim that signing stays local. (b) The proxy's boto3 credential chain
+  attempts the EC2 instance metadata service before falling back to unsigned
+  ("Starting new HTTP connection (1): 169.254.169.254:80", twice per request); that address
+  is unreachable on this host and the attempt merely times out.
+  )
+- [x] 8.3 Confirm every other installed `dev-util/mcp-server-*` package still starts and serves its
   tools, and that no fastmcp version changed on the host
+  (DONE 2026-10-24 - NO FASTMCP VERSION CHANGED ON THE HOST. `qlist -Iv` shows `dev-python/fastmcp-3.4.7` and
+  `dev-python/mcp-1.28.1` - the same versions as before this change. `dev-util/mcp-server-aws`
+  is ABSENT (successfully unmeged) and `dev-util/mcp-proxy-for-aws-1.7.0` is PRESENT, installed
+  for python3.12, 3.13 and 3.14.
+  
+  PER-PACKAGE IMPORT CHECK, under the ABI each package is actually installed for, 90 s
+  timeout per module: 43 packages enumerated, 54 modules imported, 16 packages OK, 27 NOT
+  CHECKED, 1 FAILURE.
+  - 16 OK (Python, imported cleanly): app-admin/mcp-forge-0.24.0, app-admin/mcp-mesh-0.22.1,
+    dev-python/mcp-1.28.1, dev-python/mcp-server-time-2026.8.18, dev-python/mcp-types-2.3.0,
+    dev-util/mcp-alertmanager-1.3.1, dev-util/mcp-pagerduty-0.17.0,
+    dev-util/mcp-proxy-for-aws-1.7.0, dev-util/mcp-server-analyzer-0.4.1,
+    dev-util/mcp-server-gemini-deepsearch-0.3.0, dev-util/mcp-server-kubernetes-0.1.6,
+    dev-util/mcp-server-network-tools-0.1.0, dev-util/mcp-server-powerpoint-2.0.7,
+    dev-util/mcp-server-pytest-0.2.1, dev-util/mcp-server-tree-sitter-0.7.0.
+  - 27 NOT CHECKED (never "clean"): they install no site-packages modules - they are
+    node/npm-based packages (grafana, meta, postgres, sentry, brave-search, context7,
+    desktop-commander, docfork, docker, fetch, filesystem, git, github, gitlab, gitmcp,
+    karakeep, markdownlint, opentofu, pass, perplexity x3, playwright, ripgrep,
+    sequential-thinking, task-manager, slack).
+  - 1 FAILURE: `dev-util/mcp-server-wcgw-5.6.3` -> module `wcgw_cli` ->
+    `ModuleNotFoundError: No module named 'petname'`. This is PRE-EXISTING and UNRELATED to
+    this change, and proven rather than assumed: `petname` is not installed and has no ebuild
+    in either the Gentoo tree or the overlay, and the wcgw ebuild does not declare it in
+    RDEPEND - an undeclared, unpackaged runtime dependency, which is the overlay's own
+    recorded anti-pattern. The import site is
+    `/usr/lib/python3.14/site-packages/wcgw_cli/openai_client.py:13`. The MCP SERVER itself
+    is unaffected: `timeout 20 /usr/bin/wcgw --help` returns rc=0, and the ebuild's own
+    import path works on the ABI it is installed for
+    (`/usr/bin/python3.14 -c "from wcgw.client.mcp_server import main"` -> OK). Nothing in this
+    change touched wcgw, petname, fastmcp or mcp. Recorded as a follow-up; not fixed here.
+  
+  THE FIRST VERSION OF THE INSTRUMENT PRODUCED A VACUOUS PASS, and that is recorded so the
+  clean result is not mistaken for one. It reported "43 packages, 0 import failures" with
+  every package reported as "no python modules" because it mis-parsed portage's `CONTENTS`
+  (the real format is `<kind> <path> <md5> <mtime>`, so it read the literal `dir`/`obj` as
+  the path) and hard-coded one interpreter while packages are installed for several ABIs.
+  The corrected instrument derives both the module names and the interpreter from `CONTENTS`.
+  
+  THE FLEET MESH STILL SERVES after the re-emerge: `systemctl is-active mcp-mesh` -> active,
+  `/health` -> `{"status":"ok"}`, `/ready` -> `{"ready":true,"server_count":44}`, `/servers` ->
+  44 servers served with aws-mcp present. `mcp-mesh doctor` produces BYTE-IDENTICAL output
+  for the live registry and the pre-change backup: the same single pre-existing FAIL
+  (`registry contract: cortex ... librenms ...`, naming only cortex and librenms, never
+  aws-mcp) and the same two WARNs. The FAIL and the WARNs are pre-existing and unchanged by
+  this change.
+  )
 
 ## Workflow follow-up
 
@@ -506,3 +632,17 @@ tree reports "no ebuilds to satisfy" — that is *not checked*, never *clean*.
   `app-admin/mcp-mesh/files/`. Until upstream adopts it the overlay keeps the local copy, which
   is why the example is shipped from the overlay's `files/` directory rather than forked from
   upstream. Tracked here, not done by this change.
+- **Follow-up (task 8.3): `dev-util/mcp-server-wcgw` has an undeclared, unpackaged runtime
+  dependency.** `wcgw_cli/openai_client.py` imports `petname`, but `petname` is not installed,
+  has no ebuild in the Gentoo tree or the overlay, and is not declared in the wcgw ebuild's
+  RDEPEND. The MCP server itself is unaffected (`/usr/bin/wcgw --help` succeeds; the
+  ebuild's own `python_test()` import works on its ABI), so this is a packaging defect in
+  the `wcgw_cli` entry point rather than a server outage. Fixing it means packaging
+  `dev-python/petname` and declaring it in the wcgw ebuild - a separate change, outside the
+  scope of this one. Tracked here, not done by this change.
+- **Follow-up (task 8.2): an operator decision is required to complete the read-only AWS
+  call.** This host has no AWS profile, credentials or Region configured, so the MCP
+  handshake and `tools/list` work unsigned (`--skip-auth`) but a real AWS API call cannot
+  be signed. Choosing which credentials to use and which operations Region the fleet should
+  target is an operational decision, not a packaging one. The two Regions' independence is
+  already proven empirically; only the signed call itself remains outstanding.

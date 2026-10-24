@@ -138,11 +138,11 @@ overlay SHALL NOT resolve the proxy from a moving tag or through a runtime packa
 
 ### Requirement: The tool surface change is documented
 
-The overlay's documentation SHALL record the renamed and removed tools, the new tools, and the
-requirement that hardcoded `call_aws` references be removed from skills, context files, prompts and
-steering documents.
+The overlay's documentation SHALL record the retired tools, the live tool list, and the requirement
+that hardcoded `call_aws` references be removed from skills, context files, prompts and steering
+documents.
 
-- **Expected:** the renames, the removals and the new tools are enumerated.
+- **Expected:** the removals and the live tool list are enumerated.
 - **Verification:** the documentation names all three tool dispositions and the removal instruction.
 - **Rollback:** revert the documentation change.
 
@@ -153,6 +153,10 @@ steering documents.
 #### Scenario: The new tools are enumerated
 - **WHEN** the tool-surface section is read
 - **THEN** `aws___run_script`, `aws___search_documentation`, `aws___read_documentation`, `aws___retrieve_skill`, `aws___list_regions`, `aws___get_regional_availability`, `aws___get_presigned_url` and `aws___get_tasks` are each named
+
+#### Scenario: The live server does not expose the tool named by the upstream guide
+- **WHEN** the managed server is queried for its tool list
+- **THEN** the documentation states that `aws___call_aws` is NOT served, that `aws___run_script` is the functional replacement for `call_aws`, and that the retired names `call_aws`, `suggest_aws_commands` and `get_execution_plan` are absent
 
 ### Requirement: The fleet mesh registry carries the managed server
 

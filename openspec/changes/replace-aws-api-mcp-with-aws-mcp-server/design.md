@@ -141,10 +141,17 @@ honest statement is that the *execution* moves AWS-side while *signing* stays lo
 
 ### D8 — Tool-surface changes are documented, and hosts must remove hardcoded `call_aws`
 
-`call_aws` → `aws___call_aws`; `suggest_aws_commands` and `get_execution_plan` are removed; eight
-new tools are enumerated. Upstream is explicit that hardcoded `call_aws` references in skills,
+`call_aws`, `suggest_aws_commands` and `get_execution_plan` are all removed; eight new tools are
+enumerated. Upstream is explicit that hardcoded `call_aws` references in skills,
 context files, prompts and steering documents break, so the documentation instructs removal and
 points at the upstream AWS agent rule.
+
+> **Corrected during implementation (task 8.1, 2026-10-24).** This decision originally read
+> "`call_aws` → `aws___call_aws`", taken from upstream's migration guide. Task 8.1 queried the
+> **live** managed server (`AWSMCP 1.0.0`) twice with independent instruments — through the
+> installed proxy and straight at the endpoint over raw HTTP with the proxy bypassed — and both
+> returned exactly eight tools, **none of them `aws___call_aws`**. The live replacement for
+> `call_aws` is `aws___run_script`. Upstream's guide is out of date on this point.
 
 *Rejected:* an overlay-published `call_aws` compatibility alias — it would publish a name upstream
 does not know, and the overlay would then have to maintain it.

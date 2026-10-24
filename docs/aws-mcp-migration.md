@@ -66,18 +66,25 @@ that names a tool must be updated.
 
 | Retired tool | Successor tool |
 |---|---|
-| `call_aws` | `aws___call_aws` |
+| `call_aws` | *removed* — use `aws___run_script` |
 | `suggest_aws_commands` | *removed* |
 | `get_execution_plan` (experimental) | *removed* |
 
-New tools on the successor: `aws___run_script` (sandboxed Python — chains several
+Live tools on the successor: `aws___run_script` (sandboxed Python — chains several
 API calls in one pass), `aws___search_documentation`, `aws___read_documentation`,
 `aws___retrieve_skill`, `aws___list_regions`, `aws___get_regional_availability`,
 `aws___get_presigned_url`, `aws___get_tasks`.
 
 API coverage does not change: anything reachable through `call_aws` is reachable
-through `aws___call_aws` and `aws___run_script`, which resolve to the same
-underlying AWS API surface.
+through `aws___run_script`, which resolves to the same underlying AWS API surface.
+
+> **The upstream migration guide is out of date on this point.** It names
+> `aws___call_aws` as the rename of `call_aws`. The live managed server does
+> **not** expose that tool. Verified on 2026-10-24 by querying the endpoint
+> directly — bypassing the proxy entirely — and again through the proxy: both
+> return exactly the eight tools listed above. `aws___run_script` is the
+> functional replacement, and the server's own instructions tell the agent to
+> load tools and then use `run_script`.
 
 ### Remove hardcoded `call_aws` references
 

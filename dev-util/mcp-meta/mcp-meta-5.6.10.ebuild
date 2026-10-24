@@ -19,8 +19,12 @@ KEYWORDS="~amd64"
 # This is a SEMANTIC change, not a rename: the flag still reads "aws", but the
 # server it selects is now remote and managed by AWS rather than a local
 # process. The credentials, the Region semantics and the tool names all differ:
-#   - tool names: call_aws -> aws___call_aws; suggest_aws_commands and
-#     get_execution_plan are gone; several new tools are added.
+#   - tool names: call_aws, suggest_aws_commands and get_execution_plan are
+#     all gone; the live managed server exposes aws___run_script plus seven
+#     other new tools. Upstream's migration guide names aws___call_aws as
+#     the rename of call_aws, but the live server does not expose it -
+#     aws___run_script is the functional replacement. Verified 2026-10-24
+#     against the endpoint directly, bypassing the proxy.
 #   - the endpoint is AWS-hosted; the proxy still signs requests locally with
 #     SigV4, so the local credential chain remains in use.
 #   - the two Regions are independent: the endpoint URL carries the Region the

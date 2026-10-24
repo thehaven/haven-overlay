@@ -30,7 +30,7 @@
 # Three things an operator must get right:
 #
 #   1. DELETE the retired client entry. The old server exposed `call_aws`;
-#      the managed server exposes `aws___call_aws`. Running both at once
+#      the managed server exposes `aws___run_script`. Running both at once
 #      gives the agent two overlapping tool sets with conflicting names.
 #
 #   2. The endpoint-URL Region and the --metadata Region are INDEPENDENT.
@@ -62,8 +62,8 @@ servers:
   env: {}
   description: 'AWS MCP Server (managed, AWS-hosted) reached through the thin
     local proxy. API execution runs AWS-side; SigV4 request signing stays local.
-    Tool names are aws___* (aws___call_aws, aws___run_script,
-    aws___search_documentation, ...) - the retired call_aws name does not
+    Tool names are aws___* (aws___run_script, aws___search_documentation,
+    aws___read_documentation, ...) - the retired call_aws name does not
     exist. This template ships DISABLED (known-but-disabled in the mcp-mesh
     schema): set the Region and flip enabled to true after copying it into
     the live registry.'
