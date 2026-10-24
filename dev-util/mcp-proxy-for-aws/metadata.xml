@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>simon@thehavennet.org.uk</email>
+		<name>Simon Alman</name>
+	</maintainer>
+	<longdescription>
+		Thin proxy for the managed (AWS-hosted) AWS MCP Server. Replaces the
+		retired self-hosted dev-util/mcp-server-aws.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">aws/mcp-proxy-for-aws</remote-id>
+	</upstream>
+</pkgmetadata>
