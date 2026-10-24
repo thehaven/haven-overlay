@@ -4,8 +4,9 @@
 
 Defines how the haven-overlay packages AWS MCP access: which upstream server is packaged as current,
 how the deprecated self-hosted server is retired, how the `mcp-meta` meta-package resolves its
-`aws` flag, and what the documented client-setup contract must look like for the managed-server
-model.
+`aws` flag, what the documented client-setup contract must look like for the managed-server
+model, how the fleet mesh registry carries the managed server, and how fastmcp-consuming
+packages are kept inside the overlay's supported fastmcp range.
 
 ## ADDED Requirements
 
@@ -26,6 +27,10 @@ atom SHALL be the only current AWS MCP package the overlay offers.
 - **WHEN** the ebuild is inspected
 - **THEN** `PYPI_PN` is `mcp-proxy-for-aws` and `HOMEPAGE` names `https://github.com/aws/mcp-proxy-for-aws`
 
+#### Scenario: The build backend is verified, not inherited
+- **WHEN** the ebuild declares `DISTUTILS_USE_PEP517`
+- **THEN** the value matches the `build-backend` declared by the packaged sdist, and no fix-up `sed` is copied from a sibling ebuild without that sdist proving it necessary
+
 ### Requirement: The deprecated self-hosted AWS API MCP server is masked
 
 The overlay SHALL record `dev-util/mcp-server-aws` in `profiles/package.mask` under its existing
@@ -42,6 +47,10 @@ dead-upstream convention, and SHALL NOT delete the ebuild.
 #### Scenario: Masking does not delete
 - **WHEN** the mask is applied
 - **THEN** `dev-util/mcp-server-aws/mcp-server-aws-1.3.36.ebuild` is still on disk and a host may unmask and install it
+
+#### Scenario: A host that carries the retired package is cleaned up
+- **WHEN** the mask is applied and a host still has the retired atom installed
+- **THEN** the host unmerges it, so no end-of-life server remains installed behind the mask
 
 ### Requirement: The mcp-meta aws flag resolves to the successor
 
@@ -60,23 +69,26 @@ meta-package SHALL be bumped so the change is visible to the resolver.
 - **WHEN** the new `mcp-meta` version is read
 - **THEN** the flag is still named `aws`, so existing `USE="... aws"` expressions keep working
 
+#### Scenario: The semantic change is announced
+- **WHEN** the new `mcp-meta` version is read
+- **THEN** it records that `USE=aws` now selects a managed remote server rather than a local one
+
 ### Requirement: Client setup instructions target the managed endpoint
 
-The post-install message SHALL instruct operators to configure the client with a `uvx` invocation
-of the pinned proxy against the managed endpoint, and SHALL NOT print a local-daemon command for
-the retired server.
+The post-install message SHALL point operators at the **native** packaged proxy and the managed
+endpoint, and SHALL NOT print the retired daemon.
 
-- **Expected:** the emitted JSON names the proxy, the endpoint URL and `--metadata AWS_REGION=`.
-- **Verification:** `grep -c 'awslabs.aws-api-mcp-server'` over the ebuild returns 0.
+- **Expected:** the JSON names `/usr/bin/mcp-proxy-for-aws`, the endpoint URL and `--metadata AWS_REGION=`.
+- **Verification:** `grep -c 'awslabs.aws-api-mcp-server'` returns 0 and the native path appears.
 - **Rollback:** restore the previous post-install text.
 
 #### Scenario: Operator reads the post-install message
 - **WHEN** the package is installed on a supported Python interpreter
-- **THEN** the message shows a copy-pasteable client entry using the proxy and the managed endpoint, not the local server binary
+- **THEN** the message shows a copy-pasteable client entry using the native proxy and the managed endpoint, not the local server binary
 
-#### Scenario: The proxy is named in the emitted configuration
-- **WHEN** the post-install text is searched for the proxy name
-- **THEN** the count is non-zero, and the pinned version is part of the emitted argument
+#### Scenario: The native path is used, not a runtime resolver
+- **WHEN** the emitted configuration is inspected
+- **THEN** the command is the packaged `/usr/bin/mcp-proxy-for-aws` binary and does not invoke a runtime package resolver
 
 #### Scenario: All three supported clients are covered
 - **WHEN** the post-install message is generated
@@ -103,22 +115,26 @@ managed-server proxy, and SHALL state the migration path for every setting that 
 - **WHEN** the migration table is read
 - **THEN** `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN` are documented as replaced by the local credential chain, and `AWS_REGION` is documented as moving to `--metadata AWS_REGION=`
 
-### Requirement: The proxy version is pinned in client configuration
+#### Scenario: The credential statement is accurate
+- **WHEN** the governance section is read
+- **THEN** it states that API execution moves to the managed server while request signing still uses the local credential chain
 
-Documented client configuration SHALL pin an exact proxy version rather than resolving `latest`, and
-the overlay's own emitted snippet SHALL pin an exact version too.
+### Requirement: The packaged proxy version is the pin
 
-- **Expected:** no documented or emitted client entry resolves the proxy from `latest`.
+The proxy version SHALL be pinned by the packaged atom itself. Client configuration emitted by the
+overlay SHALL NOT resolve the proxy from a moving tag or through a runtime package resolver.
+
+- **Expected:** the packaged version is the only version a client can invoke.
 - **Verification:** `grep -rn 'mcp-proxy-for-aws@latest'` over the overlay returns no match.
-- **Rollback:** restore the unpinned text.
+- **Rollback:** restore the previous text.
 
 #### Scenario: Operator copies the configuration
 - **WHEN** an operator copies the emitted snippet into a client configuration
-- **THEN** the transitive dependency set resolved at install time is the one that was reviewed, not whatever is newest on the day
+- **THEN** the dependency set resolved is the one the overlay packaged and reviewed, not whatever is newest on the day
 
-#### Scenario: The packaged version and the emitted pin move together
+#### Scenario: The packaged version and the emitted entry move together
 - **WHEN** the packaged proxy version is bumped
-- **THEN** the emitted pin names the same version
+- **THEN** the emitted entry names the same packaged version
 
 ### Requirement: The tool surface change is documented
 
@@ -137,3 +153,45 @@ steering documents.
 #### Scenario: The new tools are enumerated
 - **WHEN** the tool-surface section is read
 - **THEN** `aws___run_script`, `aws___search_documentation`, `aws___read_documentation`, `aws___retrieve_skill`, `aws___list_regions`, `aws___get_regional_availability`, `aws___get_presigned_url` and `aws___get_tasks` are each named
+
+### Requirement: The fleet mesh registry carries the managed server
+
+The overlay SHALL ship a worked registry example with `app-admin/mcp-mesh`, and SHALL register
+the server **without** adding it to any profile.
+
+- **Expected:** the example names the native proxy and endpoint; the live registry gains an unreferenced server entry.
+- **Verification:** `grep -rn 'aws-mcp' /etc/mcp-forge/` matches a server entry; no profile names it.
+- **Rollback:** remove the registry entry and the example.
+
+#### Scenario: The server is available but unused
+- **WHEN** the fleet registry is read
+- **THEN** the managed AWS MCP Server is listed under servers and is referenced by no profile
+
+#### Scenario: An operator has a template to copy
+- **WHEN** an operator needs to add the server to a client
+- **THEN** the overlay ships a copy-pasteable registry example
+
+#### Scenario: The upstream template is not forked
+- **WHEN** the change is applied
+- **THEN** the worked example is carried by the overlay, and an upstream contribution to the mesh registry template is raised as a separate follow-up
+
+### Requirement: Fastmcp-consuming packages declare a resolve-time bound
+
+Every package that consumes `dev-python/fastmcp` SHALL declare an upper bound below `4`, so that
+resolution cannot silently select an unsupported fastmcp even if the ecosystem mask is regenerated.
+
+- **Expected:** each fastmcp consumer's current version declares `<dev-python/fastmcp-4`.
+- **Verification:** the overlay's fastmcp guard test passes; a deliberately unpinned consumer is detected.
+- **Rollback:** revert the guard and the pins.
+
+#### Scenario: The ecosystem mask is regenerated away
+- **WHEN** the `>=dev-python/fastmcp-4.0.0` mask line is removed or narrowed
+- **THEN** resolution still cannot select fastmcp 4.x, because the bound is declared in the consumers
+
+#### Scenario: The currently installed mesh package is pinned
+- **WHEN** `app-admin/mcp-mesh` is inspected
+- **THEN** its installed stable version declares a bound below `dev-python/mcp` 2.x, rather than relying on the mask alone
+
+#### Scenario: The guard does not demand the pin in retired versions
+- **WHEN** the guard scans a package with several historical versions
+- **THEN** it asserts the bound on the current version only, so the fix propagates to future bumps without rewriting history

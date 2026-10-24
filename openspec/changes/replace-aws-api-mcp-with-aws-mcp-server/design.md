@@ -2,276 +2,230 @@
 
 ## Context
 
-See `proposal.md` — *Why* for the motivation and *What Changes* for the scope. This document covers
-the technical approach only.
+Three facts drive this design.
 
-Three constraints shape the approach, all established by reading the current overlay:
+1. **The successor is a different upstream, not a bump.** `awslabs/aws-api-mcp-server` is end-of-life.
+   Its replacement is the managed AWS MCP Server, reached through a thin local proxy
+   (`mcp-proxy-for-aws`, upstream `aws/mcp-proxy-for-aws`). The overlay's duplicate-package rule
+   ("never add a second ebuild for the same upstream — extend or bump instead") therefore does not
+   apply: the duplicate pre-flight returns nothing for the successor's identity, and a bump is
+   impossible because the upstream organisation, package name, dependency set and execution model
+   all differ. A new atom is correct.
 
-**1. The successor is a different upstream, so the overlay's duplicate-package rule does not apply.**
-The overlay's AGENTS.md forbids adding a second ebuild for *the same upstream*. The current package
-is `dev-util/mcp-server-aws` (`awslabs-aws-api-mcp-server`); the successor is
-`mcp-proxy-for-aws` (`aws/mcp-proxy-for-aws`). The overlay pre-flight returns nothing for all three
-checks, so a new atom is correct and a version bump is not possible.
+2. **The fastmcp range the successor declares is already the overlay's range.** The successor
+   declares `fastmcp>=3.2,<3.5`. The overlay's `profiles/package.mask` already masks
+   `>=dev-python/fastmcp-4.0.0` and `>=dev-python/mcp-2.0.0` (the "Ecosystem hold"), so
+   `fastmcp-3.4.7` is the only installable fastmcp and is already installed fleet-wide. There is
+   **no downgrade** and no state change for the 36 fastmcp dependents. The successor's `<3.5` cap
+   is the same constraint family the overlay already enforces globally, and upstream's own
+   `pyproject.toml` says the cap "matches mcp's own".
 
-**2. The successor's dependencies land on a fastmcp version that the overlay already ships — but
-only at the cost of a downgrade.** `mcp-proxy-for-aws` declares `fastmcp>=3.2,<3.5`. The overlay
-ships `dev-python/fastmcp` at 3.4.7, 4.0.10, 4.0.11, 4.1.0, 4.1.1 and 4.1.3. 3.4.7 satisfies the
-range; 4.1.3 does not.
+   The corollary is a fragility: **no overlay ebuild upper-bounds fastmcp below 4** — 14 declare it
+   unbounded and the rest declare a minimum only. The single mask line is the only thing holding
+   the fleet below fastmcp 4.x. If the ebuild-updater regenerates that mask away, every
+   minimum-only consumer silently resolves fastmcp 4.x → mcp 2.x → `mcp.server.fastmcp` removed →
+   fleet-wide import break. That is the same class as the recorded PEP517 backend-drift and
+   `acct-user_add_deps` incidents: a single line of declarative state, load-bearing and unguarded.
+   The successor is the first ebuild to carry the bound in its own dependency declaration; this
+   change makes that the pattern.
 
-Across the whole overlay, 36 ebuilds depend on `dev-python/fastmcp`, with these constraint strings:
+3. **The `mcp-meta` flag→package mapping lives inside the meta ebuild.** Repointing `USE=aws` at
+   the successor is a semantic change, not just a dependency swap: `USE=aws` currently means "a
+   local AWS MCP server" and afterwards means "a managed remote AWS MCP server" with different
+   credential handling, different Region semantics and different tool names. The mapping can only
+   be changed by editing the meta ebuild, so the change is necessarily visible as a version bump.
 
-| Constraint string | Count | Portage meaning |
-|---|---|---|
-| `dev-python/fastmcp-3.0.0` | 15 | `>=3.0.0` — a **minimum**, not an exact pin |
-| `dev-python/fastmcp` | 14 | unconstrained |
-| `dev-python/fastmcp-0.3.0` | 5 | `>=0.3.0` |
-| `dev-python/fastmcp-3.4.2` | 1 | `>=3.4.2` |
-| `dev-python/fastmcp-0.4.1` | 1 | `>=0.4.1` |
+## Goals
 
-**No overlay package requires `fastmcp >= 4`, and none upper-bounds it.** The successor's
-`fastmcp>=3.2,<3.5` would therefore be the only upper bound in the overlay, and it forces
-Portage to resolve fastmcp to **3.4.7** — a **downgrade** from the current 4.1.3 for any host
-that already has it installed. The downgrade is dependency-safe for all 36 packages, but it is a
-state change on a shared dependency and must be planned rather than discovered.
+- The overlay offers exactly one current AWS MCP package, and it is the managed-server proxy.
+- `dev-util/mcp-meta` with `USE=aws` resolves to the successor.
+- Client-setup instructions match the successor's execution model and the overlay's own
+  "Native Path Alignment" convention.
+- The fleet mesh registry can carry the managed server, available but not mounted.
+- Fastmcp-consuming packages are protected by a declared bound, not only by a mask.
+- The retired package stays **recoverable** — masked, not deleted.
 
-The other successor dependencies resolve from the Gentoo tree without overlay work: `boto3` and
-`botocore` at 1.43.86 (satisfies `>=1.41.0`), `httpx` at 0.28.1 (satisfies `>=0.27.1,<1.0`).
+## Non-Goals
 
-**3. `dev-util/mcp-meta` is the mechanism by which hosts get the AWS MCP server.** Its
-`aws? ( dev-util/mcp-server-aws )` RDEPEND mapping lives *inside* the meta-package ebuild, so
-repointing the flag is a change to the meta-package, which requires a version bump.
-
-## Goals / Non-Goals
-
-**Goals:**
-
-- The overlay offers exactly one current AWS MCP package, built from the upstream the successor
-  guide names.
-- A host that emerges `dev-util/mcp-meta` with `USE=aws` gets the successor, not the retired one.
-- The client-configuration instructions the overlay emits are correct for the successor's
-  execution model — a `uvx` proxy invocation against the managed endpoint, not a local binary.
-- The overlay's own test suite is extended so the new atom's metadata is checked the same way as
-  every other package's.
-- The retired package remains **recoverable**: masked, not deleted, with the reason recorded.
-
-**Non-Goals:**
-
-- Migrating any client configuration. The overlay emits instructions; hosts apply them. The
-  OpenCode configuration on this host, Gemini CLI, and Claude Desktop are each a separate
-  repository and a separate approval.
-- Migrating to the **Agent Toolkit for AWS**. Upstream states that is the successor to the MCP
-  servers, one level further on. It is out of scope here and should be re-evaluated once the
-  managed AWS MCP Server is proven in production.
-- Changing the client-facing tool *names* — `aws___call_aws` and friends are upstream's naming.
-  The overlay's job is to document them, not to alias them.
-- Publishing the successor to the upstream Gentoo tree. The overlay is a layman repo; it never
-  takes over a package the tree already ships.
-- Providing the managed endpoint itself. It is an AWS-hosted service; the overlay ships the client.
+- Migrating any host's MCP client configuration. Those are separate repositories with separate
+  approvals.
+- The **Agent Toolkit for AWS**, which is one level further up than the managed AWS MCP Server.
+- Aliasing upstream's tool names. The overlay does not publish a `call_aws` compatibility alias.
+- Publishing the successor to the Gentoo tree.
+- Providing the managed endpoint itself; it is an AWS-hosted service.
 
 ## Decisions
 
-### D1 — Ship the successor as a new atom, and retire the old one by masking
+### D1 — New atom for the successor; the retired atom is masked, not deleted
 
-`dev-util/mcp-proxy-for-aws` is added; `dev-util/mcp-server-aws` is added to
-`profiles/package.mask` under the existing "Dead upstream" block.
+A new atom `dev-util/mcp-proxy-for-aws` is added and `dev-util/mcp-server-aws` is recorded in
+`profiles/package.mask` under the file's existing "Dead upstream" convention.
 
-*Alternative considered — bump the existing ebuild to a newer `awslabs-aws-api-mcp-server`
-release.* Rejected: upstream has declared the package end-of-development, and the migration guide
-describes the successor as a different execution model (remote managed server vs local execution),
-not a newer local server. A bump would also not satisfy the overlay's duplicate pre-flight in
-spirit, because the upstream repository is moving.
+*Rejected:* keeping both packages unmasked — upstream is explicit that running both at once causes
+tool-name conflicts that confuse the agent. *Rejected:* deleting the retired ebuild — the overlay
+masks dead upstream rather than deleting it, and the mask keeps the fallback one line away.
 
-*Alternative considered — delete the old ebuild.* Rejected: the overlay's convention
-(`profiles/package.mask`) records dead upstream rather than deleting, and a mask keeps the package
-installable on hosts that have not migrated yet, while making `emerge` refuse it on new installs.
+### D2 — Declare the fastmcp bound faithfully; treat the mask as the remaining fragility
 
-*Alternative considered — keep both unmasked.* Rejected: the migration guide is explicit that
-running the old and new server entries together causes tool-name conflicts that confuse the
-agent. Masking makes "old" the path of least resistance rather than the default.
+The successor's `fastmcp>=3.2,<3.5` is declared exactly as upstream declares it.
 
-### D2 — Declare `fastmcp>=3.2,<3.5` faithfully, and accept the downgrade
+*Rejected:* leaving `fastmcp` unbounded — that would silently ship an untested fastmcp 4.x, which
+the mask already forbids and which breaks `mcp.server.fastmcp` consumers fleet-wide.
+*Rejected:* adding a new fastmcp 3.x ebuild — `fastmcp-3.4.7` already exists and already satisfies
+the range.
 
-The new ebuild declares `dev-python/fastmcp>=3.2,<3.5`, exactly as the upstream wheel declares.
-Portage then resolves to the overlay's existing `fastmcp-3.4.7`.
+Because the mask is the only thing holding fastmcp below 4 fleet-wide, this change also adds a
+**resolve-time** guard (D10) so the successor's bound is not the only ebuild-level bound.
 
-*Alternative considered — declare `dev-python/fastmcp>=3.2` with no upper bound.* Rejected: it
-keeps fastmcp at 4.1.3 and avoids a downgrade, but it silently installs a version outside the
-range upstream declares and upstream tested against. Portage does not enforce the wheel's own
-metadata, so an unbounded dependency is a way to ship an untested combination without noticing.
+### D3 — One `aws` flag, repointed in place, with the semantic change made loud
 
-*Alternative considered — add a second `dev-python/fastmcp` ebuild at 3.4.x.* Rejected: the
-overlay already ships 3.4.7, so there is nothing to add. The downgrade is a *resolution* outcome,
-not a packaging gap.
+`dev-util/mcp-meta` keeps a single `aws` USE flag, repointed from `dev-util/mcp-server-aws` to
+`dev-util/mcp-proxy-for-aws` in a new version derived from the newest in-tree version (`5.6.9`),
+which is left intact.
 
-*Consequence, and it is the reason this decision has a migration step:* every host that currently
-has `fastmcp-4.1.3` installed will have it replaced by 3.4.7 when the successor is installed. All
-36 dependent packages remain satisfiable because none requires `>=4`. The downgrade is planned
-explicitly in the migration plan and verified with `emerge --pretend` before it is committed.
+*Rejected:* a new `aws-managed` flag — it splits fleet expectations, forces every consumer to
+change their `USE` expression, and contradicts the overlay's recorded lesson "always fix the
+newest in-tree version, not just the broken one | fixes propagate to all future bumps
+automatically".
 
-### D3 — Repoint `dev-util/mcp-meta`'s `aws` flag in place, with a version bump
+The semantic change is made loud rather than silent: the new meta version records that `USE=aws`
+now selects a managed remote server, and the successor's `pkg_postinst()` prints a migration
+notice naming the tool renames.
 
-The `aws` USE flag keeps its name and now resolves to `dev-util/mcp-proxy-for-aws`. Because the
-flag-to-package mapping is embedded in the meta-package's RDEPEND, the meta-package must be bumped
-for the change to take effect — an unsuffixed edit to an installed version is not honoured by the
-resolver.
+### D4 — The native path, not `uvx`
 
-*Alternative considered — add a new `aws-managed` flag and deprecate `aws`.* Rejected: it breaks
-every consumer's `USE="... aws"` and forces a two-step migration for no benefit. The flag name
-describes the capability, not the implementation.
+The post-install snippet emits `"command": "/usr/bin/mcp-proxy-for-aws"` with the managed endpoint
+URL and `--metadata AWS_REGION=` as arguments.
 
-*Alternative considered — leave `mcp-meta` alone and let hosts emerge the new atom directly.*
-Rejected: the meta-package exists precisely so a host gets a consistent MCP set in one emerge. A
-meta-package that still pulls the retired package would make the overlay's own recommendation
-wrong.
+Upstream's own migration guide shows a `uvx mcp-proxy-for-aws@1.6.3 <endpoint>` invocation, but
+the overlay's established convention for all 40 MCP-related ebuilds is the opposite: *"Native Path
+Alignment: instructions point to the native `/usr/bin` paths instead of `npx` or `uvx`, improving
+build stability and reducing runtime overhead"*. The overlay packages the proxy, so the native path
+exists and the convention wins. Emitting `uvx` would also reintroduce exactly the risk upstream
+itself warns about — an unpinned runtime install resolves every transitive dependency to its
+newest version at install time.
 
-### D4 — Emit a `uvx` proxy invocation, with the region expressed twice and distinctly
+Upstream's requirement that the proxy version be pinned is satisfied differently and more
+strongly: the **packaged ebuild version is the pin**. There is no second copy of the version
+number for the client to drift from.
 
-The new `pkg_postinst()` prints, for each of the three supported clients:
+### D5 — No build-backend fix-up is copied from the sibling ebuild
 
-```
-"aws-mcp": {
-  "command": "uvx",
-  "timeout": 100000,
-  "transport": "stdio",
-  "args": ["mcp-proxy-for-aws@<pinned>", "https://aws-mcp.us-east-1.api.aws/mcp",
-           "--metadata", "AWS_REGION=<region>"]
-}
-```
+Upstream `mcp-proxy-for-aws` 1.7.0 declares `build-backend = "hatchling.build"` in its own
+`pyproject.toml`, so `DISTUTILS_USE_PEP517=hatchling` needs no `sed`. The retired ebuild's
+`src_prepare()` seds `uv_build` → `hatchling.build` because *that* package declared `uv_build`.
 
-Upstream defines **two independent regions**: the Region in the endpoint URL (where the managed MCP
-server runs) and `--metadata AWS_REGION` (the default Region for the operations the agent issues).
-They may differ. Omitting `--metadata` defaults operations to `us-east-1`.
+*Rejected:* copying the sibling's `src_prepare()` — this is the recorded anti-pattern "always
+verify each version's tarball independently, never assume siblings share a build backend", which
+cost 47 ebuilds across 11 packages in a single undetected drift. The backend is verified against
+the successor's own sdist.
 
-*Decision — make both explicit in the emitted snippet, with the endpoint pinned to a fixed
-Region and the operations Region left as an explicit placeholder.* Rationale: silently inheriting
-`us-east-1` because a flag was omitted is exactly the failure mode the old package's
-`env.AWS_REGION` made easy to get wrong, and it is the kind of mistake that is invisible until a
-resource turns up in the wrong Region.
+### D6 — `python_test()` imports the real module and asserts the console script
 
-### D5 — Pin the proxy version in every emitted configuration
+The upstream `mcp_proxy_for_aws` package deliberately has **no `__init__.py`** — `__version__` reads
+the installed distribution's metadata instead of carrying a literal. `import mcp_proxy_for_aws`
+therefore succeeds as a namespace package even if the actual code is broken, so the auto-generated
+`${PN//-/_}` import check is a false pass. The check imports `mcp_proxy_for_aws.server` — the
+console-script target — and asserts that `/usr/bin/mcp-proxy-for-aws` exists. A negative control
+(an import against a directory with no importable module) must fail.
 
-The snippet names a specific `mcp-proxy-for-aws` version, never `@latest`.
+### D7 — The configuration contract is published in full, including what has no equivalent
 
-*Rationale:* upstream's own guide states that an unpinned install resolves all transitive
-dependencies to their newest versions at install time, which is a supply-chain risk. This is the
-same lesson the LiteLLM deployment in this fleet learned the hard way — an unpinned tag was the
-mechanism for a credential-stealer image to run in production.
+Every old setting is mapped. The nine settings that do not carry over are listed explicitly with a
+"no equivalent" disposition rather than being silently dropped.
 
-*Consequence:* the overlay must re-emit the snippet when the pinned version is bumped, so the
-pinned version and the packaged version are kept in step. This is stated as a requirement in the
-spec delta rather than left to convention.
+The governance statement is deliberately **not** "zero credential exposure". API execution moves
+to the AWS-hosted managed server, but the proxy still signs requests locally with SigV4 — upstream
+declares `fastmcp` directly "for SigV4 signing" — so the local credential chain is still used. The
+honest statement is that the *execution* moves AWS-side while *signing* stays local.
 
-### D6 — Document the configuration contract as a mapping, including the settings that do not carry over
+### D8 — Tool-surface changes are documented, and hosts must remove hardcoded `call_aws`
 
-The overlay's documentation for the successor is a table with one row per old setting, giving the
-successor's equivalent. Nine of the old settings have **no** equivalent in the managed model
-(`AWS_API_MCP_WORKING_DIR`, `AWS_API_MCP_ALLOW_UNRESTRICTED_LOCAL_FILE_ACCESS`,
-`AWS_API_MCP_AGENT_SCRIPTS_DIR`, `AWS_API_MCP_TRANSPORT`/`_HOST`/`_PORT`,
-`AUTH_TYPE`/`AUTH_ISSUER`/`AUTH_JWKS_URI`, `AWS_API_MCP_TELEMETRY`).
+`call_aws` → `aws___call_aws`; `suggest_aws_commands` and `get_execution_plan` are removed; eight
+new tools are enumerated. Upstream is explicit that hardcoded `call_aws` references in skills,
+context files, prompts and steering documents break, so the documentation instructs removal and
+points at the upstream AWS agent rule.
 
-*Decision — publish the mapping with an explicit "no equivalent" row for each, rather than
-documenting only what carries over.* Rationale: a host operator migrating from the old package
-needs to know that a setting they rely on has stopped existing, and silence reads as "unchanged".
+*Rejected:* an overlay-published `call_aws` compatibility alias — it would publish a name upstream
+does not know, and the overlay would then have to maintain it.
 
-*Decision — the credential settings are documented as "use the local credential chain"
-(`aws configure` / `aws login`), and the explicit `AWS_ACCESS_KEY_ID` /
-`AWS_SECRET_ACCESS_KEY` / `AWS_SESSION_TOKEN` form is documented as removed.* Rationale: upstream
-states the managed server executes and the proxy only forwards, and describes the posture as zero
-credential exposure. The proxy still depends on `boto3`/`botocore` and therefore still touches the
-local credential chain for its own operations, so the honest statement is that the *API execution*
-moves AWS-side — not that the proxy holds no credentials at all.
+### D9 — The fleet mesh registry is a fourth integration surface
 
-### D7 — Ship the tool-surface change as documentation, and tell hosts to remove hardcoded references
+`app-admin/mcp-mesh` installs `/etc/mcp-forge/registry.yaml.example`, and mcp-mesh does
+just-in-time tool mounting. A server listed under `servers:` but referenced by no profile is
+therefore *available but unused* — exactly the required state.
 
-The overlay documents the renames (`call_aws` → `aws___call_aws`; `suggest_aws_commands` and
-`get_execution_plan` removed) and the eight new tools, and states explicitly that hardcoded
-`call_aws` references in skills, context files, prompts and steering documents must be removed
-rather than renamed — upstream calls them over-specified and says they will break.
+The worked example is carried **by the overlay**, from its own `files/` directory, rather than
+forking the upstream mesh template: the upstream file lives in the `mcp-mesh` repository, and
+forking it in the overlay would diverge on every bump. An upstream contribution carrying the same
+example is raised as a follow-up task.
 
-*Alternative considered — ship a compatibility alias.* Rejected: upstream's tool names are the
-contract the managed server exposes; an alias in the overlay would be a name the upstream server
-does not know, and would reappear as a break at the next upstream change.
+The server is registered in the fleet registry **after** the proxy is installed, so the registry
+never names a binary that is not present.
 
-### D8 — Extend the overlay's ebuild test suite rather than relying on the review
+### D10 — Fastmcp consumers get a resolve-time bound, asserted on the current version only
 
-`scripts/tests/test_mcp_proxy_for_aws_ebuild.py` is added, following the precedent of
-`test_grafonnet_ebuild.py`, `test_headroom_ai_ebuild.py` and `test_litellm_ebuild.py`.
+Two things follow from the survey:
 
-*Rationale:* the overlay's own tests validate each package's ebuild against upstream metadata.
-A new atom without a test would be the only one in the overlay without one, and the failure mode
-it would catch — a dependency or homepage drifting from the upstream dist — is invisible to
-`ebuild` itself.
+- `app-admin/mcp-mesh` declares an **unbounded** `dev-python/mcp` and is **not** in
+  `scripts/tests/test_mcp_pin.py`'s fixed `FASTMCP_PACKAGES` set. It is protected today only by the
+  `>=dev-python/mcp-2.0.0` mask, which bites at install time, not at resolve time. Its installed
+  stable version (`0.22.1`) therefore gains an explicit `<dev-python/mcp-2` bound.
+- The existing `test_mcp_pin.py` guard is **text-based and per-ebuild across every version**.
+  Adding `app-admin/mcp-mesh` to that set as-is would demand the bound in all eight of its ebuilds
+  (0.17.0–0.22.1 plus 9999), which contradicts the overlay's own lesson about fixing the newest
+  version rather than rewriting history. The guard is therefore extended with a **current-version**
+  assertion rather than a wholesale set membership.
 
-## Risks / Trade-offs
+The successor's `fastmcp>=3.2,<3.5` is the first ebuild-level upper bound on fastmcp in the tree
+and is the pattern the new guard enforces.
 
-**[The managed endpoint becomes a new external dependency and a new failure mode]** → The overlay
-ships the client only; the endpoint is AWS-hosted. A host that cannot reach
-`aws-mcp.<region>.api.aws` loses AWS tooling entirely, where before it worked with only outbound
-API access. Mitigation: the migration plan keeps the old package **masked but installable** so a
-host can fall back by unmasking, and the docs state the endpoint URL explicitly so reachability
-can be tested before cutover.
+### D11 — The retired package is masked and unmerged
 
-**[The fastmcp downgrade touches 36 packages]** → Installing the successor replaces
-`fastmcp-4.1.3` with `fastmcp-3.4.7` on any host that has the newer one. Mitigation: no dependent
-package requires `>=4` (verified across every overlay ebuild), so the resolution is satisfiable;
-the migration plan runs `emerge --pretend` and diffs the dependency set **before** the change is
-committed, and the downgrade is listed as an explicit expected line rather than discovered at
-install time.
+The mask is an open-ended `>=` range, matching the overlay's recorded convention for blocks. A host
+that still carries `dev-util/mcp-server-aws` unmerges it, so no end-of-life server remains
+installed behind the mask. Reversibility is preserved at the **mask** level — removing one line
+and emerging the old atom restores it — not at the installed level.
 
-**[Tool renames break prompts and skills that hardcode `call_aws`]** → Upstream states these
-references are over-specified and will break. Mitigation: the overlay documents the rename and the
-requirement to remove hardcoded references, pointing at the upstream agent rule
-(`aws/agent-toolkit-for-aws` → `rules/aws-agent-rules.md`) that replaces them with a goal
-description. The overlay cannot fix third-party prompts; it can only make the requirement
-discoverable.
+## Risks and trade-offs
 
-**[Running both server entries causes tool-name conflicts]** → Mitigation: the overlay emits only
-the new entry, and the migration plan states the old entry must be **deleted**, not left alongside.
-
-**[The upstream service is in preview]** → The managed AWS MCP Server is listed as "in preview" in
-upstream's own get-started table. Mitigation: the package is pinned to a specific proxy version
-and the endpoint URL is written into the docs, so a preview retirement is a configuration change
-rather than an unexplained outage.
-
-**[The ebuild's `python_test()` import check may not match the successor's module layout]** → The
-current ebuild's generated `python_test()` tries `${PN//-/_}` → `mcp_server_${suffix}` → `${suffix}`
-and dies if none import. `mcp-proxy-for-aws` may expose a different module name. Mitigation: the
-ebuild test asserts the import resolves, and the ebuild's `python_test()` is verified against the
-unpacked sdist before the ebuild is committed rather than at install time.
-
-**[A pinned proxy version in client configs will age]** → D5 pins deliberately; the cost is that
-the overlay must re-emit when the pin moves. Mitigation: the pin is stated as a requirement so it
-is revisited at each bump, and the packaged ebuild version and the emitted pin are stated to move
-together.
+| Risk | Mitigation |
+|---|---|
+| The managed endpoint is a new failure mode — the retired package worked against the local AWS API | The retired atom stays masked-but-installable; the mask is one line to remove |
+| The `>=dev-python/fastmcp-4.0.0` mask line is removed or regenerated away | The resolve-time guard (D10) means consumers carry their own bound; the successor already does |
+| `app-admin/mcp-mesh` resolves mcp 2.x on a fresh install if the mask moves | Its installed stable version declares `<dev-python/mcp-2` explicitly |
+| Tool renames silently break prompts and skills that hardcode `call_aws` | Documented removal instruction plus the upstream agent rule; a broken hardcoded reference is a security control, not just a bug |
+| Running both server entries at once causes tool conflicts | The old entry must be **deleted**, stated in the migration documentation |
+| The managed endpoint is a preview service | The proxy version is pinned by the package; the endpoint URL is explicit in the emitted configuration |
+| `python_test()` passes on a namespace package | The check imports `mcp_proxy_for_aws.server` and asserts the console script; a negative control must fail |
+| `ebuild <file> manifest` **writes** the Manifest and `egencache` **mutates** `metadata/md5-cache/` | Both may only run in a scratch copy. The overlay's own convention is that md5-cache is **reported, not enforced** — the webhost regenerates it in bulk — so it is not a gate |
+| `emerge --pretend` against an atom with no ebuild passes **vacuously** | The resolution gate is sequenced strictly after the ebuild lands, and "no ebuilds to satisfy" is classified **not checked**, never clean |
+| Unmerging the retired package removes the only installed fallback | Reversibility is retained at the mask level (D11) |
+| A registry entry names a proxy that is not installed yet | The registry entry is added only after the proxy is emerged (D9) |
 
 ## Migration Plan
 
-Full detail is in `tasks.md`. The shape:
+1. **Package** — write the successor ebuild, the meta-package bump, the mask, the overlay-local
+   registry example and the tests.
+2. **Resolve (the gate)** — `emerge --pretend` against the new atom, with a negative control.
+   Only after this step does "no ebuilds to satisfy" become a meaningful answer.
+3. **Retire** — mask the old atom; unmerge it on hosts that carry it.
+4. **Apply** — emerge the successor, repoint `mcp-meta`, emerge the meta-package.
+5. **Register** — add the managed server to the fleet registry under `servers:`, referenced by no
+   profile.
+6. **Validate** — `mcp-mesh doctor`, the mesh health and readiness endpoints, the registry parse,
+   the tool-surface check, and one read-only AWS call landing in the intended operations Region.
 
-1. **Package** — add `dev-util/mcp-proxy-for-aws` with the upstream-faithful dependency bounds;
-   add the ebuild test; run the overlay test suite.
-2. **Resolve** — run `emerge --pretend` for `dev-util/mcp-proxy-for-aws` and for
-   `dev-util/mcp-meta` with `USE=aws`, and confirm the fastmcp resolution lands on 3.4.7 with
-   no other dependent package unsatisfied. **This is the gate on the whole change.**
-3. **Retire** — add the old atom to `profiles/package.mask`; bump `dev-util/mcp-meta` so the
-   `aws` flag points at the new atom.
-4. **Apply** — on each host: emerge the new atom and the bumped meta-package, then update the
-   client configuration (delete the old entry, add the new one), then remove hardcoded `call_aws`
-   references from skills, prompts and context files.
-5. **Verify** — the new server exposes `aws___call_aws`; the old `call_aws` name is absent; a
-   read-only AWS call succeeds against the intended operations Region.
-
-**Rollback.** The old package is masked, not deleted, so rollback is `emerge` with the mask
-removed plus restoring the previous client entry. The fastmcp downgrade is reversible by emerging
-`fastmcp-4.1.3` explicitly. Neither rollback requires a rebuild or a source change.
+**Rollback.** Remove the mask line and revert the meta-package bump; the previous client entry and
+the previous registry state are restored. Where a fastmcp downgrade had to be undone, `emerge
+fastmcp-4.1.3` restores it. None of these require a rebuild.
 
 ## Open Questions
 
-- **Does `aws___run_script`'s sandboxed Python execution meet the organisation's data-handling
-  policy?** It is a new capability the local package never had — arbitrary Python, sandboxed,
-  executed against the managed server. This is a policy question, not a technical one, and it does
-  not change the specs, the approach, or the task breakdown: the package is shipped either way and
-  the policy decision governs whether the host enables the tool.
-- **Which Region should be the default operations Region for this fleet?** The emitted snippet
-  leaves it as an explicit placeholder by design (D4). The overlay can emit any value; the right
-  one is the fleet's choice, and the placeholder makes that choice visible rather than implicit.
+Neither of these changes the approach, the specification or the task list.
+
+1. Does `aws___run_script`'s sandboxed Python meet the organisation's data-handling policy? This is
+   a policy question for the owner, not a packaging question.
+2. Which Region should be the fleet's default operations Region? The emitted configuration leaves it
+   an explicit placeholder by design, so that omitting `--metadata AWS_REGION=` can never silently
+   default operations to `us-east-1`.
