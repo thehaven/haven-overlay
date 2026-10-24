@@ -12,8 +12,20 @@
 #
 # To activate: copy the `servers:` entry below into
 # /etc/mcp-forge/registry.yaml, set the Region, flip `enabled` to true, and
-# restart mcp-mesh. The entry is shipped disabled so it is AVAILABLE but
-# UNUSED until an operator opts in.
+# reload the mesh (`POST /admin/reload`; a restart also works).
+#
+# NOTE ON `enabled`: in the mcp-mesh registry schema, `enabled: false` means
+# "known but disabled" -- the entry is retained and surfaced by list_disabled()
+# so a mount failure can be classified as "known but disabled" rather than
+# "unknown name". It does NOT mean "available but unused". The template
+# therefore ships DISABLED on purpose: it is a template to copy, not a live
+# registration.
+#
+# The genuinely AVAILABLE-but-UNUSED state is `enabled: true` with NO profile
+# naming the server. mcp-mesh mounts only servers permitted by the Z1
+# allowed_servers filter (forge_profile_filter.py), so a server that no
+# profile lists is never mounted even though it sits in the enabled pool.
+# That is the state the live registration on this host uses.
 #
 # Three things an operator must get right:
 #
@@ -52,9 +64,14 @@ servers:
     local proxy. API execution runs AWS-side; SigV4 request signing stays local.
     Tool names are aws___* (aws___call_aws, aws___run_script,
     aws___search_documentation, ...) - the retired call_aws name does not
-    exist. Available but unused until an operator opts in.'
+    exist. This template ships DISABLED (known-but-disabled in the mcp-mesh
+    schema): set the Region and flip enabled to true after copying it into
+    the live registry.'
   enabled: false
   required_env: []
   env_safe_defaults: {}
   headers: {}
+  # Legacy key carried by every entry in the fleet registry. The mcp-mesh
+  # Server model has no such field (the real one is tool_inventory) and
+  # ignores it gracefully; it is kept only for file homogeneity.
   probe_inventory: false
