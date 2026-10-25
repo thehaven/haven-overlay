@@ -35,9 +35,12 @@ RDEPEND="
 	sandbox? ( sys-apps/bubblewrap )
 "
 
-PATCHES=(
-	"${FILESDIR}/${P}-v2-idless-pairing.patch"
-)
+# No patches are carried for v7.200.0: upstream absorbed v2-idless-pairing
+# in this very version ("host/v2: keep tool-call pairing when v2 context
+# messages carry no id", commit d30353f) - the same change the overlay was
+# patching in as v2-idless-pairing.patch at v7.199.4.
+#
+# The server shim is carried as a symlink in files/.
 
 src_compile() {
 	bun install --frozen-lockfile --ignore-scripts || die "bun install failed"

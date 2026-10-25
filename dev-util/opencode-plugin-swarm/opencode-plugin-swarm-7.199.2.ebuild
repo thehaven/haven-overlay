@@ -35,13 +35,18 @@ RDEPEND="
 	sandbox? ( sys-apps/bubblewrap )
 "
 
-PATCHES=(
-	"${FILESDIR}/${P}-fast-activation.patch"
-	"${FILESDIR}/${P}-worktree-authority.patch"
-	"${FILESDIR}/${P}-acceptance-auto-inject.patch"
-	"${FILESDIR}/${P}-authority-role-policy.patch"
-	"${FILESDIR}/${P}-v2-host-agent-handoff.patch"
-)
+# No patches are carried for vv7.199.2: upstream absorbed every feature the
+# overlay used to patch in at or before this version.
+#
+#   fast-activation        -> v7.198.2  (1dadb24, "run v2 registrations
+#                               concurrently under a bounded registration stage")
+#   worktree-authority     -> v7.199.1  (757518d, "allow file authority
+#                               within linked git worktrees")
+#   acceptance-auto-inject -> v7.199.1  (471b487, f979c6a)
+#   authority-role-policy  -> v7.199.1  (0770f87, b06dab0)
+#   v2-host-agent-handoff  -> v7.199.1  (8795e0f, dd7c5d5, d00c36c)
+#
+# The server shim is carried as a symlink in files/.
 
 src_compile() {
 	bun install --frozen-lockfile --ignore-scripts || die "bun install failed"

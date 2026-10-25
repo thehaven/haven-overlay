@@ -35,8 +35,18 @@ RDEPEND="
 	sandbox? ( sys-apps/bubblewrap )
 "
 
+# Patch set for v7.198.2.
+#
+# fast-activation.patch is deliberately NOT carried here: upstream absorbed
+# that feature in v7.198.2 itself ("host/v2: run v2 registrations
+# concurrently under a bounded registration stage", commit 1dadb24). The
+# overlay's patch was an independent implementation of the same behaviour,
+# so it no longer applies and re-applying it would be wrong.
+#
+# The other four features are NOT in upstream at v7.198.2 - they land in
+# v7.199.1 - so the v7.197.2 patches still apply cleanly and are carried
+# here as symlinks in files/.
 PATCHES=(
-	"${FILESDIR}/${P}-fast-activation.patch"
 	"${FILESDIR}/${P}-worktree-authority.patch"
 	"${FILESDIR}/${P}-acceptance-auto-inject.patch"
 	"${FILESDIR}/${P}-authority-role-policy.patch"
