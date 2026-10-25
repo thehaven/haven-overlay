@@ -1,0 +1,4 @@
+# /etc/conf.d/openobserve: config file for /etc/init.d/openobserve
+
+# Additional arguments to pass to openobserve
+# OPENOBSERVE_OPTS=""

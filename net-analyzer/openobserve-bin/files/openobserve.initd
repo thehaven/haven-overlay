@@ -1,0 +1,29 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="OpenObserve cloud-native observability platform"
+
+command="/usr/bin/openobserve"
+command_args="${OPENOBSERVE_OPTS}"
+command_user="openobserve:openobserve"
+command_background=true
+directory="/var/lib/openobserve"
+pidfile="/run/${RC_SVCNAME}.pid"
+output_log="/var/log/openobserve.log"
+error_log="/var/log/openobserve.log"
+rc_ulimit="-n 65536"
+
+depend() {
+	need net
+}
+
+start_pre() {
+	if [ -f /etc/openobserve/openobserve.env ]; then
+		set -a
+		. /etc/openobserve/openobserve.env
+		set +a
+	fi
+	checkpath -d -m 0750 -o "${command_user}" /var/lib/openobserve
+	checkpath -f -m 0640 -o "${command_user}" /var/log/openobserve.log
+}

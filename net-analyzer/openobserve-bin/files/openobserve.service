@@ -1,0 +1,31 @@
+[Unit]
+Description=OpenObserve cloud-native observability platform
+After=network.target
+
+[Service]
+Type=simple
+User=openobserve
+Group=openobserve
+WorkingDirectory=/var/lib/openobserve
+EnvironmentFile=-/etc/openobserve/openobserve.env
+ExecStart=/usr/bin/openobserve
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+# State directory
+StateDirectory=openobserve
+StateDirectoryMode=0750
+
+# Security hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ReadWritePaths=/var/lib/openobserve
+
+[Install]
+WantedBy=multi-user.target
