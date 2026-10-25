@@ -20,14 +20,25 @@ KEYWORDS="~amd64"
 # fastmcp 4.x resolution cannot silently happen at resolve time -- the
 # `>=dev-python/fastmcp-4.0.0` mask only bites at install time.
 #
-# DIVERGENCE -- the `crt` extra of botocore is NOT declared here.
-# Upstream's `botocore[crt]` extra resolves to `awscrt==0.36.0`, and awscrt
-# has no ebuild in the Gentoo tree or in this overlay. The proxy's own
-# source contains no awscrt / botocore.crt import, so the extra is not
-# exercised by this package; declaring it would make the atom unsatisfiable
-# on every host. Packaging awscrt (a Rust-backed build) is a separate
-# follow-up. See openspec/changes/replace-aws-api-mcp-with-aws-mcp-server/.
+# The `crt` extra of botocore. Upstream's `botocore[crt]` means "install
+# awscrt alongside botocore". Gentoo has no extras, so it is expressed the
+# way the gentoo-ebuild standard requires -- as an explicit dependency:
+# dev-python/botocore plus dev-python/awscrt.
+#
+# botocore's own metadata pins `awscrt==0.36.0` for that extra. The Gentoo
+# tree packages the 0.36 series as 0.36.1 and 0.36.2 (dev-python/awscrt), so
+# the exact pin is not available and the bound below tracks the series
+# instead. An earlier revision of this ebuild recorded that awscrt had no
+# ebuild at all; that was WRONG -- the tree ships it. The error came from
+# grepping /var/db/repos/gentoo, a path that does not exist on this host
+# (the master tree is /usr/portage).
+#
+# Note that the proxy's own source imports neither awscrt nor botocore.crt,
+# so this dependency satisfies upstream's declared contract rather than
+# being exercised by the proxy's code paths.
 RDEPEND="
+	>=dev-python/awscrt-0.36.0[${PYTHON_USEDEP}]
+	<dev-python/awscrt-0.37[${PYTHON_USEDEP}]
 	>=dev-python/boto3-1.41.0[${PYTHON_USEDEP}]
 	>=dev-python/botocore-1.41.0[${PYTHON_USEDEP}]
 	>=dev-python/fastmcp-3.2[${PYTHON_USEDEP}]
@@ -109,8 +120,7 @@ pkg_postinst() {
 	elog "            \"--metadata\","
 	elog "            \"AWS_REGION=REPLACE_WITH_OPERATIONS_REGION\""
 	elog "          ],"
-	elog "          \"timeout\": 100000,"
-	elog "          \"transport\": \"stdio\""
+	elog "          \"timeout\": 100000"
 	elog "        }"
 	elog "      }"
 	elog "    }"
@@ -125,8 +135,7 @@ pkg_postinst() {
 	elog "            \"--metadata\","
 	elog "            \"AWS_REGION=REPLACE_WITH_OPERATIONS_REGION\""
 	elog "          ],"
-	elog "          \"timeout\": 100000,"
-	elog "          \"transport\": \"stdio\""
+	elog "          \"timeout\": 100000"
 	elog "        }"
 	elog "      }"
 	elog "    }"
@@ -142,7 +151,8 @@ pkg_postinst() {
 	elog "            \"--metadata\","
 	elog "            \"AWS_REGION=REPLACE_WITH_OPERATIONS_REGION\""
 	elog "          ],"
-	elog "          \"enabled\": true"
+	elog "          \"enabled\": true,"
+	elog "          \"timeout\": 120000"
 	elog "        }"
 	elog "      }"
 	elog "    }"
@@ -151,6 +161,18 @@ pkg_postinst() {
 	elog "stays LOCAL and the proxy still uses this host's credential chain"
 	elog "(aws configure / aws login / the local AWS profile). This is NOT a"
 	elog "zero-credential-exposure configuration."
+	elog ""
+	elog "DO NOT set AWS_PROFILE unless that profile actually exists. The proxy"
+	elog "builds a boto3 session at STARTUP and exits 1 on a missing profile"
+	elog "(ProfileNotFound), so a stale AWS_PROFILE turns into a dead MCP server"
+	elog "rather than a working one. Measured 2026-10-25 on this host."
+	elog ""
+	elog "CLIENT NOTES:"
+	elog "  opencode: the flat mcp.<name> form defaults to a 5000 ms request"
+	elog "    timeout and the proxy needs ~10 s to answer initialize, so the"
+	elog "    timeout field is required. opencode has no transport field at all."
+	elog "  gemini / claude desktop: stdio is the default transport for a"
+	elog "    command-based server, so it is not written out."
 	elog ""
 	elog "The packaged atom IS the pin: the client configuration names the"
 	elog "native path above and never resolves the proxy through a runtime"

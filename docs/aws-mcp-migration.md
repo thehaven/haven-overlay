@@ -153,6 +153,39 @@ long-lived session against the AWS APIs, and every API call is recorded in AWS
 CloudTrail for a complete audit trail, with CloudWatch metrics separating agent
 activity from human activity.
 
+## Client configuration traps (measured 2026-10-25)
+
+Three things about the successor are unlike the retired local server, and all
+three were measured rather than assumed.
+
+**Do not set `AWS_PROFILE` unless that profile exists.** The proxy builds a
+boto3 session at *startup* — `server.py:79` → `utils.py:258` →
+`sigv4_helper.py:195-197` — and exits `1` when the named profile is absent
+(`ProfileNotFound`). The retired server tolerated a missing profile because it
+only touched credentials when a tool was called; the successor is eager. The
+failure surfaces badly: opencode reports the dead process as a generic
+`MCP error -32000: Connection closed`, with nothing about profiles or
+credentials. Drop the `environment` block unless it carries a profile that
+really exists.
+
+**Give the client a timeout.** The proxy needs about **9.9 s** to answer
+`initialize` and about **12.7 s** for the full handshake (initialize →
+initialized → tools/list). opencode's flat `mcp.<name>` form defaults to a
+**5000 ms** request timeout, so an entry without a timeout is cut off before the
+proxy can answer. Set `timeout` explicitly. opencode's schema has **no
+`transport` field** at all, and `stdio` is the default transport for a
+command-based server in every client here, so it is not written out.
+
+**Expect an explicit error, not a hang, when credentials are missing.** The
+proxy signs the `initialize` request itself, so with no AWS identity it
+answers with JSON-RPC `-32603` — *"No AWS credentials available. Configure
+credentials or use `--skip-auth` to send unsigned requests."* — and opencode
+prints that verbatim. That is the honest failure and it is the one to fix: a
+local AWS credential chain is required (`aws configure` or `aws login`). Do not
+reach for `--skip-auth` to hide it: unsigned requests are rejected by AWS, so
+the tools would list and then every call would fail, which is harder to
+diagnose than an error at startup.
+
 ## Registering the server in the fleet mesh
 
 `app-admin/mcp-mesh` ships a worked example of the entry:
@@ -192,4 +225,8 @@ To activate it on a host:
 - [ ] Every hardcoded `call_aws` reference is removed from skills, context files,
       prompts and steering documents.
 - [ ] A local AWS credential chain is configured (`aws configure` or `aws login`) —
-      the proxy signs requests locally.
+      the proxy signs requests locally, and refuses to start without one.
+- [ ] The client entry sets an explicit `timeout` (opencode's default of 5000 ms is
+      shorter than the proxy's ~10 s `initialize`).
+- [ ] The client entry does **not** set `AWS_PROFILE` unless that profile exists —
+      a missing profile is a startup crash, not a runtime warning.
