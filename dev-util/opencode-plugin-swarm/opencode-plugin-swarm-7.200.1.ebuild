@@ -70,7 +70,7 @@ src_install() {
 	# that re-exports the dist entry as both V1 (`server`) and V2
 	# (`default`) — keeps the same default export, no functional
 	# change for V1 consumers.
-	newins "${FILESDIR}/${P}-server-shim.js" server.js
+	newins "${FILESDIR}/opencode-plugin-swarm-server-shim.js" server.js
 
 	# Smoke tests: plugin entry + CLI entry + bin manifests must exist and
 	# be non-empty. The plugin entry is the OpenCode-loadable target; the
