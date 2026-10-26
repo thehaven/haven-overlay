@@ -1,8 +1,0 @@
-DEFINED_PHASES=install
-DESCRIPTION=Dwar fortress is an ascii-drawn strategy game where you control the lives of a group of dwarves.
-EAPI=8
-HOMEPAGE=http://www.bay12games.com/dwarves/
-KEYWORDS=~amd64
-SLOT=0
-SRC_URI=http://www.bay12games.com/dwarves/df_31_25_linux.tar.bz2
-_md5_=ccea7e1b576697cfecc36570ddda5928

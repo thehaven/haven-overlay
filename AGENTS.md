@@ -214,12 +214,11 @@ the build host's actual Python versions. Check the eclass's
   (3 = compatible, 4 = broken for omegaconf). Hit 2026-08-22; fixed by
   pinning `=dev-python/antlr4-python3-runtime-4.9.3*` in omegaconf's RDEPEND.
 
-- **`metadata/md5-cache/` is not maintained per-commit.** Recent commits
+- **`metadata/md5-cache/` is untracked and gitignored.** Recent commits
   (bumps, prunes) do not touch it; the webhost regenerates it in bulk
   (`emaint sync -r haven-overlay` + `egencache --repo=haven-overlay --update`).
-  If you run egencache locally it rewrites hundreds of stale entries — revert
-  with `git checkout -- metadata/md5-cache/` and delete untracked entries
-  before committing.
+  It is untracked in git and listed in `.gitignore` so that local runs of
+  `egencache` do not pollute git status.
 
 - **Untracked files in this overlay are not safe.** Automated overnight
   processes (retention prunes etc.) remove untracked files — the
