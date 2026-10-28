@@ -1,0 +1,53 @@
+# Copyright 1999-2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_{12..14} )
+
+inherit distutils-r1 optfeature
+
+MY_PN="${PN}-python"
+MY_P="${MY_PN}-${PV}"
+
+DESCRIPTION="The official Python library for the OpenAI API"
+HOMEPAGE="https://github.com/openai/openai-python"
+SRC_URI="https://github.com/openai/${MY_PN}/archive/v${PV}.tar.gz -> ${MY_P}.gh.tar.gz"
+S="${WORKDIR}/${MY_P}"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64"
+IUSE="datalib test"
+
+RDEPEND="dev-python/anyio[${PYTHON_USEDEP}]
+	dev-python/distro[${PYTHON_USEDEP}]
+	dev-python/httpx[${PYTHON_USEDEP}]
+	dev-python/jiter[${PYTHON_USEDEP}]
+	dev-python/pydantic[${PYTHON_USEDEP}]
+	dev-python/sniffio[${PYTHON_USEDEP}]
+	dev-python/tqdm[${PYTHON_USEDEP}]
+	dev-python/typing-extensions[${PYTHON_USEDEP}]
+	datalib? ( dev-python/numpy[${PYTHON_USEDEP}]
+		dev-python/pandas[${PYTHON_USEDEP}]
+		dev-python/pandas-stubs[${PYTHON_USEDEP}] )"
+BDEPEND="test? ( dev-python/dirty-equals[${PYTHON_USEDEP}]
+		dev-python/inline-snapshot[${PYTHON_USEDEP}]
+		dev-python/nest-asyncio[${PYTHON_USEDEP}]
+		dev-python/respx[${PYTHON_USEDEP}]
+		dev-python/rich[${PYTHON_USEDEP}] )"
+
+EPYTEST_XDIST=1
+EPYTEST_PLUGINS=( pytest-asyncio respx )
+distutils_enable_tests pytest
+
+EPYTEST_IGNORE=(
+	# requires npm mock server
+	tests/api_resources
+	tests/lib/chat/test_completions_streaming.py
+)
+
+pkg_postinst() {
+	optfeature "support realtime" dev-python/websockets
+}
