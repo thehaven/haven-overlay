@@ -110,3 +110,11 @@ build-backend` exactly. Never guess.
 | `pdm.backend` | `pdm` | `dev-python/pdm` |
 | `maturin` | `maturin` | `dev-util/maturin` |
 
+## Package masking for security incidents
+
+When masking packages in `profiles/package.mask` due to point-in-time security incidents or build compromises affecting specific releases (e.g. supply-chain injections, malicious wheel uploads, credential exposures):
+
+- **Exact version atoms required**: Point-in-time security compromises affecting specific versions MUST use exact version atoms (`=category/pkg-version`), NEVER open-ended ranges (`>=category/pkg-version`), unless the package or upstream lineage is permanently discontinued.
+- **Rationale**: Open-ended `>=` masks unintentionally block subsequent secure releases that contain fixes, supply-chain protections, and rotated credentials (as seen with `litellm` 1.107.0, where an open-ended mask blocked subsequent releases that added build-chain hardening, rotated credentials, and cosign release signature verification).
+- **Annotation for open-ended exceptions**: If an open-ended security mask is genuinely required (e.g. permanently dead upstream, or an entirely abandoned and compromised lineage), it must be annotated with `# ALLOW_OPEN_ENDED_MASK: <reason>` detailing why all future releases are blocked.
+

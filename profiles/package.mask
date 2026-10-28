@@ -75,15 +75,11 @@ net-misc/bbcp
 #   12d4ccc5c6f8d35cf4f2cf233b7f3e418e863e657d81ff5f5fc9e210005b9484  cp310-abi3-win_amd64.whl
 #   2befe2a79fb4fbbd9a543b5b40b530c8cffa8771bab22b8fb22b2e4ae3b1f819  1.107.0.tar.gz
 # Verified clean: every wheel of <=1.106.2 plus 1.107.0rc1 and 1.107.0rc2.
-# Last vetted release is dev-python/litellm-1.106.2, which is the version
-# installed here.
-# Masked as an open-ended range, not =1.107.0, because the maintainers ask
-# that the NEXT release also be treated as untrusted until the PyPI publishing
-# credential is rotated and the build environment is audited. litellm has never
-# published attestations, so a tampered build is currently indistinguishable
-# from a legitimate one. Narrow this line to "=dev-python/litellm-1.107.0"
-# only once a vetted release with attestations lands.
->=dev-python/litellm-1.107.0
+# Only 1.107.0 was impacted by the build compromise, and subsequent releases
+# (such as 1.106.5 and 1.109.0-dev.1) incorporate build-chain protections,
+# rotated credentials, and cosign release signature verification (PR #48103).
+# Mask narrowed to the exact compromised release.
+=dev-python/litellm-1.107.0
 
 # Dead upstream: awslabs/aws-api-mcp-server is end-of-life (2026-10-24). The
 # upstream project is deprecated in favour of the managed, AWS-hosted AWS MCP
