@@ -1,0 +1,50 @@
+--- a/packages/server/src/location.ts
++++ b/packages/server/src/location.ts
+@@ -35,7 +35,7 @@
+ 
+ export const awaitPlugins = Plugin.awaitActivation.pipe(
+   Effect.timeoutOrElse({
+-    duration: "5 seconds",
++    duration: "120 seconds",
+     orElse: () =>
+       Effect.fail(
+         new ServiceUnavailableError({
+--- a/packages/client/src/solid/connection.ts
++++ b/packages/client/src/solid/connection.ts
+@@ -32,7 +32,7 @@
+ const connectTimeout = 2_000
+ const reconnectDelay = 1_000
+ const connectionHistoryLimit = 50
+-export const defaultIdleTimeout = 45_000
++export const defaultIdleTimeout = 120_000
+ // Longer than one server keepalive interval: a stream that is silent this long when the page
+ // returns to the foreground is probably half-open after the device slept.
+ export const foregroundIdleThreshold = 20_000
+--- a/packages/tui/src/routes/session/location-missing.tsx
++++ b/packages/tui/src/routes/session/location-missing.tsx
+@@ -10,12 +10,14 @@
+ import { errorMessage } from "../../util/error"
+ import { DialogWorkspaces, type WorkspaceSelection } from "../../component/dialog-workspaces"
+ import { useData } from "../../context/data"
++import { useLocation } from "../../context/location"
+ 
+ export function SessionLocationMissing(props: { directory: string; projectID: string; sessionID: string }) {
+   const dialog = useDialog()
+   const client = useClient()
+   const toast = useToast()
+   const data = useData()
++  const location = useLocation()
+ 
+   function open() {
+     dialog.replace(() => (
+@@ -48,6 +50,10 @@
+               return undefined
+             })
+     if (!directory) return
++    if (directory === props.directory) {
++      location.set({ directory: props.directory })
++      return
++    }
+     await client.api.session.move({ sessionID: props.sessionID, directory }).catch((error) => {
+       toast.show({ title: "Failed to move session", message: errorMessage(error), variant: "error" })
+     })
