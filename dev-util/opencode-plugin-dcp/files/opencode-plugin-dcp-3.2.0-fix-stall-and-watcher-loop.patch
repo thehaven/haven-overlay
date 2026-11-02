@@ -1,0 +1,58 @@
+diff -ruN a/dist/index.js b/dist/index.js
+--- a/dist/index.js	2026-11-02 08:20:34.834461292 +0000
++++ b/dist/index.js	2026-11-02 08:20:34.837816195 +0000
+@@ -1309,7 +1309,7 @@
+ }
+ var defaultConfig = {
+   enabled: true,
+-  autoUpdate: true,
++  autoUpdate: false,
+   debug: false,
+   pruneNotification: "detailed",
+   pruneNotificationType: "chat",
+@@ -5471,6 +5471,7 @@
+     return candidates;
+   }
+   ensureDefaultFiles() {
++    return;
+     try {
+       mkdirSync2(this.paths.defaultsDir, { recursive: true });
+       mkdirSync2(this.paths.globalOverridesDir, { recursive: true });
+@@ -7849,6 +7850,7 @@
+ import { fileURLToPath } from "url";
+ var PACKAGE_NAME = "@tarquinen/opencode-dcp";
+ function startAutoUpdate(ctx, enabled) {
++  return;
+   if (!enabled) return;
+   const controller = new AbortController();
+   const timeout = setTimeout(() => controller.abort(), 1e4);
+diff -ruN a/lib/v2/tui.tsx b/lib/v2/tui.tsx
+--- a/lib/v2/tui.tsx	2026-11-02 08:20:34.834103546 +0000
++++ b/lib/v2/tui.tsx	2026-11-02 08:20:34.835995530 +0000
+@@ -8,7 +8,6 @@
+ export async function setup(ctx: Plugin.Context) {
+     const client = ctx.client.rpc(rpc)
+     const options = () => ({ location: ctx.location ?? ctx.data.location.default() })
+-    if (!(await client.status({}, options())).enabled) return
+     const api: ViewApi = {
+         renderer: ctx.renderer,
+         theme: {
+@@ -37,6 +36,18 @@
+         }
+         const sessionID = route.sessionID
+         try {
++            const status = await client.status({}, options())
++            if (!status.enabled) {
++                show(() => (
++                    <StatusDialog
++                        api={api}
++                        title="DCP"
++                        eyebrow="Disabled"
++                        message="DCP is disabled in configuration."
++                    />
++                ))
++                return
++            }
+             const data = await client.snapshot({ sessionID }, options())
+             const back = () => {
+                 void open()
