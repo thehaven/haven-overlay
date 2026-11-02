@@ -12,14 +12,29 @@
 --- a/packages/client/src/solid/connection.ts
 +++ b/packages/client/src/solid/connection.ts
 @@ -32,7 +32,7 @@
- const connectTimeout = 2_000
+-const connectTimeout = 2_000
++const connectTimeout = 15_000
  const reconnectDelay = 1_000
  const connectionHistoryLimit = 50
 -export const defaultIdleTimeout = 45_000
-+export const defaultIdleTimeout = 120_000
++export const defaultIdleTimeout = 300_000
  // Longer than one server keepalive interval: a stream that is silent this long when the page
  // returns to the foreground is probably half-open after the device slept.
  export const foregroundIdleThreshold = 20_000
+--- a/packages/client/src/service-timing.ts
++++ b/packages/client/src/service-timing.ts
+@@ -16,8 +16,8 @@
+ export const defaultEnsureTiming: EnsureTiming = {
+   pollInterval: 25,
+-  requestTimeout: 2_000,
++  requestTimeout: 15_000,
+   spawnDelay: 5_000,
+   maxSpawnDelay: 30_000,
+-  promiseTimeout: 120_000,
++  promiseTimeout: 300_000,
+   stopPollInterval: 50,
+   stopPollAttempts: 100,
+ }
 --- a/packages/tui/src/routes/session/location-missing.tsx
 +++ b/packages/tui/src/routes/session/location-missing.tsx
 @@ -10,12 +10,14 @@
