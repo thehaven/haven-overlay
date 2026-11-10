@@ -1,0 +1,28 @@
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+inherit go-module
+
+DESCRIPTION="Registry Controller for Project Harbor"
+HOMEPAGE="https://github.com/goharbor/harbor"
+SRC_URI="https://github.com/goharbor/harbor/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64"
+
+RESTRICT="network-sandbox"
+
+BDEPEND=">=dev-lang/go-1.22"
+
+S="${WORKDIR}/harbor-${PV}/src"
+
+src_compile() {
+	ego build -ldflags "-s -w -X github.com/goharbor/harbor/src/pkg/version.ReleaseVersion=v${PV}" -o harbor_registryctl ./registryctl
+}
+
+src_install() {
+	dobin harbor_registryctl
+}
