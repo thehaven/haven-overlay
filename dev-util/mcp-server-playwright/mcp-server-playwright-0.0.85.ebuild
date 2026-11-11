@@ -30,6 +30,7 @@ src_install() {
 	npm install --global --prefix "${ED}/usr" --no-audit --no-fund \
 		playwright-core@1.63.0-alpha-2026-08-05 \
 		playwright@1.63.0-alpha-2026-08-05 || die
+	rm -f "${ED}/usr/bin/playwright" "${ED}/usr/bin/playwright-core" || die
 }
 
 pkg_postinst() {
