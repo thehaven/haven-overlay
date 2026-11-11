@@ -6,37 +6,30 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{12..14} )
 
-# PyPI does not publish a sdist for this version; use the GitHub source
-# tarball. The PyPI metadata.name is "playwright" but the source dir is
-# "playwright-python-{version}".
-MY_P="playwright-python-${PV}"
-
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="High-level Python API to automate web browsers via Playwright"
 HOMEPAGE="
 	https://playwright.dev/python/
 	https://github.com/microsoft/playwright-python
 "
-SRC_URI="https://github.com/microsoft/playwright-python/archive/refs/tags/v${PV}.tar.gz
-	-> ${MY_P}.gh.tar.gz"
-S="${WORKDIR}/${MY_P}"
-
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
+# Upstream tests require downloading and running browser binaries,
+# which cannot run in the network-sandboxed build environment.
+RESTRICT="test"
+
 RDEPEND="
-	<dev-python/pyee-14[${PYTHON_USEDEP}]
-	>=dev-python/pyee-13[${PYTHON_USEDEP}]
 	>=dev-python/greenlet-3.1.1[${PYTHON_USEDEP}]
 	<dev-python/greenlet-4.0.0[${PYTHON_USEDEP}]
 "
 
 BDEPEND="
-	>=dev-python/setuptools-82.0.1
-	>=dev-python/setuptools-scm-10.0
-	dev-python/wheel
+	>=dev-python/setuptools-82.0.1[${PYTHON_USEDEP}]
+	>=dev-python/setuptools-scm-10.0[${PYTHON_USEDEP}]
+	dev-python/wheel[${PYTHON_USEDEP}]
 "
 
 # Browser drivers are NOT shipped with this package. After install run
