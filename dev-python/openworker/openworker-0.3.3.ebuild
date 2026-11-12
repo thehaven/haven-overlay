@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 # openworker is the upstream repo name; the pyproject.toml project name
 # is "coworker", but the project is not published to PyPI (that name is

@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 DESCRIPTION="pip-installable shellcheck binary (Python wrapper around koalaman/shellcheck)"
 HOMEPAGE="https://github.com/shellcheck-py/shellcheck-py

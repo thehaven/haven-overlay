@@ -5,7 +5,7 @@ EAPI=8
 
 PYPI_PN="mcp-proxy-for-aws"
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 inherit distutils-r1 pypi
 

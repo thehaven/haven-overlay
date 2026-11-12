@@ -5,7 +5,7 @@
 EAPI=8
 
 GENTOO_DEPEND_ON_PERL=no
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 MY_PV="${PV/_p/p}"
 MY_P="${PN}-${MY_PV}"

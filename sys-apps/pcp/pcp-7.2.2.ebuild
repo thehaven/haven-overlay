@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=8
-PYTHON_COMPAT=(python3_{12..14})
+PYTHON_COMPAT=(python3_{12..15})
 inherit python-any-r1
 
 DESCRIPTION="Performance Co-Pilot, system performance and analysis framework"

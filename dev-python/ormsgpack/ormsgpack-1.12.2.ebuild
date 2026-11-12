@@ -1,6 +1,6 @@
 EAPI=8
 DISTUTILS_USE_PEP517=maturin
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 RUST_MIN_VER=1.81
 
 RESTRICT="network-sandbox"

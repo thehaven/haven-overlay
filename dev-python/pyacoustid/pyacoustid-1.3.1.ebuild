@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyacoustid/pyacoustid-1.0.0-r1.ebuild,v 1.1 2014/04/02 05:26:04 idella4 Exp $
 
 EAPI=8
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1

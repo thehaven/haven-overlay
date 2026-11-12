@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/dev-python/munkres/munkres-1.0.5.4-r2.ebuild,v 1.2 2013/06/08 15:08:53 sochotnicky Exp $
 
 EAPI="8"
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1

@@ -17,7 +17,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=standalone
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit distutils-r1
 
 DESCRIPTION="NVIDIA cuFile runtime libraries (Python wheel)"
