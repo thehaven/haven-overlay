@@ -4,6 +4,7 @@
 EAPI=8
 
 BUN_SLOT="1.4"
+BUN_MIN_VERSION="1.4.4"
 
 inherit bun
 

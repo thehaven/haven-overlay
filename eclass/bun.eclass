@@ -24,6 +24,18 @@ esac
 # Defaults to "1.3" for broad ecosystem stability.
 : "${BUN_SLOT:=1.3}"
 
+# @ECLASS-VARIABLE: BUN_MIN_VERSION
+# @PRE_INHERIT
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Minimum dev-lang/bun-bin version required within BUN_SLOT (e.g. "1.4.4").
+# Unset by default, which leaves the dependency as an unversioned
+# dev-lang/bun-bin:${BUN_SLOT} atom. Set it when upstream refuses to build
+# with an older patch release of the slot ("This script requires
+# bun@^1.4.4, but you are using bun@1.4.2") so the floor is enforced at
+# dependency resolution instead of failing mid-compile.
+: "${BUN_MIN_VERSION:=}"
+
 # @ECLASS-VARIABLE: BUN_MODULE_DIR
 #: Installation target directory for the Node.js module.
 #: Default: /usr/$(get_libdir)/node_modules/${PN}
@@ -50,7 +62,11 @@ esac
 #: Useful for pre-built vendor tarballs that only need installation.
 : "${BUN_SKIP_COMPILE:=}"
 
-BDEPEND+=" dev-lang/bun-bin:${BUN_SLOT}"
+if [[ -n ${BUN_MIN_VERSION} ]]; then
+	BDEPEND+=" >=dev-lang/bun-bin-${BUN_MIN_VERSION}:${BUN_SLOT}"
+else
+	BDEPEND+=" dev-lang/bun-bin:${BUN_SLOT}"
+fi
 
 # @FUNCTION: bun_setup
 # @DESCRIPTION:
