@@ -1,0 +1,72 @@
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "opentmux",
+-  "version": "1.5.6",
++  "version": "1.6.3",
+   "description": "OpenCode tmux integration: automatically opens subagent panes and renders real-time agent execution with smart layouts",
+   "type": "module",
+   "main": "dist/index.js",
+@@ -46,5 +46,16 @@
+     "@types/node": "^25.0.10",
+     "tsup": "^8.3.6",
+     "typescript": "^5.7.3"
++  },
++  "exports": {
++    ".": {
++      "types": "./dist/index.d.ts",
++      "default": "./dist/index.js"
++    },
++    "./server": {
++      "types": "./dist/index.d.ts",
++      "default": "./dist/index.js"
++    },
++    "./package.json": "./package.json"
+   }
+ }
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -76,6 +76,41 @@ const OpencodeAgentTmux: Plugin = async (ctx) => {
+   };
+ };
+ 
+-export default OpencodeAgentTmux;
++export async function setup(ctx: {
++  client?: any;
++  directory?: string;
++  location?: { directory?: string };
++  server?: { url?: URL | string };
++  serverUrl?: URL | string;
++  event?: {
++    subscribe: () => AsyncIterable<{ type: string; properties?: unknown }> | Promise<AsyncIterable<{ type: string; properties?: unknown }>>;
++  };
++}): Promise<void> {
++  const hooks = await OpencodeAgentTmux({
++    client: ctx.client,
++    directory: ctx.location?.directory ?? ctx.directory ?? process.cwd(),
++    serverUrl: ctx.server?.url ?? ctx.serverUrl,
++  });
++  if (hooks?.event && ctx.event?.subscribe) {
++    const handleEvent = hooks.event;
++    const eventSubscriber = ctx.event.subscribe.bind(ctx.event);
++    void (async () => {
++      try {
++        for await (const event of await eventSubscriber()) {
++          await handleEvent({ event });
++        }
++      } catch {}
++    })();
++  }
++}
++
++const plugin = {
++  id: "opentmux",
++  setup,
++  server: OpencodeAgentTmux,
++};
++
++export { OpencodeAgentTmux, OpencodeAgentTmux as server };
++export default plugin;
+ 
+ export type { PluginConfig, TmuxConfig, TmuxLayout } from './config';
