@@ -30,6 +30,10 @@ src_install() {
 	local mod="/usr/$(get_libdir)/node_modules/${NPM_PKG}"
 	[[ -f "${ED}${mod}/dist/index.js" ]] || die "plugin entry dist/index.js missing"
 
+	pushd "${ED}${mod}" > /dev/null || die
+	eapply "${FILESDIR}/${P}-dual-entrypoint.patch" || die
+	popd > /dev/null || die
+
 	insinto "${mod}"
 	newins "${FILESDIR}/${P}-server-shim.js" server.js
 }

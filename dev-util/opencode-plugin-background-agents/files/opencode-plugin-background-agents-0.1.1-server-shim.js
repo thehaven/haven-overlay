@@ -1,11 +1,5 @@
-// Gentoo ebuild shim: Dual V1/V2 entrypoint for opencode-background-agents.
-// Upstream dist/index.js exports default function BackgroundAgentsPlugin (V1).
-// V2 expects default export with { id, setup }.
-import BackgroundAgentsPlugin from "./dist/index.js";
-
-export { BackgroundAgentsPlugin, BackgroundAgentsPlugin as server };
-export default {
-  id: "opencode-background-agents",
-  async setup(ctx) {},
-  server: BackgroundAgentsPlugin,
-};
+// Gentoo ebuild shim: OpenCode v2 resolves a plugin *directory* without exports
+// by looking for a root-level `server.js` / `index.js` entrypoint. Re-export
+// the dual V1/V2 entrypoint from dist/index.js.
+export { default } from "./dist/index.js";
+export * from "./dist/index.js";

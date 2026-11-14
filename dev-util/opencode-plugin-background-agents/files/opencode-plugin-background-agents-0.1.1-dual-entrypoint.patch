@@ -1,0 +1,108 @@
+Dual V1/V2 entrypoint and package.json ./server export for opencode-background-agents.
+
+Upstream dist/index.js exports default function BackgroundAgentsPlugin (V1),
+which OpenCode V2 rejects:
+  Plugin must export a default definition with an id and an effect or setup function.
+Additionally, package.json defines an "exports" map with only ".", causing
+OpenCode 2.3.0 Host.resolve() to resolve via package exports and bypass the
+root server.js shim unless "./server" is also exported and "./dist/index.js"
+provides the dual V1/V2 default object.
+
+The V2 `setup(ctx)` below ports the V1 hook map onto the V2 hook API:
+  tool                                    -> ctx.tool.transform()
+  experimental.chat.system.transform      -> ctx.session.hook("context")
+  experimental.session.compacting         -> ctx.session.hook("compaction")
+  event                                   -> ctx.event.subscribe()
+
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -516,7 +516,7 @@
+         },
+     });
+ }
+-export const BackgroundAgentsPlugin = async ({ client, directory }) => {
++const BackgroundAgentsPlugin = async ({ client, directory }) => {
+     const projectId = await getProjectId(directory);
+     const baseDir = path.join(os.homedir(), ".local", "share", "opencode", "delegations", projectId);
+     await fs.mkdir(baseDir, { recursive: true });
+@@ -563,5 +563,65 @@
+         },
+     };
+ };
+-export default BackgroundAgentsPlugin;
++async function setup(ctx) {
++    const directory = ctx.location?.directory ?? ctx.directory ?? process.cwd();
++    const hooks = await BackgroundAgentsPlugin({ client: ctx.client, directory });
++    if (hooks.tool && ctx.tool?.transform) {
++        await ctx.tool.transform((editor) => {
++            for (const [name, definition] of Object.entries(hooks.tool)) {
++                editor.add({
++                    name,
++                    description: definition.description,
++                    input: definition.args,
++                    options: { codemode: false },
++                    execute: async (input, context) => ({
++                        content: await definition.execute(input, {
++                            sessionID: context?.sessionID,
++                            agent: context?.agent,
++                        }),
++                    }),
++                });
++            }
++        });
++    }
++    if (hooks["experimental.chat.system.transform"] && ctx.session?.hook) {
++        await ctx.session.hook("context", async (event) => {
++            if (!event) return;
++            const messages = Array.isArray(event.messages) ? event.messages : [];
++            const system = { system: [] };
++            await hooks["experimental.chat.system.transform"]({ sessionID: event.sessionID, messages }, system);
++            for (const entry of system.system) {
++                const text = typeof entry === "string" ? entry : entry?.text;
++                if (typeof text !== "string" || text.length === 0) continue;
++                const last = messages[messages.length - 1];
++                if (!last) continue;
++                if (!Array.isArray(last.parts)) last.parts = [];
++                last.parts.push({ type: "text", text });
++            }
++        });
++    }
++    if (hooks["experimental.session.compacting"] && ctx.session?.hook) {
++        await ctx.session.hook("compaction", async (event) => {
++            if (!event) return;
++            const output = { context: [] };
++            await hooks["experimental.session.compacting"]({ sessionID: event.sessionID }, output);
++            if (!Array.isArray(event.system)) event.system = [];
++            for (const entry of output.context) {
++                event.system.push(typeof entry === "string" ? { type: "text", text: entry } : entry);
++            }
++        });
++    }
++    if (hooks.event && ctx.event?.subscribe) {
++        void (async () => {
++            try {
++                for await (const event of await ctx.event.subscribe()) {
++                    await hooks.event({ event });
++                }
++            } catch {}
++        })();
++    }
++}
++export { BackgroundAgentsPlugin, BackgroundAgentsPlugin as server, setup };
++// Dual V1/V2 entrypoint: V2 reads `default` ({ id, setup }); V1 reads `server`.
++export default { id: "opencode-background-agents", setup, server: BackgroundAgentsPlugin };
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+--- a/package.json
++++ b/package.json
+@@ -17,6 +17,10 @@
+     ".": {
+       "types": "./dist/index.d.ts",
+       "default": "./dist/index.js"
++    },
++    "./server": {
++      "types": "./dist/index.d.ts",
++      "default": "./dist/index.js"
+     }
+   },
+   "main": "./dist/index.js",

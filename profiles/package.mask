@@ -91,3 +91,11 @@ net-misc/bbcp
 # is blocked as well. The successor is a different upstream project with a
 # different name, so the two atoms can never be confused.
 >=dev-util/mcp-server-aws-1.3.36
+
+# kdcokenny/opencode-background-agents deprecated upstream in favour of native OpenCode V2 background subagents
+dev-util/opencode-plugin-background-agents
+
+# kdcokenny/opencode-notify deprecated upstream in favour of native OpenCode V2 terminal notifications and sound settings
+dev-util/opencode-plugin-notify
+
+

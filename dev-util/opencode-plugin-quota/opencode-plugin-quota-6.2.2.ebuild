@@ -19,7 +19,7 @@ BDEPEND="net-libs/nodejs[npm]"
 RDEPEND=">=net-libs/nodejs-20"
 
 PATCHES=(
-	"${FILESDIR}/${P}-opencode-v2-db.patch"
+	"${FILESDIR}/opencode-plugin-quota-opencode-v2-db.patch"
 )
 
 src_compile() {
@@ -29,7 +29,7 @@ src_compile() {
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/${PN}
 	doins -r dist package.json node_modules
-	newins "${FILESDIR}/${P}-server-shim.js" server.js
+	newins "${FILESDIR}/server-shim.js" server.js
 }
 
 pkg_postinst() {

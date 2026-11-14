@@ -8,7 +8,7 @@ inherit bun
 DESCRIPTION="Safety net catching destructive git and filesystem commands for OpenCode"
 HOMEPAGE="https://github.com/kenryu42/claude-code-safety-net"
 SRC_URI="https://github.com/kenryu42/claude-code-safety-net/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/claude-code-safety-net-${PV}"
+S="${WORKDIR}/cc-safety-net-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
@@ -28,7 +28,8 @@ BDEPEND="
 "
 
 src_compile() {
-	bun install --frozen-lockfile --ignore-scripts || die "bun install failed"
+	rm -f bun.lock
+	bun install --ignore-scripts || die "bun install failed"
 	bun run build || die "bun run build failed"
 }
 

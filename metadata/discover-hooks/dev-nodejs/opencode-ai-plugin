@@ -1,3 +1,4 @@
 _schema = 1
-source = "npm"
-npm = "@opencode-ai/plugin"
+source = "jq"
+url = "https://registry.npmjs.org/@opencode-ai/plugin/latest"
+filter = ".version"

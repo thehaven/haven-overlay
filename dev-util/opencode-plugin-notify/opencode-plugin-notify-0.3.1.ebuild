@@ -33,6 +33,41 @@ src_install() {
 	# default; v2's directory resolver looks for root <pkg>/server.js.
 	insinto "${mod}"
 	newins "${FILESDIR}/${P}-server-shim.js" server.js
+	sed -i \
+		-e '/"types": "dist\/index.d.ts",/a \  "exports": {\n    ".": "./server.js",\n    "./server": "./server.js",\n    "./package.json": "./package.json"\n  },' \
+		"${ED}${mod}/package.json" || die "failed to patch package.json"
+	cat >> "${ED}${mod}/dist/index.js" <<-'EOF' || die
+	async function __v2_setup(ctx) {
+	  const hooks = await opencodeNotifyPlugin({
+	    client: ctx.client,
+	  });
+	  if (hooks?.["tool.execute.before"] && ctx.tool?.hook) {
+	    await ctx.tool.hook("execute.before", async (event) => {
+	      if (!event) return;
+	      await hooks["tool.execute.before"](
+	        { tool: event.tool, sessionID: event.sessionID, callID: event.callID },
+	        { args: event.input }
+	      );
+	    });
+	  }
+	  if (hooks?.event && ctx.event?.subscribe) {
+	    void (async () => {
+	      try {
+	        for await (const event of await ctx.event.subscribe()) {
+	          await hooks.event({ event });
+	        }
+	      } catch {}
+	    })();
+	  }
+	}
+	const __v2_plugin = {
+	  id: "opencode-notify",
+	  setup: __v2_setup,
+	  server: opencodeNotifyPlugin,
+	};
+	export { opencodeNotifyPlugin as server, __v2_setup as setup };
+	export default __v2_plugin;
+	EOF
 }
 pkg_postinst() {
 	einfo "OpenCode Notify plugin installed."

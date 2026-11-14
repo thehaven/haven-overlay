@@ -44,6 +44,10 @@ RDEPEND="
 
 QA_PREBUILT="usr/bin/opencode2"
 
+PATCHES=(
+	"${FILESDIR}/opencode2-2.3.0-system-node-modules-source.patch"
+)
+
 src_compile() {
 	bun_setup
 
