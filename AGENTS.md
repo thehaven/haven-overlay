@@ -287,6 +287,27 @@ the build host's actual Python versions. Check the eclass's
   4. Auto-downloads are hard-gated host-wide via `OPENCODE_DISABLE_LSP_DOWNLOAD=1`
      in `~/.config/opencode/.env`.
 
+## Upstream PR work (throwaway clones)
+
+Some overlay work needs a clone of someone else's repository — fixing a
+discover hook we are about to upstream, or carrying a patch back to a
+third-party project. Agent sessions rooted here have
+`/var/db/repos/haven-overlay` as their working directory, and the
+file-authority guard is fail-closed: a write outside the session root is
+refused with `AUTHORITY_ROOT_ESCAPE`. `opencode.session_move` does not
+reliably re-root a running subagent, so a clone under
+`/storage/home/haven/projects/` stays unwritable for the rest of the task.
+
+**Clone upstream PR work into `/var/db/repos/haven-overlay/.scratch-<repo>`,
+never into `/storage/home/haven/projects/`.** That keeps the working tree
+inside the session root, so the agent can edit, branch and commit without
+tripping the guard.
+
+`/.scratch-*/` is gitignored, so these clones never appear in `git status`
+and cannot be committed by accident. They are throwaway by design: once the
+PR is open the branch lives upstream, so the directory can be deleted
+whenever convenient.
+
 ## Retention rename workflow
 
 When a commit renames a package in this overlay (e.g. the

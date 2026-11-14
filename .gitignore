@@ -3,3 +3,6 @@
 
 __pycache__/
 *.py[cod]
+
+# Throwaway clones used for upstream PR work (see AGENTS.md)
+/.scratch-*/
