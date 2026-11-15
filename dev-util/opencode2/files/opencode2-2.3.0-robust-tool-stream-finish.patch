@@ -1,0 +1,41 @@
+--- a/packages/ai/src/protocols/openai-chat.ts	2026-11-13 07:33:43.000000000 +0000
++++ b/packages/ai/src/protocols/openai-chat.ts	2026-11-15 13:48:11.000000000 +0000
+@@ -1270,12 +1270,32 @@
+       !incompleteTools &&
+       state.finishReason === undefined &&
+       Object.keys(pendingTools).length
+-    )
+-      return yield* ProviderShared.eventError(
+-        ADAPTER,
+-        "OpenAI Chat tool call delta is missing id or name",
+-        ProviderShared.encodeJson(event),
+-      )
++    ) {
++      for (const [key, pending] of Object.entries(pendingTools)) {
++        const index = Number(key)
++        if (pending?.name) {
++          const id = pending.id || `call_${index}_${Math.random().toString(36).slice(2, 10)}`
++          const result = ToolStream.appendOrStart(
++            ADAPTER,
++            tools,
++            index,
++            {
++              id,
++              name: pending.name,
++              text: pending.input,
++              providerMetadata: pending.extraContent && { [state.providerMetadataKey]: { extraContent: pending.extraContent } },
++            },
++            "OpenAI Chat tool call delta is missing id or name",
++          )
++          if (!ToolStream.isError(result)) {
++            tools = result.tools
++            if (result.events.length) lifecycle = Lifecycle.stepStart(lifecycle, events)
++            events.push(...result.events)
++          }
++        }
++      }
++      pendingTools = {}
++    }
+ 
+     // Filtering or truncation terminates the response without confirming pending tool calls.
+     const finished =
