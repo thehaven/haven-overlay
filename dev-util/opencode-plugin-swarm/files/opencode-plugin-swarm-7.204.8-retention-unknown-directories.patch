@@ -1,0 +1,1068 @@
+diff --git a/docs/observability-retention-registry.md b/docs/observability-retention-registry.md
+index dc847fb5b..12b26366e 100644
+--- a/docs/observability-retention-registry.md
++++ b/docs/observability-retention-registry.md
+@@ -419,7 +419,7 @@ per row.
+ | `impact-map` | .swarm/cache/impact-map.json | derived-rebuildable | rebuildable via buildImpactMap (:449-455); size bounded by repository file population (session-scoped) | full-file: rebuildable cache; stale entries rejected by mtime che… | untouched (cache/) | not a defect — this-gate |
+ | `instruction-pairing-report` | .swarm/memory/instruction-pairing-report.json | derived-rebuildable | single file overwritten whole per command invocation — bounded by the paired task corpus (per-trigger) | write-only: n/a (operator-facing output; re-generated on demand) | untouched (disposable derived output) | not a defect — this-gate |
+ 
+-### Category 8 — Close/reset, worktree, doctor, session, warnings/automation, skills (27 rows)
++### Category 8 — Close/reset, worktree, doctor, session, warnings/automation, skills (28 rows)
+ 
+ | Row id | Path grammar | State class | Write limit (scope) | Read bound | Close policy | Disposition → owner |
+ |---|---|---|---|---|---|---|
+@@ -450,6 +450,7 @@ per row.
+ | `skill-optimizer-evolution` | .swarm/evolution/skills/{slug}/{candidateId}/{lifecycle.jsonl, state.… | authoritative | hash-chained append-only ledgers (never rewritten); terminal candidates pruned by the sweep at 30 d with a 90 d age-only backstop; _eval-input 7 d; quarantine 30 d (global) | full-file: per-candidate ledger replay (candidate population bounded by the terminal-candidate sweep) | untouched by close — the terminal-candidate sweep owns the keyspace | retain by design — #2483; direct-file exemption (#2483) |
+ | `outside-swarm-tool-outputs` | .mutation_patch_{id}.diff (workdir) + extract_code_blocks outputs (us… | governed-content | batch-scoped or user-directed outputs outside swarm state; apply-patch temps always clean… (per-trigger) | write-only: n/a | outside .swarm — out of swarm retention scope by defin… | not a defect — this-gate |
+ | `residue-quarantine` | .swarm/quarantine/{batch}/ (+ per-batch manifest with sha256/original… | governed-content | bounded by verified stale-residue discovery (old, unlocked, untracked, exact-grammar matc… (per-trigger) | indexed: manifest-driven reads | untouched — recoverable quarantine is preserved across… | retain by design — #2035 (merged) |
++| `retention-control-plane` | .swarm/retention.log + .swarm/retention.d/{owner}.json | operational | one metadata line per pruned directory; log compacted to the newest lines within RETENTION_LOG_MAX_BYTES 256 KiB; each manifest capped at 64 KiB (global) | tail (byte-bounded): compaction reads only the newest 256 KiB; manifests read whole, 64 KiB each | untouched by close — the log records sweep reclamation, manifests are owner-authored policy | not a defect — #2483 follow-up |
+ 
+ ### Category 9 — Planned streams (PRs 19-23) (3 rows)
+ 
+diff --git a/docs/releases/pending/retention-unclaimed-swarm-directories.md b/docs/releases/pending/retention-unclaimed-swarm-directories.md
+new file mode 100644
+index 000000000..f2a7426de
+--- /dev/null
++++ b/docs/releases/pending/retention-unclaimed-swarm-directories.md
+@@ -0,0 +1,76 @@
++# Unclaimed `.swarm/` directories get a lifecycle
++
++## What
++
++The retention sweep only ever reclaimed the `.swarm/` families it hardcoded,
++and blocked every other delete under `.swarm/` — so any directory a subagent
++wrote outside that closed set had no lifecycle at all and no supported command
++could reclaim it. One production project had 140 MB of its 166 MB `.swarm/`
++sitting in `.swarm/review-sandbox` and `.swarm/review-mut`, written by reviewer
++subagents and reclaimable by nothing.
++
++Directories immediately under `.swarm/` now have three tiers of ownership:
++
++1. **Tier 1 — hardcoded preserve allowlist.** Swarm's own state (database and
++   sidecars, memory, evidence, plan store, knowledge, session/summary state,
++   every retention family root, skill stores, locks, quarantine, …) is never
++   pruned by the catch-all, whatever its age.
++2. **Tier 2 — owner manifests.** `.swarm/retention.d/<owner>.json`:
++   `{ "owner": "reviewer", "preserve": ["review-sandbox"], "maxAgeDays": 90 }`.
++   One file per owner and one writer each, so there is no shared file to merge
++   and no cross-agent edit surface — a single shared config key would turn
++   every new scratch owner into a conflict in one file. A claim is a lease, not
++   a permanent exemption: past its `maxAgeDays` the directory becomes
++   reclaimable again, because a claim that never expires would recreate the
++   very defect this fixes. A malformed, ambiguous, or unreadable manifest
++   refuses the **whole** sweep (fail closed) and names the file and the reason.
++3. **Tier 3 — catch-all.** An unclaimed directory is pruned only when it is a
++   real directory (never a symlink), has no `.preserve` marker, contains no
++   future-dated entries, and all of its content is older than its horizon
++   (30 days by default, or the owning manifest's `maxAgeDays`). Every pruned
++   path is appended to `.swarm/retention.log` as
++   `<ISO-8601> pruned <path> age=<days> size=<bytes>`, and the log itself is
++   compacted to its newest 256 KiB.
++
++`runRetentionSweep({ explain: true })` is the `--explain` surface: it returns
++every planned prune (path, age, size, owning manifest) in `result.explained`
++and deletes nothing. `dryRun` keeps its existing count-and-report behaviour and
++now also populates `explained`.
++
++Containment is enforced **per resolved path**: each candidate is `realpath`-ed
++and required to sit inside the `realpath`-ed `.swarm` root immediately before
++deletion. The existing whole-sweep containment guard remains as the outer
++check, which is not sufficient for a catch-all that deletes arbitrary children
++(a child can be swapped for a symlink after that check ran).
++
++## Why
++
++An unbounded, unreclaimable directory family is a disk-exhaustion defect with
++no operator remedy: the shell guardrails refuse an unsanctioned recursive
++delete, and the sweep refused every path it had not been taught. The three
++tiers restore the missing lifecycle without weakening either safety property
++that caused the refusal — swarm's own state stays untouchable, and an
++ownership claim that cannot be parsed stops the sweep rather than being
++treated as permission to delete.
++
++## Migration
++
++No breaking changes and no config key:
++
++- Existing projects need no action; the tier-1 allowlist already covers
++  everything swarm writes today.
++- An agent that writes its own scratch tree can add
++  `.swarm/retention.d/<owner>.json` to declare the horizon it wants. Omitting
++  the manifest simply means the 30-day default applies.
++- `RetentionSweepResult` gains an optional `explained` field and
++  `RetentionSweepOptions` gains an optional `explain` flag; both are additive.
++
++## Caveats
++
++- The catch-all runs last in the sweep, so a sweep cancelled by its budget
++  leaves unclaimed directories for the next pass (retention is idempotent and
++  runs at every session start and before `/swarm close`).
++- Claim expiry is measured from the newest file in the claimed subtree, so an
++  owner that keeps writing into a claimed directory keeps its lease.
++- A directory whose content cannot be enumerated within the bounded subtree
++  scan (2000 stat operations) is treated as in use and kept.
+diff --git a/scripts/check-core-events-usage.ts b/scripts/check-core-events-usage.ts
+index 31518fcf2..f3ca3cd14 100644
+--- a/scripts/check-core-events-usage.ts
++++ b/scripts/check-core-events-usage.ts
+@@ -70,6 +70,11 @@ export const CORE_EVENTS_MENTION_ALLOWLIST: Readonly<
+ 		reason: 'reset lifecycle ownership of events.jsonl and events-authority-index.json',
+ 		cls: 'lifecycle',
+ 	},
++	'src/retention/unclaimed.ts': {
++		reason:
++			'tier-1 preserve allowlist only (issue #2483 follow-up): the catch-all names the authoritative event stream so it can never be pruned — no read, no write, no append',
++		cls: 'lifecycle',
++	},
+ 	'src/services/session-reflection.ts': {
+ 		reason: 'reads ARCHIVED events.jsonl copies (immutable validated cuts) with a bounded, symlink-guarded fallback read',
+ 		cls: 'archive-reader',
+diff --git a/scripts/check-trajectory-store-usage.ts b/scripts/check-trajectory-store-usage.ts
+index 9c9e6ed48..45104fb67 100644
+--- a/scripts/check-trajectory-store-usage.ts
++++ b/scripts/check-trajectory-store-usage.ts
+@@ -87,6 +87,11 @@ export const TRAJECTORY_MENTION_ALLOWLIST: Readonly<
+ 		reason: 'listTrajectorySessions — the documented read-only enumerator (single readdir, no entry reads; see corpus.ts:367-376)',
+ 		cls: 'enumerator',
+ 	},
++	'src/retention/unclaimed.ts': {
++		reason:
++			'tier-1 preserve allowlist only (issue #2483 follow-up): the catch-all names the trajectories directory so it can never be pruned — never reads a trajectory entry',
++		cls: 'lifecycle',
++	},
+ });
+ 
+ /** Matches an import of the store module (static or dynamic, .js optional,
+diff --git a/scripts/retention-registry.data.ts b/scripts/retention-registry.data.ts
+index 052f32e96..f790c0b62 100644
+--- a/scripts/retention-registry.data.ts
++++ b/scripts/retention-registry.data.ts
+@@ -4429,6 +4429,56 @@ export const RETENTION_REGISTRY: readonly RetentionRow[] = [
+ 				'The #2483 retention sweep\'s review-receipts family age-prunes receipts at 30 d with a keep-newest-1000 cap (REVIEW_RECEIPTS_KEEP_NEWEST, src/retention/sweep.ts:49,96); index entries whose files were pruned resolve to null fail-open (parseReceiptFromIndexEntry, src/hooks/review-receipt.ts:849) and the index reader is capped at MAX_RECEIPTS_READ 1000 newest-first (:904,915) — the accumulation gap behind the #2309 row is closed by the sweep.',
+ 		},
+ 	},
++	{
++		id: 'retention-control-plane',
++		category: 8,
++		pathGrammar:
++			'.swarm/retention.log + .swarm/retention.d/{owner}.json (one ownership manifest per owner; no shared manifest file)',
++		canonicalRoot: 'project-swarm',
++		writerModules: ['src/retention/unclaimed.ts'],
++		writerCitations: [
++			'src/retention/unclaimed.ts:489 appendRetentionLog — one line per pruned directory (`<ISO-8601> pruned <path> age=<days> size=<bytes>`), then a tail-only rewrite when the append crosses the byte budget; the manifest DIRECTORY is read-only to the plugin (loadOwnerManifests:234) — each owner writes only its own file',
++		],
++		readerCitations: [
++			'loadOwnerManifests (:234) reads every *.json manifest once per sweep, before any deletion; the log is written for humans and agents to read (no in-process reader by design)',
++		],
++		schemaVersion:
++			'manifest schema 1 — { owner: string, preserve: string[], maxAgeDays?: number }; log line grammar `<ISO-8601> pruned <path> age=<days> size=<bytes>`',
++		stateClass: 'operational',
++		privacyClass: 'metadata',
++		writeLimits: {
++			bound:
++				'one line per pruned directory; the log is compacted to the newest lines within RETENTION_LOG_MAX_BYTES 256 KiB on the append that crosses it (src/retention/unclaimed.ts:54,489); each manifest is capped at RETENTION_MANIFEST_MAX_BYTES 64 KiB (:52) and a larger claim is refused as malformed',
++			scope: 'global',
++			citation: 'src/retention/unclaimed.ts:52,54,489',
++		},
++		readBound: {
++			pattern: 'tail (byte-bounded)',
++			bound:
++				'compaction reads only the newest RETENTION_LOG_MAX_BYTES 256 KiB of the log; manifests are read whole but bounded to 64 KiB each',
++			sync: false,
++			citation: 'src/retention/unclaimed.ts:52,54',
++		},
++		lockModel:
++			'append-only O_APPEND line batch; the rare compaction rewrites the tail and the last writer wins (the log is diagnostic, never authority)',
++		crashBehavior:
++			'a torn trailing line is cosmetic — readers treat each line independently and the next append starts a new one',
++		closePolicy:
++			'untouched by close — the log records what the sweep reclaimed, and manifests are owner-authored policy that close must not rewrite',
++		resetPolicy: 'not reset',
++		legacyCompatibility: 'n/a',
++		healthSignal: 'n/a',
++		owner: '#2483 follow-up (unclaimed-directory lifecycle)',
++		closeArrayMembership: {
++			'retention.log': 'neither',
++			'retention.d': 'neither',
++		},
++		disposition: {
++			kind: 'not-a-defect',
++			proof:
++				'Bounded by construction: the log carries one metadata line per pruned path (no file content) and is compacted to RETENTION_LOG_MAX_BYTES 256 KiB (src/retention/unclaimed.ts:54,489-516), so it cannot become the unbounded-growth defect the catch-all exists to fix; manifests are one 64 KiB-capped file per owner and a malformed/ambiguous claim refuses the whole sweep rather than being deleted.',
++		},
++	},
+ 	{
+ 		id: 'residue-quarantine',
+ 		category: 8,
+diff --git a/src/retention/dir-prune.ts b/src/retention/dir-prune.ts
+index 6114081fb..51bb4b1aa 100644
+--- a/src/retention/dir-prune.ts
++++ b/src/retention/dir-prune.ts
+@@ -54,33 +54,40 @@ export interface PruneCandidate {
+ 	mtimeMs: number;
+ }
+ 
++export interface SubtreeContentStats {
++	/** Newest regular-file mtime in the subtree; `null` when it holds no files. */
++	newestFileMtime: number | null;
++	/** Sum of regular-file sizes in the subtree; symlinks are never followed. */
++	bytes: number;
++}
++
+ /**
+- * Effective mtime of a subtree: the newest regular-file mtime found inside
+- * (never traversing symlinks), or `null` when the subtree contains no files.
+- * `POSITIVE_INFINITY` signals "could not verify within budget" — callers must
+- * treat that as unprunable. The walk is bounded by `maxScan` stat operations
+- * total, so a pathological subtree degrades to keep, never to an unbounded
+- * scan.
++ * Content stats for a subtree: the newest regular-file mtime AND the total
++ * regular-file bytes, collected in one bounded, symlink-refusing walk.
++ * `null` signals "could not verify within budget" (unreadable level, or
++ * `maxScan` stat operations exhausted) — callers must treat that as
++ * unprunable, never as empty.
+  */
+-export function subtreeNewestFileMtime(
++export function subtreeContentStats(
+ 	root: string,
+ 	maxScan: number,
+-): number | null {
++): SubtreeContentStats | null {
+ 	let budget = maxScan;
+ 	let newest: number | null = null;
++	let bytes = 0;
+ 	const stack: string[] = [root];
+ 	while (stack.length > 0) {
+-		if (budget <= 0) return Number.POSITIVE_INFINITY;
++		if (budget <= 0) return null;
+ 		const dir = stack.pop() as string;
+ 		let names: string[];
+ 		try {
+ 			names = fs.readdirSync(dir);
+ 		} catch {
+ 			// Unreadable level: content cannot be verified — refuse to prune.
+-			return Number.POSITIVE_INFINITY;
++			return null;
+ 		}
+ 		for (const name of names) {
+-			if (budget <= 0) return Number.POSITIVE_INFINITY;
++			if (budget <= 0) return null;
+ 			const entryPath = path.join(dir, name);
+ 			let stat: fs.Stats;
+ 			try {
+@@ -98,12 +105,29 @@ export function subtreeNewestFileMtime(
+ 				stack.push(entryPath);
+ 				continue;
+ 			}
+-			if (stat.isFile() && stat.mtimeMs > (newest ?? -Infinity)) {
+-				newest = stat.mtimeMs;
++			if (stat.isFile()) {
++				bytes += stat.size;
++				if (stat.mtimeMs > (newest ?? -Infinity)) newest = stat.mtimeMs;
+ 			}
+ 		}
+ 	}
+-	return newest;
++	return { newestFileMtime: newest, bytes };
++}
++
++/**
++ * Effective mtime of a subtree: the newest regular-file mtime found inside
++ * (never traversing symlinks), or `null` when the subtree contains no files.
++ * `POSITIVE_INFINITY` signals "could not verify within budget" — callers must
++ * treat that as unprunable. The walk is bounded by `maxScan` stat operations
++ * total, so a pathological subtree degrades to keep, never to an unbounded
++ * scan.
++ */
++export function subtreeNewestFileMtime(
++	root: string,
++	maxScan: number,
++): number | null {
++	const content = subtreeContentStats(root, maxScan);
++	return content === null ? Number.POSITIVE_INFINITY : content.newestFileMtime;
+ }
+ 
+ /**
+diff --git a/src/retention/sweep.ts b/src/retention/sweep.ts
+index 6528075fa..85de896f1 100644
+--- a/src/retention/sweep.ts
++++ b/src/retention/sweep.ts
+@@ -23,6 +23,13 @@
+  *  - authoritative streams (plan ledger, knowledge store, council, evidence,
+  *    scopes, swarm.db, telemetry) are NOT in any family and are never
+  *    touched (negative test).
++ *  - directories under `.swarm/` that no family owns get a lifecycle instead
++ *    of being permanently unreclaimable: a tier-1 preserve allowlist, tier-2
++ *    owner manifests (`.swarm/retention.d/*.json`), then a tier-3 catch-all
++ *    that prunes only unclaimed, non-symlinked, marker-free, wholly-stale
++ *    directories and records each prune in `.swarm/retention.log`
++ *    (see `./unclaimed.ts`). A malformed owner manifest refuses the WHOLE
++ *    sweep (fail closed) before any deletion happens.
+  *  - checkout-preparation receipts remain recovery material: the checkout
+  *    family only removes old, strictly validated applied+verified receipts
+  *    (and abandoned atomic-write temporary files), never a pending receipt or
+@@ -45,6 +52,12 @@ import {
+ 	subtreeNewestFileMtime,
+ } from './dir-prune';
+ import { readTailJsonlDetailed } from './jsonl-cap';
++import {
++	type ExplainedPrune,
++	loadOwnerManifests,
++	type OwnerManifestSet,
++	pruneUnclaimedDirectories,
++} from './unclaimed';
+ 
+ const DAY_MS = 24 * 60 * 60 * 1000;
+ 
+@@ -77,12 +90,30 @@ export interface RetentionSweepOptions {
+ 	 * of finishing its full pass after the awaiter already moved on.
+ 	 */
+ 	shouldContinue?: () => boolean;
++	/**
++	 * The `--explain` surface: list what the unclaimed-directory catch-all
++	 * WOULD prune (path, age, size, owner) in `result.explained`, and delete
++	 * nothing. Implies a no-delete pass even when `dryRun` is false.
++	 */
++	explain?: boolean;
+ }
+ 
+ export interface RetentionSweepResult {
++	/**
++	 * Per-pass counts. Under `dryRun` (or `explain`) each value is the number
++	 * the pass WOULD prune — the rehearsal convention every family already
++	 * follows (`pruneDirectory` returns its victim count without deleting).
++	 * It is not an "actually deleted" count in that mode; `explained` carries
++	 * the per-directory evidence behind the catch-all's number.
++	 */
+ 	pruned: Record<string, number>;
+ 	disabled?: boolean;
+ 	dryRun?: boolean;
++	/**
++	 * Populated under `explain` or `dryRun`: every directory the tier-3
++	 * catch-all selected, with the evidence used to select it.
++	 */
++	explained?: ExplainedPrune[];
+ 	errors: Record<string, string>;
+ }
+ 
+@@ -209,6 +240,13 @@ function familiesFor(swarmRoot: string, now: number): Family[] {
+  * the summaries retention pass, and prune evolution candidates that reached
+  * a terminal lifecycle state (with an age-only backstop). Every family is
+  * individually fail-open; the function itself never throws.
++ *
++ * As its final pass it runs the tier-3 catch-all for directories under
++ * `.swarm/` that no family owns and no owner manifest claims
++ * (`./unclaimed.ts`). The one non-fail-open branch is deliberate: an
++ * unparseable `.swarm/retention.d/*.json` ownership claim refuses the whole
++ * sweep before any deletion, because deleting under an ownership map we could
++ * not verify is worse than not reclaiming this run.
+  */
+ export async function runRetentionSweep(
+ 	projectRoot: string,
+@@ -225,7 +263,10 @@ export async function runRetentionSweep(
+ 
+ 	// Containment guard: the resolved swarm root must sit inside the project
+ 	// root. A symlinked `.swarm` (or a root trick) refuses the whole sweep
+-	// rather than deleting through the link.
++	// rather than deleting through the link. This is the OUTER check only —
++	// the tier-3 catch-all re-resolves every candidate immediately before
++	// deleting it (see `./unclaimed.ts`), because a child can be swapped for a
++	// symlink after this point.
+ 	try {
+ 		const resolvedRoot = fs.realpathSync(projectRoot);
+ 		const resolvedSwarm = fs.realpathSync(swarmRoot);
+@@ -249,6 +290,25 @@ export async function runRetentionSweep(
+ 		return result;
+ 	}
+ 
++	// Tier-2 ownership claims are read BEFORE anything is deleted. A malformed
++	// or unreadable manifest refuses the WHOLE sweep (fail closed): an
++	// unparseable ownership claim is not a licence to delete, and a partial
++	// sweep would delete under an ownership map we could not verify.
++	let ownership: OwnerManifestSet;
++	try {
++		ownership = loadOwnerManifests(swarmRoot);
++	} catch (error) {
++		result.errors.manifests =
++			error instanceof Error ? error.message : String(error);
++		log('retention sweep: refusing whole sweep on ownership claims', {
++			error: result.errors.manifests,
++		});
++		return result;
++	}
++	if (ownership.files.length > 0) {
++		log('retention sweep: owner manifests loaded', ownership.files);
++	}
++
+ 	// 1. Directory families (fail-open each). Directory entries are aged by
+ 	// their CONTENT (newest file mtime in the subtree — see dir-prune), so a
+ 	// run/batch/candidate directory whose files are all past the horizon is
+@@ -477,6 +537,41 @@ export async function runRetentionSweep(
+ 			error instanceof Error ? error.message : String(error);
+ 	}
+ 
++	// 7. Tier-3 catch-all: directories immediately under `.swarm/` that no
++	// family above owns and no owner manifest claims. Before this pass existed
++	// they had NO lifecycle at all — an agent-written scratch tree grew for the
++	// lifetime of the project and no supported command could reclaim it. It
++	// runs LAST because it is the broadest pass: when the cooperative stop
++	// token has already fired, the specific families get the remaining budget
++	// and the catch-all simply resumes on the next sweep. The tier-1 allowlist
++	// and the tier-2 claims were resolved before any deletion ran (a manifest
++	// error refuses the whole sweep). `dryRun` and `explain` both list the
++	// planned set in `result.explained` and delete nothing.
++	if (cancelled('unclaimed-directories')) return result;
++	try {
++		const outcome = await pruneUnclaimedDirectories(swarmRoot, {
++			now,
++			dryRun,
++			explain: options.explain === true,
++			claims: ownership.claims,
++			shouldContinue: options.shouldContinue,
++		});
++		for (const failure of outcome.failures) {
++			result.errors[failure.path] = failure.message;
++		}
++		const prunedCount =
++			dryRun || options.explain === true
++				? outcome.planned.length
++				: outcome.pruned.length;
++		if (prunedCount > 0) result.pruned['unclaimed-directories'] = prunedCount;
++		if (dryRun || options.explain === true) {
++			result.explained = outcome.planned;
++		}
++	} catch (error) {
++		result.errors['unclaimed-directories'] =
++			error instanceof Error ? error.message : String(error);
++	}
++
+ 	if (Object.keys(result.errors).length > 0) {
+ 		log('retention sweep: per-family failures (non-fatal)', result.errors);
+ 	}
+diff --git a/src/retention/unclaimed.ts b/src/retention/unclaimed.ts
+new file mode 100644
+index 000000000..2955ee769
+--- /dev/null
++++ b/src/retention/unclaimed.ts
+@@ -0,0 +1,621 @@
++/**
++ * Catch-all lifecycle for directories immediately under `.swarm/` that no
++ * retention family and no owner manifest claims (issue #2483 follow-up).
++ *
++ * THE DEFECT CLASS: the retention sweep's `familiesFor()` is a CLOSED set. Any
++ * directory it does not name — an agent-written scratch tree such as a
++ * reviewer's `.swarm/review-sandbox` or a mutation run's `.swarm/review-mut` —
++ * has no lifecycle at all, and no supported command can reclaim it: the shell
++ * guardrails refuse an unsanctioned recursive delete, and the sweep blocks
++ * every path it has not been taught. Such trees grow for the lifetime of the
++ * project.
++ *
++ * THE FIX: three tiers of ownership, no global config key.
++ *
++ *  1. TIER 1 — `TIER1_PRESERVED_SWARM_ENTRIES`. Swarm's own state, hardcoded
++ *     here. Never pruned by the catch-all, whatever its age.
++ *  2. TIER 2 — owner manifests under `.swarm/retention.d/*.json`:
++ *     `{ "owner": "reviewer", "preserve": ["review-sandbox"], "maxAgeDays": 90 }`.
++ *     One file per owner and one writer each, so there is no shared file to
++ *     merge and no cross-agent edit surface — a shared config would turn every
++ *     new scratch owner into a conflict in one file. A claim extends the
++ *     directory's horizon to the owner's declared `maxAgeDays`; it is a LEASE,
++ *     not a permanent exemption, because a claim that never expires would
++ *     recreate the very defect this module fixes.
++ *     A malformed or unreadable manifest refuses the ENTIRE sweep (fail
++ *     closed): an unparseable ownership claim is not a licence to delete.
++ *  3. TIER 3 — the catch-all. An unclaimed, non-symlinked directory with no
++ *     `.preserve` marker whose entire content is older than its horizon is
++ *     pruned, and every pruned path is appended to `.swarm/retention.log`.
++ *
++ * CONTAINMENT: enforced PER RESOLVED PATH, immediately before each delete. The
++ * outer guard in `runRetentionSweep` proves the `.swarm` root sits inside the
++ * project root, which is not sufficient for a catch-all that deletes arbitrary
++ * children: a child can be swapped for a symlink after that check ran.
++ */
++
++import * as fs from 'node:fs';
++import * as path from 'node:path';
++import { SUBTREE_SCAN_CAP, subtreeContentStats } from './dir-prune';
++
++const DAY_MS = 24 * 60 * 60 * 1000;
++
++/** Default horizon for an unclaimed directory under `.swarm/` (30 days). */
++export const DEFAULT_UNCLAIMED_MAX_AGE_DAYS = 30;
++/** Owner manifests live here, one file per owner. */
++export const RETENTION_MANIFEST_DIR = 'retention.d';
++/** Append-only record of what the catch-all reclaimed. */
++export const RETENTION_LOG_FILE = 'retention.log';
++/** Presence of this marker file in a directory blocks the catch-all. */
++export const RETENTION_PRESERVE_MARKER = '.preserve';
++/** One manifest may not exceed this size; an oversized claim is malformed. */
++export const RETENTION_MANIFEST_MAX_BYTES = 64 * 1024;
++/** Byte budget for the retention log; the newest lines win when exceeded. */
++export const RETENTION_LOG_MAX_BYTES = 256 * 1024;
++
++/**
++ * Tier 1: swarm's own state under `.swarm/`, which the catch-all must never
++ * prune. Directory entries are the load-bearing ones (the catch-all only ever
++ * deletes directories); flat files are listed too so the allowlist stays a
++ * complete statement of ownership if the catch-all is ever widened to files.
++ *
++ * This list deliberately over-includes rather than under-includes: a name that
++ * is wrongly preserved merely stays where it is, while a name that is wrongly
++ * pruned loses authoritative state.
++ */
++export const TIER1_PRESERVED_SWARM_ENTRIES: ReadonlySet<string> = new Set([
++	// Retention control plane (this module's own state).
++	RETENTION_MANIFEST_DIR,
++	RETENTION_LOG_FILE,
++
++	// Authoritative stores and their sidecars (AGENTS.md invariant 5, #2484).
++	'swarm.db',
++	'swarm.db-wal',
++	'swarm.db-shm',
++	'plan',
++	'plan.json',
++	'plan.md',
++	'plan-ledger.jsonl',
++	'plan-export',
++	'refs',
++	'authority',
++	'memory',
++	'knowledge',
++	'knowledge.jsonl',
++	'events.jsonl',
++	'run-memory.jsonl',
++	'handoff.json',
++	'handoff.md',
++	'close-lessons.md',
++	'full-auto-state.json',
++
++	// Evidence, scopes, and archives.
++	'evidence',
++	'evidence-cache',
++	'scopes',
++	'archive',
++	'spec-archive',
++
++	// Session, summaries, and per-session state.
++	'session',
++	'summaries',
++	'context',
++	'context.md',
++	'context-snapshot.md',
++	'outputs',
++	'advisories',
++	'quarantine',
++	'reset-backups',
++	'rollback-backups',
++	'locks',
++	'cache',
++	'checkpoints',
++
++	// Retention families (each owns its own per-entry semantics — a catch-all
++	// pass over the family ROOT would bypass the family's keep-newest caps).
++	'runs',
++	'capsules',
++	'lane-results',
++	'review-receipts',
++	'pr-review',
++	'pr-workflow-gates',
++	'pr-workflow-checkouts',
++	'pr-feedback-events',
++	'pr-feedback-evidence',
++	'pr-feedback-loop-cleanups',
++	'pr-monitor',
++	'recovery',
++	'evolution',
++	'epic',
++	'epic-prior',
++	'loops',
++	'loop',
++
++	// Skill stores and their proposals/state.
++	'skills',
++	'skill-improver',
++	'skill-improve',
++	'skill-changelogs',
++	'bundled-skills',
++	'external-skills',
++
++	// Agent-visible working state.
++	'lanes',
++	'learning',
++	'trajectories',
++	'replays',
++	'observability',
++	'training',
++	'task-repairs',
++	'task-terminals',
++	'coder-settlements',
++	'council',
++	'worktree-recovery-claims',
++	'review-v8',
++	'semgrep-rules',
++]);
++
++/** One owner's claim over directories immediately under `.swarm/`. */
++export interface OwnerClaim {
++	/** Owner name from the manifest (`owner`). */
++	owner: string;
++	/** Manifest file, project-relative, for diagnostics and log lines. */
++	manifestFile: string;
++	/** Owner-declared horizon for the directories it claims. */
++	maxAgeDays: number;
++}
++
++export interface OwnerManifestSet {
++	/** Immediate child name under `.swarm/` -> the claim that owns it. */
++	claims: ReadonlyMap<string, OwnerClaim>;
++	/** Manifest files read, project-relative and sorted. */
++	files: readonly string[];
++}
++
++/** A malformed or unreadable ownership claim. Refuses the whole sweep. */
++export class RetentionManifestError extends Error {
++	constructor(message: string) {
++		super(message);
++		this.name = 'RetentionManifestError';
++	}
++}
++
++/** One directory the catch-all would prune, with the evidence for it. */
++export interface ExplainedPrune {
++	/** Project-relative path, e.g. `.swarm/review-sandbox`. */
++	path: string;
++	/** Whole days since the newest content in the subtree (or the node). */
++	ageDays: number;
++	/**
++	 * Regular-file bytes in the subtree. Symlinks are never followed, so a
++	 * link's own size is excluded and its TARGET's content is not counted:
++	 * the target is not ours to reclaim.
++	 */
++	sizeBytes: number;
++	/** Owner whose manifest claim set this directory's horizon, if claimed. */
++	owner?: string;
++}
++
++export interface UnclaimedSweepOptions {
++	/** Clock injection point for tests/checks. */
++	now: number;
++	/** Count without deleting (the sweep-wide `dry_run` surface). */
++	dryRun?: boolean;
++	/** List what WOULD be pruned without pruning (the `--explain` surface). */
++	explain?: boolean;
++	/** Parsed tier-2 claims; an absent map means "no owner claims anything". */
++	claims?: ReadonlyMap<string, OwnerClaim>;
++	/** Cooperative stop token, polled between candidates. */
++	shouldContinue?: () => boolean;
++}
++
++export interface UnclaimedSweepOutcome {
++	/** Every directory this pass selected (pruned, or would prune). */
++	planned: ExplainedPrune[];
++	/** Directories actually removed (empty under dryRun/explain). */
++	pruned: ExplainedPrune[];
++	/** Per-directory failures; the pass stays fail-open per candidate. */
++	failures: Array<{ path: string; message: string }>;
++}
++
++function errorCode(error: unknown): string {
++	return typeof error === 'object' && error !== null && 'code' in error
++		? String((error as { code?: unknown }).code)
++		: '';
++}
++
++function describeError(error: unknown): string {
++	return error instanceof Error ? error.message : String(error);
++}
++
++/**
++ * Read and validate every owner manifest. THROWS `RetentionManifestError` on
++ * anything ambiguous — a malformed claim, a symlinked manifest, a duplicate
++ * claim, or two files declaring the same owner — because the caller's contract
++ * is to refuse the whole sweep rather than guess at ownership.
++ */
++export function loadOwnerManifests(swarmRoot: string): OwnerManifestSet {
++	const manifestDir = path.join(swarmRoot, RETENTION_MANIFEST_DIR);
++	let dirStat: fs.Stats;
++	try {
++		dirStat = fs.lstatSync(manifestDir);
++	} catch (error) {
++		// No manifest directory (or `.swarm` is not a directory at all): there
++		// are no ownership claims to honour, which is not an error.
++		const code = errorCode(error);
++		if (code === 'ENOENT' || code === 'ENOTDIR') {
++			return { claims: new Map(), files: [] };
++		}
++		throw new RetentionManifestError(
++			`refusing retention sweep: cannot inspect .swarm/${RETENTION_MANIFEST_DIR}/ (${describeError(error)})`,
++		);
++	}
++	if (dirStat.isSymbolicLink()) {
++		throw new RetentionManifestError(
++			`refusing retention sweep: .swarm/${RETENTION_MANIFEST_DIR} is a symlink; ownership manifests must be real files inside the project`,
++		);
++	}
++	if (!dirStat.isDirectory()) {
++		throw new RetentionManifestError(
++			`refusing retention sweep: .swarm/${RETENTION_MANIFEST_DIR} is not a directory`,
++		);
++	}
++	let names: string[];
++	try {
++		names = fs.readdirSync(manifestDir).sort();
++	} catch (error) {
++		throw new RetentionManifestError(
++			`refusing retention sweep: cannot read .swarm/${RETENTION_MANIFEST_DIR}/ (${describeError(error)})`,
++		);
++	}
++
++	const claims = new Map<string, OwnerClaim>();
++	const owners = new Map<string, string>();
++	const files: string[] = [];
++	for (const name of names) {
++		// Dotfiles and non-JSON names are not manifests: a temp file mid-write
++		// (`x.json.tmp`) must not be mistaken for one, and an editor scratch
++		// file must not block a project that is otherwise healthy.
++		if (
++			name.startsWith('.') ||
++			!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(name)
++		) {
++			continue;
++		}
++		const manifestPath = path.join(manifestDir, name);
++		const relFile = `.swarm/${RETENTION_MANIFEST_DIR}/${name}`;
++		const fail = (reason: string): never => {
++			throw new RetentionManifestError(
++				`refusing retention sweep: ${relFile}: ${reason}`,
++			);
++		};
++		let fileStat: fs.Stats;
++		try {
++			fileStat = fs.lstatSync(manifestPath);
++		} catch (error) {
++			return fail(`unreadable (${describeError(error)})`);
++		}
++		if (fileStat.isSymbolicLink()) {
++			fail('is a symlink; ownership manifests must be real files');
++		}
++		if (!fileStat.isFile()) {
++			fail('is not a regular file');
++		}
++		if (fileStat.size > RETENTION_MANIFEST_MAX_BYTES) {
++			fail(
++				`is ${fileStat.size} bytes, over the ${RETENTION_MANIFEST_MAX_BYTES}-byte manifest bound`,
++			);
++		}
++		let raw: string;
++		try {
++			raw = fs.readFileSync(manifestPath, 'utf-8');
++		} catch (error) {
++			return fail(`unreadable (${describeError(error)})`);
++		}
++		let parsed: unknown;
++		try {
++			parsed = JSON.parse(raw);
++		} catch (error) {
++			return fail(`is not valid JSON (${describeError(error)})`);
++		}
++		if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
++			fail('must be a JSON object');
++		}
++		const record = parsed as Record<string, unknown>;
++		const owner = record.owner;
++		if (typeof owner !== 'string' || owner.trim().length === 0) {
++			fail('"owner" must be a non-empty string');
++		}
++		if ((owner as string).length > 120) {
++			fail('"owner" must be at most 120 characters');
++		}
++		const previousOwnerFile = owners.get(owner as string);
++		if (previousOwnerFile !== undefined) {
++			fail(
++				`declares owner "${owner}" which ${previousOwnerFile} already declares; one owner has exactly one manifest`,
++			);
++		}
++		const preserve = record.preserve;
++		if (!Array.isArray(preserve)) {
++			fail('"preserve" must be an array of directory names');
++		}
++		const maxAgeDays = record.maxAgeDays;
++		if (
++			maxAgeDays !== undefined &&
++			(typeof maxAgeDays !== 'number' ||
++				!Number.isFinite(maxAgeDays) ||
++				maxAgeDays < 1 ||
++				maxAgeDays > 36500)
++		) {
++			fail('"maxAgeDays" must be a finite number between 1 and 36500');
++		}
++		const declared = preserve as unknown[];
++		const seen = new Set<string>();
++		for (const [index, entry] of declared.entries()) {
++			if (
++				typeof entry !== 'string' ||
++				entry.length === 0 ||
++				entry.length > 255 ||
++				entry === '.' ||
++				entry === '..' ||
++				entry.includes('/') ||
++				entry.includes('\\') ||
++				// biome-ignore lint/suspicious/noControlCharactersInRegex: rejecting control characters IS the validation.
++				/[\u0000-\u001f]/.test(entry)
++			) {
++				fail(
++					`"preserve[${index}]" is not a plain directory name (got ${JSON.stringify(entry)})`,
++				);
++			}
++			const claimed = entry as string;
++			if (seen.has(claimed)) {
++				fail(`"preserve" lists "${claimed}" twice`);
++			}
++			seen.add(claimed);
++			const existing = claims.get(claimed);
++			if (existing) {
++				fail(
++					`claims "${claimed}", already claimed by ${existing.manifestFile}; two owners cannot share one directory`,
++				);
++			}
++		}
++		owners.set(owner as string, relFile);
++		files.push(relFile);
++		const claim: OwnerClaim = {
++			owner: owner as string,
++			manifestFile: relFile,
++			maxAgeDays:
++				typeof maxAgeDays === 'number'
++					? maxAgeDays
++					: DEFAULT_UNCLAIMED_MAX_AGE_DAYS,
++		};
++		for (const claimedName of seen) claims.set(claimedName, claim);
++	}
++	return { claims, files };
++}
++
++/** A `.preserve` marker blocks pruning; an unreadable marker is treated as present. */
++async function hasPreserveMarker(dir: string): Promise<boolean> {
++	try {
++		await fs.promises.lstat(path.join(dir, RETENTION_PRESERVE_MARKER));
++		return true;
++	} catch (error) {
++		return errorCode(error) !== 'ENOENT';
++	}
++}
++
++/**
++ * Per-resolved-path containment. `resolvedSwarmRoot` MUST already be a
++ * realpath; the candidate is resolved at call time so a directory swapped for
++ * a symlink after enumeration is refused rather than followed.
++ *
++ * `path.relative` (not a string prefix) is what makes this correct on every
++ * platform: it compares case-insensitively on Windows, tolerates a root that
++ * carries a trailing separator, and reports a different drive/volume as an
++ * absolute path. Only an IMMEDIATE child may be deleted — the caller
++ * enumerates direct children, so a multi-segment remainder means the
++ * candidate was re-pointed at a nested path (or out of the root) after it was
++ * enumerated.
++ */
++function isContainedInSwarmRoot(
++	resolvedSwarmRoot: string,
++	candidatePath: string,
++): boolean {
++	let resolved: string;
++	try {
++		resolved = fs.realpathSync(candidatePath);
++	} catch {
++		return false;
++	}
++	const relative = path.relative(resolvedSwarmRoot, resolved);
++	if (relative.length === 0 || path.isAbsolute(relative)) return false;
++	if (relative === '..' || relative.startsWith(`..${path.sep}`)) return false;
++	return !relative.includes(path.sep);
++}
++
++/** `<ISO-8601> pruned <path> age=<days> size=<bytes>` — one line per prune. */
++export function formatRetentionLogLine(
++	now: number,
++	entry: ExplainedPrune,
++): string {
++	return `${new Date(now).toISOString()} pruned ${entry.path} age=${entry.ageDays} size=${entry.sizeBytes}`;
++}
++
++function splitLogLines(text: string): string[] {
++	return text.split('\n').filter((line) => line.length > 0);
++}
++
++/**
++ * Read at most the newest `RETENTION_LOG_MAX_BYTES` of the log.
++ *
++ * This helper only reads bytes: the CALLER owns target validation
++ * (`assertLogTargetIsWritable` before the append, plus the post-append
++ * re-check before any compaction write). It throws only what fs throws.
++ */
++function readRetentionLogTail(logPath: string, size: number): string[] {
++	if (size <= RETENTION_LOG_MAX_BYTES) {
++		return splitLogLines(fs.readFileSync(logPath, 'utf-8'));
++	}
++	const length = RETENTION_LOG_MAX_BYTES;
++	const buffer = Buffer.alloc(length);
++	const fd = fs.openSync(logPath, 'r');
++	try {
++		const read = fs.readSync(fd, buffer, 0, length, size - length);
++		// The slice almost certainly starts mid-line; drop that partial line.
++		return splitLogLines(buffer.subarray(0, read).toString('utf-8')).slice(1);
++	} finally {
++		fs.closeSync(fd);
++	}
++}
++
++/** Keep the newest lines that fit the byte budget; a lone oversized line stays. */
++function trimLogToBudget(lines: readonly string[]): string[] {
++	let bytes = 0;
++	let start = lines.length;
++	while (start > 0) {
++		const lineBytes = Buffer.byteLength(lines[start - 1], 'utf-8') + 1;
++		if (bytes + lineBytes > RETENTION_LOG_MAX_BYTES) break;
++		bytes += lineBytes;
++		start -= 1;
++	}
++	// Never drop the newest line, even if it alone exceeds the budget: the log
++	// must always name the most recent prune.
++	if (start === lines.length && lines.length > 0) start = lines.length - 1;
++	return lines.slice(start);
++}
++
++function assertLogTargetIsWritable(logPath: string): void {
++	let stat: fs.Stats;
++	try {
++		stat = fs.lstatSync(logPath);
++	} catch (error) {
++		if (errorCode(error) === 'ENOENT') return;
++		throw new Error(
++			`cannot inspect .swarm/${RETENTION_LOG_FILE} (${describeError(error)})`,
++		);
++	}
++	if (stat.isSymbolicLink()) {
++		throw new Error(
++			`.swarm/${RETENTION_LOG_FILE} is a symlink; refusing to write through it`,
++		);
++	}
++	if (!stat.isFile()) {
++		throw new Error(`.swarm/${RETENTION_LOG_FILE} is not a regular file`);
++	}
++}
++
++/**
++ * Append one line per pruned directory, then compact the log to its byte
++ * budget when the append pushed it over. Bounded on both sides: the read that
++ * feeds compaction is itself capped at `RETENTION_LOG_MAX_BYTES`.
++ */
++export async function appendRetentionLog(
++	swarmRoot: string,
++	now: number,
++	pruned: readonly ExplainedPrune[],
++): Promise<void> {
++	if (pruned.length === 0) return;
++	const logPath = path.join(swarmRoot, RETENTION_LOG_FILE);
++	assertLogTargetIsWritable(logPath);
++	const payload = `${pruned
++		.map((entry) => formatRetentionLogLine(now, entry))
++		.join('\n')}\n`;
++	await fs.promises.appendFile(logPath, payload, 'utf-8');
++	const stat = await fs.promises.lstat(logPath).catch(() => null);
++	// Re-validate AFTER the append: the path can be swapped for a symlink
++	// between the pre-append check and this read, and the compaction
++	// `writeFile` below WOULD follow it. A swapped or non-regular target skips
++	// compaction — the append already succeeded, compaction is best-effort,
++	// and the next append re-validates from scratch.
++	if (!stat || stat.isSymbolicLink() || !stat.isFile()) return;
++	if (stat.size <= RETENTION_LOG_MAX_BYTES) return;
++	const kept = trimLogToBudget(readRetentionLogTail(logPath, stat.size));
++	await fs.promises.writeFile(logPath, `${kept.join('\n')}\n`, 'utf-8');
++}
++
++/**
++ * Tier 3: prune unclaimed directories immediately under `.swarm/`. Every
++ * candidate must satisfy ALL of: not tier 1; not claimed by a live tier-2
++ * manifest; a real directory (lstat, never a symlink); no `.preserve` marker;
++ * content verifiable within the subtree scan budget; no future mtime; and
++ * content strictly older than its horizon. `dryRun` and `explain` both list
++ * the planned set and delete nothing.
++ *
++ * Never throws: an unreadable `.swarm` is an empty pass, and a per-directory
++ * failure is reported in `failures` without aborting the siblings.
++ */
++export async function pruneUnclaimedDirectories(
++	swarmRoot: string,
++	options: UnclaimedSweepOptions,
++): Promise<UnclaimedSweepOutcome> {
++	const outcome: UnclaimedSweepOutcome = {
++		planned: [],
++		pruned: [],
++		failures: [],
++	};
++	const suppressDeletes = options.dryRun === true || options.explain === true;
++	// The caller proved the swarm root sits inside the project; the realpath is
++	// the REFERENT every candidate must resolve inside, per delete.
++	let resolvedSwarmRoot: string;
++	try {
++		resolvedSwarmRoot = fs.realpathSync(swarmRoot);
++	} catch {
++		return outcome;
++	}
++	let names: string[];
++	try {
++		names = (await fs.promises.readdir(swarmRoot)).sort();
++	} catch {
++		return outcome;
++	}
++	const claims = options.claims ?? new Map<string, OwnerClaim>();
++
++	for (const name of names) {
++		if (options.shouldContinue && !options.shouldContinue()) break;
++		if (TIER1_PRESERVED_SWARM_ENTRIES.has(name)) continue;
++		const entryPath = path.join(swarmRoot, name);
++		const stat = await fs.promises.lstat(entryPath).catch(() => null);
++		if (!stat || stat.isSymbolicLink() || !stat.isDirectory()) continue;
++		if (await hasPreserveMarker(entryPath)) continue;
++		const claim = claims.get(name);
++		const horizonDays = claim?.maxAgeDays ?? DEFAULT_UNCLAIMED_MAX_AGE_DAYS;
++		const content = subtreeContentStats(entryPath, SUBTREE_SCAN_CAP);
++		// Unverifiable content is never a victim (fail closed): an unreadable or
++		// over-budget subtree may still be in use.
++		if (content === null) continue;
++		const newest = content.newestFileMtime ?? stat.mtimeMs;
++		if (newest > options.now) continue; // clock-skew guard
++		const ageMs = options.now - newest;
++		if (ageMs <= horizonDays * DAY_MS) continue;
++		if (!isContainedInSwarmRoot(resolvedSwarmRoot, entryPath)) continue;
++		const plan: ExplainedPrune = {
++			path: path.join('.swarm', name),
++			ageDays: Math.floor(ageMs / DAY_MS),
++			sizeBytes: content.bytes,
++			...(claim ? { owner: claim.owner } : {}),
++		};
++		outcome.planned.push(plan);
++		if (suppressDeletes) continue;
++		try {
++			fs.rmSync(entryPath, { recursive: true, force: true });
++			outcome.pruned.push(plan);
++		} catch (error) {
++			outcome.failures.push({
++				path: plan.path,
++				message: describeError(error),
++			});
++		}
++	}
++
++	if (outcome.pruned.length > 0) {
++		try {
++			await appendRetentionLog(swarmRoot, options.now, outcome.pruned);
++		} catch (error) {
++			outcome.failures.push({
++				path: `.swarm/${RETENTION_LOG_FILE}`,
++				message: describeError(error),
++			});
++		}
++	}
++	return outcome;
++}

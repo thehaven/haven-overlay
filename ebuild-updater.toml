@@ -4,13 +4,15 @@
 # with the overlay git tree (ADR-002: hold is operator intent,
 # version-controlled alongside the overlay).
 #
-# Discovery: ebuild-updater's DEFAULT_CONFIG_PATHS resolves
-# Path("ebuild-updater.toml") against the current working directory.
-# Operators must therefore invoke ebuild-updater from
-# /var/db/repos/haven-overlay (or pass it via the appropriate
-# wrapper). The /etc/ebuild-updater/config.toml and
-# ~/.config/ebuild-updater/config.toml paths are checked first and
-# override this file when present.
+# Discovery: ebuild-updater merges config sources rather than taking the
+# first one. Path("ebuild-updater.toml") is the cwd entry in
+# DEFAULT_CONFIG_PATHS, and the installed 2.11.0 loader also re-scans for
+# this file as an overlay-anchored source when the working directory is
+# inside the repo (config.py:786-792). /etc/ebuild-updater/config.toml and
+# ~/.config/ebuild-updater/config.toml are layered underneath rather than
+# shadowing this file; list values such as `hold` are replaced by the more
+# specific source, not unioned, so keep the two hold lists identical (see
+# packaging/ebuild/README-retention-patch.md in ai-ml/way-of-work).
 #
 # Compatibility: ebuild-updater's [repos.<name>] form is the v2.x
 # multi-repo shape (see docs/project/spec_multirepo.md). This is
@@ -27,7 +29,7 @@ enabled = true
 # solr-9.5.0.ebuild or add a higher version.
 #
 # Atom syntax is category/package (not version-pinned); the matching
-# code is `cp in cfg.pipeline.hold` at pipeline.py:378. To pin
+# code is `cp in cfg.pipeline.hold` at pipeline.py:440. To pin
 # multiple atoms, append: hold = ["dev-db/solr", "dev-java/openjdk-bin"]
 [repos.haven-overlay.pipeline]
 hold = [
@@ -88,6 +90,16 @@ hold = [
     "dev-util/lsp-meta",
     "dev-util/opencode-plugins",
     "dev-util/opencode-themes",
+
+    # Local version-keyed FILESDIR patch
+    # (files/opencode-plugin-swarm-7.204.8-retention-unknown-directories.patch)
+    # alters installed content. The bump stage copies the previous ebuild
+    # verbatim, so a bump to a new ${PV} carries the PATCHES line into an ebuild
+    # whose patch file does not exist and the next build fails. Held until the
+    # retention fix lands upstream; see
+    # packaging/ebuild/README-retention-patch.md in ai-ml/way-of-work for the
+    # rebase and hold-release procedure.
+    "dev-util/opencode-plugin-swarm",
     # dev-python/litellm is unheld following the post-incident release of vetted
     # versions incorporating build-chain protections, rotated credentials, and
     # cosign release signature verification (PR #48103, e.g. 1.106.5 and 1.109.0-dev.1).
