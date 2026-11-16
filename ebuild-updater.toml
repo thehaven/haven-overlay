@@ -1,107 +1,44 @@
 # ebuild-updater configuration for haven-overlay.
 #
-# This file lives at the overlay root so the hold policy travels
-# with the overlay git tree (ADR-002: hold is operator intent,
-# version-controlled alongside the overlay).
+# This file lives at the overlay root so it travels with the overlay git tree.
 #
-# Discovery: ebuild-updater merges config sources rather than taking the
-# first one. Path("ebuild-updater.toml") is the cwd entry in
-# DEFAULT_CONFIG_PATHS, and the installed 2.11.0 loader also re-scans for
-# this file as an overlay-anchored source when the working directory is
-# inside the repo (config.py:786-792). /etc/ebuild-updater/config.toml and
-# ~/.config/ebuild-updater/config.toml are layered underneath rather than
-# shadowing this file; list values such as `hold` are replaced by the more
-# specific source, not unioned, so keep the two hold lists identical (see
-# packaging/ebuild/README-retention-patch.md in ai-ml/way-of-work).
+# THERE IS NO HOLD LIST HERE, DELIBERATELY.
 #
-# Compatibility: ebuild-updater's [repos.<name>] form is the v2.x
-# multi-repo shape (see docs/project/spec_multirepo.md). This is
-# exactly equivalent to the legacy top-level [overlay] form for the
-# canonical haven-overlay repo.
+# The effective hold for dev-util/opencode-plugin-swarm — and for every other
+# held atom — is the *global* `[pipeline]` table in
+# /etc/ebuild-updater/config.toml (`hold = [` at line 22).
+#
+# Two scheduled drivers run the updater, and neither consults a repo-scoped
+# hold:
+#
+#   03:00  /root/scripts/ebuild-updater-nightly.sh
+#            cd /var/db/repos/haven-overlay                      (line 15)
+#            /usr/bin/ebuild-updater --overlay /var/db/... \
+#                pipeline --commit --reinstall --json-log        (line 32)
+#          This file *is* a base source for that run (the cwd entry,
+#          config.py:37), but --overlay makes resolve_repos() return a
+#          transient RepoConfig with pipeline=None (config.py:858-867), so
+#          [repos.haven-overlay] is bypassed.
+#
+#   ~03:27 /etc/cron.daily/ebuild-updater
+#            ebuild-updater --config /etc/ebuild-updater/config.toml pipeline
+#          --config makes /etc the only base source (config.py:745-747), so
+#          this file is not read at all.
+#
+# A `[repos.haven-overlay.pipeline] hold = [...]` band used to live here. It was
+# inert on both drivers. It would only become live on a manual run from the
+# overlay root with *neither* --config nor --overlay — and then it would replace
+# the /etc list wholesale (config.py:649-666: list values are replaced, not
+# unioned), producing a second pin to keep in sync for no operational gain.
+# Removed 2026-11-16.
+#
+# Provenance and the hold-release procedure:
+# packaging/ebuild/README-retention-patch.md in ai-ml/way-of-work.
+#
+# Compatibility: ebuild-updater's [repos.<name>] form is the v2.x multi-repo
+# shape (see docs/project/spec_multirepo.md). This is exactly equivalent to the
+# legacy top-level [overlay] form for the canonical haven-overlay repo.
 
 [repos.haven-overlay]
 path    = "/var/db/repos/haven-overlay"
 enabled = true
-
-# Pin dev-db/solr at 9.5.0 (matches /storage/docker/solr/start.sh).
-# ebuild-updater will surface newer upstream versions in `status`
-# (so we still see them) but the bump stage will never rewrite
-# solr-9.5.0.ebuild or add a higher version.
-#
-# Atom syntax is category/package (not version-pinned); the matching
-# code is `cp in cfg.pipeline.hold` at pipeline.py:440. To pin
-# multiple atoms, append: hold = ["dev-db/solr", "dev-java/openjdk-bin"]
-[repos.haven-overlay.pipeline]
-hold = [
-    "dev-db/solr",
-    # Upstream ships -rc-only releases (no release object for plain
-    # tags, e.g. v0.15.4); bump manually when a proper release appears.
-    "dev-util/tinymist",
-    # v2.0.0.x tags exist but carry no release assets; v0.4.18.x is
-    # the active release line.
-    "net-nntp/readarr",
-    # v1.13.8+ desktop assets missing upstream (only .apk shipped);
-    # remove the hold when desktop builds return.
-    "app-editors/obsidian-bin",
-    # Server tarballs removed from repo.jellyfin.org (410) and GitHub
-    # releases ship no assets; masked in profiles/package.mask.
-    "media-tv/jellyfin-bin",
-    # Phantom-crate class (2026-08-31 field finding): the bumped
-    # ebuild's cargo lockfile references crate versions that don't
-    # exist on static.crates.io (S3 AccessDenied for missing objects).
-    # Holds until upstream Cargo.lock is regenerated against versions
-    # that actually exist. Probe evidence (UA Mozilla/5.0):
-    #   ast-serialize                 → heck-0.8.0 (real max 0.5.0)
-    #   jsonschema-rs                 → windows-sys-0.52.1 (missing)
-    #   tirith                        → deranged-0.4.01 (missing)
-    #   syntax-checker                → regex-automata-0.4.24 (missing)
-    #   tree-sitter-language-pack     → ext-php-rs-clang-sys-1.15.8 (missing)
-    #   agnix                         → aws-lc-sys-0.52.1 (missing)
-    "dev-python/ast-serialize",
-    "dev-python/jsonschema-rs",
-    "app-misc/tirith",
-    "dev-python/syntax-checker",
-    "dev-python/tree-sitter-language-pack",
-    "dev-util/agnix",
-    # Cargo.lock pins base64 = "^0.23" to 0.23.1 (missing on
-    # static.crates.io); bumped 2026.9.14 reinstalls fail offline with
-    # "failed to select a version for the requirement `base64 = "^0.23"`
-    # (locked to 0.23.1)". Holds until upstream regenerates Cargo.lock
-    # against existing versions.
-    "dev-util/mise",
-    # mcp 2.x breaks mcp-server-time and fastmcp in this overlay (both
-    # declare <dev-python/mcp-2). Re-evaluate when those dependents
-    # bump their mcp floor.
-    "dev-python/mcp",
-    # Both declare <dev-python/mcp-2; mcp 2.x is masked system-wide
-    # until the gateway package upgrades. Re-evaluate when fastmcp
-    # or caio lifts its ceiling upstream.
-    "dev-python/fastmcp",
-    "dev-python/caio",
-    # mem0ai 2.0.19 (latest upstream) still pins '<dev-python/protobuf-7.0.0>' in pyproject.toml.. Re-evaluate when mem0ai lifts the ceiling upstream.
-    # System-level /etc/portage/package.mask also blocks >=protobuf-7.0.0
-    # for @world until then.
-    "dev-python/mem0ai",
-    # Local metapackages (no sources) whose versions were bumped from
-    # opencode repo tags by default discovery. The v2 tag line is not
-    # applicable: they aggregate v1 tooling and RDEPEND on
-    # dev-util/opencode (v1). Held 2026-09-17 during the v1/v2 split;
-    # unhold deliberately if v2 metapackages are introduced.
-    "dev-util/lsp-meta",
-    "dev-util/opencode-plugins",
-    "dev-util/opencode-themes",
-
-    # Local version-keyed FILESDIR patch
-    # (files/opencode-plugin-swarm-7.204.8-retention-unknown-directories.patch)
-    # alters installed content. The bump stage copies the previous ebuild
-    # verbatim, so a bump to a new ${PV} carries the PATCHES line into an ebuild
-    # whose patch file does not exist and the next build fails. Held until the
-    # retention fix lands upstream; see
-    # packaging/ebuild/README-retention-patch.md in ai-ml/way-of-work for the
-    # rebase and hold-release procedure.
-    "dev-util/opencode-plugin-swarm",
-    # dev-python/litellm is unheld following the post-incident release of vetted
-    # versions incorporating build-chain protections, rotated credentials, and
-    # cosign release signature verification (PR #48103, e.g. 1.106.5 and 1.109.0-dev.1).
-    # Only the compromised release is masked (=dev-python/litellm-1.107.0 in profiles/package.mask).
-]
