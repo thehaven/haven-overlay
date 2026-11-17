@@ -20,6 +20,10 @@ IUSE="+nodejs +ruff +shfmt +uv clang deno elixir gleam go rust terraform zig"
 
 RESTRICT="network-sandbox test strip"
 
+# rust-analyzer (USE=rust, below): prefer the source build
+# (dev-util/rust-analyzer); dev-util/rust-analyzer-bin installs the same
+# /usr/bin/rust-analyzer and collides with it. Portage does not accept
+# comments inside a dependency string, so this note lives outside RDEPEND.
 RDEPEND="
 	dev-vcs/git
 	clang?     ( llvm-core/clang )
@@ -29,7 +33,10 @@ RDEPEND="
 	go?        ( dev-lang/go dev-go/gopls )
 	nodejs?    ( net-libs/nodejs )
 	ruff?      ( dev-util/ruff )
-	rust?      ( || ( dev-lang/rust dev-lang/rust-bin ) dev-util/rust-analyzer-bin )
+	rust?      (
+		|| ( dev-lang/rust dev-lang/rust-bin )
+		|| ( dev-util/rust-analyzer dev-util/rust-analyzer-bin )
+	)
 	shfmt?     ( dev-util/shfmt )
 	terraform? ( || ( app-admin/terraform app-admin/opentofu ) dev-util/terraform-ls )
 	uv?        ( dev-python/uv )
