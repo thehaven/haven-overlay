@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>haven@thehavennet.org.uk</email>
+		<name>Haven</name>
+	</maintainer>
+	<longdescription>
+		RustyRoon is a clean-room Rust reimplementation of Roon Server supporting
+		Roon 1.8 binary remoting, SOOD discovery, Moo WebSocket, RAAT audio
+		streaming, Roon 2.75 / ARC TLS 55000 mobile endpoints, OpenAPI REST/MCP,
+		embedded standalone Web UI, and an interactive TUI client.
+	</longdescription>
+</pkgmetadata>
