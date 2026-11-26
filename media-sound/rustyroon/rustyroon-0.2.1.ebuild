@@ -1,0 +1,529 @@
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+CRATES="
+	adler2@2.0.1
+	aead@0.5.2
+	aho-corasick@1.1.5
+	allocator-api2@0.2.21
+	alsa-sys@0.4.0
+	alsa@0.11.0
+	android_system_properties@0.1.6
+	anstream@1.0.0
+	anstyle-parse@1.0.0
+	anstyle-query@1.1.5
+	anstyle-wincon@3.0.11
+	anstyle@1.0.14
+	async-trait@0.1.92
+	atoi@2.0.0
+	atomic-waker@1.1.2
+	autocfg@1.5.1
+	aws-lc-rs@1.19.0
+	aws-lc-sys@0.47.0
+	axum-core@0.5.6
+	axum@0.8.9
+	base64@0.22.1
+	base64@0.23.1
+	bitflags@2.13.2
+	blake2@0.10.6
+	block-buffer@0.10.4
+	block-buffer@0.12.1
+	block2@0.6.2
+	bumpalo@3.20.3
+	bytemuck@1.25.2
+	byteorder-lite@0.1.0
+	byteorder@1.5.0
+	bytes@1.12.2
+	cassowary@0.3.0
+	castaway@0.2.4
+	cc@1.11.3
+	cfg-if@1.0.5
+	cfg_aliases@0.2.2
+	chacha20@0.10.2
+	chacha20@0.9.1
+	chacha20poly1305@0.10.1
+	chrono@0.4.45
+	cipher@0.4.4
+	clap@4.6.9
+	clap_builder@4.6.7
+	clap_derive@4.6.9
+	clap_lex@1.1.2
+	cmake@0.1.58
+	cmov@0.5.4
+	color_quant@1.1.0
+	colorchoice@1.0.5
+	combine@4.6.9
+	compact_str@0.8.2
+	const-oid@0.10.3
+	core-foundation-sys@0.8.7
+	core-foundation@0.10.1
+	coreaudio-rs@0.14.2
+	cpal@0.18.2
+	cpufeatures@0.2.17
+	cpufeatures@0.3.1
+	crc-catalog@2.5.0
+	crc-fast@1.10.0
+	crc32c@0.6.9
+	crc32fast@1.5.5
+	crc@3.4.0
+	crossbeam-queue@0.3.14
+	crossbeam-utils@0.8.23
+	crossterm@0.28.1
+	crossterm_winapi@0.9.1
+	crunchy@0.2.4
+	crypto-common@0.1.7
+	crypto-common@0.2.2
+	ctutils@0.4.8
+	curve25519-dalek-derive@0.1.1
+	curve25519-dalek@4.1.3
+	darling@0.24.1
+	darling_core@0.24.1
+	darling_macro@0.24.1
+	dasp_sample@0.11.0
+	data-encoding@2.11.1
+	deranged@0.5.9
+	digest@0.10.7
+	digest@0.11.3
+	dispatch2@0.3.1
+	displaydoc@0.2.7
+	dotenvy@0.15.7
+	dunce@1.0.5
+	either@1.19.0
+	equivalent@1.0.3
+	errno-dragonfly@0.1.2
+	errno@0.2.8
+	errno@0.3.14
+	etcetera@0.11.0
+	event-listener@5.4.2
+	extended@0.1.0
+	fax@0.2.7
+	fdeflate@0.3.7
+	fiat-crypto@0.2.9
+	find-msvc-tools@0.1.15
+	flate2@1.1.11
+	flume@0.12.0
+	fnv@1.0.7
+	foldhash@0.1.5
+	foldhash@0.2.0
+	form_urlencoded@1.2.3
+	fs2@0.4.3
+	fs_extra@1.3.0
+	futures-channel@0.3.34
+	futures-core@0.3.34
+	futures-executor@0.3.34
+	futures-intrusive@0.5.0
+	futures-io@0.3.34
+	futures-macro@0.3.34
+	futures-sink@0.3.34
+	futures-task@0.3.34
+	futures-util@0.3.34
+	generic-array@0.14.7
+	getrandom@0.2.17
+	getrandom@0.3.4
+	getrandom@0.4.3
+	gif@0.14.2
+	h2@0.4.20
+	half@2.7.1
+	hashbrown@0.15.5
+	hashbrown@0.16.1
+	hashbrown@0.17.2
+	hashlink@0.11.1
+	heck@0.5.0
+	hex@0.4.3
+	hkdf@0.13.0
+	hmac@0.13.0
+	http-body-util@0.1.5
+	http-body@1.1.0
+	http@1.5.0
+	httparse@1.10.1
+	httpdate@1.0.3
+	humantime@2.4.0
+	hybrid-array@0.4.15
+	hyper-rustls@0.27.10
+	hyper-util@0.1.21
+	hyper@1.13.0
+	iana-time-zone-haiku@0.1.2
+	iana-time-zone@0.1.65
+	icu_collections@2.4.0
+	icu_locale_core@2.4.0
+	icu_normalizer@2.4.0
+	icu_normalizer_data@2.4.0
+	icu_properties@2.4.0
+	icu_properties_data@2.4.0
+	icu_provider@2.4.0
+	ident_case@1.0.1
+	idna@1.1.0
+	idna_adapter@1.2.2
+	image-webp@0.2.4
+	image@0.25.10
+	indexmap@2.14.2
+	indoc@2.0.8
+	inout@0.1.4
+	instability@0.3.14
+	integer-encoding@3.0.4
+	ipnet@2.12.2
+	is_terminal_polyfill@1.70.2
+	itertools@0.13.0
+	itertools@0.15.0
+	itoa@1.0.19
+	jni-macros@0.22.4
+	jni-sys-macros@0.4.1
+	jni-sys@0.3.1
+	jni-sys@0.4.1
+	jni@0.22.4
+	jobserver@0.1.35
+	js-sys@0.3.105
+	lazy_static@1.5.1
+	libc@0.2.191
+	libredox@0.1.25
+	libsqlite3-sys@0.40.0
+	linux-raw-sys@0.4.15
+	litemap@0.8.3
+	lock_api@0.4.14
+	lofty@0.25.5
+	lofty_attr@0.13.0
+	log@0.4.35
+	lru-slab@0.1.3
+	lru@0.12.5
+	mach2@0.6.0
+	matchers@0.2.0
+	matchit@0.8.4
+	md-5@0.11.0
+	memchr@2.8.3
+	mime@0.3.18
+	miniz_oxide@0.8.9
+	miniz_oxide@0.9.1
+	mio@1.2.5
+	moxcms@0.8.1
+	ndk-context@0.1.1
+	ndk-sys@0.6.0+11769913
+	ndk@0.9.0
+	nix@0.31.4
+	nu-ansi-term@0.50.3
+	num-complex@0.4.6
+	num-conv@0.2.2
+	num-derive@0.4.2
+	num-integer@0.1.47
+	num-traits@0.2.19
+	num_enum@0.7.6
+	num_enum_derive@0.7.6
+	objc2-audio-toolbox@0.3.2
+	objc2-avf-audio@0.3.2
+	objc2-core-audio-types@0.3.2
+	objc2-core-audio@0.3.2
+	objc2-core-foundation@0.3.2
+	objc2-encode@4.1.0
+	objc2-foundation@0.3.2
+	objc2-system-configuration@0.3.2
+	objc2@0.6.4
+	object_store@0.14.2
+	ogg_pager@0.8.0
+	once_cell@1.21.4
+	once_cell_polyfill@1.70.2
+	opaque-debug@0.3.1
+	openssl-probe@0.2.2
+	parking@2.2.1
+	parking_lot@0.12.5
+	parking_lot_core@0.9.12
+	paste@1.0.15
+	pem@3.0.6
+	percent-encoding@2.3.2
+	pin-project-lite@0.2.18
+	pkg-config@0.3.34
+	png@0.18.1
+	poly1305@0.8.0
+	potential_utf@0.1.6
+	powerfmt@0.2.1
+	ppv-lite86@0.2.21
+	primal-check@0.3.4
+	proc-macro-crate@3.5.0
+	proc-macro2@1.0.107
+	pxfm@0.1.30
+	quick-error@2.0.1
+	quick-xml@0.41.0
+	quinn-proto@0.11.19
+	quinn-udp@0.5.16
+	quinn@0.11.12
+	quote@1.0.47
+	r-efi@5.3.0
+	r-efi@6.0.0
+	rand@0.10.4
+	rand@0.8.8
+	rand@0.9.5
+	rand_chacha@0.3.1
+	rand_chacha@0.9.0
+	rand_core@0.10.1
+	rand_core@0.6.4
+	rand_core@0.9.5
+	rand_pcg@0.10.3
+	ratatui@0.29.0
+	rcgen@0.13.2
+	redox_syscall@0.5.18
+	regex-automata@0.4.19
+	regex-lite@0.1.9
+	regex-syntax@0.8.12
+	reqwest@0.13.5
+	ring@0.17.14
+	rtrb@0.4.1
+	rustc-hash@2.1.3
+	rustc_version@0.4.1
+	rustfft@6.4.1
+	rustix@0.38.44
+	rustls-native-certs@0.8.5
+	rustls-pki-types@1.16.0
+	rustls-platform-verifier-android@0.2.0
+	rustls-platform-verifier@0.7.1
+	rustls-webpki@0.103.17
+	rustls@0.23.46
+	rustversion@1.0.23
+	rusty-leveldb@4.0.2
+	ryu@1.0.23
+	same-file@1.0.6
+	schannel@0.1.30
+	scopeguard@1.2.0
+	security-framework-sys@2.17.0
+	security-framework@3.7.0
+	semver@1.0.28
+	serde@1.0.229
+	serde_core@1.0.229
+	serde_derive@1.0.229
+	serde_json@1.0.154
+	serde_path_to_error@0.1.20
+	serde_spanned@0.6.9
+	serde_urlencoded@0.7.1
+	sha1@0.10.7
+	sha1@0.11.0
+	sha2@0.11.1
+	sharded-slab@0.1.7
+	shlex@2.0.1
+	signal-hook-mio@0.2.5
+	signal-hook-registry@1.4.8
+	signal-hook@0.3.18
+	simd-adler32@0.3.10
+	simd_cesu8@1.2.0
+	simdutf8@0.1.5
+	slab@0.4.12
+	smallvec@1.16.6
+	snap@1.1.2
+	socket2@0.6.5
+	spin@0.10.1
+	spin@0.9.9
+	sqlx-core@0.9.1
+	sqlx-macros-core@0.9.1
+	sqlx-macros@0.9.1
+	sqlx-mysql@0.9.1
+	sqlx-postgres@0.9.1
+	sqlx-sqlite@0.9.1
+	sqlx@0.9.1
+	stable_deref_trait@1.2.1
+	static_assertions@1.1.0
+	strength_reduce@0.2.4
+	stringprep@0.1.5
+	strsim@0.11.1
+	strum@0.26.3
+	strum_macros@0.26.4
+	subtle@2.6.1
+	symphonia-bundle-flac@0.6.1
+	symphonia-bundle-mp3@0.6.1
+	symphonia-codec-aac@0.6.1
+	symphonia-codec-adpcm@0.6.1
+	symphonia-codec-alac@0.6.1
+	symphonia-codec-pcm@0.6.1
+	symphonia-codec-vorbis@0.6.1
+	symphonia-common@0.6.1
+	symphonia-core@0.6.1
+	symphonia-format-caf@0.6.1
+	symphonia-format-isomp4@0.6.1
+	symphonia-format-mkv@0.6.1
+	symphonia-format-ogg@0.6.1
+	symphonia-format-riff@0.6.1
+	symphonia-metadata@0.6.1
+	symphonia@0.6.1
+	syn@2.0.119
+	syn@3.0.10
+	sync_wrapper@1.0.2
+	synstructure@0.14.0
+	thiserror-impl@1.0.69
+	thiserror-impl@2.0.21
+	thiserror@1.0.69
+	thiserror@2.0.21
+	thread_local@1.1.10
+	tiff@0.11.3
+	time-core@0.1.9
+	time@0.3.55
+	tinystr@0.8.5
+	tinyvec@1.13.3
+	tokio-macros@2.7.2
+	tokio-rustls@0.26.6
+	tokio-stream@0.1.19
+	tokio-tungstenite@0.29.0
+	tokio-tungstenite@0.30.0
+	tokio-util@0.7.20
+	tokio@1.54.1
+	toml@0.8.23
+	toml_datetime@0.6.11
+	toml_datetime@1.1.1+spec-1.1.0
+	toml_edit@0.22.27
+	toml_edit@0.25.15+spec-1.1.0
+	toml_parser@1.1.3+spec-1.1.0
+	toml_write@0.1.2
+	tower-http@0.6.11
+	tower-layer@0.3.3
+	tower-service@0.3.3
+	tower@0.5.3
+	tracing-attributes@0.1.31
+	tracing-core@0.1.36
+	tracing-log@0.2.0
+	tracing-subscriber@0.3.23
+	tracing@0.1.44
+	transpose@0.2.3
+	try-lock@0.2.5
+	tungstenite@0.29.0
+	tungstenite@0.30.0
+	typenum@1.20.1
+	unicode-bidi@0.3.18
+	unicode-ident@1.0.27
+	unicode-normalization@0.1.26
+	unicode-properties@0.1.5
+	unicode-segmentation@1.13.3
+	unicode-truncate@1.1.0
+	unicode-width@0.1.14
+	unicode-width@0.2.0
+	universal-hash@0.5.1
+	untrusted@0.9.0
+	url@2.5.9
+	utf8_iter@1.1.0
+	utf8parse@0.2.2
+	utf_types@1.0.0
+	uuid@1.18.0
+	valuable@0.1.1
+	vcpkg@0.2.15
+	version_check@0.9.5
+	walkdir@2.5.1
+	want@0.3.2
+	wasi@0.11.1+wasi-snapshot-preview1
+	wasip2@1.0.4+wasi-0.2.12
+	wasm-bindgen-futures@0.4.78
+	wasm-bindgen-macro-support@0.2.128
+	wasm-bindgen-macro@0.2.128
+	wasm-bindgen-shared@0.2.128
+	wasm-bindgen@0.2.128
+	wasm-streams@0.5.0
+	web-sys@0.3.105
+	web-time@1.1.0
+	webpki-root-certs@1.0.12
+	weezl@0.1.12
+	whoami@2.1.3
+	winapi-i686-pc-windows-gnu@0.4.0
+	winapi-util@0.1.11
+	winapi-x86_64-pc-windows-gnu@0.4.0
+	winapi@0.3.9
+	windows-collections@0.3.2
+	windows-core@0.62.2
+	windows-future@0.3.2
+	windows-implement@0.60.2
+	windows-interface@0.59.3
+	windows-link@0.2.1
+	windows-numerics@0.3.1
+	windows-result@0.4.1
+	windows-strings@0.5.1
+	windows-sys@0.52.0
+	windows-sys@0.61.2
+	windows-targets@0.52.6
+	windows-threading@0.2.1
+	windows@0.62.2
+	windows_aarch64_gnullvm@0.52.6
+	windows_aarch64_msvc@0.52.6
+	windows_i686_gnu@0.52.6
+	windows_i686_gnullvm@0.52.6
+	windows_i686_msvc@0.52.6
+	windows_x86_64_gnu@0.52.6
+	windows_x86_64_gnullvm@0.52.6
+	windows_x86_64_msvc@0.52.6
+	winnow@0.7.15
+	winnow@1.0.4
+	wit-bindgen@0.57.1
+	writeable@0.6.4
+	x25519-dalek@2.0.1
+	yasna@0.5.2
+	yoke-derive@0.8.4
+	yoke@0.8.4
+	zerocopy-derive@0.8.64
+	zerocopy@0.8.64
+	zerofrom-derive@0.1.8
+	zerofrom@0.1.8
+	zeroize@1.9.2
+	zeroize_derive@1.5.0
+	zerotrie@0.2.5
+	zerovec-derive@0.11.7
+	zerovec@0.11.9
+	zlib-rs@0.6.9
+	zmij@1.0.23
+	zune-core@0.5.3
+	zune-jpeg@0.5.15
+"
+
+RUST_MIN_VER="1.99.0"
+
+inherit cargo systemd
+
+DESCRIPTION="Clean-room Rust Roon Core (Roon 1.8 / 2.75 / ARC / Web & TUI)"
+HOMEPAGE="https://gitlab-ee.thehavennet.org.uk/haven/RustyRoon"
+SRC_URI="
+	https://gitlab-ee.thehavennet.org.uk/haven/RustyRoon/-/archive/v${PV}/RustyRoon-v${PV}.tar.bz2 -> ${P}.tar.bz2
+	${CARGO_CRATE_URIS}
+"
+
+S="${WORKDIR}/RustyRoon-v${PV}/rust"
+
+LICENSE="|| ( MIT Apache-2.0 )"
+# Dependent crate licenses
+LICENSE+="
+	Apache-2.0 BSD CDLA-Permissive-2.0 ISC MIT MPL-2.0 Unicode-3.0 ZLIB
+"
+SLOT="0"
+KEYWORDS="~amd64"
+# Workspace integration tests bind loopback sockets and require runtime dirs outside the sandbox.
+RESTRICT="test"
+
+DEPEND="media-libs/alsa-lib"
+RDEPEND="
+	${DEPEND}
+	acct-group/rustyroon
+	acct-user/rustyroon
+"
+BDEPEND="
+	dev-build/cmake
+	virtual/pkgconfig
+"
+
+src_compile() {
+	cargo_src_compile --workspace --bins
+}
+
+src_install() {
+	local target_dir
+	target_dir="$(cargo_target_dir)" || die
+	dobin \
+		"${target_dir}/rustyroon-server" \
+		"${target_dir}/rustyroon-cli" \
+		"${target_dir}/rustyroon-tui"
+
+	insinto /etc/rustyroon
+	newins ../deploy/systemd/rustyroon-server.env.example server.env.example
+	newins ../deploy/systemd/rustyroon-config.toml.example config.toml.example
+
+	sed -e 's|/usr/local/bin/|/usr/bin/|g' \
+		../deploy/systemd/rustyroon-server.service > "${T}/rustyroon-server.service" || die
+	systemd_dounit "${T}/rustyroon-server.service"
+
+	dodoc ../README.md ../docs/OPERATIONS.md ../docs/API.md
+}
+
+pkg_postinst() {
+	elog "Copy /etc/rustyroon/server.env.example to /etc/rustyroon/server.env"
+	elog "and configure RUSTYROON_MULTICAST_INTERFACE for LAN SOOD discovery."
+	elog "Start the daemon with: systemctl enable --now rustyroon-server"
+}
